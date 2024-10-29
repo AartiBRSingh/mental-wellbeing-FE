@@ -8,7 +8,7 @@ const Hero = () => {
         <section className="flex-1 flex flex-col gap-8">
           <div className="inline-block">
             <span className="px-4 py-2 rounded-full border border-[#956144] text-xs font-semibold">
-              MENTAL HEALTH AT 30'S
+              MENTAL HEALTH AT 30&apos;S
             </span>
           </div>
           <h1 className="lg:text-7xl text-xl">
@@ -22,8 +22,8 @@ const Hero = () => {
             </div>
 
             <p className="text-gray-800 max-w-md">
-              To live your life to the fullest, we're continuing to find ways to
-              prevent mental health problems.
+              To live your life to the fullest, we&apos;re continuing to find
+              ways to prevent mental health problems.
             </p>
           </div>
         </section>
