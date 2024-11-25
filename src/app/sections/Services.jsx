@@ -1,8 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect, useCallback } from "react";
 
-const DecorativeShapes = () => (
+export const DecorativeShapes = () => (
   <>
-    {/* Heart Shape - Top Left Corner */}
+    {/* Existing DecorativeShapes JSX */}
     <svg
       className="absolute top-10 left-10 w-24 h-24 transform rotate-[-15deg]"
       viewBox="0 0 100 100"
@@ -76,7 +77,65 @@ const DecorativeShapes = () => (
   </>
 );
 
+export const serviceCardData = [
+  {
+    redirectTo: "/questionnaires?userType=self",
+    imgUrl:
+      "https://images.unsplash.com/photo-1625019030820-e4ed970a6c95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Self Assessment",
+    desc: "Get to know yourself better with this program",
+  },
+  {
+    redirectTo: "/questionnaires?userType=employee",
+    imgUrl:
+      "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Employee Well-being",
+    desc: "Curated programs for Corporate Employees",
+  },
+  {
+    redirectTo: "/questionnaires?userType=student",
+    imgUrl:
+      "https://images.unsplash.com/photo-1608453162650-cba45689c284?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Student Well-being",
+    desc: "Reach out to program from college to elementary school students",
+  },
+];
+
 const Services = () => {
+  const [currentService, setCurrentService] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const nextService = useCallback(() => {
+    setCurrentService((prev) => (prev + 1) % serviceCardData.length);
+  }, []);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (!isHovered) {
+      intervalId = setInterval(nextService, 3000);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [isHovered, nextService]);
+
+  // Handle scroll wheel events
+  const handleWheel = (event) => {
+    if (event.deltaY > 0) {
+      // Scrolling down
+      setCurrentService((prev) => (prev + 1) % serviceCardData.length);
+    } else {
+      // Scrolling up
+      setCurrentService((prev) =>
+        prev === 0 ? serviceCardData.length - 1 : prev - 1
+      );
+    }
+  };
+
   return (
     <div className="w-full flex justify-center bg-[#003B29] mt-10 relative">
       <DecorativeShapes />
@@ -142,34 +201,46 @@ const Services = () => {
               fill="none"
             />
           </svg>
-          <div className="w-[320px] h-96 flex justify-center gap-4">
+          <div
+            className="w-[320px] h-96 flex justify-center gap-4"
+            onWheel={handleWheel}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
             <div className="flex flex-col justify-between my-2">
-              <div className="w-1.5 h-28 rounded-md bg-[#FCFDFD]"></div>
-              <div className="w-1.5 h-28 rounded-md bg-[#336661]"></div>
-              <div className="w-1.5 h-28 rounded-md bg-[#336661]"></div>
+              {serviceCardData.map((item, index) => (
+                <div
+                  className={`w-1.5 h-28 rounded-md cursor-pointer transition-colors duration-300 ${
+                    index === currentService ? "bg-white" : "bg-[#336661]"
+                  }`}
+                  key={index}
+                  onClick={() => setCurrentService(index)}
+                ></div>
+              ))}
             </div>
-            <div className="bg-cream rounded-xl shadow-lg">
+            <div className="bg-cream rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105">
               <div className="mb-4">
                 <img
-                  src="https://images.unsplash.com/photo-1729761137674-9a3a841f7cea?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src={serviceCardData[currentService].imgUrl}
                   alt="Helping to Navigate"
                   className="rounded-t-lg h-60 w-full object-cover"
                 />
               </div>
               <div className="px-4">
                 <div className="flex justify-between items-center border-b border-t border-t-[#956144] border-b-[#956144] mb-2">
-                  <h2 className="text-lg font-semibold">Helping to Navigate</h2>
+                  <h2 className="text-lg font-semibold">
+                    {serviceCardData[currentService].title}
+                  </h2>
                   <h2 className="text-xl font-semibold">|</h2>
                   <a
-                    href="#"
-                    className="inline-flex items-center px-6 my-1 py-2 bg-yellow-400 text-green-900 font-bold rounded-md hover:bg-yellow-500"
+                    href={serviceCardData[currentService].redirectTo}
+                    className="inline-flex items-center px-6 my-1 py-2 bg-yellow-400 text-green-900 font-bold rounded-md hover:bg-yellow-500 transition-colors duration-300"
                   >
                     <span>→</span>
                   </a>
                 </div>
                 <p className="text-opacity-70 mb-4 text-sm">
-                  Reach out to program from college to elementary school
-                  students
+                  {serviceCardData[currentService].desc}
                 </p>
               </div>
             </div>

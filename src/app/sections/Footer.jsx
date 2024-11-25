@@ -4,6 +4,7 @@ import { Send } from "lucide-react";
 import { FaXTwitter, FaFacebookF } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const HealPoint = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +18,14 @@ const HealPoint = () => {
     { label: "Student", href: "#" },
     { label: "Employee", href: "#" },
   ];
+  const pathname = usePathname();
+
+  if (pathname.includes("signup") || pathname.includes("login")) {
+    {
+      return null;
+    }
+  }
+
   return (
     <div className="bg-gray-900 text-white h-[430px] w-full">
       <div className=" flex items-center justify-center">

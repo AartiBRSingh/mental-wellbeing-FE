@@ -27,7 +27,7 @@ const Hero = () => {
             </p>
           </div>
         </section>
-        <section className="flex-1 flex justify-end bg-cream z-10">
+        <section className="flex-1 flex justify-end bg-transparent z-10">
           <div className="relative w-[500px] h-96">
             <div className="absolute top-0 right-1/4 transform -translate-x-1/2">
               <div className="relative">
