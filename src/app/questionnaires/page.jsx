@@ -65,11 +65,20 @@ const Page = () => {
   const [questions, setQuestions] = useState([]);  
   const [answers, setAnswers] = useState({});      
   const [showModal, setShowModal] = useState(false); 
+  const [userType, setUserType] = useState(null);
 
   const searchParams = useSearchParams();
   const expectedUserType = searchParams.get("userType"); 
   const router = useRouter();
-  const userType = localStorage.getItem("userType"); 
+  useEffect(() => {
+    // Safely fetch userType from localStorage
+    const storedUserType = localStorage.getItem("userType");
+    setUserType(storedUserType);
+
+    if (storedUserType !== expectedUserType) {
+      setShowModal(true);
+    }
+  }, [expectedUserType]);
 
   useEffect(() => {
     if (userType !== expectedUserType) {

@@ -8,10 +8,17 @@ const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState({ name: "", email: "" });
 
-  const authToken = localStorage.getItem("authToken");
-  const name = localStorage.getItem("name");
-  const email = localStorage.getItem("email");
+  const [authToken, setAuthToken] = useState(null);
 
+  useEffect(() => {
+    // Access localStorage safely
+    const token = localStorage.getItem("authToken");
+    const name = localStorage.getItem("name");
+    const email = localStorage.getItem("email");
+
+    setAuthToken(token);
+    setUserData({ name, email });
+  }, []);
   useEffect(() => {
     if (authToken) {
       setIsAuthenticated(true);
