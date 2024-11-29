@@ -27,7 +27,7 @@ const HealPoint = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white h-[430px] w-full">
+    <div className="bg-gray-900 text-white h-[430px] w-full" id="footer">
       <div className=" flex items-center justify-center">
         <div className="flex w-[80vw]  justify-between items-start h-[350px]">
           <div className="w-2/3 h-full border-r border-gray-700">

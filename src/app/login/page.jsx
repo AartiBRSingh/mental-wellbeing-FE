@@ -32,13 +32,13 @@ const Login = () => {
         identifier,
         otp,
       });
-      const { token } = response.data;
+      const { token } = response?.data;
 
       localStorage.setItem("authToken", token);
-      localStorage.setItem("name", response.data.profile.name);
-      localStorage.setItem("email", response.data.profile.email);
-      localStorage.setItem("userType", response.data.profile.userType);
-      localStorage.setItem("caseStudy", response.data.profile.caseStudy)
+      localStorage.setItem("name", response?.data.profile.name);
+      localStorage.setItem("email", response?.data.profile.email);
+      localStorage.setItem("userType", response?.data.profile.userType);
+      localStorage.setItem("caseStudy", response?.data.profile.caseStudy)
 
       router.push(
         `/questionnaires?userType=${localStorage.getItem("userType")}`

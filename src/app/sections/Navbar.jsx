@@ -11,25 +11,24 @@ const Navbar = () => {
   const [authToken, setAuthToken] = useState(null);
 
   useEffect(() => {
-    // Access localStorage safely
     const token = localStorage.getItem("authToken");
     const name = localStorage.getItem("name");
     const email = localStorage.getItem("email");
 
     setAuthToken(token);
     setUserData({ name, email });
-  }, []);
-  useEffect(() => {
+
     if (authToken) {
       setIsAuthenticated(true);
       setUserData({ name: name || "", email: email || "" });
     }
-  }, [authToken, name, email]);
+  }, [authToken]);
 
   const navLinks = [
     { label: "Home", redirectTo: "/" },
     { label: "Product", redirectTo: "#product" },
     { label: "Testimonials", redirectTo: "#testimonials" },
+    { label: "Blogs", redirectTo: "/blogs" },
   ];
 
   const dropdownOptions = [

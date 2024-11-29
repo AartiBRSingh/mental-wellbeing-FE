@@ -3,7 +3,6 @@ import React, { useState, useEffect, useCallback } from "react";
 
 export const DecorativeShapes = () => (
   <>
-    {/* Existing DecorativeShapes JSX */}
     <svg
       className="absolute top-10 left-10 w-24 h-24 transform rotate-[-15deg]"
       viewBox="0 0 100 100"
@@ -15,8 +14,6 @@ export const DecorativeShapes = () => (
         opacity="0.2"
       />
     </svg>
-
-    {/* Curved Leaf - Top Right Corner */}
     <svg
       className="absolute top-0 right-20 w-20 h-20 transform rotate-45"
       viewBox="0 0 100 100"
@@ -28,8 +25,6 @@ export const DecorativeShapes = () => (
         opacity="0.2"
       />
     </svg>
-
-    {/* Abstract Wave - Bottom Left */}
     <svg
       className="absolute bottom-10 left-20 w-32 h-32"
       viewBox="0 0 100 100"
@@ -43,8 +38,6 @@ export const DecorativeShapes = () => (
         fill="none"
       />
     </svg>
-
-    {/* Floating Leaves - Right Side */}
     <svg
       className="absolute top-1/2 right-10 w-16 h-16"
       viewBox="0 0 100 100"
@@ -56,8 +49,6 @@ export const DecorativeShapes = () => (
         opacity="0.15"
       />
     </svg>
-
-    {/* Small Decorative Hearts - Bottom Right */}
     <svg
       className="absolute bottom-20 right-40 w-20 h-20"
       viewBox="0 0 100 100"
@@ -122,14 +113,10 @@ const Services = () => {
       }
     };
   }, [isHovered, nextService]);
-
-  // Handle scroll wheel events
   const handleWheel = (event) => {
     if (event.deltaY > 0) {
-      // Scrolling down
       setCurrentService((prev) => (prev + 1) % serviceCardData.length);
     } else {
-      // Scrolling up
       setCurrentService((prev) =>
         prev === 0 ? serviceCardData.length - 1 : prev - 1
       );

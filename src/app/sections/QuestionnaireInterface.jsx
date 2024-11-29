@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { ChevronLeft, ChevronRight, Check, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -115,7 +115,7 @@ const QuestionnaireInterface = ({ onSubmit }) => {
   const progressPercentage = ((currentQuestion + 1) / questions.length) * 100;
 
   return (
-    <>
+    <Suspense fallback={<p>Loading...</p>}>
       {showModal && (
         <UserTypeModal
           expectedUserType={expectedUserType}
@@ -212,7 +212,7 @@ const QuestionnaireInterface = ({ onSubmit }) => {
           </main>
         </div>
       </div>
-    </>
+    </Suspense>
   );
 };
 

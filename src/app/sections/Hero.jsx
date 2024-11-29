@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Hero = () => {
@@ -17,9 +18,12 @@ const Hero = () => {
             <span>is Wealth</span>
           </h1>
           <div className="flex gap-4">
-            <div className="bg-white p-2 rounded-full w-10 h-10 flex items-center justify-center cursor-pointer shadow-lg hover:scale-125">
+            <Link
+              href={"#footer"}
+              className="bg-white p-2 rounded-full w-10 h-10 flex items-center justify-center cursor-pointer shadow-lg hover:scale-125"
+            >
               <span className="text-2xl">↓</span>
-            </div>
+            </Link>
 
             <p className="text-gray-800 max-w-md">
               To live your life to the fullest, we&apos;re continuing to find
