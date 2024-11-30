@@ -38,7 +38,7 @@ const Login = () => {
       localStorage.setItem("name", response?.data.profile.name);
       localStorage.setItem("email", response?.data.profile.email);
       localStorage.setItem("userType", response?.data.profile.userType);
-      localStorage.setItem("caseStudy", response?.data.profile.caseStudy)
+      localStorage.setItem("caseStudy", response?.data.profile.caseStudy);
 
       router.push(
         `/questionnaires?userType=${localStorage.getItem("userType")}`
@@ -166,7 +166,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={loading}
             >
               {loading ? "Loading..." : isOtpSent ? "Verify OTP" : "Send OTP"}
@@ -174,7 +174,7 @@ const Login = () => {
 
             <p className="mt-4 text-center">
               Do not have an account yet?{" "}
-              <Link href={"/signup"}>
+              <Link href={"/signup"} className="cursor-pointer">
                 <button type="button" className="text-red-500 underline">
                   Sign up here
                 </button>
@@ -182,8 +182,11 @@ const Login = () => {
             </p>
 
             <div className="mt-4 text-center">
-              <Link href={"/"}>
-                <button type="button" className="text-blue-500 underline">
+              <Link href={"/"} className="cursor-pointer">
+                <button
+                  type="button"
+                  className="text-blue-500 underline cursor-pointer"
+                >
                   Go Back to Home
                 </button>
               </Link>

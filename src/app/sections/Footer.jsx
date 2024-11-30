@@ -146,7 +146,7 @@ const HealPoint = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <button
-                  className="absolute right-0.5 bg-yellow-500 p-2 rounded-full hover:bg-yellow-600 transition-colors"
+                  className="cursor-pointer absolute right-0.5 bg-yellow-500 p-2 rounded-full hover:bg-yellow-600 transition-colors"
                   aria-label="Send email"
                 >
                   <Send size={16} />

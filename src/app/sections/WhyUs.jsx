@@ -1,6 +1,11 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { baseURL } from "../baseURL";
+import Link from "next/link";
+import { FaArrowRightLong } from "react-icons/fa6";
 
-const TitleUnderline = () => (
+const TitleUnderline = ({ stroke }) => (
   <svg
     className="absolute w-full h-[10px] bottom-0 left-0"
     viewBox="0 0 100 10"
@@ -8,42 +13,14 @@ const TitleUnderline = () => (
   >
     <path
       d="M0 5 Q 50 -5, 100 5"
-      stroke="orange"
+      stroke={stroke}
       strokeWidth="4"
       fill="transparent"
     />
   </svg>
 );
 
-const featuresData = [
-  {
-    title: "Bring inner peace",
-    description: "Happy tunes generate more peaceful solutions.",
-    shape: "square",
-    underline: "#CAFA90",
-  },
-  {
-    title: "Find more joy",
-    description: "Feel utterly less stressed in just first 10 days.",
-    shape: "oval",
-    underline: "#78E1FE",
-  },
-  {
-    title: "Healing program",
-    description: "Do it for yourself, and everyone you really love.",
-    shape: "circle",
-    underline: "#CAFA90",
-  },
-  {
-    title: "Positive psychology",
-    description: "Put your mind to bed, wake up fully refreshed.",
-    shape: "flower",
-    underline: "#FAD77B",
-  },
-];
-
 const getShapeSVG = (shape) => {
-  // All shapes are now consistently sized within a 480x480 viewBox
   switch (shape) {
     case "square":
       return (
@@ -54,24 +31,24 @@ const getShapeSVG = (shape) => {
         >
           <defs>
             <clipPath id="squareClip">
-              <rect width="360" height="360" x="60" y="60" rx="60" ry="60" />
+              <rect width="480" height="480" x="0" y="0" rx="80" ry="80" />
             </clipPath>
           </defs>
           <rect
-            width="360"
-            height="360"
-            x="60"
-            y="60"
-            rx="60"
-            ry="60"
+            width="480"
+            height="480"
+            x="0"
+            y="0"
+            rx="80"
+            ry="80"
             fill="#78E1FE"
           />
           <image
-            href="/test.png"
-            width="360"
-            height="360"
-            x="60"
-            y="60"
+            href="/man.png"
+            width="480"
+            height="480"
+            x="0"
+            y="30"
             preserveAspectRatio="xMidYMid slice"
             clipPath="url(#squareClip)"
           />
@@ -86,17 +63,19 @@ const getShapeSVG = (shape) => {
         >
           <defs>
             <clipPath id="ovalClip">
-              <path d="M447.9 240c20.4-17.6 32.1-38.1 32.1-60 0-66.3-107.5-120-240-120S0 113.7 0 180c0 21.9 11.7 42.4 32.1 60C11.7 257.6 0 278.1 0 300c0 66.3 107.5 120 240 120s240-53.7 240-120c0-21.9-11.7-42.4-32.1-60Z" />
+              <path d="M447.9 240c20.4-24.6 32.1-53.1 32.1-80 0-84.9-107.5-153.7-240-153.7S0 99.1 0 184c0 26.9 11.7 55.4 32.1 80C11.7 275.5 0 304 0 328c0 84.9 107.5 153.7 240 153.7s240-68.8 240-153.7c0-24-11.7-52.5-32.1-80Z" />
             </clipPath>
           </defs>
           <path
-            d="M447.9 240c20.4-17.6 32.1-38.1 32.1-60 0-66.3-107.5-120-240-120S0 113.7 0 180c0 21.9 11.7 42.4 32.1 60C11.7 257.6 0 278.1 0 300c0 66.3 107.5 120 240 120s240-53.7 240-120c0-21.9-11.7-42.4-32.1-60Z"
+            d="M447.9 240c20.4-24.6 32.1-53.1 32.1-80 0-84.9-107.5-153.7-240-153.7S0 99.1 0 184c0 26.9 11.7 55.4 32.1 80C11.7 275.5 0 304 0 328c0 84.9 107.5 153.7 240 153.7s240-68.8 240-153.7c0-24-11.7-52.5-32.1-80Z"
             fill="#FF844C"
           />
           <image
-            href="/test.png"
+            href="/woman.png"
             width="480"
             height="480"
+            x="0"
+            y="30"
             preserveAspectRatio="xMidYMid slice"
             clipPath="url(#ovalClip)"
           />
@@ -111,16 +90,16 @@ const getShapeSVG = (shape) => {
         >
           <defs>
             <clipPath id="circleClip">
-              <circle cx="240" cy="240" r="180" />
+              <circle cx="240" cy="240" r="240" />
             </clipPath>
           </defs>
-          <circle cx="240" cy="240" r="180" fill="#CAFA90" />
+          <circle cx="240" cy="240" r="240" fill="#CAFA90" />
           <image
-            href="/test.png"
-            width="360"
-            height="360"
-            x="60"
-            y="60"
+            href="/man.png"
+            width="480"
+            height="480"
+            x="0"
+            y="30"
             preserveAspectRatio="xMidYMid slice"
             clipPath="url(#circleClip)"
           />
@@ -130,22 +109,37 @@ const getShapeSVG = (shape) => {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 480 480"
-          className="w-full h-full"
+          width="200"
+          height="200"
+          viewBox="0 0 59 55"
         >
           <defs>
             <clipPath id="flowerClip">
-              <path d="M480 210h-89.2l82.4-34.1-22.9-55.5-82.4 34.2 63-63.1-42.4-42.4-63.1 63 34.2-82.3-55.5-23L270 89.2V0h-60v89.2L175.9 6.8l-55.5 23 34.2 82.3-63.1-63-42.4 42.4 63 63.1-82.3-34.2-23 55.5L89.2 210H0v60h89.2L6.8 304.1l23 55.5 82.3-34.2-63 63.1 42.4 42.4 63.1-63-34.2 82.4 55.5 22.9 34.1-82.4V480h60v-89.2l34.1 82.4 55.5-22.9-34.2-82.4 63.1 63 42.4-42.4-63-63.1 82.4 34.2 22.9-55.5-82.4-34.1H480v-60z" />
+              <path d="M29.4 54.8c-2.3 0-4.1-4.7-6.3-5.2-2.3-.5-5.9 2.8-7.9 1.7-2-1.1-1.4-6-3.1-7.5-1.7-1.5-6.5-.4-7.8-2.3-1.2-1.9 1.8-5.8 1.1-8-.6-2.1-5.3-3.8-5.3-6.1s4.7-4 5.3-6.1c.7-2.2-2.4-6.1-1.1-8 1.2-1.9 6.1-.8 7.8-2.3 1.7-1.5 1-6.4 3.1-7.5 2-1 5.7 2.3 7.9 1.7C25.3 4.7 27 0 29.3 0c2.3 0 4.1 4.7 6.3 5.2 2.3.5 5.9-2.8 7.9-1.7 2 1.1 1.4 6 3.1 7.5 1.7 1.5 6.5.4 7.8 2.3 1.2 1.9-1.8 5.8-1.1 8 .6 2.1 5.3 3.8 5.3 6.1s-4.7 4-5.3 6.1c-.7 2.2 2.4 6.1 1.2 8-1.2 1.9-6.1.8-7.8 2.3-1.7 1.5-1 6.4-3.1 7.5-2 1-5.7-2.3-7.9-1.7-2.3.5-4 5.2-6.3 5.2Z" />
             </clipPath>
+
+            <linearGradient
+              id="blobGradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
+              <stop offset="0%" stopColor="#FFD700" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#FFA500" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#FF6347" stopOpacity="0.4" />
+            </linearGradient>
           </defs>
           <path
-            d="M480 210h-89.2l82.4-34.1-22.9-55.5-82.4 34.2 63-63.1-42.4-42.4-63.1 63 34.2-82.3-55.5-23L270 89.2V0h-60v89.2L175.9 6.8l-55.5 23 34.2 82.3-63.1-63-42.4 42.4 63 63.1-82.3-34.2-23 55.5L89.2 210H0v60h89.2L6.8 304.1l23 55.5 82.3-34.2-63 63.1 42.4 42.4 63.1-63-34.2 82.4 55.5 22.9 34.1-82.4V480h60v-89.2l34.1 82.4 55.5-22.9-34.2-82.4 63.1 63 42.4-42.4-63-63.1 82.4 34.2 22.9-55.5-82.4-34.1H480v-60z"
-            fill="#FAD77B"
+            fill="url(#blobGradient)"
+            d="M29.4 54.8c-2.3 0-4.1-4.7-6.3-5.2-2.3-.5-5.9 2.8-7.9 1.7-2-1.1-1.4-6-3.1-7.5-1.7-1.5-6.5-.4-7.8-2.3-1.2-1.9 1.8-5.8 1.1-8-.6-2.1-5.3-3.8-5.3-6.1s4.7-4 5.3-6.1c.7-2.2-2.4-6.1-1.1-8 1.2-1.9 6.1-.8 7.8-2.3 1.7-1.5 1-6.4 3.1-7.5 2-1 5.7 2.3 7.9 1.7C25.3 4.7 27 0 29.3 0c2.3 0 4.1 4.7 6.3 5.2 2.3.5 5.9-2.8 7.9-1.7 2 1.1 1.4 6 3.1 7.5 1.7 1.5 6.5.4 7.8 2.3 1.2 1.9-1.8 5.8-1.1 8 .6 2.1 5.3 3.8 5.3 6.1s-4.7 4-5.3 6.1c-.7 2.2 2.4 6.1 1.2 8-1.2 1.9-6.1.8-7.8 2.3-1.7 1.5-1 6.4-3.1 7.5-2 1-5.7-2.3-7.9-1.7-2.3.5-4 5.2-6.3 5.2Z"
           />
           <image
-            href="/test.png"
-            width="480"
-            height="480"
+            href="/man.png"
+            width="56"
+            height="52"
+            x="2"
+            y="2"
             preserveAspectRatio="xMidYMid slice"
             clipPath="url(#flowerClip)"
           />
@@ -156,7 +150,38 @@ const getShapeSVG = (shape) => {
   }
 };
 
+const shapes = ["square", "oval", "circle", "flower"];
+const underlineColors = ["#CAFA90", "#FF844C", "#CAFA90", "#FAD77B"];
+
 const WhyUs = () => {
+  const [experts, setExperts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchExperts = async () => {
+      try {
+        const response = await axios.get(`${baseURL}/get-experts`);
+        setExperts(response.data.slice(0, 4));
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching experts:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchExperts();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-white relative">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          Loading experts...
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 bg-white relative">
       <div className="max-w-6xl mx-auto px-4">
@@ -164,31 +189,39 @@ const WhyUs = () => {
           <span className="inline-flex items-center px-4 py-2 rounded-full border border-[#956144] text-sm font-semibold">
             PEACEFUL BEGINNING
           </span>
-
-          <h1 className="text-4xl md:text-6xl font-semibold mt-10 mb-20">
-            Bring your inner{" "}
-            <span className="relative inline-block">
-              peace
-              <span className="absolute -bottom-1 left-0 w-full h-2 bg-orange-200"></span>
-            </span>
-          </h1>
+          <div className="flex gap-2 justify-center">
+            <h1 className="text-4xl md:text-5xl font-semibold mt-10 mb-16">
+              Our{" "}
+              <span className="relative inline-block">
+                Experts
+                <span className="absolute -bottom-1 left-0 w-full h-2 bg-[#FFA500]"></span>
+              </span>
+            </h1>
+            <Link
+              href={"#"}
+              className="font-semibold flex gap-2 underline items-center cursor-pointer"
+            >
+              View all <FaArrowRightLong />
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featuresData.map((feature, index) => (
-            <div key={index} className="text-center flex flex-col items-center">
+          {experts.map((expert, index) => (
+            <div
+              key={expert._id}
+              className="text-center flex flex-col items-center"
+            >
               <div className="w-48 h-48 mb-6">
-                {" "}
-                {/* Fixed size container */}
-                {getShapeSVG(feature.shape)}
+                {getShapeSVG(shapes[index % shapes.length])}
               </div>
               <div className="relative inline-block pb-4 mb-2">
-                <h3 className="text-xl font-semibold">{feature.title}</h3>
-                <TitleUnderline />
+                <h3 className="text-2xl font-semibold">{expert.name}</h3>
+                <TitleUnderline
+                  stroke={underlineColors[index % underlineColors.length]}
+                />
               </div>
-              <p className="text-gray-600 text-sm px-4">
-                {feature.description}
-              </p>
+              <p className="text-gray-600 text-base px-4">{expert.userType}</p>
             </div>
           ))}
         </div>

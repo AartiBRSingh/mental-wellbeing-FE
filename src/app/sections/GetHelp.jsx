@@ -28,7 +28,7 @@ const GetHelp = () => {
               We take data-driven decisions around your wellbeing strategy.
             </p>
           </div>
-          <button className="flex  items-center gap-2 w-fit px-8 bg-black text-white font-bold py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+          <button className="cursor-pointer flex  items-center gap-2 w-fit px-8 bg-black text-white font-bold py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
             Get help
             <MdChevronRight size={30} color="#FF7F4B" />
           </button>

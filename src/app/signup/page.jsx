@@ -281,7 +281,7 @@ const SignupPage = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+                  className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
                   disabled={loading || (!userType && !selectedUserType)}
                 >
                   {loading ? (
@@ -323,7 +323,7 @@ const SignupPage = () => {
                         }`
                       )
                     }
-                    className="text-black hover:text-gray-600 font-medium transition-colors"
+                    className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer"
                   >
                     Already have an account? Log in
                   </button>

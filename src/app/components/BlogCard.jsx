@@ -24,7 +24,7 @@ const BlogCard = ({
         <div className="h-[100px]">
           <Link
             href={redirectTo}
-            className="text-xl font-semibold text-[#1F2937] tracking-tight"
+            className="text-xl font-semibold text-[#1F2937] tracking-tight cursor-pointer"
             target="_blank"
           >
             {title}
@@ -47,7 +47,7 @@ const BlogCard = ({
         <Link
           href={redirectTo}
           target="_blank"
-          className="inline-block mt-2 px-4 py-2 bg-[#3B82F6] text-white rounded-lg shadow-md hover:bg-[#2563EB] transition-colors"
+          className="inline-block mt-2 px-4 py-2 bg-[#3B82F6] text-white rounded-lg shadow-md hover:bg-[#2563EB] transition-colors cursor-pointer"
         >
           Read more
           <svg

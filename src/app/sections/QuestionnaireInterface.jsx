@@ -19,7 +19,7 @@ const UserTypeModal = ({ expectedUserType, userType }) => {
             <button
               type="button"
               onClick={() => router.push(`/login?userType=${expectedUserType}`)}
-              className="text-black hover:text-gray-600 font-medium transition-colors underline
+              className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer
               "
             >
               login methods.
@@ -34,7 +34,7 @@ const UserTypeModal = ({ expectedUserType, userType }) => {
               onClick={() =>
                 router.push(`/questionnaires?userType=${userType}`)
               }
-              className="text-black hover:text-gray-600 font-medium transition-colors underline
+              className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer
               "
             >
               eligible questionnaire.
@@ -50,7 +50,7 @@ const UserTypeModal = ({ expectedUserType, userType }) => {
         <div className="flex justify-end space-x-3">
           <Link
             href={"/"}
-            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 cursor-pointer"
           >
             Close
           </Link>
@@ -154,7 +154,7 @@ const QuestionnaireInterface = ({ onSubmit }) => {
                 ].map(({ value, label }) => (
                   <button
                     key={value}
-                    className={`w-full text-left p-3 rounded-lg transition-colors duration-200 ${
+                    className={`cursor-pointer w-full text-left p-3 rounded-lg transition-colors duration-200 ${
                       answers[currentQuestion] === value
                         ? "bg-[#EE1C25] text-white"
                         : "bg-[#FFE5E5] text-gray-800 hover:bg-[#FFB8B8]"
@@ -170,7 +170,7 @@ const QuestionnaireInterface = ({ onSubmit }) => {
                 <button
                   onClick={prevQuestion}
                   disabled={currentQuestion === 0}
-                  className={`flex items-center px-4 py-2 rounded-full ${
+                  className={`cursor-pointer flex items-center px-4 py-2 rounded-full ${
                     currentQuestion === 0
                       ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                       : "bg-[#EE1C25] text-white hover:bg-[#FF4D4D]"
@@ -184,7 +184,7 @@ const QuestionnaireInterface = ({ onSubmit }) => {
                   <button
                     onClick={nextQuestion}
                     disabled={answers[currentQuestion] === null}
-                    className={`flex items-center px-4 py-2 rounded-full ${
+                    className={`cursor-pointer flex items-center px-4 py-2 rounded-full ${
                       answers[currentQuestion] === null
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                         : "bg-[#EE1C25] text-white hover:bg-[#FF4D4D]"
@@ -197,7 +197,7 @@ const QuestionnaireInterface = ({ onSubmit }) => {
                   <button
                     onClick={handleSubmit}
                     disabled={answers[currentQuestion] === null}
-                    className={`flex items-center px-4 py-2 rounded-full ${
+                    className={`cursor-pointer flex items-center px-4 py-2 rounded-full ${
                       answers[currentQuestion] === null
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                         : "bg-green-500 text-white hover:bg-green-600"

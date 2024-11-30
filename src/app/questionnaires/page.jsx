@@ -20,7 +20,7 @@ const UserTypeModal = ({ expectedUserType, userType }) => {
             <button
               type="button"
               onClick={() => router.push(`/login?userType=${expectedUserType}`)}
-              className="text-black hover:text-gray-600 font-medium transition-colors underline
+              className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer
               "
             >
               login methods.
@@ -35,7 +35,7 @@ const UserTypeModal = ({ expectedUserType, userType }) => {
               onClick={() =>
                 router.push(`/questionnaires?userType=${userType}`)
               }
-              className="text-black hover:text-gray-600 font-medium transition-colors underline
+              className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer
               "
             >
               eligible questionnaire.
@@ -378,7 +378,7 @@ const CaseStudyPage = () => {
                   type="button"
                   onClick={handleSubmit}
                   disabled={Object.keys(answers).length !== questions.length}
-                  className={`px-8 py-3 rounded-lg font-medium transition-all duration-200
+                  className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 cursor-pointer
               ${
                 Object.keys(answers).length === questions.length
                   ? "bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30"

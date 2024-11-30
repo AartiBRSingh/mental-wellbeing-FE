@@ -165,7 +165,7 @@ const BlogPage = () => {
                       </div>
                       <Link
                         href={`/blogs/${generateSlug(post.title, post._id)}`}
-                        className="text-xl font-bold text-gray-800 mb-2"
+                        className="text-xl font-bold text-gray-800 mb-2 cursor-pointer"
                         target="_blank"
                       >
                         {post.title}
@@ -179,7 +179,7 @@ const BlogPage = () => {
                       </p>
                       <Link
                         href={`/blogs/${generateSlug(post.title, post._id)}`}
-                        className="text-orange-500 hover:underline"
+                        className="text-orange-500 hover:underline cursor-pointer"
                         target="_blank"
                       >
                         Read More
@@ -196,7 +196,7 @@ const BlogPage = () => {
                 className="px-4 py-2 rounded-lg 
                            bg-[#CAFA90]/20 text-[#FF844C] 
                            disabled:opacity-50 hover:bg-[#CAFA90]/40 
-                           transition-colors"
+                           transition-colors cursor-pointer"
               >
                 Previous
               </button>
@@ -209,7 +209,7 @@ const BlogPage = () => {
                 className="px-4 py-2 rounded-lg 
                            bg-[#78E1FE]/20 text-[#FF844C] 
                            disabled:opacity-50 hover:bg-[#78E1FE]/40 
-                           transition-colors"
+                           transition-colors cursor-pointer"
               >
                 Next
               </button>
@@ -226,7 +226,7 @@ const BlogPage = () => {
               >
                 <Link
                   href={`/blogs/${generateSlug(post.title, post._id)}`}
-                  className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE]"
+                  className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
                   target="_blank"
                 >
                   {post.title}

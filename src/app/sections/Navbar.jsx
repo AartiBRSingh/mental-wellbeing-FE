@@ -96,7 +96,7 @@ const Navbar = () => {
 
           {isAuthenticated ? (
             <div className="relative group">
-              <button className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
+              <button className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
                 <User size={20} />
                 <span className="text-sm font-medium">{userData.name}</span>
               </button>
@@ -126,8 +126,8 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link href="/login">
-              <button className="px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+            <Link href="/login" className="cursor-pointer">
+              <button className="cursor-pointer px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
                 Sign In
               </button>
             </Link>

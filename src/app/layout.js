@@ -2,6 +2,7 @@ import "./globals.css";
 import { Fraunces } from "next/font/google";
 import Navbar from "./sections/Navbar";
 import Footer from "./sections/Footer";
+import CustomCursor from "./components/CustomCursor";
 
 const font = Fraunces({ subsets: ["latin"] });
 
@@ -14,7 +15,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${font.className} antialiased bg-cream`}>
+      <body className={`${font.className} antialiased bg-cream no-select`}>
+        <CustomCursor />
         <Navbar />
         {children}
         <Footer />

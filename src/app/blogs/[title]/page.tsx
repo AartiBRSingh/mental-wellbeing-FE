@@ -112,7 +112,7 @@ const BlogDetailPage = () => {
           <div key={post._id} className="mb-4 pb-4 border-b last:border-b-0">
             <Link
               href={`/blogs/${generateSlug(post.title, post._id)}`}
-              className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE]"
+              className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
               target="_blank"
             >
               {post.title}

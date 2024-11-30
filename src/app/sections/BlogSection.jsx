@@ -60,7 +60,7 @@ const BlogSection = () => {
         </h1>
         <Link
           href={"/blogs"}
-          className="font-semibold flex gap-2 underline items-center"
+          className="font-semibold flex gap-2 underline items-center cursor-pointer"
         >
           View all <FaArrowRightLong />
         </Link>
