@@ -2,13 +2,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { LogOut, User, FileText } from "lucide-react";
+import { LogOut, User, FileText, Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState({ name: "", email: "" });
-
   const [authToken, setAuthToken] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -45,7 +45,11 @@ const Navbar = () => {
     localStorage.removeItem("email");
     setIsAuthenticated(false);
     setUserData({ name: "", email: "" });
-    // You might want to add redirect logic here
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   if (pathname.includes("signup") || pathname.includes("login")) {
@@ -54,11 +58,14 @@ const Navbar = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center bg-white px-10 w-[80vw]">
+      <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center bg-white px-4 md:px-10 w-full md:w-[80vw]">
+        {/* Logo */}
         <section className="font-semibold text-xl cursor-pointer">
           ShareYrHeart
         </section>
-        <section>
+
+        {/* Desktop Navigation */}
+        <section className="hidden md:block">
           <ul className="flex justify-between items-center gap-10">
             {navLinks.map((item, index) => (
               <Link href={item.redirectTo} key={index}>
@@ -70,8 +77,11 @@ const Navbar = () => {
             ))}
           </ul>
         </section>
-        <section className="flex justify-between items-center gap-10">
-          <div className="relative group">
+
+        {/* Right Section */}
+        <section className="flex items-center gap-4 md:gap-10">
+          {/* Dropdown for Questionnaires (Desktop) */}
+          <div className="relative group hidden md:block">
             <button className="relative w-8 h-8 cursor-pointer">
               <div className="relative flex flex-col justify-center w-full h-full">
                 <div className="w-full h-[2px] bg-black transition-all duration-300 ease-in-out group-hover:rotate-45 group-hover:translate-y-[6px]" />
@@ -94,8 +104,9 @@ const Navbar = () => {
             </div>
           </div>
 
+          {/* Authentication Section */}
           {isAuthenticated ? (
-            <div className="relative group">
+            <div className="relative group hidden md:block">
               <button className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
                 <User size={20} />
                 <span className="text-sm font-medium">{userData.name}</span>
@@ -108,12 +119,6 @@ const Navbar = () => {
                     </p>
                     <p className="text-sm text-gray-500">{userData.email}</p>
                   </div>
-                  {/* <Link href="/results">
-                    <div className="px-4 py-2 hover:bg-gray-50 flex items-center gap-2 cursor-pointer">
-                      <FileText size={16} />
-                      <span className="text-sm text-gray-700">See Results</span>
-                    </div>
-                  </Link> */}
                   <div
                     onClick={handleLogout}
                     className="px-4 py-2 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-red-600"
@@ -126,13 +131,84 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link href="/login" className="cursor-pointer">
+            <Link href="/login" className="hidden md:block cursor-pointer">
               <button className="cursor-pointer px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
                 Sign In
               </button>
             </Link>
           )}
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden cursor-pointer"
+            onClick={toggleMobileMenu}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </section>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden z-30">
+            <div className="flex flex-col">
+              {/* Mobile Navigation Links */}
+              {navLinks.map((item, index) => (
+                <Link
+                  href={item.redirectTo}
+                  key={index}
+                  onClick={toggleMobileMenu}
+                >
+                  <div className="px-4 py-3 border-b border-gray-200 hover:bg-gray-50">
+                    {item.label}
+                  </div>
+                </Link>
+              ))}
+
+              {/* Mobile Questionnaire Options */}
+              <div className="border-b border-gray-200">
+                {dropdownOptions.map((option, index) => (
+                  <a
+                    key={index}
+                    href={option.href}
+                    className="block px-4 py-3 hover:bg-gray-50"
+                    onClick={toggleMobileMenu}
+                  >
+                    {option.label}
+                  </a>
+                ))}
+              </div>
+
+              {/* Mobile Authentication */}
+              {isAuthenticated ? (
+                <div>
+                  <div className="px-4 py-3 border-b border-gray-200">
+                    <p className="text-sm font-medium text-gray-900">
+                      {userData.name}
+                    </p>
+                    <p className="text-sm text-gray-500">{userData.email}</p>
+                  </div>
+                  <div
+                    onClick={handleLogout}
+                    className="px-4 py-3 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-red-600"
+                  >
+                    <LogOut size={16} />
+                    <span className="text-sm">Logout</span>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="block px-4 py-3"
+                  onClick={toggleMobileMenu}
+                >
+                  <button className="w-full px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+                    Sign In
+                  </button>
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
     </div>
   );

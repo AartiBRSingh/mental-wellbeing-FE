@@ -49,9 +49,10 @@ const BlogSection = () => {
   }
 
   return (
-    <div className=" bg-white pt-10 pb-20 px-32">
-      <div className="mb-20 flex justify-between items-center">
-        <h1 className="text-4xl md:text-5xl font-semibold">
+    <div className="bg-white pt-10 pb-20 px-6 lg:px-32">
+      {/* Header Section */}
+      <div className="mb-10 lg:mb-20 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+        <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold">
           Latest from{" "}
           <span className="relative inline-block">
             Shareyrheart
@@ -60,12 +61,14 @@ const BlogSection = () => {
         </h1>
         <Link
           href={"/blogs"}
-          className="font-semibold flex gap-2 underline items-center cursor-pointer"
+          className="font-semibold flex gap-2 underline items-center cursor-pointer text-base lg:text-lg"
         >
           View all <FaArrowRightLong />
         </Link>
       </div>
-      <div className="flex justify-start items-center flex-wrap gap-4">
+
+      {/* Blog Cards */}
+      <div className="flex justify-start items-stretch flex-wrap gap-4 lg:gap-8">
         {data?.map((item, index) => (
           <BlogCard
             key={index}
@@ -74,6 +77,7 @@ const BlogSection = () => {
             totalViews={item.totalViews}
             date={formatDate(item.updatedAt)}
             redirectTo={`/blogs/${generateSlug(item.title, item._id)}`}
+            className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
           />
         ))}
       </div>
