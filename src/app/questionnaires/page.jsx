@@ -70,20 +70,16 @@ const CaseStudyPage = () => {
   const searchParams = useSearchParams();
   const expectedUserType = searchParams.get("userType");
   const router = useRouter();
+
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
     setUserType(storedUserType);
+    console.log(storedUserType, "raju");
 
     if (storedUserType !== expectedUserType) {
       setShowModal(true);
     }
   }, [expectedUserType]);
-
-  useEffect(() => {
-    if (userType !== expectedUserType) {
-      setShowModal(true);
-    }
-  }, [expectedUserType, userType]);
 
   const handleModalClose = () => {
     router.push(`/questionnaires?userType=${localStorage.getItem("userType")}`);
@@ -150,51 +146,6 @@ const CaseStudyPage = () => {
           userType={userType}
         />
       )}
-      {/* <div className="p-8 bg-transparent min-h-screen">
-        <h1 className="text-2xl font-bold mb-6">Questionnaire</h1>
-        {questions.length > 0 ? (
-          <form className="space-y-6">
-            {questions.map((question) => (
-              <div key={question._id} className="bg-white p-4 rounded-lg shadow">
-                <p className="text-lg font-medium">{question.question}</p>
-                <div className="mt-3 flex gap-4">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name={question._id}
-                      value="yes"
-                      className="mr-2"
-                      checked={answers[question._id] === 'yes'}
-                      onChange={() => handleAnswerChange(question._id, 'yes')}
-                    />
-                    Yes
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name={question._id}
-                      value="no"
-                      className="mr-2"
-                      checked={answers[question._id] === 'no'}
-                      onChange={() => handleAnswerChange(question._id, 'no')}
-                    />
-                    No
-                  </label>
-                </div>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-            >
-              Submit
-            </button>
-          </form>
-        ) : (
-          <p>Loading questions...</p>
-        )}
-      </div> */}
       <div className="min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
