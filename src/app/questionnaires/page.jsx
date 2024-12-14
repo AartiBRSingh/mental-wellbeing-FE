@@ -5,7 +5,213 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { baseURL } from "../baseURL";
 import Link from "next/link";
 
-const UserTypeModal = ({ expectedUserType, userType }) => {
+// Reusable component for rendering different question types
+const QuestionInput = ({ question, answer, onAnswerChange }) => {
+  switch (question.questionType) {
+    case "Yes/No Type":
+      return (
+        <div className="grid grid-cols-2 gap-4">
+          {["Yes", "No"].map((option) => (
+            <label
+              key={option}
+              className={`relative group/option flex flex-col items-center p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer
+              ${
+                answer === option.toLowerCase()
+                  ? `border-${option === "Yes" ? "green" : "red"}-500 bg-${
+                      option === "Yes" ? "green" : "red"
+                    }-50/50`
+                  : "border-gray-200 hover:border-gray-300 group-hover:bg-gray-50"
+              }`}
+            >
+              <div
+                className={`mb-3 w-12 h-12 rounded-full flex items-center justify-center
+                ${
+                  answer === option.toLowerCase()
+                    ? `bg-${option === "Yes" ? "green" : "red"}-500`
+                    : "bg-gray-100 group-hover/option:bg-gray-200"
+                }`}
+              >
+                <svg
+                  className={`w-6 h-6 transition-colors duration-200
+                  ${
+                    answer === option.toLowerCase()
+                      ? "text-white"
+                      : "text-gray-400"
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={
+                      option === "Yes"
+                        ? "M5 13l4 4L19 7"
+                        : "M6 18L18 6M6 6l12 12"
+                    }
+                  />
+                </svg>
+              </div>
+              <input
+                type="radio"
+                name={question._id}
+                value={option.toLowerCase()}
+                checked={answer === option.toLowerCase()}
+                onChange={() =>
+                  onAnswerChange(question._id, option.toLowerCase())
+                }
+                className="sr-only"
+              />
+              <span
+                className={`text-lg font-medium transition-colors duration-200
+                ${
+                  answer === option.toLowerCase()
+                    ? `text-${option === "Yes" ? "green" : "red"}-700`
+                    : "text-gray-700 group-hover/option:text-gray-900"
+                }`}
+              >
+                {option}
+              </span>
+            </label>
+          ))}
+        </div>
+      );
+
+    case "One Word":
+      return (
+        <input
+          type="text"
+          value={answer || ""}
+          onChange={(e) => onAnswerChange(question._id, e.target.value)}
+          placeholder="Enter one word"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      );
+
+    case "Descriptive":
+      return (
+        <textarea
+          value={answer || ""}
+          onChange={(e) => onAnswerChange(question._id, e.target.value)}
+          placeholder="Enter your detailed response"
+          rows={4}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      );
+
+    case "Likert Scale":
+      const likertOptions = [
+        "Strongly Disagree",
+        "Disagree",
+        "Neutral",
+        "Agree",
+        "Strongly Agree",
+      ];
+      return (
+        <div className="grid grid-cols-5 gap-2">
+          {likertOptions.map((option, index) => (
+            <label
+              key={option}
+              className={`flex flex-col items-center p-2 rounded-lg cursor-pointer transition-all
+                ${
+                  answer === option
+                    ? "bg-blue-100 border-blue-500 border-2"
+                    : "bg-gray-50 border border-gray-200 hover:bg-gray-100"
+                }`}
+            >
+              <input
+                type="radio"
+                name={question._id}
+                value={option}
+                checked={answer === option}
+                onChange={() => onAnswerChange(question._id, option)}
+                className="sr-only"
+              />
+              <span
+                className={`text-xs text-center ${
+                  answer === option ? "text-blue-700" : "text-gray-600"
+                }`}
+              >
+                {option}
+              </span>
+            </label>
+          ))}
+        </div>
+      );
+
+    case "Custom Options":
+      const options = question.customOptions || question.options || [];
+      return (
+        <div className="grid grid-cols-3 gap-4">
+          {options.map((option) => (
+            <label
+              key={option}
+              className={`relative flex items-center justify-center p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group
+              ${
+                answer === option
+                  ? "border-blue-500 bg-blue-50 shadow-md"
+                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+              }`}
+            >
+              <div
+                className={`absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center transition-all
+                ${
+                  answer === option
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200 text-gray-500 group-hover:bg-gray-300"
+                }`}
+              >
+                {answer === option ? (
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                ) : null}
+              </div>
+              <input
+                type="radio"
+                name={question._id}
+                value={option}
+                checked={answer === option}
+                onChange={() => onAnswerChange(question._id, option)}
+                className="sr-only"
+              />
+              <span
+                className={`text-lg font-medium transition-colors 
+                ${
+                  answer === option
+                    ? "text-blue-700"
+                    : "text-gray-700 group-hover:text-gray-900"
+                }`}
+              >
+                {option}
+              </span>
+            </label>
+          ))}
+        </div>
+      );
+
+    default:
+      return (
+        <p className="text-red-500">
+          Unsupported question type: {question.questionType}
+        </p>
+      );
+  }
+};
+
+const UserTypeModal = ({ expectedUserType, userType, onClose }) => {
   const router = useRouter();
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -20,8 +226,7 @@ const UserTypeModal = ({ expectedUserType, userType }) => {
             <button
               type="button"
               onClick={() => router.push(`/login?userType=${expectedUserType}`)}
-              className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer
-              "
+              className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer"
             >
               login methods.
             </button>
@@ -35,8 +240,7 @@ const UserTypeModal = ({ expectedUserType, userType }) => {
               onClick={() =>
                 router.push(`/questionnaires?userType=${userType}`)
               }
-              className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer
-              "
+              className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer"
             >
               eligible questionnaire.
             </button>
@@ -49,12 +253,12 @@ const UserTypeModal = ({ expectedUserType, userType }) => {
           </p>
         </div>
         <div className="flex justify-end space-x-3">
-          <Link
-            href={"/"}
+          <button
+            onClick={onClose}
             className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
           >
             Close
-          </Link>
+          </button>
         </div>
       </div>
     </div>
@@ -74,7 +278,6 @@ const CaseStudyPage = () => {
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
     setUserType(storedUserType);
-    console.log(storedUserType, "raju");
 
     if (storedUserType !== expectedUserType) {
       setShowModal(true);
@@ -84,6 +287,7 @@ const CaseStudyPage = () => {
   const handleModalClose = () => {
     router.push(`/questionnaires?userType=${localStorage.getItem("userType")}`);
   };
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -96,14 +300,18 @@ const CaseStudyPage = () => {
       }
     };
 
-    fetchQuestions();
+    if (userType) {
+      fetchQuestions();
+    }
   }, [userType]);
+
   const handleAnswerChange = (questionId, answer) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [questionId]: answer,
     }));
   };
+
   const handleSubmit = async () => {
     const authToken = localStorage.getItem("authToken");
 
@@ -135,6 +343,24 @@ const CaseStudyPage = () => {
       console.error("Error submitting answers:", error);
       alert("Failed to submit answers. Please try again.");
     }
+  };
+
+  // Validation function to check if all questions are answered
+  const areAllQuestionsAnswered = () => {
+    return questions.every((question) => {
+      const answer = answers[question._id];
+      switch (question.questionType) {
+        case "One Word":
+        case "Descriptive":
+          return answer && answer.trim() !== "";
+        case "Likert Scale":
+        case "Custom Options":
+        case "Yes/No Type":
+          return !!answer;
+        default:
+          return false;
+      }
+    });
   };
 
   return (
@@ -190,11 +416,11 @@ const CaseStudyPage = () => {
                     </span>
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium
-                ${
-                  answers[question._id]
-                    ? "bg-green-100 text-green-700"
-                    : "bg-yellow-100 text-yellow-700"
-                }`}
+                      ${
+                        answers[question._id]
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
                     >
                       {answers[question._id] ? "Answered" : "Pending"}
                     </span>
@@ -203,124 +429,11 @@ const CaseStudyPage = () => {
                     <p className="text-xl text-gray-900 font-medium mb-8 leading-relaxed">
                       {question.question}
                     </p>
-                    <div className="grid grid-cols-2 gap-4">
-                      <label
-                        className={`relative group/option flex flex-col items-center p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer
-                    ${
-                      answers[question._id] === "yes"
-                        ? "border-green-500 bg-green-50/50"
-                        : "border-gray-200 hover:border-gray-300 group-hover:bg-gray-50"
-                    }`}
-                      >
-                        <div
-                          className={`mb-3 w-12 h-12 rounded-full flex items-center justify-center
-                    ${
-                      answers[question._id] === "yes"
-                        ? "bg-green-500"
-                        : "bg-gray-100 group-hover/option:bg-gray-200"
-                    }`}
-                        >
-                          <svg
-                            className={`w-6 h-6 transition-colors duration-200
-                        ${
-                          answers[question._id] === "yes"
-                            ? "text-white"
-                            : "text-gray-400"
-                        }`}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        </div>
-
-                        <input
-                          type="radio"
-                          name={question._id}
-                          value="yes"
-                          checked={answers[question._id] === "yes"}
-                          onChange={() =>
-                            handleAnswerChange(question._id, "yes")
-                          }
-                          className="sr-only"
-                        />
-
-                        <span
-                          className={`text-lg font-medium transition-colors duration-200
-                    ${
-                      answers[question._id] === "yes"
-                        ? "text-green-700"
-                        : "text-gray-700 group-hover/option:text-gray-900"
-                    }`}
-                        >
-                          Yes
-                        </span>
-                      </label>
-                      <label
-                        className={`relative group/option flex flex-col items-center p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer
-                    ${
-                      answers[question._id] === "no"
-                        ? "border-red-500 bg-red-50/50"
-                        : "border-gray-200 hover:border-gray-300 group-hover:bg-gray-50"
-                    }`}
-                      >
-                        <div
-                          className={`mb-3 w-12 h-12 rounded-full flex items-center justify-center
-                    ${
-                      answers[question._id] === "no"
-                        ? "bg-red-500"
-                        : "bg-gray-100 group-hover/option:bg-gray-200"
-                    }`}
-                        >
-                          <svg
-                            className={`w-6 h-6 transition-colors duration-200
-                        ${
-                          answers[question._id] === "no"
-                            ? "text-white"
-                            : "text-gray-400"
-                        }`}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </div>
-
-                        <input
-                          type="radio"
-                          name={question._id}
-                          value="no"
-                          checked={answers[question._id] === "no"}
-                          onChange={() =>
-                            handleAnswerChange(question._id, "no")
-                          }
-                          className="sr-only"
-                        />
-
-                        <span
-                          className={`text-lg font-medium transition-colors duration-200
-                    ${
-                      answers[question._id] === "no"
-                        ? "text-red-700"
-                        : "text-gray-700 group-hover/option:text-gray-900"
-                    }`}
-                        >
-                          No
-                        </span>
-                      </label>
-                    </div>
+                    <QuestionInput
+                      question={question}
+                      answer={answers[question._id]}
+                      onAnswerChange={handleAnswerChange}
+                    />
                   </div>
                 </div>
               ))}
@@ -328,16 +441,16 @@ const CaseStudyPage = () => {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={Object.keys(answers).length !== questions.length}
+                  disabled={!areAllQuestionsAnswered()}
                   className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 cursor-pointer
-              ${
-                Object.keys(answers).length === questions.length
-                  ? "bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30"
-                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
-              }
-            `}
+                    ${
+                      areAllQuestionsAnswered()
+                        ? "bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30"
+                        : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    }
+                  `}
                 >
-                  {Object.keys(answers).length === questions.length
+                  {areAllQuestionsAnswered()
                     ? "Submit Answers"
                     : `${Object.keys(answers).length}/${
                         questions.length

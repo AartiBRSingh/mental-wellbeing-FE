@@ -35,14 +35,17 @@ const Login = () => {
       const { token } = response?.data;
 
       localStorage.setItem("authToken", token);
+      localStorage.setItem("userId", response?.data.profile.userId);
       localStorage.setItem("name", response?.data.profile.name);
       localStorage.setItem("email", response?.data.profile.email);
       localStorage.setItem("userType", response?.data.profile.userType);
       localStorage.setItem("caseStudy", response?.data.profile.caseStudy);
-
-      router.push(
-        `/questionnaires?userType=${localStorage.getItem("userType")}`
+      localStorage.setItem(
+        "contactNumber",
+        response?.data.profile.contactNumber
       );
+
+      router.push(`/${localStorage.getItem("userType")}`);
     } catch (error) {
       throw new Error(error.response?.data || "Invalid OTP. Please try again.");
     }
@@ -127,7 +130,6 @@ const Login = () => {
               {isOtpSent ? "Verify OTP" : "Login"}
             </h2>
             {error && <p className="text-red-500 mb-4">{error}</p>}
-
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -144,7 +146,6 @@ const Login = () => {
                 required
               />
             </div>
-
             {isOtpSent && (
               <div className="mb-4">
                 <label
@@ -163,7 +164,6 @@ const Login = () => {
                 />
               </div>
             )}
-
             <button
               type="submit"
               className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -171,16 +171,17 @@ const Login = () => {
             >
               {loading ? "Loading..." : isOtpSent ? "Verify OTP" : "Send OTP"}
             </button>
-
             <p className="mt-4 text-center">
               Do not have an account yet?{" "}
               <Link href={"/signup"} className="cursor-pointer">
-                <button type="button" className="text-red-500 underline">
+                <button
+                  type="button"
+                  className="text-red-500 underline cursor-pointer"
+                >
                   Sign up here
                 </button>
               </Link>
             </p>
-
             <div className="mt-4 text-center">
               <Link href={"/"} className="cursor-pointer">
                 <button

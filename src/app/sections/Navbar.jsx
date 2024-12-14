@@ -32,9 +32,9 @@ const Navbar = () => {
   ];
 
   const dropdownOptions = [
-    { label: "Self", href: "/questionnaires?userType=self" },
-    { label: "Employee", href: "/questionnaires?userType=employee" },
-    { label: "Student", href: "/questionnaires?userType=student" },
+    { label: "Self", href: "/self" },
+    { label: "Employee", href: "/employee" },
+    { label: "Student", href: "/student" },
   ];
 
   const pathname = usePathname();
@@ -43,6 +43,9 @@ const Navbar = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("name");
     localStorage.removeItem("email");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("caseStudy");
+    localStorage.removeItem("userType");
     setIsAuthenticated(false);
     setUserData({ name: "", email: "" });
     setIsMobileMenuOpen(false);
@@ -78,9 +81,7 @@ const Navbar = () => {
           </ul>
         </section>
 
-        {/* Right Section */}
         <section className="flex items-center gap-4 md:gap-10">
-          {/* Dropdown for Questionnaires (Desktop) */}
           <div className="relative group hidden md:block">
             <button className="relative w-8 h-8 cursor-pointer">
               <div className="relative flex flex-col justify-center w-full h-full">
@@ -94,7 +95,7 @@ const Navbar = () => {
                   <a
                     key={index}
                     href={option.href}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
+                    className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
                   >
                     {option.label}
                   </a>
@@ -104,7 +105,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Authentication Section */}
           {isAuthenticated ? (
             <div className="relative group hidden md:block">
               <button className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
@@ -138,7 +138,6 @@ const Navbar = () => {
             </Link>
           )}
 
-          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden cursor-pointer"
             onClick={toggleMobileMenu}
@@ -147,11 +146,9 @@ const Navbar = () => {
           </button>
         </section>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden z-30">
             <div className="flex flex-col">
-              {/* Mobile Navigation Links */}
               {navLinks.map((item, index) => (
                 <Link
                   href={item.redirectTo}
@@ -164,7 +161,6 @@ const Navbar = () => {
                 </Link>
               ))}
 
-              {/* Mobile Questionnaire Options */}
               <div className="border-b border-gray-200">
                 {dropdownOptions.map((option, index) => (
                   <a
@@ -178,7 +174,6 @@ const Navbar = () => {
                 ))}
               </div>
 
-              {/* Mobile Authentication */}
               {isAuthenticated ? (
                 <div>
                   <div className="px-4 py-3 border-b border-gray-200">
@@ -201,7 +196,7 @@ const Navbar = () => {
                   className="block px-4 py-3"
                   onClick={toggleMobileMenu}
                 >
-                  <button className="w-full px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+                  <button className="cursor-pointer w-full px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
                     Sign In
                   </button>
                 </Link>
