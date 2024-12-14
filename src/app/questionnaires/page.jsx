@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { baseURL } from "../baseURL";
 import Link from "next/link";
 
-// Reusable component for rendering different question types
 const QuestionInput = ({ question, answer, onAnswerChange }) => {
   switch (question.questionType) {
     case "Yes/No Type":
@@ -292,7 +291,7 @@ const CaseStudyPage = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `${baseURL}/get-questions?userType=${userType}`
+          `${baseURL}/get-questions?userType=${expectedUserType}`
         );
         setQuestions(response.data);
       } catch (error) {

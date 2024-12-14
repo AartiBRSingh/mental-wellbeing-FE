@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { baseURL } from "../baseURL";
 
 const WorkplaceMentalHealthPage = () => {
   const [hasPaid, setHasPaid] = useState(false);
@@ -46,7 +47,7 @@ const WorkplaceMentalHealthPage = () => {
   const handlePayment = async () => {
     const amount = 500;
 
-    const response = await fetch("http://localhost:5000/api/create-order", {
+    const response = await fetch(`${baseURL}/api/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, amount }),
@@ -73,20 +74,17 @@ const WorkplaceMentalHealthPage = () => {
       image: "/logo.png",
       order_id: order.id,
       handler: async (response) => {
-        const verifyResponse = await fetch(
-          "http://localhost:5000/api/verify-payment",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              userId,
-              amount,
-            }),
-          }
-        );
+        const verifyResponse = await fetch(`${baseURL}/api/verify-payment`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            userId,
+            amount,
+          }),
+        });
 
         const verifyData = await verifyResponse.json();
         if (verifyData.success) {
@@ -95,7 +93,7 @@ const WorkplaceMentalHealthPage = () => {
             "paymentDetails",
             JSON.stringify({ hasPaid: true })
           );
-          router.push("/questionnaires?userType=self");
+          router.push("/questionnaires?userType=employee");
         } else {
           alert("Payment verification failed. Please try again.");
         }
@@ -174,13 +172,13 @@ const WorkplaceMentalHealthPage = () => {
           <div className="mt-6">
             {hasPaid ? (
               <button
-                onClick={() => router.push("/questionnaires?userType=self")}
+                onClick={() => router.push("/questionnaires?userType=employee")}
                 className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
                 transition duration-300 ease-in-out 
                 hover:bg-gray-800 hover:shadow-lg 
                 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
               >
-                Begin Your Self-Discovery
+                Begin Your Journey
               </button>
             ) : (
               <button

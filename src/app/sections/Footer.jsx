@@ -5,6 +5,7 @@ import { FaXTwitter, FaFacebookF } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const HealPoint = () => {
   const [email, setEmail] = useState("");
@@ -180,8 +181,15 @@ const HealPoint = () => {
             | All Rights Reserved
           </div>
           <div className="flex space-x-4">
-            <span className="relative cursor-pointer">Privacy</span>
-            <span className="cursor-pointer">Sitemap</span>
+            <Link href={"/about"}>
+              <span className="cursor-pointer">About</span>
+            </Link>
+            <Link href={"/terms"}>
+              <span className="cursor-pointer">Terms</span>
+            </Link>
+            <Link href={"/privacy"}>
+              <span className="relative cursor-pointer">Privacy</span>
+            </Link>
           </div>
         </footer>
       </div>
