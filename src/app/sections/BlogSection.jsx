@@ -50,24 +50,18 @@ const BlogSection = () => {
 
   return (
     <div className="bg-white pt-10 pb-20 px-6 lg:px-32">
-      {/* Header Section */}
-      <div className="mb-10 lg:mb-20 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-        <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold">
-          Latest from{" "}
-          <span className="relative inline-block">
-            Shareyrheart
-            <span className="absolute -bottom-1 left-0 w-full h-2 bg-orange-200"></span>
-          </span>
+      <div className="mb-10 lg:mb-14 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+        <h1 className="text-3xl lg:text-6xl font-semibold">
+          Latest from <span className=" text-[#956144]">Shareyrheart</span>
         </h1>
         <Link
           href={"/blogs"}
           className="font-semibold flex gap-2 underline items-center cursor-pointer text-base lg:text-lg"
         >
-          View all <FaArrowRightLong />
+          Read all blog <FaArrowRightLong />
         </Link>
       </div>
 
-      {/* Blog Cards */}
       <div className="flex justify-start items-stretch flex-wrap gap-4 lg:gap-8">
         {data?.map((item, index) => (
           <BlogCard

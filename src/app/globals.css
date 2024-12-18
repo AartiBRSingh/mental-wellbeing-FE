@@ -39,3 +39,23 @@ button,
     border-color: #956144;
   }
 }
+
+.custom-scrollbar {
+  @apply bg-white p-10 rounded-2xl shadow-2xl space-y-6 h-[80vh] overflow-y-auto scroll-smooth;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-3 bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-black bg-opacity-50 rounded-full hover:bg-opacity-75 transition-all duration-300;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-opacity-100;
+}

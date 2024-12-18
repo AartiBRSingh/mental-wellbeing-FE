@@ -90,7 +90,7 @@ const BlogPage = () => {
       <div className="container mx-auto px-4 py-8">
         <header className="text-center mb-12">
           <h1 className="text-4xl font-extrabold text-gray-800 mb-3">
-            Insights <span className="text-[#FF844C]">Blog</span>
+            Our <span className="text-[#FF844C]">Blogs</span>
           </h1>
           <p className="text-gray-600 max-w-xl mx-auto">
             Discover transformative stories and insights that inspire and
