@@ -142,6 +142,7 @@ const SignupPage = () => {
         state: "",
         image: null,
       });
+router.push(`/login`);
       setLoading(false);
     } catch (error) {
       console.error(error);
