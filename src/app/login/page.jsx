@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import axios from "axios"; // Import axios
+import axios from "axios";
 import { DecorativeShapes } from "../sections/Services";
 import { baseURL } from "../baseURL";
 import { useRouter } from "next/navigation";
@@ -12,12 +12,16 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isUserLogin, setIsUserLogin] = useState(true);
 
   const router = useRouter();
 
   const onEmailSubmit = async (identifier) => {
+    const url = isUserLogin
+      ? `${baseURL}/users/request-otp`
+      : `${baseURL}/expert/request-otp`;
     try {
-      await axios.post(`${baseURL}/users/request-otp`, { identifier });
+      await axios.post(url, { identifier });
       setIsOtpSent(true);
     } catch (error) {
       throw new Error(
@@ -27,25 +31,38 @@ const Login = () => {
   };
 
   const onOtpSubmit = async ({ identifier, otp }) => {
+    const url = isUserLogin
+      ? `${baseURL}/users/login`
+      : `${baseURL}/expert/login`;
     try {
-      const response = await axios.post(`${baseURL}/users/login`, {
+      const response = await axios.post(url, {
         identifier,
         otp,
       });
-      const { token } = response?.data;
+      const { token, profile } = response?.data;
 
       localStorage.setItem("authToken", token);
-      localStorage.setItem("userId", response?.data.profile.userId);
-      localStorage.setItem("name", response?.data.profile.name);
-      localStorage.setItem("email", response?.data.profile.email);
-      localStorage.setItem("userType", response?.data.profile.userType);
-      localStorage.setItem("caseStudy", response?.data.profile.caseStudy);
-      localStorage.setItem(
-        "contactNumber",
-        response?.data.profile.contactNumber
-      );
+      localStorage.setItem("userId", profile.userId);
+      localStorage.setItem("name", profile.name);
+      localStorage.setItem("email", profile.email);
+      localStorage.setItem("userType", profile.userType);
+      localStorage.setItem("contactNumber", profile.contactNumber);
 
-      router.push(`/${localStorage.getItem("userType")}`);
+      if (!isUserLogin) {
+        localStorage.setItem("hasPackage", profile.hasPackage);
+        localStorage.setItem("packageId", profile.packageId || "");
+        localStorage.setItem("city", profile.city);
+        localStorage.setItem("state", profile.state);
+        localStorage.setItem("verifyPhone", profile.verifyPhone);
+        localStorage.setItem("verifyEmail", profile.verifyEmail);
+      } else {
+        localStorage.setItem("caseStudy", profile.caseStudy);
+      }
+      if (isUserLogin) {
+        router.push(`/${localStorage.getItem("userType")}`);
+      } else {
+        router.push(`/expert/profile`);
+      }
     } catch (error) {
       throw new Error(error.response?.data || "Invalid OTP. Please try again.");
     }
@@ -126,6 +143,35 @@ const Login = () => {
             onSubmit={isOtpSent ? handleOtpSubmit : handleEmailSubmit}
             className="w-full max-w-sm px-8 py-10 border border-gray-200 rounded shadow-sm bg-white"
           >
+            <div className="flex items-center justify-center space-x-4 px-4 mb-6">
+              <span
+                className={`text-sm font-medium ${
+                  isUserLogin ? "text-black" : "text-gray-500"
+                }`}
+              >
+                User Login
+              </span>
+
+              <div
+                className="w-14 h-7 bg-gray-300 rounded-full cursor-pointer relative"
+                onClick={() => setIsUserLogin(!isUserLogin)}
+              >
+                <div
+                  className={`
+            absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300
+            ${isUserLogin ? "translate-x-1" : "translate-x-8"}
+          `}
+                />
+              </div>
+
+              <span
+                className={`text-sm font-medium ${
+                  !isUserLogin ? "text-black" : "text-gray-500"
+                }`}
+              >
+                Expert Login
+              </span>
+            </div>
             <h2 className="text-2xl font-semibold mb-4">
               {isOtpSent ? "Verify OTP" : "Login"}
             </h2>

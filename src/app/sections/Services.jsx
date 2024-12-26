@@ -70,21 +70,21 @@ export const DecorativeShapes = () => (
 
 export const serviceCardData = [
   {
-    redirectTo: "/questionnaires?userType=self",
+    redirectTo: "/self",
     imgUrl:
       "https://images.unsplash.com/photo-1625019030820-e4ed970a6c95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Self Assessment",
     desc: "Get to know yourself better with this program",
   },
   {
-    redirectTo: "/questionnaires?userType=employee",
+    redirectTo: "/employee",
     imgUrl:
       "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Employee Well-being",
     desc: "Curated programs for Corporate Employees",
   },
   {
-    redirectTo: "/questionnaires?userType=student",
+    redirectTo: "/student",
     imgUrl:
       "https://images.unsplash.com/photo-1608453162650-cba45689c284?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Student Well-being",
@@ -124,7 +124,10 @@ const Services = () => {
   };
 
   return (
-    <div className="w-full flex justify-center bg-[#003B29] mt-10 relative">
+    <div
+      className="w-full flex justify-center bg-[#003B29] mt-10 relative"
+      id="services"
+    >
       <DecorativeShapes />
       <main className="flex md:h-[500px] justify-center items-center w-[60vw]">
         <section className="flex-1 flex flex-col gap-8">
@@ -221,9 +224,9 @@ const Services = () => {
                   <h2 className="text-xl font-semibold">|</h2>
                   <a
                     href={serviceCardData[currentService].redirectTo}
-                    className="inline-flex items-center px-6 my-1 py-2 bg-yellow-400 text-green-900 font-bold rounded-md hover:bg-yellow-500 transition-colors duration-300"
+                    className="cursor-pointer inline-flex items-center px-6 my-1 py-2 bg-yellow-400 text-green-900 font-bold rounded-md hover:bg-yellow-500 transition-colors duration-300"
                   >
-                    <span>→</span>
+                    <span className="cursor-pointer ">→</span>
                   </a>
                 </div>
                 <p className="text-opacity-70 mb-4 text-sm">

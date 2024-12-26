@@ -124,7 +124,7 @@ const SignupPage = () => {
       formDataToSend.append("image", image);
     }
     try {
-      await axios.post(`${baseURL}/create-expert`, formData, {
+      await axios.post(`${baseURL}/create-expert`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -246,7 +246,7 @@ const SignupPage = () => {
                         isUserLogin ? "text-black" : "text-gray-500"
                       }`}
                     >
-                      User Login
+                      User Register
                     </span>
 
                     <div
@@ -266,7 +266,7 @@ const SignupPage = () => {
                         !isUserLogin ? "text-black" : "text-gray-500"
                       }`}
                     >
-                      Admin Login
+                      Expert Register
                     </span>
                   </div>
                   <div className="text-center mb-8">

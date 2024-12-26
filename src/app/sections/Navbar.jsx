@@ -1,14 +1,15 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { LogOut, User, FileText, Menu, X } from "lucide-react";
+import { LogOut, User, FileText, Menu, X, UserIcon } from "lucide-react";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState({ name: "", email: "" });
   const [authToken, setAuthToken] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -25,16 +26,17 @@ const Navbar = () => {
   }, [authToken]);
 
   const navLinks = [
-    { label: "Home", redirectTo: "/" },
-    { label: "Product", redirectTo: "#product" },
-    { label: "Testimonials", redirectTo: "#testimonials" },
+    { label: "Disorder", redirectTo: "#" },
+    { label: "Therapy", redirectTo: "#" },
+    { label: "Psychotherapy", redirectTo: "#" },
+    { label: "Dictionary", redirectTo: "#" },
     { label: "Blogs", redirectTo: "/blogs" },
   ];
 
   const dropdownOptions = [
-    { label: "Self", href: "/self" },
-    { label: "Employee", href: "/employee" },
-    { label: "Student", href: "/student" },
+    { label: "Services", href: "#services" },
+    { label: "Treatment", href: "#" },
+    { label: "Clinic", href: "#" },
   ];
 
   const pathname = usePathname();
@@ -49,6 +51,7 @@ const Navbar = () => {
     setIsAuthenticated(false);
     setUserData({ name: "", email: "" });
     setIsMobileMenuOpen(false);
+    router.push("/");
   };
 
   const toggleMobileMenu = () => {
@@ -63,10 +66,14 @@ const Navbar = () => {
     <div className="w-full flex justify-center">
       <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center bg-white px-4 md:px-10 w-full md:w-[80vw]">
         {/* Logo */}
-        <section className="font-semibold text-xl cursor-pointer">
-          ShareYrHeart
-        </section>
 
+        <Link href={"/"}>
+          <img
+            src="/logo.png"
+            alt="logo"
+            className="w-full h-16 cursor-pointer"
+          />
+        </Link>
         {/* Desktop Navigation */}
         <section className="hidden md:block">
           <ul className="flex justify-between items-center gap-10">
@@ -119,6 +126,12 @@ const Navbar = () => {
                     </p>
                     <p className="text-sm text-gray-500">{userData.email}</p>
                   </div>
+                  <Link href={"/expert/profile"}>
+                    <div className="px-4 py-3 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-blue-600">
+                      <UserIcon size={16} />
+                      <span className="text-sm">Go to Profile</span>
+                    </div>
+                  </Link>
                   <div
                     onClick={handleLogout}
                     className="px-4 py-2 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-red-600"
@@ -181,6 +194,13 @@ const Navbar = () => {
                       {userData.name}
                     </p>
                     <p className="text-sm text-gray-500">{userData.email}</p>
+                  </div>
+                  <div
+                    onClick={() => router.push("/profile")}
+                    className="px-4 py-3 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-blue-600"
+                  >
+                    <UserIcon size={16} />{" "}
+                    <span className="text-sm">Go to Profile</span>
                   </div>
                   <div
                     onClick={handleLogout}

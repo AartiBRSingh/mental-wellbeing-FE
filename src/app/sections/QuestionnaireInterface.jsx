@@ -3,11 +3,13 @@ import React, { useState, useEffect, Suspense } from "react";
 import { ChevronLeft, ChevronRight, Check, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import CustomCursor from "../components/CustomCursor";
 
 const UserTypeModal = ({ expectedUserType, userType }) => {
   const router = useRouter();
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <CustomCursor />
       <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-red-600">Access Restricted!</h2>
