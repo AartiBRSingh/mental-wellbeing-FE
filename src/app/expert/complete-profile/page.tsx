@@ -2,8 +2,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../../baseURL";
+import { useRouter } from "next/navigation";
 
 const CompleteProfile = () => {
+  const router = useRouter();
+
   const [userId, setUserId] = useState(null);
   const [formData, setFormData] = useState({
     coverPhoto: "shareyrheart_template.jpg",
@@ -70,6 +73,7 @@ const CompleteProfile = () => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+      router.push("/expert/complete-profile");
       alert("Profile updated successfully!");
     } catch (error) {
       console.error(error);

@@ -205,19 +205,20 @@ const ProfileDashboard = () => {
     if (hasPackage !== "true") {
       const timer = setTimeout(() => {
         setShowPopup(true);
-      }, 5000);
+      }, 10000);
       return () => clearTimeout(timer);
     }
   }, [hasPackage]);
 
   useEffect(() => {
-    if (profile?.experience?.length <= 0) {
+    if (profile?.experience?.length === 0) {
       const timer = setTimeout(() => {
         router.push("/expert/complete-profile");
-      }, 5000);
+      }, 2000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [profile?.experience?.length, router]);
+  console.log(profile?.experience?.length, "raju");
 
   const handleClosePopup = () => {
     setShowPopup(false);
