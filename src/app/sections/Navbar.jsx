@@ -26,17 +26,17 @@ const Navbar = () => {
   }, [authToken]);
 
   const navLinks = [
-    { label: "Disorder", redirectTo: "#" },
-    { label: "Therapy", redirectTo: "#" },
-    { label: "Psychotherapy", redirectTo: "#" },
-    { label: "Dictionary", redirectTo: "#" },
-    { label: "Blogs", redirectTo: "/blogs" },
+    { label: "Services", redirectTo: "#services" },
+    { label: "Clinics", redirectTo: "#" },
+    { label: "Treatments", redirectTo: "#" },
+    { label: "India Directory", redirectTo: "#" },
+    { label: "International Directory", redirectTo: "#" },
   ];
 
   const dropdownOptions = [
-    { label: "Services", href: "#services" },
-    { label: "Treatment", href: "#" },
-    { label: "Clinic", href: "#" },
+    { label: "Disorder", href: "#" },
+    { label: "Therapy", href: "#" },
+    { label: "Dictionary", href: "#" },
   ];
 
   const pathname = usePathname();
