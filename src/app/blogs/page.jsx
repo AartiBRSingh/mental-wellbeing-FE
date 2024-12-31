@@ -23,7 +23,7 @@ const BlogPage = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`${baseURL}/get-categories`);
+      const response = await axios.get(`${baseURL}/get-categories?type=blog`);
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -32,7 +32,7 @@ const BlogPage = () => {
 
   const fetchPosts = async () => {
     try {
-      let url = `${baseURL}/posts?category=${selectedCategory}&page=${currentPage}`;
+      let url = `${baseURL}/posts?type=blog&category=${selectedCategory}&page=${currentPage}`;
 
       if (searchQuery) {
         url += `&title=${encodeURIComponent(searchQuery)}`;
@@ -49,7 +49,7 @@ const BlogPage = () => {
   const fetchRecentPosts = async () => {
     try {
       const response = await axios.get(
-        "https://starfish-app-fko8w.ondigitalocean.app/posts?page=1&limit=3"
+        `${baseURL}/posts?type=blog&page=1&limit=3`
       );
       setRecentPosts(response.data.posts);
     } catch (error) {

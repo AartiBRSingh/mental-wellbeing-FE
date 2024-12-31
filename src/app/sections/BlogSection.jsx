@@ -12,7 +12,7 @@ const BlogSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}/posts`);
+        const response = await axios.get(`${baseURL}/posts?type=blog`);
         setData(response?.data?.posts);
       } catch (error) {
         console.log(error);
