@@ -97,7 +97,7 @@ const Navbar = () => {
               </div>
             </button>
             <div className="absolute right-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
-              <div className="bg-white rounded-lg overflow-hidden border border-gray-200 z-20">
+              <div className="bg-white rounded-lg overflow-hidden border border-gray-200 z-30">
                 {dropdownOptions.map((option, index) => (
                   <a
                     key={index}
