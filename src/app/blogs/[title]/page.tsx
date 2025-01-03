@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { baseURL } from "../../baseURL";
 
-const BlogDetailPage = () => {
+const NewsDetailPage = () => {
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ const BlogDetailPage = () => {
         const postResponse = await api.get(`/posts/${postId}`);
         setPost(postResponse?.data);
         await api.put(`/posts/${postId}/view`);
-        const recentPostsResponse = await api.get("/posts?type=blog", {
+        const recentPostsResponse = await api.get("/posts?type=news", {
           params: { limit: 3 },
         });
         setRecentPosts(recentPostsResponse.data?.posts);
@@ -111,7 +111,7 @@ const BlogDetailPage = () => {
         {recentPosts.map((post) => (
           <div key={post._id} className="mb-4 pb-4 border-b last:border-b-0">
             <Link
-              href={`/blogs/${generateSlug(post.title, post._id)}`}
+              href={`/news/${generateSlug(post.title, post._id)}`}
               className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
               target="_blank"
             >
@@ -133,4 +133,4 @@ const BlogDetailPage = () => {
   );
 };
 
-export default BlogDetailPage;
+export default NewsDetailPage;
