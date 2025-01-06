@@ -62,7 +62,7 @@ const BlogSection = () => {
         </Link>
       </div>
 
-      <div className="flex justify-start items-stretch flex-wrap gap-4 lg:gap-8">
+      <div className="relative flex justify-start items-stretch flex-wrap p-10 gap-6 lg:gap-10 ">
         {data?.map((item, index) => (
           <BlogCard
             key={index}
