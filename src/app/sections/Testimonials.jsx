@@ -90,7 +90,7 @@ const Testimonials = () => {
   return (
     <div className="bg-white flex justify-end pb-20">
       <div className="flex gap-20 items-center w-2/3 bg-cream rounded-2xl">
-        <div className="bg-[#49382E] rounded-3xl shadow-lg w-[350px] p-10">
+        <div className="bg-[#49382E] rounded-3xl shadow-lg w-[350px] p-10 ">
           <div className="mb-4">
             <img
               src={matchedService?.imgUrl}

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Search, Filter, Eye } from "lucide-react";
+import { Search, Filter, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { baseURL } from "../baseURL";
 
@@ -86,162 +86,178 @@ const BlogPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent font-sans">
-      <div className="container mx-auto px-4 py-8">
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-800 mb-3">
-            Our <span className="text-[#FF844C]">Blogs</span>
+    <div className="min-h-screen bg-gradient-to-b from-white to-orange-200 font-sans">
+      <div className="container mx-auto px-4 py-12">
+        {/* Hero Section */}
+        <header className="text-center mb-16 relative">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-green-100 rounded-full blur-3xl opacity-20" />
+          <h1 className="text-5xl font-extrabold text-gray-800 mb-4 relative">
+            Explore Our <span className="text-orange-600">Stories</span>
           </h1>
-          <p className="text-gray-600 max-w-xl mx-auto">
-            Discover transformative stories and insights that inspire and
-            enlighten.
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            Discover transformative insights and inspiring narratives that shape perspectives 
+            and spark meaningful conversations.
           </p>
         </header>
-        <div className="max-w-4xl mx-auto mb-8 flex flex-col md:flex-row gap-4 items-center">
-          <div className="relative w-full md:w-1/2">
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg 
-                         focus:outline-none focus:ring-2 focus:ring-[#78E1FE] 
-                         text-gray-700 appearance-none"
-            >
-              <option value="">All Categories</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-            <Filter className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" />
-          </div>
-          <div className="relative w-full md:w-1/2">
-            <input
-              type="text"
-              placeholder="Search articles..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg 
-                         focus:outline-none focus:ring-2 focus:ring-[#CAFA90] 
-                         text-gray-700"
-            />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+
+        {/* Search and Filter Section */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="bg-white p-4 rounded-2xl shadow-lg flex flex-col md:flex-row gap-4">
+            <div className="relative flex-1">
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-200 text-gray-700 appearance-none bg-gray-50 hover:bg-gray-100 transition-colors"
+              >
+                <option value="">All Categories</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+              <Filter className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Search articles..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-3 pl-11 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-200 text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors"
+              />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
           </div>
         </div>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 space-y-6">
+
+        {/* Main Content Grid */}
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+          {/* Main Posts Section */}
+          <div className="md:col-span-2 space-y-8">
             {posts.length === 0 ? (
-              <div className="text-center text-gray-500 py-12">
-                No posts found. Try a different search or category.
+              <div className="text-center py-16 bg-white rounded-2xl shadow-lg">
+                <div className="text-gray-400 mb-3">
+                  <Search className="w-12 h-12 mx-auto" />
+                </div>
+                <p className="text-gray-600 text-lg">
+                  No posts found. Try a different search or category.
+                </p>
               </div>
             ) : (
               posts.map((post) => (
                 <div
                   key={post._id}
-                  className="bg-white shadow-lg rounded-xl overflow-hidden 
-                             transition-all duration-300 hover:shadow-xl"
+                  className="group bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="grid md:grid-cols-3">
-                    <div className="md:col-span-1">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="md:col-span-1 relative overflow-hidden">
                       <img
                         src={post.image}
                         alt={post.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover aspect-square md:aspect-auto group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
-
                     <div className="md:col-span-2 p-6">
-                      <div className="flex justify-between items-start mb-3">
-                        <span
-                          className="px-3 py-1 rounded-full text-sm 
-                                       bg-[#FAD77B]/20 text-[#FF844C]"
-                        >
+                      <div className="flex justify-between items-start mb-4">
+                        <span className="px-4 py-1.5 rounded-full text-sm bg-green-100 text-green-600 font-medium">
                           {post.category}
                         </span>
-
-                        <span className="text-gray-500 text-sm">
+                        <span className="text-gray-400 text-sm">
                           {new Date(post.createdAt).toLocaleDateString()}
                         </span>
                       </div>
                       <Link
                         href={`/blogs/${generateSlug(post.title, post._id)}`}
-                        className="text-xl font-bold text-gray-800 mb-2 cursor-pointer"
+                        className="block text-2xl font-bold text-gray-800 mb-3 hover:text-green-600 transition-colors"
                         target="_blank"
                       >
                         {post.title}
                       </Link>
-                      <div className="flex gap-2 items-center text-gray-500 text-sm mb-3">
-                        <Eye className="w-4 h-4 text-[#78E1FE]" />
-                        {post.totalViews} Views
+                      <div className="flex gap-2 items-center text-gray-400 text-sm mb-4">
+                        <Eye className="w-4 h-4 text-green-400" />
+                        {post.totalViews.toLocaleString()} Views
                       </div>
-                      <p className="text-gray-600 mb-4">
+                      <p className="text-gray-600 mb-4 line-clamp-3">
                         {truncateContent(post.content)}
                       </p>
                       <Link
                         href={`/blogs/${generateSlug(post.title, post._id)}`}
-                        className="text-orange-500 hover:underline cursor-pointer"
+                        className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
                         target="_blank"
                       >
                         Read More
+                        <ChevronRight className="w-4 h-4 ml-1" />
                       </Link>
                     </div>
                   </div>
                 </div>
               ))
             )}
-            <div className="flex justify-center items-center space-x-4 mt-8">
+
+            {/* Pagination */}
+            <div className="flex justify-center items-center space-x-6 mt-12">
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                className="px-4 py-2 rounded-lg 
-                           bg-[#CAFA90]/20 text-[#FF844C] 
-                           disabled:opacity-50 hover:bg-[#CAFA90]/40 
-                           transition-colors cursor-pointer"
+                className="flex items-center px-6 py-3 rounded-xl
+                         bg-white text-gray-700 shadow-md
+                         disabled:opacity-50 hover:bg-green-50
+                         transition-colors disabled:hover:bg-white"
               >
+                <ChevronLeft className="w-5 h-5 mr-2" />
                 Previous
               </button>
-              <span className="text-gray-600">
+              <span className="text-gray-600 font-medium">
                 Page {currentPage} of {totalPages}
               </span>
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 rounded-lg 
-                           bg-[#78E1FE]/20 text-[#FF844C] 
-                           disabled:opacity-50 hover:bg-[#78E1FE]/40 
-                           transition-colors cursor-pointer"
+                className="flex items-center px-6 py-3 rounded-xl
+                         bg-white text-gray-700 shadow-md
+                         disabled:opacity-50 hover:bg-green-50
+                         transition-colors disabled:hover:bg-white"
               >
                 Next
+                <ChevronRight className="w-5 h-5 ml-2" />
               </button>
             </div>
           </div>
-          <div className="bg-white shadow-lg rounded-xl p-6 h-fit">
-            <h3 className="text-xl font-bold text-gray-800 mb-4 border-b pb-3">
-              Recent <span className="text-[#FF844C]">Posts</span>
+
+          {/* Recent Posts Sidebar */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 h-fit">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+              Recent
+              <span className="text-green-600 ml-2">Posts</span>
             </h3>
-            {recentPosts.map((post) => (
-              <div
-                key={post._id}
-                className="mb-4 pb-4 border-b last:border-b-0"
-              >
-                <Link
-                  href={`/blogs/${generateSlug(post.title, post._id)}`}
-                  className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
-                  target="_blank"
+            <div className="space-y-6">
+              {recentPosts.map((post) => (
+                <div
+                  key={post._id}
+                  className="group pb-6 border-b last:border-b-0 last:pb-0"
                 >
-                  {post.title}
-                </Link>
-                <p className="text-sm text-gray-500 mb-2">
-                  {truncateContent(post.content, 100)}
-                </p>
-                <div className="flex items-center text-sm text-gray-500 space-x-2">
-                  <Eye className="w-4 h-4 text-[#78E1FE]" />
-                  <span>{post.totalViews} Views</span>
-                  <span>•</span>
-                  <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                  <Link
+                    href={`/blogs/${generateSlug(post.title, post._id)}`}
+                    className="block font-semibold text-gray-800 mb-2 group-hover:text-green-600 transition-colors"
+                    target="_blank"
+                  >
+                    {post.title}
+                  </Link>
+                  <p className="text-sm text-gray-500 mb-3 line-clamp-2">
+                    {truncateContent(post.content, 100)}
+                  </p>
+                  <div className="flex items-center text-sm text-gray-400 space-x-3">
+                    <div className="flex items-center">
+                      <Eye className="w-4 h-4 text-green-400 mr-1.5" />
+                      <span>{post.totalViews.toLocaleString()} Views</span>
+                    </div>
+                    <span>•</span>
+                    <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
