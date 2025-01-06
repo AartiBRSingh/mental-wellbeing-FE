@@ -6,13 +6,13 @@ import { baseURL } from "../baseURL";
 import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
 
-const BlogSection = () => {
+const NewsSection = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}/posts?type=blog`);
+        const response = await axios.get(`${baseURL}/posts?type=news`);
         setData(response?.data?.posts);
       } catch (error) {
         console.log(error);
@@ -55,14 +55,14 @@ const BlogSection = () => {
           Latest from <span className=" text-[#956144]">Shareyrheart</span>
         </h1>
         <Link
-          href={"/blogs"}
+          href={"/news"}
           className="font-semibold flex gap-2 underline items-center cursor-pointer text-base lg:text-lg"
         >
-          Read all blog <FaArrowRightLong />
+          Read all News <FaArrowRightLong />
         </Link>
       </div>
 
-      <div className="relative flex justify-start items-stretch flex-wrap p-10 gap-6 lg:gap-10 ">
+      <div className="flex justify-start items-stretch flex-wrap gap-4 lg:gap-8">
         {data?.map((item, index) => (
           <BlogCard
             key={index}
@@ -70,7 +70,7 @@ const BlogSection = () => {
             title={item?.title}
             totalViews={item.totalViews}
             date={formatDate(item.updatedAt)}
-            redirectTo={`/blogs/${generateSlug(item.title, item._id)}`}
+            redirectTo={`/news/${generateSlug(item.title, item._id)}`}
             className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
           />
         ))}
@@ -79,4 +79,4 @@ const BlogSection = () => {
   );
 };
 
-export default BlogSection;
+export default NewsSection;

@@ -5,6 +5,7 @@ import Services from "./sections/Services";
 import WhyUs from "./sections/WhyUs";
 import Testimonials from "./sections/Testimonials";
 import BlogSection from "./sections/BlogSection";
+import NewsSection from "./sections/NewsSection";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <WhyUs />
       <Testimonials />
       <BlogSection />
+      <NewsSection />
     </>
   );
 }

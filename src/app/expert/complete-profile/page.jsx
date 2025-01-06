@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../../baseURL";
 import { useRouter } from "next/navigation";
+import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
+import { CheckIcon, ChevronsUpDownIcon, Upload } from "lucide-react";
 
 const CompleteProfile = () => {
   const router = useRouter();
@@ -46,6 +48,31 @@ const CompleteProfile = () => {
   const handleFileChange = (e, field) => {
     setFormData((prev) => ({ ...prev, [field]: e.target.files[0] }));
   };
+
+  const [selectedLanguages, setSelectedLanguages] = useState(formData.languages || []);
+
+  const handleSelectionChange = (selected) => {
+    setSelectedLanguages(selected);
+    setFormData((prev) => ({
+      ...prev,
+      languages: selected,
+    }));
+  };
+
+  const languagesList = [
+    "Hindi",
+    "English",
+    "Bengali",
+    "Marathi",
+    "Tamil",
+    "Telugu",
+    "Gujarati",
+    "Urdu",
+    "Kannada",
+    "Odia",
+    "Malayalam",
+    "Punjabi",
+  ];
 
   const handleArrayFieldAdd = (fieldName, template) => {
     setFormData((prev) => ({
@@ -103,6 +130,8 @@ const CompleteProfile = () => {
     </div>
   );
 
+  
+
   // Add button component
   const AddButton = ({ onClick, text }) => (
     <button
@@ -131,71 +160,108 @@ const CompleteProfile = () => {
           />
         </div>
       </div> */}
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+      <h2 className="text-3xl font-bold text-black mb-8 text-center">
         Complete Your Profile
       </h2>
       {/* Core Section */}
       <section className="space-y-8">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-semibold">Core Information</h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block mb-1">Cover Picture</label>
+
+      <div className="bg-[#003B29] rounded-3xl p-7 mb-8">    
+        <h2 className="text-3xl font-bold text-white mb-4 text-center">
+      Tell us about{" "}
+      <span className="text-[#FDD56A] relative inline-block">
+        yourself
+        <svg className="absolute w-full h-[10px] bottom-0 left-0" viewBox="0 0 100 10" preserveAspectRatio="none">
+          <path d="M0 5 Q 50 -5, 100 5" stroke="orange" strokeWidth="4" fill="transparent" />
+        </svg>
+      </span>
+    </h2>
+      </div>
+
+  <div className="bg-white rounded-2xl shadow-lg p-8">
+  <div className="inline-block mb-8">
+      <span className="px-4 py-3 rounded-full border border-green-700 text-Black font-semibold">
+        CORE INFORMATION
+      </span>
+    </div>
+    
+    <div className="space-y-6">
+      <div className="max-w-2xl mx-auto p-6">
+      <div className="flex justify-between mb-4">
+        <span className="text-gray-700">Cover *</span>
+        <span className="text-black-400 text-sm">Required</span>
+      </div>
+
+      <div className="relative group border border-gray-200 h-80 transition-all">
               <input
+                onChange={(e) => handleFileChange(e, "coverPhoto")}
                 type="file"
                 accept="image/*"
-                onChange={(e) => handleFileChange(e, "coverPhoto")}
-                className="block w-full border rounded p-2"
+                className="absolute inset-0 opacity-0 z-10 cursor-pointer"
               />
-            </div>
-
-            <div>
-              <label className="block mb-1">About</label>
-              <textarea
-                name="about"
-                value={formData.about}
-                onChange={handleInputChange}
-                className="block w-full border rounded p-2"
-                rows={4}
-                minLength={50}
-                maxLength={500}
-                placeholder="Tell something about yourself (50-500 words)"
-              />
-            </div>
-
-            {/* Contact Information */}
-            <div className="space-y-4">
-              <div>
-                <label className="block mb-1">Clinic Address</label>
-                <textarea
-                  name="clinicAddress"
-                  value={formData.clinicAddress}
-                  onChange={handleInputChange}
-                  className="block w-full border rounded p-2"
-                  rows={1}
-                />
+              <div className="absolute inset-0 flex flex-col items-center justify-center group-hover:bg-gray-50 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md">
+                <Upload className="w-8 h-8 text-gray-300 mb-3" />
+                <p className="text-sm text-gray-400">Drop your image here</p>
               </div>
             </div>
+    
+    <p className="mt-2 text-xs text-gray-400">PNG, JPG · Max 10MB</p>
+  </div>
 
-            {/* Registration */}
-            <div>
-              <label className="block mb-1">Registration Number</label>
-              <input
-                type="text"
-                name="registeredNumber"
-                value={formData.registeredNumber}
-                onChange={handleInputChange}
-                className="block w-full border rounded p-2"
-              />
-            </div>
-          </div>
-        </div>
+      <div>
+        <label className="text-sm font-medium text-gray-700 mb-2 block">
+          About
+          <span className="text-[#EF4444] ml-1">*</span>
+        </label>
+        <textarea
+          name="about"
+          value={formData.about}
+          onChange={handleInputChange}
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+          rows={4}
+          minLength={50}
+          maxLength={500}
+          placeholder="Tell something about yourself (50-500 words)"
+        />
+      </div>
+
+      {/* Contact Information */}
+      <div>
+        <label className="text-sm font-medium text-gray-700 mb-2 block">
+          Clinic Address
+          <span className="text-[#EF4444] ml-1">*</span>
+        </label>
+        <textarea
+          name="clinicAddress"
+          value={formData.clinicAddress}
+          onChange={handleInputChange}
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+          rows={1}
+        />
+      </div>
+
+      {/* Registration */}
+      <div>
+        <label className="text-sm font-medium text-gray-700 mb-2 block">
+          Registration Number
+          <span className="text-[#EF4444] ml-1">*</span>
+        </label>
+        <input
+          type="text"
+          name="registeredNumber"
+          value={formData.registeredNumber}
+          onChange={handleInputChange}
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+        />
+      </div>
+    </div>
+  </div>
       </section>
 
       {/* Education */}
-      <section className="space-y-8 bg-white rounded-lg shadow-md p-6 mt-6">
+      <section className="bg-white rounded-2xl shadow-lg p-8 space-y-8 mt-8">
         <div className="flex justify-between items-center mb-2 ">
-          <label className="text-xl font-semibold">Education</label>
+          <label className="text-xl font-semibold px-4 py-3 rounded-full border border-green-700 text-Black">Education</label>
           <button
             type="button"
             onClick={() =>
@@ -207,7 +273,7 @@ const CompleteProfile = () => {
                 endDate: "",
               })
             }
-            className="text-blue-500 hover:text-blue-600"
+            className="text-blue-500 hover:text-blue-600 font-bold"
           >
             + Add Education
           </button>
@@ -215,8 +281,18 @@ const CompleteProfile = () => {
         {formData.education.map((edu, idx) => (
           <div
             key={idx}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
           >
+          <button
+              type="button"
+              onClick={() => {
+                const updated = formData.education.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, education: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
             <input
               type="text"
               placeholder="School"
@@ -279,106 +355,119 @@ const CompleteProfile = () => {
       </section>
 
       {/* Professional Experience Section */}
-      <section className="space-y-8 bg-white rounded-lg shadow-md p-6 mt-6">
-        <h3 className="text-xl font-semibold">Professional Experience</h3>
+      <section className="bg-white rounded-2xl shadow-lg p-8 space-y-8 mt-8">
+        
+        <label className="text-xl font-semibold px-4 py-3 rounded-full border border-green-700 text-Black">Professional Experience</label>
 
         {/* Experience */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <label className="font-medium">Work Experience</label>
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <label className="font-medium">Work Experience</label>
+          <button
+            type="button"
+            onClick={() =>
+              handleArrayFieldAdd("experience", {
+                title: "",
+                company: "",
+                location: "",
+                startDate: "",
+                endDate: "",
+                description: "",
+              })
+            }
+            className="text-blue-500 hover:text-blue-600 font-bold"
+          >
+            + Add Experience
+          </button>
+        </div>
+        {formData.experience.map((exp, idx) => (
+          <div
+            key={idx}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+          >
             <button
               type="button"
-              onClick={() =>
-                handleArrayFieldAdd("experience", {
-                  title: "",
-                  company: "",
-                  location: "",
-                  startDate: "",
-                  endDate: "",
-                  description: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600"
+              onClick={() => {
+                const updated = formData.experience.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, experience: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
             >
-              + Add Experience
+              ✕
             </button>
-          </div>
-          {formData.experience.map((exp, idx) => (
-            <div
-              key={idx}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
-            >
+            <input
+              type="text"
+              placeholder="Title"
+              value={exp.title}
+              onChange={(e) => {
+                const updated = [...formData.experience];
+                updated[idx].title = e.target.value;
+                setFormData((prev) => ({ ...prev, experience: updated }));
+              }}
+              className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+            />
+            <input
+              type="text"
+              placeholder="Company"
+              value={exp.company}
+              onChange={(e) => {
+                const updated = [...formData.experience];
+                updated[idx].company = e.target.value;
+                setFormData((prev) => ({ ...prev, experience: updated }));
+              }}
+              className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+            />
+            <input
+              type="text"
+              placeholder="Location"
+              value={exp.location}
+              onChange={(e) => {
+                const updated = [...formData.experience];
+                updated[idx].location = e.target.value;
+                setFormData((prev) => ({ ...prev, experience: updated }));
+              }}
+              className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+            />
+            <div className="grid grid-cols-2 gap-4">
               <input
-                type="text"
-                placeholder="Title"
-                value={exp.title}
+                type="date"
+                placeholder="Start Date"
+                value={exp.startDate}
                 onChange={(e) => {
                   const updated = [...formData.experience];
-                  updated[idx].title = e.target.value;
+                  updated[idx].startDate = e.target.value;
                   setFormData((prev) => ({ ...prev, experience: updated }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
               />
               <input
-                type="text"
-                placeholder="Company"
-                value={exp.company}
+                type="date"
+                placeholder="End Date"
+                value={exp.endDate}
                 onChange={(e) => {
                   const updated = [...formData.experience];
-                  updated[idx].company = e.target.value;
+                  updated[idx].endDate = e.target.value;
                   setFormData((prev) => ({ ...prev, experience: updated }));
                 }}
-                className="block w-full border rounded p-2"
-              />
-              <input
-                type="text"
-                placeholder="Location"
-                value={exp.location}
-                onChange={(e) => {
-                  const updated = [...formData.experience];
-                  updated[idx].location = e.target.value;
-                  setFormData((prev) => ({ ...prev, experience: updated }));
-                }}
-                className="block w-full border rounded p-2"
-              />
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  type="date"
-                  placeholder="Start Date"
-                  value={exp.startDate}
-                  onChange={(e) => {
-                    const updated = [...formData.experience];
-                    updated[idx].startDate = e.target.value;
-                    setFormData((prev) => ({ ...prev, experience: updated }));
-                  }}
-                  className="block w-full border rounded p-2"
-                />
-                <input
-                  type="date"
-                  placeholder="End Date"
-                  value={exp.endDate}
-                  onChange={(e) => {
-                    const updated = [...formData.experience];
-                    updated[idx].endDate = e.target.value;
-                    setFormData((prev) => ({ ...prev, experience: updated }));
-                  }}
-                  className="block w-full border rounded p-2"
-                />
-              </div>
-              <textarea
-                placeholder="Description"
-                value={exp.description}
-                onChange={(e) => {
-                  const updated = [...formData.experience];
-                  updated[idx].description = e.target.value;
-                  setFormData((prev) => ({ ...prev, experience: updated }));
-                }}
-                className="block w-full border rounded p-2 col-span-2"
-                rows={3}
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
               />
             </div>
-          ))}
-        </div>
+            <textarea
+              placeholder="Description"
+              value={exp.description}
+              onChange={(e) => {
+                const updated = [...formData.experience];
+                updated[idx].description = e.target.value;
+                setFormData((prev) => ({ ...prev, experience: updated }));
+              }}
+              className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+              rows={3}
+            />
+          </div>
+        ))}
+      </div>
+
+
         <div>
           <div className="flex justify-between items-center mb-2">
             <label className="font-medium">Internships</label>
@@ -393,7 +482,7 @@ const CompleteProfile = () => {
                   description: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Internship
             </button>
@@ -401,8 +490,18 @@ const CompleteProfile = () => {
           {formData.internships.map((internship, idx) => (
             <div
               key={idx}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
             >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.internships.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, internships: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+              >
+              ✕
+            </button>
               <input
                 type="text"
                 placeholder="Title"
@@ -412,7 +511,7 @@ const CompleteProfile = () => {
                   updated[idx].title = e.target.value;
                   setFormData((prev) => ({ ...prev, internships: updated }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
               />
               <input
                 type="text"
@@ -423,7 +522,7 @@ const CompleteProfile = () => {
                   updated[idx].organization = e.target.value;
                   setFormData((prev) => ({ ...prev, internships: updated }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
               />
               <div className="grid grid-cols-2 gap-4">
                 <input
@@ -435,7 +534,7 @@ const CompleteProfile = () => {
                     updated[idx].startDate = e.target.value;
                     setFormData((prev) => ({ ...prev, internships: updated }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                 />
                 <input
                   type="date"
@@ -446,7 +545,7 @@ const CompleteProfile = () => {
                     updated[idx].endDate = e.target.value;
                     setFormData((prev) => ({ ...prev, internships: updated }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                 />
               </div>
               <textarea
@@ -457,15 +556,16 @@ const CompleteProfile = () => {
                   updated[idx].description = e.target.value;
                   setFormData((prev) => ({ ...prev, internships: updated }));
                 }}
-                className="block w-full border rounded p-2 col-span-2"
+                className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                 rows={3}
               />
             </div>
           ))}
         </div>
-        <section className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold">Career Breaks</h3>
-          <div>
+
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <label className="font-semibold">Career Breaks</label>
             <button
               type="button"
               onClick={() =>
@@ -477,16 +577,27 @@ const CompleteProfile = () => {
                   description: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Career Break
             </button>
+          </div>
 
             {formData.careerBreak.map((break_, idx) => (
               <div
                 key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
               >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.careerBreak.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, careerBreak: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+              >
+              ✕
+            </button>
                 <input
                   type="text"
                   placeholder="Type"
@@ -496,13 +607,13 @@ const CompleteProfile = () => {
                     updated[idx].type = e.target.value;
                     setFormData((prev) => ({ ...prev, careerBreak: updated }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                 />
                 <input
                   type="text"
                   placeholder="Location"
                   value={break_.location}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                   onChange={(e) => {
                     const updated = [...formData.careerBreak];
                     updated[idx].location = e.target.value;
@@ -513,7 +624,7 @@ const CompleteProfile = () => {
                   <input
                     type="date"
                     value={break_.startDate}
-                    className="block w-full border rounded p-2"
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                     onChange={(e) => {
                       const updated = [...formData.careerBreak];
                       updated[idx].startDate = e.target.value;
@@ -526,7 +637,7 @@ const CompleteProfile = () => {
                   <input
                     type="date"
                     value={break_.endDate}
-                    className="block w-full border rounded p-2"
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                     onChange={(e) => {
                       const updated = [...formData.careerBreak];
                       updated[idx].endDate = e.target.value;
@@ -540,7 +651,7 @@ const CompleteProfile = () => {
                 <textarea
                   placeholder="Description"
                   value={break_.description}
-                  className="block w-full border rounded p-2 col-span-2"
+                  className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                   onChange={(e) => {
                     const updated = [...formData.careerBreak];
                     updated[idx].description = e.target.value;
@@ -549,11 +660,15 @@ const CompleteProfile = () => {
                 />
               </div>
             ))}
-          </div>
-        </section>
-        <section className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold">Volunteer Experience</h3>
-          <div>
+          
+        </div>
+
+
+
+        
+        <div>  
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold">Volunteer Experience</h3>
             <button
               type="button"
               onClick={() =>
@@ -567,16 +682,27 @@ const CompleteProfile = () => {
                   description: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Volunteer Experience
             </button>
+        </div>
 
             {formData.volunteerExperience.map((exp, idx) => (
               <div
                 key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
               >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.volunteerExperience.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, volunteerExperience: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+              >
+              ✕
+            </button>
                 <input
                   type="text"
                   placeholder="Type"
@@ -589,7 +715,7 @@ const CompleteProfile = () => {
                       volunteerExperience: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                 />
                 <input
                   type="text"
@@ -603,7 +729,7 @@ const CompleteProfile = () => {
                       volunteerExperience: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                 />
                 <div className="flex items-center gap-2">
                   <input
@@ -633,7 +759,7 @@ const CompleteProfile = () => {
                       volunteerExperience: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                 />
                 <div className="grid grid-cols-2 gap-4">
                   <input
@@ -648,7 +774,7 @@ const CompleteProfile = () => {
                         volunteerExperience: updated,
                       }));
                     }}
-                    className="block w-full border rounded p-2"
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                   />
                   <input
                     type="date"
@@ -662,7 +788,7 @@ const CompleteProfile = () => {
                         volunteerExperience: updated,
                       }));
                     }}
-                    className="block w-full border rounded p-2"
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                   />
                 </div>
                 <textarea
@@ -676,16 +802,19 @@ const CompleteProfile = () => {
                       volunteerExperience: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2 col-span-2"
+                  className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                   rows={3}
                 />
               </div>
             ))}
           </div>
-        </section>
+        
+
+
+
         {/* Specialization */}
         <div>
-          <label className="block mb-1 font-medium">Specializations</label>
+          <label className="block mb-1 font-medium py-2">Specializations</label>
           <input
             type="text"
             value={formData.specialization.join(", ")}
@@ -695,7 +824,7 @@ const CompleteProfile = () => {
                 specialization: e.target.value.split(",").map((s) => s.trim()),
               }))
             }
-            className="block w-full border rounded p-2"
+            className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
             placeholder="Enter specializations separated by commas"
           />
         </div>
@@ -712,7 +841,7 @@ const CompleteProfile = () => {
                 services: e.target.value.split(",").map((s) => s.trim()),
               }))
             }
-            className="block w-full border rounded p-2"
+            className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
             placeholder="Enter services separated by commas"
           />
         </div>
@@ -729,15 +858,15 @@ const CompleteProfile = () => {
                 therapies: e.target.value.split(",").map((s) => s.trim()),
               }))
             }
-            className="block w-full border rounded p-2"
+            className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
             placeholder="Enter therapies separated by commas"
           />
         </div>
       </section>
 
       {/* Additional Qualifications Section */}
-      <section className="space-y-6 bg-white rounded-lg shadow-md p-6 mt-6">
-        <h3 className="text-xl font-semibold">Additional Qualifications</h3>
+      <section className="bg-white rounded-2xl shadow-lg p-8 space-y-8 mt-8">
+        <label className="text-xl font-semibold px-4 py-3 rounded-full border border-green-700 text-Black">Additional Qualifications</label>
 
         {/* Licenses and Certificates */}
         <div>
@@ -754,7 +883,7 @@ const CompleteProfile = () => {
                   credentialId: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add License/Certificate
             </button>
@@ -762,8 +891,18 @@ const CompleteProfile = () => {
           {formData.licensesAndCertificates.map((cert, idx) => (
             <div
               key={idx}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
             >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.licensesAndCertificates.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, licensesAndCertificates: updated }));
+              }}
+              className="absolute top-1 right-2 text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
               <input
                 type="text"
                 placeholder="Certificate Name"
@@ -776,7 +915,7 @@ const CompleteProfile = () => {
                     licensesAndCertificates: updated,
                   }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
               />
               <input
                 type="text"
@@ -790,7 +929,7 @@ const CompleteProfile = () => {
                     licensesAndCertificates: updated,
                   }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
               />
               <input
                 type="text"
@@ -804,7 +943,7 @@ const CompleteProfile = () => {
                     licensesAndCertificates: updated,
                   }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
               />
               <div className="grid grid-cols-2 gap-4">
                 <input
@@ -819,7 +958,7 @@ const CompleteProfile = () => {
                       licensesAndCertificates: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                 />
                 <input
                   type="date"
@@ -833,7 +972,7 @@ const CompleteProfile = () => {
                       licensesAndCertificates: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                 />
               </div>
             </div>
@@ -854,7 +993,7 @@ const CompleteProfile = () => {
                   description: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Publication
             </button>
@@ -862,8 +1001,18 @@ const CompleteProfile = () => {
           {formData.mediaAndPublications.map((pub, idx) => (
             <div
               key={idx}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
             >
+            <button
+              type="button"
+              onClick={() => {
+                const updated = formData.mediaAndPublications.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, mediaAndPublications: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
               <input
                 type="text"
                 placeholder="Title"
@@ -876,7 +1025,7 @@ const CompleteProfile = () => {
                     mediaAndPublications: updated,
                   }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
               />
               <input
                 type="text"
@@ -890,7 +1039,7 @@ const CompleteProfile = () => {
                     mediaAndPublications: updated,
                   }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
               />
               <input
                 type="date"
@@ -903,7 +1052,7 @@ const CompleteProfile = () => {
                     mediaAndPublications: updated,
                   }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
               />
               <input
                 type="url"
@@ -917,7 +1066,7 @@ const CompleteProfile = () => {
                     mediaAndPublications: updated,
                   }));
                 }}
-                className="block w-full border rounded p-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
               />
               <textarea
                 placeholder="Description"
@@ -930,7 +1079,7 @@ const CompleteProfile = () => {
                     mediaAndPublications: updated,
                   }));
                 }}
-                className="block w-full border rounded p-2 col-span-2"
+                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
                 rows={3}
               />
             </div>
@@ -938,9 +1087,9 @@ const CompleteProfile = () => {
         </div>
 
         {/* Honors and Awards Section */}
-        <section className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold">Honors & Awards</h3>
-          <div>
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold">Honors & Awards</h3>
             <button
               type="button"
               onClick={() =>
@@ -951,16 +1100,27 @@ const CompleteProfile = () => {
                   description: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Honor/Award
             </button>
+          </div>
 
             {formData.honorsAndAwards.map((award, idx) => (
               <div
                 key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
               >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.honorsAndAwards.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, honorsAndAwards: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
                 <input
                   type="text"
                   placeholder="Title"
@@ -973,7 +1133,7 @@ const CompleteProfile = () => {
                       honorsAndAwards: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                 />
                 <input
                   type="text"
@@ -987,7 +1147,7 @@ const CompleteProfile = () => {
                       honorsAndAwards: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                 />
                 <input
                   type="date"
@@ -1001,7 +1161,7 @@ const CompleteProfile = () => {
                       honorsAndAwards: updated,
                     }));
                   }}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                 />
                 <textarea
                   placeholder="Description (max 900 characters)"
@@ -1015,18 +1175,17 @@ const CompleteProfile = () => {
                     }));
                   }}
                   maxLength={900}
-                  className="block w-full border rounded p-2 col-span-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
                   rows={3}
                 />
               </div>
             ))}
-          </div>
-        </section>
+        </div>
 
         {/* Journals Section (New) */}
-        <section className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold">Journals</h3>
-          <div>
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold">Journals</h3>
             <button
               type="button"
               onClick={() =>
@@ -1039,21 +1198,32 @@ const CompleteProfile = () => {
                   description: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Journal
             </button>
+          </div>
 
             {formData.journals.map((journal, idx) => (
               <div
                 key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
               >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.journals.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, journals: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
                 <input
                   type="text"
                   placeholder="Case Name"
                   value={journal.caseName}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.journals];
                     updated[idx].caseName = e.target.value;
@@ -1063,7 +1233,7 @@ const CompleteProfile = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.journals];
                     updated[idx].clientImage = e.target.files[0];
@@ -1074,7 +1244,7 @@ const CompleteProfile = () => {
                   type="text"
                   placeholder="Location"
                   value={journal.location}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.journals];
                     updated[idx].location = e.target.value;
@@ -1085,7 +1255,7 @@ const CompleteProfile = () => {
                   placeholder="Description (max 3000 characters)"
                   value={journal.description}
                   maxLength={3000}
-                  className="block w-full border rounded p-2 col-span-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
                   onChange={(e) => {
                     const updated = [...formData.journals];
                     updated[idx].description = e.target.value;
@@ -1094,13 +1264,12 @@ const CompleteProfile = () => {
                 />
               </div>
             ))}
-          </div>
-        </section>
+        </div>
 
         {/* Courses Section (New) */}
-        <section className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold">Courses</h3>
-          <div>
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold">Courses</h3>
             <button
               type="button"
               onClick={() =>
@@ -1110,21 +1279,32 @@ const CompleteProfile = () => {
                   courseDuration: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Course
             </button>
+          </div>
 
             {formData.courses.map((course, idx) => (
               <div
                 key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
               >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.courses.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, courses: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
                 <input
                   type="text"
                   placeholder="Course Name"
                   value={course.courseName}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.courses];
                     updated[idx].courseName = e.target.value;
@@ -1135,7 +1315,7 @@ const CompleteProfile = () => {
                   type="text"
                   placeholder="Field of Course"
                   value={course.fieldOfCourse}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.courses];
                     updated[idx].fieldOfCourse = e.target.value;
@@ -1152,7 +1332,7 @@ const CompleteProfile = () => {
                       updated[idx].startDate = e.target.value;
                       setFormData((prev) => ({ ...prev, courses: updated }));
                     }}
-                    className="block w-full border rounded p-2"
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   />
                   <input
                     type="date"
@@ -1163,18 +1343,19 @@ const CompleteProfile = () => {
                       updated[idx].endDate = e.target.value;
                       setFormData((prev) => ({ ...prev, courses: updated }));
                     }}
-                    className="block w-full border rounded p-2"
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   />
                 </div>
               </div>
             ))}
-          </div>
-        </section>
+          
+        </div>
 
         {/* Fellowship Section (New) */}
-        <section className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold">Fellowship</h3>
-          <div>
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold">Fellowship</h3>
+          
             <button
               type="button"
               onClick={() =>
@@ -1183,21 +1364,32 @@ const CompleteProfile = () => {
                   yearOfAttaining: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Fellowship
             </button>
+          </div>
 
             {formData.fellowship.map((fellow, idx) => (
               <div
                 key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
               >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.fellowship.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, fellowship: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
                 <input
                   type="text"
                   placeholder="Field of Fellowship"
                   value={fellow.fieldOfFellowship}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.fellowship];
                     updated[idx].fieldOfFellowship = e.target.value;
@@ -1208,7 +1400,7 @@ const CompleteProfile = () => {
                   type="number"
                   placeholder="Year of Attaining"
                   value={fellow.yearOfAttaining}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.fellowship];
                     updated[idx].yearOfAttaining = e.target.value;
@@ -1217,13 +1409,12 @@ const CompleteProfile = () => {
                 />
               </div>
             ))}
-          </div>
-        </section>
+        </div>
 
         {/* Recommendations Section (New) */}
-        <section className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold">Recommendations</h3>
-          <div>
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold">Recommendations</h3>
             <button
               type="button"
               onClick={() =>
@@ -1233,21 +1424,32 @@ const CompleteProfile = () => {
                   link: "",
                 })
               }
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-600 font-bold"
             >
               + Add Recommendation
             </button>
+          </div>
 
             {formData.recommendations.map((rec, idx) => (
               <div
                 key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
               >
+              <button
+              type="button"
+              onClick={() => {
+                const updated = formData.recommendations.filter((_, index) => index !== idx);
+                setFormData((prev) => ({ ...prev, recommendations: updated }));
+              }}
+              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+            >
+              ✕
+            </button>
                 <textarea
                   placeholder="Content (max 200 characters)"
                   value={rec.content}
                   maxLength={200}
-                  className="block w-full border rounded p-2 col-span-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
                   onChange={(e) => {
                     const updated = [...formData.recommendations];
                     updated[idx].content = e.target.value;
@@ -1260,7 +1462,7 @@ const CompleteProfile = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.recommendations];
                     updated[idx].image = e.target.files[0];
@@ -1274,7 +1476,7 @@ const CompleteProfile = () => {
                   type="url"
                   placeholder="Link"
                   value={rec.link}
-                  className="block w-full border rounded p-2"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
                   onChange={(e) => {
                     const updated = [...formData.recommendations];
                     updated[idx].link = e.target.value;
@@ -1286,52 +1488,66 @@ const CompleteProfile = () => {
                 />
               </div>
             ))}
-          </div>
-        </section>
+        </div>
         {/* Languages */}
         <div>
-          <label className="block mb-1 font-medium">Languages</label>
-          <select
-            multiple
-            value={formData.languages}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                languages: Array.from(
-                  e.target.selectedOptions,
-                  (option) => option.value
-                ),
-              }))
-            }
-            className="block w-full border rounded p-2"
-          >
-            {[
-              "Hindi",
-              "English",
-              "Bengali",
-              "Marathi",
-              "Tamil",
-              "Telugu",
-              "Gujarati",
-              "Urdu",
-              "Kannada",
-              "Odia",
-              "Malayalam",
-              "Punjabi",
-            ].map((lang) => (
-              <option key={lang} value={lang}>
-                {lang}
-              </option>
+      <label className="block text-sm font-medium text-gray-900 mb-2">Languages</label>
+      <Listbox value={selectedLanguages} onChange={handleSelectionChange} multiple>
+        <div className="relative mt-1">
+          <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+            <span className="block truncate">
+              {selectedLanguages.length > 0
+                ? selectedLanguages.join(", ")
+                : "Select languages"}
+            </span>
+            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+              <ChevronsUpDownIcon
+                className="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </span>
+          </Listbox.Button>
+
+          <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {languagesList.map((language) => (
+              <Listbox.Option
+                key={language}
+                value={language}
+                className={({ active, selected }) =>
+                  `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                    active ? "bg-green-700 text-white" : "text-gray-900"
+                  }`
+                }
+              >
+                {({ selected }) => (
+                  <>
+                    <span
+                      className={`block truncate ${
+                        selected ? "font-medium" : "font-normal"
+                      }`}
+                    >
+                      {language}
+                    </span>
+                    {selected ? (
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    ) : null}
+                  </>
+                )}
+              </Listbox.Option>
             ))}
-          </select>
+          </Listbox.Options>
         </div>
+      </Listbox>
+    </div>
       </section>
 
       {/* Submit Button */}
-      <div className="pt-6">
+      <div className="py-6 text-center">
         <button
           type="submit"
-          className="w-full bg-black text-white px-4 py-2 rounded transition-colors"
+          className="w-48 bg-black text-xl text-white px-4 py-2 rounded-2xl transition-colors"
         >
           Save Profile
         </button>
