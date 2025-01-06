@@ -142,7 +142,7 @@ const SignupPage = () => {
         state: "",
         image: null,
       });
-router.push(`/login`);
+      router.push(`/login`);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -285,7 +285,7 @@ router.push(`/login`);
                     </div>
                   )}
 
-                  {!userType && (
+                  {/* {!userType && (
                     <div>
                       <label className={labelClasses}>
                         User Type <span className="text-black">*</span>
@@ -302,7 +302,7 @@ router.push(`/login`);
                         <option value="Student">Student</option>
                       </select>
                     </div>
-                  )}
+                  )} */}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
