@@ -3,8 +3,19 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../../baseURL";
 import { useRouter } from "next/navigation";
-import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
-import { CheckIcon, ChevronsUpDownIcon, Upload } from "lucide-react";
+import {
+  Label,
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from "@headlessui/react";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronsUpDownIcon,
+  Upload,
+} from "lucide-react";
 
 const CompleteProfile = () => {
   const router = useRouter();
@@ -49,7 +60,9 @@ const CompleteProfile = () => {
     setFormData((prev) => ({ ...prev, [field]: e.target.files[0] }));
   };
 
-  const [selectedLanguages, setSelectedLanguages] = useState(formData.languages || []);
+  const [selectedLanguages, setSelectedLanguages] = useState(
+    formData.languages || []
+  );
 
   const handleSelectionChange = (selected) => {
     setSelectedLanguages(selected);
@@ -72,6 +85,11 @@ const CompleteProfile = () => {
     "Odia",
     "Malayalam",
     "Punjabi",
+    "Chinese",
+    "French",
+    "Russian",
+    "Spanish",
+    "German",
   ];
 
   const handleArrayFieldAdd = (fieldName, template) => {
@@ -80,6 +98,9 @@ const CompleteProfile = () => {
       [fieldName]: [...prev[fieldName], template],
     }));
   };
+
+  const [isRecomendedOpen, setIsRecomendedOpen] = useState(true);
+  const [isAdditionalOpen, setIsAdditionalOpen] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,8 +151,6 @@ const CompleteProfile = () => {
     </div>
   );
 
-  
-
   // Add button component
   const AddButton = ({ onClick, text }) => (
     <button
@@ -160,487 +179,559 @@ const CompleteProfile = () => {
           />
         </div>
       </div> */}
-      <h2 className="text-3xl font-bold text-black mb-8 text-center">
+      {/* <h2 className="text-3xl font-bold text-black mb-8 text-center">
         Complete Your Profile
-      </h2>
+      </h2> */}
+
       {/* Core Section */}
       <section className="space-y-8">
-
-      <div className="bg-[#003B29] rounded-3xl p-7 mb-8">    
-        <h2 className="text-3xl font-bold text-white mb-4 text-center">
-      Tell us about{" "}
-      <span className="text-[#FDD56A] relative inline-block">
-        yourself
-        <svg className="absolute w-full h-[10px] bottom-0 left-0" viewBox="0 0 100 10" preserveAspectRatio="none">
-          <path d="M0 5 Q 50 -5, 100 5" stroke="orange" strokeWidth="4" fill="transparent" />
-        </svg>
-      </span>
-    </h2>
-      </div>
-
-  <div className="bg-white rounded-2xl shadow-lg p-8">
-  <div className="inline-block mb-8">
-      <span className="px-4 py-3 rounded-full border border-green-700 text-Black font-semibold">
-        CORE INFORMATION
-      </span>
-    </div>
-    
-    <div className="space-y-6">
-      <div className="max-w-2xl mx-auto p-6">
-      <div className="flex justify-between mb-4">
-        <span className="text-gray-700">Cover *</span>
-        <span className="text-black-400 text-sm">Required</span>
-      </div>
-
-      <div className="relative group border border-gray-200 h-80 transition-all">
-              <input
-                onChange={(e) => handleFileChange(e, "coverPhoto")}
-                type="file"
-                accept="image/*"
-                className="absolute inset-0 opacity-0 z-10 cursor-pointer"
-              />
-              <div className="absolute inset-0 flex flex-col items-center justify-center group-hover:bg-gray-50 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md">
-                <Upload className="w-8 h-8 text-gray-300 mb-3" />
-                <p className="text-sm text-gray-400">Drop your image here</p>
-              </div>
-            </div>
-    
-    <p className="mt-2 text-xs text-gray-400">PNG, JPG · Max 10MB</p>
-  </div>
-
-      <div>
-        <label className="text-sm font-medium text-gray-700 mb-2 block">
-          About
-          <span className="text-[#EF4444] ml-1">*</span>
-        </label>
-        <textarea
-          name="about"
-          value={formData.about}
-          onChange={handleInputChange}
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-          rows={4}
-          minLength={50}
-          maxLength={500}
-          placeholder="Tell something about yourself (50-500 words)"
-        />
-      </div>
-
-      {/* Contact Information */}
-      <div>
-        <label className="text-sm font-medium text-gray-700 mb-2 block">
-          Clinic Address
-          <span className="text-[#EF4444] ml-1">*</span>
-        </label>
-        <textarea
-          name="clinicAddress"
-          value={formData.clinicAddress}
-          onChange={handleInputChange}
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-          rows={1}
-        />
-      </div>
-
-      {/* Registration */}
-      <div>
-        <label className="text-sm font-medium text-gray-700 mb-2 block">
-          Registration Number
-          <span className="text-[#EF4444] ml-1">*</span>
-        </label>
-        <input
-          type="text"
-          name="registeredNumber"
-          value={formData.registeredNumber}
-          onChange={handleInputChange}
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-        />
-      </div>
-    </div>
-  </div>
-      </section>
-
-      {/* Education */}
-      <section className="bg-white rounded-2xl shadow-lg p-8 space-y-8 mt-8">
-        <div className="flex justify-between items-center mb-2 ">
-          <label className="text-xl font-semibold px-4 py-3 rounded-full border border-green-700 text-Black">Education</label>
-          <button
-            type="button"
-            onClick={() =>
-              handleArrayFieldAdd("education", {
-                school: "",
-                degree: "",
-                fieldOfStudy: "",
-                startDate: "",
-                endDate: "",
-              })
-            }
-            className="text-blue-500 hover:text-blue-600 font-bold"
-          >
-            + Add Education
-          </button>
-        </div>
-        {formData.education.map((edu, idx) => (
-          <div
-            key={idx}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-          >
-          <button
-              type="button"
-              onClick={() => {
-                const updated = formData.education.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, education: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
-            <input
-              type="text"
-              placeholder="School"
-              value={edu.school}
-              onChange={(e) => {
-                const updated = [...formData.education];
-                updated[idx].school = e.target.value;
-                setFormData((prev) => ({ ...prev, education: updated }));
-              }}
-              className="block w-full border rounded p-2"
-            />
-            <input
-              type="text"
-              placeholder="Degree"
-              value={edu.degree}
-              onChange={(e) => {
-                const updated = [...formData.education];
-                updated[idx].degree = e.target.value;
-                setFormData((prev) => ({ ...prev, education: updated }));
-              }}
-              className="block w-full border rounded p-2"
-            />
-            <input
-              type="text"
-              placeholder="Field of Study"
-              value={edu.fieldOfStudy}
-              onChange={(e) => {
-                const updated = [...formData.education];
-                updated[idx].fieldOfStudy = e.target.value;
-                setFormData((prev) => ({ ...prev, education: updated }));
-              }}
-              className="block w-full border rounded p-2"
-            />
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="date"
-                placeholder="Start Date"
-                value={edu.startDate}
-                onChange={(e) => {
-                  const updated = [...formData.education];
-                  updated[idx].startDate = e.target.value;
-                  setFormData((prev) => ({ ...prev, education: updated }));
-                }}
-                className="block w-full border rounded p-2"
-              />
-              <input
-                type="date"
-                placeholder="End Date"
-                value={edu.endDate}
-                onChange={(e) => {
-                  const updated = [...formData.education];
-                  updated[idx].endDate = e.target.value;
-                  setFormData((prev) => ({ ...prev, education: updated }));
-                }}
-                className="block w-full border rounded p-2"
-              />
-            </div>
-          </div>
-        ))}
-      </section>
-
-      {/* Professional Experience Section */}
-      <section className="bg-white rounded-2xl shadow-lg p-8 space-y-8 mt-8">
-        
-        <label className="text-xl font-semibold px-4 py-3 rounded-full border border-green-700 text-Black">Professional Experience</label>
-
-        {/* Experience */}
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <label className="font-medium">Work Experience</label>
-          <button
-            type="button"
-            onClick={() =>
-              handleArrayFieldAdd("experience", {
-                title: "",
-                company: "",
-                location: "",
-                startDate: "",
-                endDate: "",
-                description: "",
-              })
-            }
-            className="text-blue-500 hover:text-blue-600 font-bold"
-          >
-            + Add Experience
-          </button>
-        </div>
-        {formData.experience.map((exp, idx) => (
-          <div
-            key={idx}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-          >
-            <button
-              type="button"
-              onClick={() => {
-                const updated = formData.experience.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, experience: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
-            <input
-              type="text"
-              placeholder="Title"
-              value={exp.title}
-              onChange={(e) => {
-                const updated = [...formData.experience];
-                updated[idx].title = e.target.value;
-                setFormData((prev) => ({ ...prev, experience: updated }));
-              }}
-              className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-            />
-            <input
-              type="text"
-              placeholder="Company"
-              value={exp.company}
-              onChange={(e) => {
-                const updated = [...formData.experience];
-                updated[idx].company = e.target.value;
-                setFormData((prev) => ({ ...prev, experience: updated }));
-              }}
-              className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-            />
-            <input
-              type="text"
-              placeholder="Location"
-              value={exp.location}
-              onChange={(e) => {
-                const updated = [...formData.experience];
-                updated[idx].location = e.target.value;
-                setFormData((prev) => ({ ...prev, experience: updated }));
-              }}
-              className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-            />
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="date"
-                placeholder="Start Date"
-                value={exp.startDate}
-                onChange={(e) => {
-                  const updated = [...formData.experience];
-                  updated[idx].startDate = e.target.value;
-                  setFormData((prev) => ({ ...prev, experience: updated }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-              />
-              <input
-                type="date"
-                placeholder="End Date"
-                value={exp.endDate}
-                onChange={(e) => {
-                  const updated = [...formData.experience];
-                  updated[idx].endDate = e.target.value;
-                  setFormData((prev) => ({ ...prev, experience: updated }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-              />
-            </div>
-            <textarea
-              placeholder="Description"
-              value={exp.description}
-              onChange={(e) => {
-                const updated = [...formData.experience];
-                updated[idx].description = e.target.value;
-                setFormData((prev) => ({ ...prev, experience: updated }));
-              }}
-              className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-              rows={3}
-            />
-          </div>
-        ))}
-      </div>
-
-
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <label className="font-medium">Internships</label>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("internships", {
-                  title: "",
-                  organization: "",
-                  startDate: "",
-                  endDate: "",
-                  description: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Internship
-            </button>
-          </div>
-          {formData.internships.map((internship, idx) => (
-            <div
-              key={idx}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-            >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.internships.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, internships: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+        <div className="bg-[#003B29] rounded-3xl p-7 mb-8">
+          <h2 className="text-3xl font-bold text-white mb-4 text-center">
+            Complete Your{" "}
+            <span className="text-[#FDD56A] relative inline-block">
+              Profile
+              <svg
+                className="absolute w-full h-[10px] bottom-0 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
               >
-              ✕
-            </button>
-              <input
-                type="text"
-                placeholder="Title"
-                value={internship.title}
-                onChange={(e) => {
-                  const updated = [...formData.internships];
-                  updated[idx].title = e.target.value;
-                  setFormData((prev) => ({ ...prev, internships: updated }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-              />
-              <input
-                type="text"
-                placeholder="Organization"
-                value={internship.organization}
-                onChange={(e) => {
-                  const updated = [...formData.internships];
-                  updated[idx].organization = e.target.value;
-                  setFormData((prev) => ({ ...prev, internships: updated }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-              />
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  type="date"
-                  placeholder="Start Date"
-                  value={internship.startDate}
-                  onChange={(e) => {
-                    const updated = [...formData.internships];
-                    updated[idx].startDate = e.target.value;
-                    setFormData((prev) => ({ ...prev, internships: updated }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
                 />
-                <input
-                  type="date"
-                  placeholder="End Date"
-                  value={internship.endDate}
-                  onChange={(e) => {
-                    const updated = [...formData.internships];
-                    updated[idx].endDate = e.target.value;
-                    setFormData((prev) => ({ ...prev, internships: updated }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                />
+              </svg>
+            </span>
+          </h2>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="inline-block mb-8">
+            <span className="px-4 py-3  border rounded-xl border-green-700 text-Black font-semibold text-[20px]">
+              CORE
+            </span>
+          </div>
+
+          <span className="flex text-black text-[17px] border rounded-xl border-orange-500 p-4 w-full italic">
+            Fill these sections to be discovered by clients and people who are
+            searching for such services.
+          </span>
+
+          <div className="space-y-6 ">
+            <div className="max-w-2xl p-4 pt-8">
+              <div className="flex justify-between mb-4">
+                <span className="text-gray-700">Cover *</span>
               </div>
+
+              <div className="relative group border border-gray-200 h-64 transition-all">
+                <input
+                  onChange={(e) => handleFileChange(e, "coverPhoto")}
+                  type="file"
+                  accept="image/*"
+                  className="absolute inset-0 opacity-0 z-10 cursor-pointer"
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-center group-hover:bg-gray-50 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md">
+                  <Upload className="w-8 h-8 text-gray-300 mb-3" />
+                  <p className="text-sm text-gray-400">Drop your image here</p>
+                </div>
+              </div>
+
+              <p className="mt-2 text-xs text-gray-400">PNG, JPG · Max 10MB</p>
+            </div>
+
+            {/* {about} */}
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">
+                About
+                <span className="text-[#EF4444] ml-1">*</span>
+              </label>
               <textarea
-                placeholder="Description"
-                value={internship.description}
-                onChange={(e) => {
-                  const updated = [...formData.internships];
-                  updated[idx].description = e.target.value;
-                  setFormData((prev) => ({ ...prev, internships: updated }));
-                }}
-                className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                rows={3}
+                name="about"
+                value={formData.about}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                rows={4}
+                minLength={50}
+                maxLength={500}
+                placeholder="Tell something about yourself (50-500 words)"
               />
             </div>
-          ))}
-        </div>
 
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <label className="font-semibold">Career Breaks</label>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("careerBreak", {
-                  type: "",
-                  location: "",
-                  startDate: "",
-                  endDate: "",
-                  description: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Career Break
-            </button>
-          </div>
+            {/* Contact Information */}
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">
+                Clinic Address
+                <span className="text-[#EF4444] ml-1">*</span>
+              </label>
+              <textarea
+                name="clinicAddress"
+                value={formData.clinicAddress}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                rows={1}
+              />
+            </div>
 
-            {formData.careerBreak.map((break_, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-              >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.careerBreak.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, careerBreak: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-              >
-              ✕
-            </button>
-                <input
-                  type="text"
-                  placeholder="Type"
-                  value={break_.type}
-                  onChange={(e) => {
-                    const updated = [...formData.careerBreak];
-                    updated[idx].type = e.target.value;
-                    setFormData((prev) => ({ ...prev, careerBreak: updated }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                />
-                <input
-                  type="text"
-                  placeholder="Location"
-                  value={break_.location}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                  onChange={(e) => {
-                    const updated = [...formData.careerBreak];
-                    updated[idx].location = e.target.value;
-                    setFormData((prev) => ({ ...prev, careerBreak: updated }));
-                  }}
-                />
-                <div className="grid grid-cols-2 gap-4">
+            {/* Registration */}
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">
+                Registration Number
+                <span className="text-[#EF4444] ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="registeredNumber"
+                value={formData.registeredNumber}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+              />
+            </div>
+
+            {/* {Education} */}
+            <div>
+              <div className="flex justify-between items-center mb-2 ">
+                <label className="font-medium text-[23px]">Education</label>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("education", {
+                      school: "",
+                      degree: "",
+                      fieldOfStudy: "",
+                      startDate: "",
+                      endDate: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Education
+                </button>
+              </div>
+              {formData.education.map((edu, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.education.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({ ...prev, education: updated }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
                   <input
-                    type="date"
-                    value={break_.startDate}
+                    type="text"
+                    placeholder="School"
+                    value={edu.school}
+                    onChange={(e) => {
+                      const updated = [...formData.education];
+                      updated[idx].school = e.target.value;
+                      setFormData((prev) => ({ ...prev, education: updated }));
+                    }}
+                    className="block w-full border rounded p-2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Degree"
+                    value={edu.degree}
+                    onChange={(e) => {
+                      const updated = [...formData.education];
+                      updated[idx].degree = e.target.value;
+                      setFormData((prev) => ({ ...prev, education: updated }));
+                    }}
+                    className="block w-full border rounded p-2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Field of Study"
+                    value={edu.fieldOfStudy}
+                    onChange={(e) => {
+                      const updated = [...formData.education];
+                      updated[idx].fieldOfStudy = e.target.value;
+                      setFormData((prev) => ({ ...prev, education: updated }));
+                    }}
+                    className="block w-full border rounded p-2"
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="date"
+                      placeholder="Start Date"
+                      value={edu.startDate}
+                      onChange={(e) => {
+                        const updated = [...formData.education];
+                        updated[idx].startDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          education: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2"
+                    />
+                    <input
+                      type="date"
+                      placeholder="End Date"
+                      value={edu.endDate}
+                      onChange={(e) => {
+                        const updated = [...formData.education];
+                        updated[idx].endDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          education: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* {Work Experience} */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label className="font-medium text-[23px]">
+                  Work Experience
+                </label>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("experience", {
+                      title: "",
+                      company: "",
+                      location: "",
+                      startDate: "",
+                      endDate: "",
+                      description: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Experience
+                </button>
+              </div>
+              {formData.experience.map((exp, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.experience.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({ ...prev, experience: updated }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={exp.title}
+                    onChange={(e) => {
+                      const updated = [...formData.experience];
+                      updated[idx].title = e.target.value;
+                      setFormData((prev) => ({ ...prev, experience: updated }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Company"
+                    value={exp.company}
+                    onChange={(e) => {
+                      const updated = [...formData.experience];
+                      updated[idx].company = e.target.value;
+                      setFormData((prev) => ({ ...prev, experience: updated }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    value={exp.location}
+                    onChange={(e) => {
+                      const updated = [...formData.experience];
+                      updated[idx].location = e.target.value;
+                      setFormData((prev) => ({ ...prev, experience: updated }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="date"
+                      placeholder="Start Date"
+                      value={exp.startDate}
+                      onChange={(e) => {
+                        const updated = [...formData.experience];
+                        updated[idx].startDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          experience: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    />
+                    <input
+                      type="date"
+                      placeholder="End Date"
+                      value={exp.endDate}
+                      onChange={(e) => {
+                        const updated = [...formData.experience];
+                        updated[idx].endDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          experience: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    />
+                  </div>
+                  <textarea
+                    placeholder="Description"
+                    value={exp.description}
+                    onChange={(e) => {
+                      const updated = [...formData.experience];
+                      updated[idx].description = e.target.value;
+                      setFormData((prev) => ({ ...prev, experience: updated }));
+                    }}
+                    className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    rows={3}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* {Internship} */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label className="font-medium text-[23px]">Internships</label>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("internships", {
+                      title: "",
+                      organization: "",
+                      startDate: "",
+                      endDate: "",
+                      description: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Internship
+                </button>
+              </div>
+              {formData.internships.map((internship, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.internships.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({
+                        ...prev,
+                        internships: updated,
+                      }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={internship.title}
+                    onChange={(e) => {
+                      const updated = [...formData.internships];
+                      updated[idx].title = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        internships: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Organization"
+                    value={internship.organization}
+                    onChange={(e) => {
+                      const updated = [...formData.internships];
+                      updated[idx].organization = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        internships: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="date"
+                      placeholder="Start Date"
+                      value={internship.startDate}
+                      onChange={(e) => {
+                        const updated = [...formData.internships];
+                        updated[idx].startDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          internships: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    />
+                    <input
+                      type="date"
+                      placeholder="End Date"
+                      value={internship.endDate}
+                      onChange={(e) => {
+                        const updated = [...formData.internships];
+                        updated[idx].endDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          internships: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    />
+                  </div>
+                  <textarea
+                    placeholder="Description"
+                    value={internship.description}
+                    onChange={(e) => {
+                      const updated = [...formData.internships];
+                      updated[idx].description = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        internships: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    rows={3}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* {career} */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label className="font-semibold text-[23px]">
+                  Career Breaks
+                </label>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("careerBreak", {
+                      type: "",
+                      location: "",
+                      startDate: "",
+                      endDate: "",
+                      description: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Career Break
+                </button>
+              </div>
+
+              {formData.careerBreak.map((break_, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.careerBreak.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({
+                        ...prev,
+                        careerBreak: updated,
+                      }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Type"
+                    value={break_.type}
+                    onChange={(e) => {
+                      const updated = [...formData.careerBreak];
+                      updated[idx].type = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        careerBreak: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    value={break_.location}
                     className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                     onChange={(e) => {
                       const updated = [...formData.careerBreak];
-                      updated[idx].startDate = e.target.value;
+                      updated[idx].location = e.target.value;
                       setFormData((prev) => ({
                         ...prev,
                         careerBreak: updated,
                       }));
                     }}
                   />
-                  <input
-                    type="date"
-                    value={break_.endDate}
-                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="date"
+                      value={break_.startDate}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                      onChange={(e) => {
+                        const updated = [...formData.careerBreak];
+                        updated[idx].startDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          careerBreak: updated,
+                        }));
+                      }}
+                    />
+                    <input
+                      type="date"
+                      value={break_.endDate}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                      onChange={(e) => {
+                        const updated = [...formData.careerBreak];
+                        updated[idx].endDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          careerBreak: updated,
+                        }));
+                      }}
+                    />
+                  </div>
+                  <textarea
+                    placeholder="Description"
+                    value={break_.description}
+                    className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                     onChange={(e) => {
                       const updated = [...formData.careerBreak];
-                      updated[idx].endDate = e.target.value;
+                      updated[idx].description = e.target.value;
                       setFormData((prev) => ({
                         ...prev,
                         careerBreak: updated,
@@ -648,906 +739,995 @@ const CompleteProfile = () => {
                     }}
                   />
                 </div>
-                <textarea
-                  placeholder="Description"
-                  value={break_.description}
-                  className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                  onChange={(e) => {
-                    const updated = [...formData.careerBreak];
-                    updated[idx].description = e.target.value;
-                    setFormData((prev) => ({ ...prev, careerBreak: updated }));
-                  }}
-                />
-              </div>
-            ))}
-          
-        </div>
-
-
-
-        
-        <div>  
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="font-semibold">Volunteer Experience</h3>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("volunteerExperience", {
-                  type: "",
-                  companyOrOrganization: "",
-                  isSelf: false,
-                  startDate: "",
-                  endDate: "",
-                  location: "",
-                  description: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Volunteer Experience
-            </button>
-        </div>
-
-            {formData.volunteerExperience.map((exp, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-              >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.volunteerExperience.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, volunteerExperience: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-              >
-              ✕
-            </button>
-                <input
-                  type="text"
-                  placeholder="Type"
-                  value={exp.type}
-                  onChange={(e) => {
-                    const updated = [...formData.volunteerExperience];
-                    updated[idx].type = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      volunteerExperience: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                />
-                <input
-                  type="text"
-                  placeholder="Company/Organization"
-                  value={exp.companyOrOrganization}
-                  onChange={(e) => {
-                    const updated = [...formData.volunteerExperience];
-                    updated[idx].companyOrOrganization = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      volunteerExperience: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                />
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={exp.isSelf}
-                    onChange={(e) => {
-                      const updated = [...formData.volunteerExperience];
-                      updated[idx].isSelf = e.target.checked;
-                      setFormData((prev) => ({
-                        ...prev,
-                        volunteerExperience: updated,
-                      }));
-                    }}
-                    className="rounded border-gray-300"
-                  />
-                  <label>Self-employed</label>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Location"
-                  value={exp.location}
-                  onChange={(e) => {
-                    const updated = [...formData.volunteerExperience];
-                    updated[idx].location = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      volunteerExperience: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                />
-                <div className="grid grid-cols-2 gap-4">
-                  <input
-                    type="date"
-                    placeholder="Start Date"
-                    value={exp.startDate}
-                    onChange={(e) => {
-                      const updated = [...formData.volunteerExperience];
-                      updated[idx].startDate = e.target.value;
-                      setFormData((prev) => ({
-                        ...prev,
-                        volunteerExperience: updated,
-                      }));
-                    }}
-                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                  />
-                  <input
-                    type="date"
-                    placeholder="End Date"
-                    value={exp.endDate}
-                    onChange={(e) => {
-                      const updated = [...formData.volunteerExperience];
-                      updated[idx].endDate = e.target.value;
-                      setFormData((prev) => ({
-                        ...prev,
-                        volunteerExperience: updated,
-                      }));
-                    }}
-                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                  />
-                </div>
-                <textarea
-                  placeholder="Description"
-                  value={exp.description}
-                  onChange={(e) => {
-                    const updated = [...formData.volunteerExperience];
-                    updated[idx].description = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      volunteerExperience: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
-                  rows={3}
-                />
-              </div>
-            ))}
-          </div>
-        
-
-
-
-        {/* Specialization */}
-        <div>
-          <label className="block mb-1 font-medium py-2">Specializations</label>
-          <input
-            type="text"
-            value={formData.specialization.join(", ")}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                specialization: e.target.value.split(",").map((s) => s.trim()),
-              }))
-            }
-            className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-            placeholder="Enter specializations separated by commas"
-          />
-        </div>
-
-        {/* Services */}
-        <div>
-          <label className="block mb-1 font-medium">Services Offered</label>
-          <input
-            type="text"
-            value={formData.services.join(", ")}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                services: e.target.value.split(",").map((s) => s.trim()),
-              }))
-            }
-            className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-            placeholder="Enter services separated by commas"
-          />
-        </div>
-
-        {/* Therapies */}
-        <div>
-          <label className="block mb-1 font-medium">Therapies</label>
-          <input
-            type="text"
-            value={formData.therapies.join(", ")}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                therapies: e.target.value.split(",").map((s) => s.trim()),
-              }))
-            }
-            className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-            placeholder="Enter therapies separated by commas"
-          />
-        </div>
-      </section>
-
-      {/* Additional Qualifications Section */}
-      <section className="bg-white rounded-2xl shadow-lg p-8 space-y-8 mt-8">
-        <label className="text-xl font-semibold px-4 py-3 rounded-full border border-green-700 text-Black">Additional Qualifications</label>
-
-        {/* Licenses and Certificates */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <label className="font-medium">Licenses & Certificates</label>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("licensesAndCertificates", {
-                  name: "",
-                  issuingOrganization: "",
-                  issueDate: "",
-                  expiryDate: "",
-                  credentialId: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add License/Certificate
-            </button>
-          </div>
-          {formData.licensesAndCertificates.map((cert, idx) => (
-            <div
-              key={idx}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-            >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.licensesAndCertificates.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, licensesAndCertificates: updated }));
-              }}
-              className="absolute top-1 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
-              <input
-                type="text"
-                placeholder="Certificate Name"
-                value={cert.name}
-                onChange={(e) => {
-                  const updated = [...formData.licensesAndCertificates];
-                  updated[idx].name = e.target.value;
-                  setFormData((prev) => ({
-                    ...prev,
-                    licensesAndCertificates: updated,
-                  }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-              />
-              <input
-                type="text"
-                placeholder="Issuing Organization"
-                value={cert.issuingOrganization}
-                onChange={(e) => {
-                  const updated = [...formData.licensesAndCertificates];
-                  updated[idx].issuingOrganization = e.target.value;
-                  setFormData((prev) => ({
-                    ...prev,
-                    licensesAndCertificates: updated,
-                  }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-              />
-              <input
-                type="text"
-                placeholder="Credential ID"
-                value={cert.credentialId}
-                onChange={(e) => {
-                  const updated = [...formData.licensesAndCertificates];
-                  updated[idx].credentialId = e.target.value;
-                  setFormData((prev) => ({
-                    ...prev,
-                    licensesAndCertificates: updated,
-                  }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-              />
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  type="date"
-                  placeholder="Issue Date"
-                  value={cert.issueDate}
-                  onChange={(e) => {
-                    const updated = [...formData.licensesAndCertificates];
-                    updated[idx].issueDate = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      licensesAndCertificates: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                />
-                <input
-                  type="date"
-                  placeholder="Expiry Date"
-                  value={cert.expiryDate}
-                  onChange={(e) => {
-                    const updated = [...formData.licensesAndCertificates];
-                    updated[idx].expiryDate = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      licensesAndCertificates: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                />
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
-        {/* Publications and Media */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <label className="font-medium">Publications & Media</label>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("mediaAndPublications", {
-                  title: "",
-                  publisher: "",
-                  date: "",
-                  url: "",
-                  description: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Publication
-            </button>
-          </div>
-          {formData.mediaAndPublications.map((pub, idx) => (
-            <div
-              key={idx}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-            >
-            <button
-              type="button"
-              onClick={() => {
-                const updated = formData.mediaAndPublications.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, mediaAndPublications: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
+
+            {/* Specialization */}
+            <div>
+              <label className="block mb-1 py-2 text-[23px] font-semibold">
+                Specializations
+              </label>
               <input
                 type="text"
-                placeholder="Title"
-                value={pub.title}
-                onChange={(e) => {
-                  const updated = [...formData.mediaAndPublications];
-                  updated[idx].title = e.target.value;
+                value={formData.specialization.join(", ")}
+                onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    mediaAndPublications: updated,
-                  }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-              />
-              <input
-                type="text"
-                placeholder="Publisher"
-                value={pub.publisher}
-                onChange={(e) => {
-                  const updated = [...formData.mediaAndPublications];
-                  updated[idx].publisher = e.target.value;
-                  setFormData((prev) => ({
-                    ...prev,
-                    mediaAndPublications: updated,
-                  }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-              />
-              <input
-                type="date"
-                value={pub.date}
-                onChange={(e) => {
-                  const updated = [...formData.mediaAndPublications];
-                  updated[idx].date = e.target.value;
-                  setFormData((prev) => ({
-                    ...prev,
-                    mediaAndPublications: updated,
-                  }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-              />
-              <input
-                type="url"
-                placeholder="URL"
-                value={pub.url}
-                onChange={(e) => {
-                  const updated = [...formData.mediaAndPublications];
-                  updated[idx].url = e.target.value;
-                  setFormData((prev) => ({
-                    ...prev,
-                    mediaAndPublications: updated,
-                  }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-              />
-              <textarea
-                placeholder="Description"
-                value={pub.description}
-                onChange={(e) => {
-                  const updated = [...formData.mediaAndPublications];
-                  updated[idx].description = e.target.value;
-                  setFormData((prev) => ({
-                    ...prev,
-                    mediaAndPublications: updated,
-                  }));
-                }}
-                className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
-                rows={3}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Honors and Awards Section */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="font-semibold">Honors & Awards</h3>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("honorsAndAwards", {
-                  title: "",
-                  issuer: "",
-                  issueDate: "",
-                  description: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Honor/Award
-            </button>
-          </div>
-
-            {formData.honorsAndAwards.map((award, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-              >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.honorsAndAwards.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, honorsAndAwards: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
-                <input
-                  type="text"
-                  placeholder="Title"
-                  value={award.title}
-                  onChange={(e) => {
-                    const updated = [...formData.honorsAndAwards];
-                    updated[idx].title = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      honorsAndAwards: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                />
-                <input
-                  type="text"
-                  placeholder="Issuer"
-                  value={award.issuer}
-                  onChange={(e) => {
-                    const updated = [...formData.honorsAndAwards];
-                    updated[idx].issuer = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      honorsAndAwards: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                />
-                <input
-                  type="date"
-                  placeholder="Issue Date"
-                  value={award.issueDate}
-                  onChange={(e) => {
-                    const updated = [...formData.honorsAndAwards];
-                    updated[idx].issueDate = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      honorsAndAwards: updated,
-                    }));
-                  }}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                />
-                <textarea
-                  placeholder="Description (max 900 characters)"
-                  value={award.description}
-                  onChange={(e) => {
-                    const updated = [...formData.honorsAndAwards];
-                    updated[idx].description = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      honorsAndAwards: updated,
-                    }));
-                  }}
-                  maxLength={900}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
-                  rows={3}
-                />
-              </div>
-            ))}
-        </div>
-
-        {/* Journals Section (New) */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="font-semibold">Journals</h3>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("journals", {
-                  caseName: "",
-                  journalImage: "",
-                  location: "",
-                  startDate: "",
-                  endDate: "",
-                  description: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Journal
-            </button>
-          </div>
-
-            {formData.journals.map((journal, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-              >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.journals.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, journals: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
-                <input
-                  type="text"
-                  placeholder="Case Name"
-                  value={journal.caseName}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.journals];
-                    updated[idx].caseName = e.target.value;
-                    setFormData((prev) => ({ ...prev, journals: updated }));
-                  }}
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.journals];
-                    updated[idx].clientImage = e.target.files[0];
-                    setFormData((prev) => ({ ...prev, journals: updated }));
-                  }}
-                />
-                <input
-                  type="text"
-                  placeholder="Location"
-                  value={journal.location}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.journals];
-                    updated[idx].location = e.target.value;
-                    setFormData((prev) => ({ ...prev, journals: updated }));
-                  }}
-                />
-                <textarea
-                  placeholder="Description (max 3000 characters)"
-                  value={journal.description}
-                  maxLength={3000}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
-                  onChange={(e) => {
-                    const updated = [...formData.journals];
-                    updated[idx].description = e.target.value;
-                    setFormData((prev) => ({ ...prev, journals: updated }));
-                  }}
-                />
-              </div>
-            ))}
-        </div>
-
-        {/* Courses Section (New) */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="font-semibold">Courses</h3>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("courses", {
-                  courseName: "",
-                  fieldOfCourse: "",
-                  courseDuration: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Course
-            </button>
-          </div>
-
-            {formData.courses.map((course, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-              >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.courses.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, courses: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
-                <input
-                  type="text"
-                  placeholder="Course Name"
-                  value={course.courseName}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.courses];
-                    updated[idx].courseName = e.target.value;
-                    setFormData((prev) => ({ ...prev, courses: updated }));
-                  }}
-                />
-                <input
-                  type="text"
-                  placeholder="Field of Course"
-                  value={course.fieldOfCourse}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.courses];
-                    updated[idx].fieldOfCourse = e.target.value;
-                    setFormData((prev) => ({ ...prev, courses: updated }));
-                  }}
-                />
-                <div className="grid grid-cols-2 gap-4">
-                  <input
-                    type="date"
-                    placeholder="Start Date"
-                    value={course.startDate}
-                    onChange={(e) => {
-                      const updated = [...formData.courses];
-                      updated[idx].startDate = e.target.value;
-                      setFormData((prev) => ({ ...prev, courses: updated }));
-                    }}
-                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  />
-                  <input
-                    type="date"
-                    placeholder="End Date"
-                    value={course.endDate}
-                    onChange={(e) => {
-                      const updated = [...formData.courses];
-                      updated[idx].endDate = e.target.value;
-                      setFormData((prev) => ({ ...prev, courses: updated }));
-                    }}
-                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  />
-                </div>
-              </div>
-            ))}
-          
-        </div>
-
-        {/* Fellowship Section (New) */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="font-semibold">Fellowship</h3>
-          
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("fellowship", {
-                  fieldOfFellowship: "",
-                  yearOfAttaining: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Fellowship
-            </button>
-          </div>
-
-            {formData.fellowship.map((fellow, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-              >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.fellowship.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, fellowship: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
-                <input
-                  type="text"
-                  placeholder="Field of Fellowship"
-                  value={fellow.fieldOfFellowship}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.fellowship];
-                    updated[idx].fieldOfFellowship = e.target.value;
-                    setFormData((prev) => ({ ...prev, fellowship: updated }));
-                  }}
-                />
-                <input
-                  type="number"
-                  placeholder="Year of Attaining"
-                  value={fellow.yearOfAttaining}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.fellowship];
-                    updated[idx].yearOfAttaining = e.target.value;
-                    setFormData((prev) => ({ ...prev, fellowship: updated }));
-                  }}
-                />
-              </div>
-            ))}
-        </div>
-
-        {/* Recommendations Section (New) */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="font-semibold">Recommendations</h3>
-            <button
-              type="button"
-              onClick={() =>
-                handleArrayFieldAdd("recommendations", {
-                  content: "",
-                  recommendationsImage: "",
-                  link: "",
-                })
-              }
-              className="text-blue-500 hover:text-blue-600 font-bold"
-            >
-              + Add Recommendation
-            </button>
-          </div>
-
-            {formData.recommendations.map((rec, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
-              >
-              <button
-              type="button"
-              onClick={() => {
-                const updated = formData.recommendations.filter((_, index) => index !== idx);
-                setFormData((prev) => ({ ...prev, recommendations: updated }));
-              }}
-              className="absolute top-0 right-2 text-red-500 hover:text-red-600"
-            >
-              ✕
-            </button>
-                <textarea
-                  placeholder="Content (max 200 characters)"
-                  value={rec.content}
-                  maxLength={200}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
-                  onChange={(e) => {
-                    const updated = [...formData.recommendations];
-                    updated[idx].content = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      recommendations: updated,
-                    }));
-                  }}
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.recommendations];
-                    updated[idx].image = e.target.files[0];
-                    setFormData((prev) => ({
-                      ...prev,
-                      recommendations: updated,
-                    }));
-                  }}
-                />
-                <input
-                  type="url"
-                  placeholder="Link"
-                  value={rec.link}
-                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                  onChange={(e) => {
-                    const updated = [...formData.recommendations];
-                    updated[idx].link = e.target.value;
-                    setFormData((prev) => ({
-                      ...prev,
-                      recommendations: updated,
-                    }));
-                  }}
-                />
-              </div>
-            ))}
-        </div>
-        {/* Languages */}
-        <div>
-      <label className="block text-sm font-medium text-gray-900 mb-2">Languages</label>
-      <Listbox value={selectedLanguages} onChange={handleSelectionChange} multiple>
-        <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm">
-            <span className="block truncate">
-              {selectedLanguages.length > 0
-                ? selectedLanguages.join(", ")
-                : "Select languages"}
-            </span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronsUpDownIcon
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
-              />
-            </span>
-          </Listbox.Button>
-
-          <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {languagesList.map((language) => (
-              <Listbox.Option
-                key={language}
-                value={language}
-                className={({ active, selected }) =>
-                  `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                    active ? "bg-green-700 text-white" : "text-gray-900"
-                  }`
+                    specialization: e.target.value
+                      .split(",")
+                      .map((s) => s.trim()),
+                  }))
                 }
-              >
-                {({ selected }) => (
-                  <>
-                    <span
-                      className={`block truncate ${
-                        selected ? "font-medium" : "font-normal"
-                      }`}
-                    >
-                      {language}
-                    </span>
-                    {selected ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
-                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                      </span>
-                    ) : null}
-                  </>
-                )}
-              </Listbox.Option>
-            ))}
-          </Listbox.Options>
+                className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                placeholder="Enter specializations separated by commas"
+              />
+            </div>
+
+            {/* Services */}
+            <div>
+              <label className="block mb-1 text-[23px] font-semibold">
+                Services Offered
+              </label>
+              <input
+                type="text"
+                value={formData.services.join(", ")}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    services: e.target.value.split(",").map((s) => s.trim()),
+                  }))
+                }
+                className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                placeholder="Enter services separated by commas"
+              />
+            </div>
+
+            {/* Therapies */}
+            <div>
+              <label className="block mb-1 font-semibold text-[23px]">
+                Therapies
+              </label>
+              <input
+                type="text"
+                value={formData.therapies.join(", ")}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    therapies: e.target.value.split(",").map((s) => s.trim()),
+                  }))
+                }
+                className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                placeholder="Enter therapies separated by commas"
+              />
+            </div>
+          </div>
         </div>
-      </Listbox>
-    </div>
+      </section>
+
+      {/* Recommended Section */}
+      <section className="bg-white rounded-2xl shadow-lg p-8 space-y-8 mt-8">
+        <div
+          className="cursor-pointer flex justify-between items-center"
+          onClick={() => setIsRecomendedOpen(!isRecomendedOpen)}
+        >
+          <label className="text-xl font-semibold px-4 py-3 rounded-full border border-green-700 text-Black">
+            Recommended
+          </label>
+          <ChevronDownIcon
+            className={`w-6 h-6 transition-transform duration-200 ${
+              isRecomendedOpen ? "transform rotate-180" : ""
+            }`}
+          />
+        </div>
+
+        {isRecomendedOpen && (
+          <>
+            {/* Journals Section (New) */}
+            <span className="flex text-black text-[17px] border rounded-xl border-orange-500 p-4 w-full italic">
+              {" "}
+              Completing these sections will increase your visibility and give
+              you access to more clients.
+            </span>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-[23px]">Featured Journals</h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("journals", {
+                      caseName: "",
+                      journalImage: "",
+                      location: "",
+                      startDate: "",
+                      endDate: "",
+                      description: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Journal
+                </button>
+              </div>
+
+              {formData.journals.map((journal, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.journals.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({ ...prev, journals: updated }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Case Name"
+                    value={journal.caseName}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.journals];
+                      updated[idx].caseName = e.target.value;
+                      setFormData((prev) => ({ ...prev, journals: updated }));
+                    }}
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.journals];
+                      updated[idx].clientImage = e.target.files[0];
+                      setFormData((prev) => ({ ...prev, journals: updated }));
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    value={journal.location}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.journals];
+                      updated[idx].location = e.target.value;
+                      setFormData((prev) => ({ ...prev, journals: updated }));
+                    }}
+                  />
+                  <textarea
+                    placeholder="Description (max 3000 characters)"
+                    value={journal.description}
+                    maxLength={3000}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
+                    onChange={(e) => {
+                      const updated = [...formData.journals];
+                      updated[idx].description = e.target.value;
+                      setFormData((prev) => ({ ...prev, journals: updated }));
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Licenses and Certificates */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-medium text-[23px]">
+                  Licenses & Certificates
+                </h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("licensesAndCertificates", {
+                      name: "",
+                      issuingOrganization: "",
+                      issueDate: "",
+                      expiryDate: "",
+                      credentialId: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add License/Certificate
+                </button>
+              </div>
+              {formData.licensesAndCertificates.map((cert, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.licensesAndCertificates.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({
+                        ...prev,
+                        licensesAndCertificates: updated,
+                      }));
+                    }}
+                    className="absolute top-1 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Certificate Name"
+                    value={cert.name}
+                    onChange={(e) => {
+                      const updated = [...formData.licensesAndCertificates];
+                      updated[idx].name = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        licensesAndCertificates: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Issuing Organization"
+                    value={cert.issuingOrganization}
+                    onChange={(e) => {
+                      const updated = [...formData.licensesAndCertificates];
+                      updated[idx].issuingOrganization = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        licensesAndCertificates: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Credential ID"
+                    value={cert.credentialId}
+                    onChange={(e) => {
+                      const updated = [...formData.licensesAndCertificates];
+                      updated[idx].credentialId = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        licensesAndCertificates: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="date"
+                      placeholder="Issue Date"
+                      value={cert.issueDate}
+                      onChange={(e) => {
+                        const updated = [...formData.licensesAndCertificates];
+                        updated[idx].issueDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          licensesAndCertificates: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    />
+                    <input
+                      type="date"
+                      placeholder="Expiry Date"
+                      value={cert.expiryDate}
+                      onChange={(e) => {
+                        const updated = [...formData.licensesAndCertificates];
+                        updated[idx].expiryDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          licensesAndCertificates: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Courses Section (New) */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-[23px]">Courses</h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("courses", {
+                      courseName: "",
+                      fieldOfCourse: "",
+                      courseDuration: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Course
+                </button>
+              </div>
+
+              {formData.courses.map((course, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.courses.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({ ...prev, courses: updated }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Course Name"
+                    value={course.courseName}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.courses];
+                      updated[idx].courseName = e.target.value;
+                      setFormData((prev) => ({ ...prev, courses: updated }));
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Field of Course"
+                    value={course.fieldOfCourse}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.courses];
+                      updated[idx].fieldOfCourse = e.target.value;
+                      setFormData((prev) => ({ ...prev, courses: updated }));
+                    }}
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="date"
+                      placeholder="Start Date"
+                      value={course.startDate}
+                      onChange={(e) => {
+                        const updated = [...formData.courses];
+                        updated[idx].startDate = e.target.value;
+                        setFormData((prev) => ({ ...prev, courses: updated }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    />
+                    <input
+                      type="date"
+                      placeholder="End Date"
+                      value={course.endDate}
+                      onChange={(e) => {
+                        const updated = [...formData.courses];
+                        updated[idx].endDate = e.target.value;
+                        setFormData((prev) => ({ ...prev, courses: updated }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Fellowship Section (New) */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-[23px]">Fellowship</h3>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("fellowship", {
+                      fieldOfFellowship: "",
+                      yearOfAttaining: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Fellowship
+                </button>
+              </div>
+
+              {formData.fellowship.map((fellow, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.fellowship.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({ ...prev, fellowship: updated }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Field of Fellowship"
+                    value={fellow.fieldOfFellowship}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.fellowship];
+                      updated[idx].fieldOfFellowship = e.target.value;
+                      setFormData((prev) => ({ ...prev, fellowship: updated }));
+                    }}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Year of Attaining"
+                    value={fellow.yearOfAttaining}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.fellowship];
+                      updated[idx].yearOfAttaining = e.target.value;
+                      setFormData((prev) => ({ ...prev, fellowship: updated }));
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Recommendations Section (New) */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-[23px]">Recommendations</h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("recommendations", {
+                      content: "",
+                      recommendationsImage: "",
+                      link: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Recommendation
+                </button>
+              </div>
+
+              {formData.recommendations.map((rec, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.recommendations.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({
+                        ...prev,
+                        recommendations: updated,
+                      }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <textarea
+                    placeholder="Content (max 200 characters)"
+                    value={rec.content}
+                    maxLength={200}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
+                    onChange={(e) => {
+                      const updated = [...formData.recommendations];
+                      updated[idx].content = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        recommendations: updated,
+                      }));
+                    }}
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.recommendations];
+                      updated[idx].image = e.target.files[0];
+                      setFormData((prev) => ({
+                        ...prev,
+                        recommendations: updated,
+                      }));
+                    }}
+                  />
+                  <input
+                    type="url"
+                    placeholder="Link"
+                    value={rec.link}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                    onChange={(e) => {
+                      const updated = [...formData.recommendations];
+                      updated[idx].link = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        recommendations: updated,
+                      }));
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </section>
+
+      {/* {Additional Section} */}
+
+      <section className="bg-white rounded-2xl shadow-lg p-8 space-y-8 mt-8">
+        <div
+          className="cursor-pointer flex justify-between items-center"
+          onClick={() => setIsAdditionalOpen(!isAdditionalOpen)}
+        >
+          <label className="text-xl font-semibold px-4 py-3 rounded-full border border-green-700 text-Black">
+            Additional
+          </label>
+          <ChevronDownIcon
+            className={`w-6 h-6 transition-transform duration-200 ${
+              isAdditionalOpen ? "transform rotate-180" : ""
+            }`}
+          />
+        </div>
+
+        {isAdditionalOpen && (
+          <>
+            <span className="flex text-black text-[17px] border rounded-xl border-orange-500 p-4 w-full italic">
+              Add even more personality to your profile. These sections will
+              help you grow your visibility and build more impressions on the
+              client.
+            </span>
+
+            {/* {volunteerExperience} */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-[23px]">
+                  Volunteer Experience
+                </h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("volunteerExperience", {
+                      type: "",
+                      companyOrOrganization: "",
+                      isSelf: false,
+                      startDate: "",
+                      endDate: "",
+                      location: "",
+                      description: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Volunteer Experience
+                </button>
+              </div>
+
+              {formData.volunteerExperience.map((exp, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.volunteerExperience.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({
+                        ...prev,
+                        volunteerExperience: updated,
+                      }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Type"
+                    value={exp.type}
+                    onChange={(e) => {
+                      const updated = [...formData.volunteerExperience];
+                      updated[idx].type = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        volunteerExperience: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Company/Organization"
+                    value={exp.companyOrOrganization}
+                    onChange={(e) => {
+                      const updated = [...formData.volunteerExperience];
+                      updated[idx].companyOrOrganization = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        volunteerExperience: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={exp.isSelf}
+                      onChange={(e) => {
+                        const updated = [...formData.volunteerExperience];
+                        updated[idx].isSelf = e.target.checked;
+                        setFormData((prev) => ({
+                          ...prev,
+                          volunteerExperience: updated,
+                        }));
+                      }}
+                      className="rounded border-gray-300"
+                    />
+                    <label>Self-employed</label>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    value={exp.location}
+                    onChange={(e) => {
+                      const updated = [...formData.volunteerExperience];
+                      updated[idx].location = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        volunteerExperience: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="date"
+                      placeholder="Start Date"
+                      value={exp.startDate}
+                      onChange={(e) => {
+                        const updated = [...formData.volunteerExperience];
+                        updated[idx].startDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          volunteerExperience: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    />
+                    <input
+                      type="date"
+                      placeholder="End Date"
+                      value={exp.endDate}
+                      onChange={(e) => {
+                        const updated = [...formData.volunteerExperience];
+                        updated[idx].endDate = e.target.value;
+                        setFormData((prev) => ({
+                          ...prev,
+                          volunteerExperience: updated,
+                        }));
+                      }}
+                      className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    />
+                  </div>
+                  <textarea
+                    placeholder="Description"
+                    value={exp.description}
+                    onChange={(e) => {
+                      const updated = [...formData.volunteerExperience];
+                      updated[idx].description = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        volunteerExperience: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 col-span-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+                    rows={3}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Publications and Media */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label className="font-medium text-[23px]">
+                  Publications & Media
+                </label>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("mediaAndPublications", {
+                      title: "",
+                      publisher: "",
+                      date: "",
+                      url: "",
+                      description: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Publication
+                </button>
+              </div>
+              {formData.mediaAndPublications.map((pub, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.mediaAndPublications.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({
+                        ...prev,
+                        mediaAndPublications: updated,
+                      }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={pub.title}
+                    onChange={(e) => {
+                      const updated = [...formData.mediaAndPublications];
+                      updated[idx].title = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        mediaAndPublications: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Publisher"
+                    value={pub.publisher}
+                    onChange={(e) => {
+                      const updated = [...formData.mediaAndPublications];
+                      updated[idx].publisher = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        mediaAndPublications: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <input
+                    type="date"
+                    value={pub.date}
+                    onChange={(e) => {
+                      const updated = [...formData.mediaAndPublications];
+                      updated[idx].date = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        mediaAndPublications: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <input
+                    type="url"
+                    placeholder="URL"
+                    value={pub.url}
+                    onChange={(e) => {
+                      const updated = [...formData.mediaAndPublications];
+                      updated[idx].url = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        mediaAndPublications: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <textarea
+                    placeholder="Description"
+                    value={pub.description}
+                    onChange={(e) => {
+                      const updated = [...formData.mediaAndPublications];
+                      updated[idx].description = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        mediaAndPublications: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
+                    rows={3}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Honors and Awards Section */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-[23px]">Honors & Awards</h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("honorsAndAwards", {
+                      title: "",
+                      issuer: "",
+                      issueDate: "",
+                      description: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Honor/Award
+                </button>
+              </div>
+
+              {formData.honorsAndAwards.map((award, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.honorsAndAwards.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({
+                        ...prev,
+                        honorsAndAwards: updated,
+                      }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={award.title}
+                    onChange={(e) => {
+                      const updated = [...formData.honorsAndAwards];
+                      updated[idx].title = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        honorsAndAwards: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Issuer"
+                    value={award.issuer}
+                    onChange={(e) => {
+                      const updated = [...formData.honorsAndAwards];
+                      updated[idx].issuer = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        honorsAndAwards: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <input
+                    type="date"
+                    placeholder="Issue Date"
+                    value={award.issueDate}
+                    onChange={(e) => {
+                      const updated = [...formData.honorsAndAwards];
+                      updated[idx].issueDate = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        honorsAndAwards: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <textarea
+                    placeholder="Description (max 900 characters)"
+                    value={award.description}
+                    onChange={(e) => {
+                      const updated = [...formData.honorsAndAwards];
+                      updated[idx].description = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        honorsAndAwards: updated,
+                      }));
+                    }}
+                    maxLength={900}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
+                    rows={3}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Languages */}
+            <div>
+              <label className="block text-sm font-medium text-gray-900 mb-2 text-[23px] ">
+                Languages
+              </label>
+              <Listbox
+                value={selectedLanguages}
+                onChange={handleSelectionChange}
+                multiple
+              >
+                <div className="relative mt-1 pt-4">
+                  <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                    <span className="block truncate">
+                      {selectedLanguages.length > 0
+                        ? selectedLanguages.join(", ")
+                        : "Select languages"}
+                    </span>
+                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronsUpDownIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+
+                  <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {languagesList.map((language) => (
+                      <Listbox.Option
+                        key={language}
+                        value={language}
+                        className={({ active, selected }) =>
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                            active ? "bg-green-700 text-white" : "text-gray-900"
+                          }`
+                        }
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span
+                              className={`block truncate ${
+                                selected ? "font-medium" : "font-normal"
+                              }`}
+                            >
+                              {language}
+                            </span>
+                            {selected ? (
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                <CheckIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </div>
+              </Listbox>
+            </div>
+          </>
+        )}
       </section>
 
       {/* Submit Button */}
       <div className="py-6 text-center">
         <button
           type="submit"
-          className="w-48 bg-black text-xl text-white px-4 py-2 rounded-2xl transition-colors"
+          className="w-48 bg-black text-xl text-white px-4 py-2 rounded-2xl hover:bg-blue-900 shadow-md hover:shadow-xl transition-all cursor-pointer"
         >
           Save Profile
         </button>
