@@ -118,7 +118,7 @@ const Navbar = () => {
                 <User size={20} />
                 <span className="text-sm font-medium">{userData.name}</span>
               </button>
-              <div className="absolute right-0 top-full mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
+              <div className="absolute left-0 top-full mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
                 <div className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg">
                   <div className="px-4 py-3 border-b border-gray-200">
                     <p className="text-sm font-medium text-gray-900">
