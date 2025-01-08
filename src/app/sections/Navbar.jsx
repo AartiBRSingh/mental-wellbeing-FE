@@ -2,7 +2,15 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { LogOut, User, FileText, Menu, X, UserIcon } from "lucide-react";
+import {
+  LogOut,
+  User,
+  FileText,
+  Menu,
+  X,
+  UserIcon,
+  Download,
+} from "lucide-react";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -140,7 +148,7 @@ const Navbar = () => {
                     <span className="text-sm">Logout</span>
                   </div>
                 </div>
-                <div className="absolute -top-2 right-4 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
+                <div className="absolute -top-3 left-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
               </div>
             </div>
           ) : (
