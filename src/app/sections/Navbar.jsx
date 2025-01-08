@@ -29,8 +29,8 @@ const Navbar = () => {
     { label: "Services", redirectTo: "#services" },
     { label: "Clinics", redirectTo: "#" },
     { label: "Treatments", redirectTo: "#" },
-    // { label: "India Directory", redirectTo: "#" },
-    // { label: "International Directory", redirectTo: "#" },
+    { label: "India Directory", redirectTo: "#" },
+    { label: "International Directory", redirectTo: "#" },
   ];
 
   const dropdownOptions = [
@@ -66,6 +66,7 @@ const Navbar = () => {
     <div className="w-full flex justify-center">
       <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center bg-white px-4 md:px-10 w-full md:w-[80vw]">
         {/* Logo */}
+
         <Link href={"/"}>
           <img
             src="/logo.png"
@@ -73,7 +74,6 @@ const Navbar = () => {
             className="w-full h-16 cursor-pointer"
           />
         </Link>
-
         {/* Desktop Navigation */}
         <section className="hidden md:block">
           <ul className="flex justify-between items-center gap-10">
@@ -88,7 +88,7 @@ const Navbar = () => {
           </ul>
         </section>
 
-        <section className="flex items-center gap-4 md:gap-4">
+        <section className="flex items-center gap-4 md:gap-10">
           <div className="relative group hidden md:block">
             <button className="relative w-8 h-8 cursor-pointer">
               <div className="relative flex flex-col justify-center w-full h-full">
@@ -144,16 +144,11 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <>
-              <Link href="/login" className="hidden md:block cursor-pointer">
-                <button className="cursor-pointer px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
-                  Sign In
-                </button>
-              </Link>
-              <button className="hidden md:block cursor-pointer px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
-                Get Started
+            <Link href="/login" className="hidden md:block cursor-pointer">
+              <button className="cursor-pointer px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+                Sign In
               </button>
-            </>
+            </Link>
           )}
 
           <button
@@ -216,20 +211,15 @@ const Navbar = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col gap-3 p-4">
-                  <Link
-                    href="/login"
-                    className="block"
-                    onClick={toggleMobileMenu}
-                  >
-                    <button className="cursor-pointer w-full px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
-                      Sign In
-                    </button>
-                  </Link>
+                <Link
+                  href="/login"
+                  className="block px-4 py-3"
+                  onClick={toggleMobileMenu}
+                >
                   <button className="cursor-pointer w-full px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
-                    Get Started
+                    Sign In
                   </button>
-                </div>
+                </Link>
               )}
             </div>
           </div>
