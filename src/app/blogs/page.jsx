@@ -23,7 +23,7 @@ const BlogPage = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`${baseURL}/get-categories?type=blog`);
+      const response = await axios.get(`${baseURL}/get-categories`);
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -32,7 +32,7 @@ const BlogPage = () => {
 
   const fetchPosts = async () => {
     try {
-      let url = `${baseURL}/posts?type=blog&category=${selectedCategory}&page=${currentPage}`;
+      let url = `${baseURL}/posts?category=${selectedCategory}&page=${currentPage}`;
 
       if (searchQuery) {
         url += `&title=${encodeURIComponent(searchQuery)}`;
@@ -48,9 +48,7 @@ const BlogPage = () => {
 
   const fetchRecentPosts = async () => {
     try {
-      const response = await axios.get(
-        `${baseURL}/posts?type=blog&page=1&limit=3`
-      );
+      const response = await axios.get(`${baseURL}/posts?page=1&limit=3`);
       setRecentPosts(response.data.posts);
     } catch (error) {
       console.error("Error fetching recent posts:", error);
@@ -95,8 +93,8 @@ const BlogPage = () => {
             Explore Our <span className="text-orange-600">Stories</span>
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Discover transformative insights and inspiring narratives that shape perspectives 
-            and spark meaningful conversations.
+            Discover transformative insights and inspiring narratives that shape
+            perspectives and spark meaningful conversations.
           </p>
         </header>
 

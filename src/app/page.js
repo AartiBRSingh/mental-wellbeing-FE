@@ -16,7 +16,7 @@ export default function Home() {
       <WhyUs />
       <Testimonials />
       <BlogSection />
-      <NewsSection />
+      {/* <NewsSection /> */}
     </>
   );
 }

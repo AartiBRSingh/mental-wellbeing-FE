@@ -62,7 +62,7 @@ const NewsSection = () => {
         </Link>
       </div>
 
-      <div className="flex justify-start items-stretch flex-wrap gap-4 lg:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 p-10 relative">
         {data?.map((item, index) => (
           <BlogCard
             key={index}
@@ -70,8 +70,16 @@ const NewsSection = () => {
             title={item?.title}
             totalViews={item.totalViews}
             date={formatDate(item.updatedAt)}
-            redirectTo={`/news/${generateSlug(item.title, item._id)}`}
-            className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
+            description={
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: `${item.content.slice(0, 300)}${
+                    item.content.length > 100 ? "..." : ""
+                  }`,
+                }}
+              />
+            }
+            redirectTo={`/blogs/${generateSlug(item.title, item._id)}`}
           />
         ))}
       </div>
