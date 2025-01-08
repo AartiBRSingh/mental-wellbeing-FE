@@ -84,12 +84,11 @@ const BlogPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-orange-200 font-sans">
+    <div className="bg-transparent font-sans">
       <div className="container mx-auto px-4 py-12">
-        {/* Hero Section */}
-        <header className="text-center mb-16 relative">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-green-100 rounded-full blur-3xl opacity-20" />
-          <h1 className="text-5xl font-extrabold text-gray-800 mb-4 relative">
+        <header className="text-center mb-16">
+          <div className="w-32 h-fit bg-green-100 rounded-full blur-3xl opacity-20 mx-auto mb-4" />
+          <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
             Explore Our <span className="text-orange-600">Stories</span>
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
@@ -97,11 +96,9 @@ const BlogPage = () => {
             perspectives and spark meaningful conversations.
           </p>
         </header>
-
-        {/* Search and Filter Section */}
         <div className="max-w-4xl mx-auto mb-12">
           <div className="bg-white p-4 rounded-2xl shadow-lg flex flex-col md:flex-row gap-4">
-            <div className="relative flex-1">
+            <div className="flex-1 flex items-center">
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -114,24 +111,21 @@ const BlogPage = () => {
                   </option>
                 ))}
               </select>
-              <Filter className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <Filter className="ml-[-30px] text-gray-400" />
             </div>
-            <div className="relative flex-1">
+            <div className="flex-1 flex items-center">
+              <Search className="ml-3 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-3 pl-11 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-200 text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors"
+                className="w-full px-4 py-3 pl-11 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-200 text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors ml-[-30px]"
               />
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             </div>
           </div>
         </div>
-
-        {/* Main Content Grid */}
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-          {/* Main Posts Section */}
           <div className="md:col-span-2 space-y-8">
             {posts.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-2xl shadow-lg">
@@ -149,7 +143,7 @@ const BlogPage = () => {
                   className="group bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300"
                 >
                   <div className="grid md:grid-cols-3 gap-6">
-                    <div className="md:col-span-1 relative overflow-hidden">
+                    <div className="overflow-hidden">
                       <img
                         src={post.image}
                         alt={post.title}
@@ -192,16 +186,11 @@ const BlogPage = () => {
                 </div>
               ))
             )}
-
-            {/* Pagination */}
             <div className="flex justify-center items-center space-x-6 mt-12">
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                className="flex items-center px-6 py-3 rounded-xl
-                         bg-white text-gray-700 shadow-md
-                         disabled:opacity-50 hover:bg-green-50
-                         transition-colors disabled:hover:bg-white"
+                className="flex items-center px-6 py-3 rounded-xl bg-white text-gray-700 shadow-md disabled:opacity-50 hover:bg-green-50 transition-colors disabled:hover:bg-white"
               >
                 <ChevronLeft className="w-5 h-5 mr-2" />
                 Previous
@@ -212,18 +201,13 @@ const BlogPage = () => {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className="flex items-center px-6 py-3 rounded-xl
-                         bg-white text-gray-700 shadow-md
-                         disabled:opacity-50 hover:bg-green-50
-                         transition-colors disabled:hover:bg-white"
+                className="flex items-center px-6 py-3 rounded-xl bg-white text-gray-700 shadow-md disabled:opacity-50 hover:bg-green-50 transition-colors disabled:hover:bg-white"
               >
                 Next
                 <ChevronRight className="w-5 h-5 ml-2" />
               </button>
             </div>
           </div>
-
-          {/* Recent Posts Sidebar */}
           <div className="bg-white rounded-2xl shadow-lg p-8 h-fit">
             <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
               Recent

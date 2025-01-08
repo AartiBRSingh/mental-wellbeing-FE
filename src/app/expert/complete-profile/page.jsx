@@ -43,7 +43,8 @@ const CompleteProfile = () => {
     honorsAndAwards: [],
     languages: [],
   });
-
+  const [isRecomendedOpen, setIsRecomendedOpen] = useState(false);
+  const [isAdditionalOpen, setIsAdditionalOpen] = useState(false);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -98,9 +99,6 @@ const CompleteProfile = () => {
       [fieldName]: [...prev[fieldName], template],
     }));
   };
-
-  const [isRecomendedOpen, setIsRecomendedOpen] = useState(true);
-  const [isAdditionalOpen, setIsAdditionalOpen] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -209,7 +207,7 @@ const CompleteProfile = () => {
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="inline-block mb-8">
             <span className="px-4 py-3  border rounded-xl border-green-700 text-Black font-semibold text-[20px]">
-              CORE
+              Core
             </span>
           </div>
 
@@ -1660,9 +1658,7 @@ const CompleteProfile = () => {
 
             {/* Languages */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2 text-[23px] ">
-                Languages
-              </label>
+              <label className="font-semibold text-[23px]">Languages</label>
               <Listbox
                 value={selectedLanguages}
                 onChange={handleSelectionChange}
