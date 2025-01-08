@@ -31,7 +31,7 @@ const BlogDetailPage = () => {
         const postResponse = await api.get(`/posts/${postId}`);
         setPost(postResponse?.data);
         await api.put(`/posts/${postId}/view`);
-        const recentPostsResponse = await api.get("/posts?type=blog", {
+        const recentPostsResponse = await api.get("/posts", {
           params: { limit: 3 },
         });
         setRecentPosts(recentPostsResponse.data?.posts);

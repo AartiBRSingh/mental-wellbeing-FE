@@ -12,7 +12,7 @@ const BlogSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}/posts?type=blog`);
+        const response = await axios.get(`${baseURL}/posts`);
         setData(response?.data?.posts);
       } catch (error) {
         console.log(error);
@@ -58,11 +58,11 @@ const BlogSection = () => {
           href={"/blogs"}
           className="font-semibold flex gap-2 underline items-center cursor-pointer text-base lg:text-lg"
         >
-          Read all blog <FaArrowRightLong />
+          Read all <FaArrowRightLong />
         </Link>
       </div>
 
-      <div className="relative flex justify-start items-stretch flex-wrap p-10 gap-6 lg:gap-10 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 p-10 relative">
         {data?.map((item, index) => (
           <BlogCard
             key={index}
@@ -70,8 +70,16 @@ const BlogSection = () => {
             title={item?.title}
             totalViews={item.totalViews}
             date={formatDate(item.updatedAt)}
+            description={
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: `${item.content.slice(0, 300)}${
+                    item.content.length > 100 ? "..." : ""
+                  }`,
+                }}
+              />
+            }
             redirectTo={`/blogs/${generateSlug(item.title, item._id)}`}
-            className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
           />
         ))}
       </div>
