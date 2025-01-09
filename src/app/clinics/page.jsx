@@ -101,7 +101,7 @@ const ClinicDisplay = () => {
     <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
       <div className="flex flex-col md:flex-row gap-4 items-end">
         <div className="flex-1">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-lg font-bold text-gray-700 mb-2">
             State
           </label>
           <select
@@ -110,7 +110,7 @@ const ClinicDisplay = () => {
               setSelectedState(e.target.value);
               setSelectedCity("");
             }}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
           >
             <option value="">Select State</option>
             {states.map((state) => (
@@ -122,13 +122,13 @@ const ClinicDisplay = () => {
         </div>
 
         <div className="flex-1">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-lg font-bold text-gray-700 mb-2">
             City
           </label>
           <select
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             disabled={!selectedState}
           >
             <option value="">Select City</option>
@@ -145,7 +145,7 @@ const ClinicDisplay = () => {
             setSelectedState("");
             setSelectedCity("");
           }}
-          className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+          className="px-6 py-3 font-bold bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
         >
           Reset
         </button>
@@ -153,52 +153,27 @@ const ClinicDisplay = () => {
     </div>
   );
 
-  const TestimonialSection = ({ clinicId }) => {
-    const [testimonials, setTestimonials] = useState([]);
+  const TestimonialSection = ({ clinicId, testimonials }) => {
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-    useEffect(() => {
-      // Replace with actual API call
-      setTestimonials([
-        {
-          id: 1,
-          name: "John Doe",
-          rating: 5,
-          text: "Excellent service and care!",
-        },
-        {
-          id: 2,
-          name: "Jane Smith",
-          rating: 4,
-          text: "Very professional staff.",
-        },
-        {
-          id: 3,
-          name: "Mike Johnson",
-          rating: 5,
-          text: "Best dental clinic in the area!",
-        },
-      ]);
-    }, [clinicId]);
 
     const nextTestimonial = () => {
       setCurrentTestimonial((prev) =>
-        prev === testimonials.length - 1 ? 0 : prev + 1
+        prev === testimonials?.length - 1 ? 0 : prev + 1
       );
     };
 
     useEffect(() => {
       const timer = setInterval(nextTestimonial, 5000);
       return () => clearInterval(timer);
-    }, [testimonials.length]);
+    }, [testimonials?.length]);
 
-    return testimonials.length > 0 ? (
+    return testimonials?.length > 0 ? (
       <div className="bg-gray-50 p-6 rounded-lg mt-6">
         <h3 className="text-lg font-semibold mb-4">What Our Patients Say</h3>
         <div className="relative overflow-hidden">
           <div className="transition-all duration-500 ease-in-out">
             <div className="space-y-2">
-              <div className="flex items-center mb-2">
+              {/* <div className="flex items-center mb-2">
                 {[...Array(testimonials[currentTestimonial].rating)].map(
                   (_, i) => (
                     <svg
@@ -211,9 +186,9 @@ const ClinicDisplay = () => {
                     </svg>
                   )
                 )}
-              </div>
+              </div> */}
               <p className="text-gray-600 italic">
-                {testimonials[currentTestimonial].text}
+                {testimonials[currentTestimonial].review}
               </p>
               <p className="text-sm font-medium text-gray-800">
                 - {testimonials[currentTestimonial].name}
@@ -228,7 +203,7 @@ const ClinicDisplay = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
       </div>
     );
   }
@@ -246,14 +221,14 @@ const ClinicDisplay = () => {
           key={clinic._id}
           className="mb-8 bg-white rounded-lg shadow-lg overflow-hidden"
         >
-          <div className="bg-gradient-to-r from-amber-600 to-amber-900 p-6">
+          <div className="bg-gradient-to-r from-green-500 to-green-300 p-6">
             <h2 className="text-2xl font-bold text-white">{clinic.name}</h2>
           </div>
           <div className="p-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-6">
                 <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-blue-500 mt-1 flex-shrink-0" />
+                  <MapPin className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
                   <div className="flex-1">
                     <h3 className="font-semibold mb-1">Address</h3>
                     <p className="text-gray-600 mb-2">
@@ -264,7 +239,7 @@ const ClinicDisplay = () => {
                     </p>
                     <button
                       onClick={() => handleDirections(clinic.googleAddressUrl)}
-                      className="inline-flex items-center text-sm text-blue-500 hover:text-blue-700 transition-colors"
+                      className="inline-flex items-center text-sm text-green-500 hover:text-green-700 transition-colors"
                     >
                       Get Directions <ExternalLink className="w-4 h-4 ml-1" />
                     </button>
@@ -277,7 +252,7 @@ const ClinicDisplay = () => {
                     onClick={() => toggleTimings(clinic._id)}
                   >
                     <div className="flex items-center space-x-3">
-                      <Clock className="w-5 h-5 text-blue-500" />
+                      <Clock className="w-5 h-5 text-green-500" />
                       <h3 className="font-semibold">Working Hours</h3>
                     </div>
                     {expandedTimings[clinic._id] ? (
@@ -304,20 +279,20 @@ const ClinicDisplay = () => {
                 <div className="space-y-3">
                   <button
                     onClick={() => handleCall(clinic.phoneNumber)}
-                    className="w-full flex items-center space-x-3 bg-white hover:bg-blue-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-blue-200"
+                    className="w-full flex items-center space-x-3 bg-white hover:bg-green-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-green-200"
                   >
-                    <Phone className="w-5 h-5 text-blue-500" />
-                    <span className="text-gray-600 hover:text-blue-600">
+                    <Phone className="w-5 h-5 text-green-500" />
+                    <span className="text-gray-600 hover:text-green-600">
                       {clinic.phoneNumber}
                     </span>
                   </button>
 
                   <button
                     onClick={() => handleEmail(clinic.email)}
-                    className="w-full flex items-center space-x-3 bg-white hover:bg-blue-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-blue-200"
+                    className="w-full flex items-center space-x-3 bg-white hover:bg-green-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-green-200"
                   >
-                    <Mail className="w-5 h-5 text-blue-500" />
-                    <span className="text-gray-600 hover:text-blue-600">
+                    <Mail className="w-5 h-5 text-green-500" />
+                    <span className="text-gray-600 hover:text-green-600">
                       {clinic.email}
                     </span>
                   </button>
@@ -325,13 +300,16 @@ const ClinicDisplay = () => {
 
                 <Link
                   href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
-                  className="inline-flex items-center text-blue-600 font-medium hover:text-blue-700 transition-colors"
+                  className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
                   target="_blank"
                 >
                   Read More
                   <ChevronRight className="w-4 h-4 ml-1" />
                 </Link>
-                <TestimonialSection clinicId={clinic._id} />
+                <TestimonialSection
+                  clinicId={clinic._id}
+                  testimonials={clinic.testimonials}
+                />
               </div>
 
               <div className="space-y-4">
