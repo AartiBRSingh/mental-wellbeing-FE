@@ -4,11 +4,14 @@ import axios from "axios";
 import { MapPin, Phone, Mail, Calendar } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { baseURL } from "../../baseURL";
+import toast, { Toaster } from "react-hot-toast";
 
 const ClinicDetailPage = () => {
   const [clinic, setClinic] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const searchParams = useSearchParams();
+  const clinicId = searchParams.get("id");
   const [appointmentForm, setAppointmentForm] = useState({
     name: "",
     email: "",
@@ -16,10 +19,8 @@ const ClinicDetailPage = () => {
     date: "",
     expert: "",
     message: "",
+    clinicId: clinicId,
   });
-
-  const searchParams = useSearchParams();
-  const clinicId = searchParams.get("id");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,13 +53,38 @@ const ClinicDetailPage = () => {
 
   if (!clinic) return null;
 
-  const handleAppointmentSubmit = (e) => {
+  const handleAppointmentSubmit = async (e) => {
     e.preventDefault();
-    console.log("Appointment form submitted:", appointmentForm);
+
+    try {
+      const response = await axios.post(
+        `${baseURL}/enquiries`,
+        appointmentForm
+      );
+
+      if (response.data.success) {
+        setAppointmentForm({
+          name: "",
+          email: "",
+          phone: "",
+          date: "",
+          message: "",
+          expert: "",
+        });
+        toast.success("Appointment request submitted successfully!");
+      }
+    } catch (error) {
+      console.error("Error submitting appointment:", error);
+      const errorMessage =
+        error.response?.data?.error || "Failed to submit appointment request";
+      toast.error(errorMessage);
+    }
   };
+  console.log(appointmentForm, "raju");
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <Toaster position="bottom-left" reverseOrder={false} />
       <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-4">{clinic.name}</h1>
         <div className="grid md:grid-cols-2 gap-6">
