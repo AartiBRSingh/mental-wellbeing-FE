@@ -37,8 +37,8 @@ const Navbar = () => {
     { label: "Services", redirectTo: "#services" },
     { label: "Clinics", redirectTo: "#" },
     { label: "Treatments", redirectTo: "#" },
-    { label: "India Directory", redirectTo: "#" },
-    { label: "International Directory", redirectTo: "#" },
+    // { label: "India Directory", redirectTo: "#" },
+    // { label: "International Directory", redirectTo: "#" },
   ];
 
   const dropdownOptions = [
@@ -96,7 +96,7 @@ const Navbar = () => {
           </ul>
         </section>
 
-        <section className="flex items-center gap-4 md:gap-10">
+        <section className="flex items-center gap-4 md:gap-6">
           <div className="relative group hidden md:block">
             <button className="relative w-8 h-8 cursor-pointer">
               <div className="relative flex flex-col justify-center w-full h-full">
@@ -104,7 +104,7 @@ const Navbar = () => {
                 <div className="w-full h-[2px] bg-black mt-[10px] transition-all duration-300 ease-in-out group-hover:-rotate-45 group-hover:-translate-y-[6px]" />
               </div>
             </button>
-            <div className="absolute right-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
+            <div className="absolute r-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
               <div className="bg-white rounded-lg overflow-hidden border border-gray-200 z-30">
                 {dropdownOptions.map((option, index) => (
                   <a
@@ -116,7 +116,7 @@ const Navbar = () => {
                   </a>
                 ))}
               </div>
-              <div className="absolute -top-2 right-4 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
+              <div className="absolute -top-2 left-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
             </div>
           </div>
 
@@ -153,11 +153,15 @@ const Navbar = () => {
             </div>
           ) : (
             <Link href="/login" className="hidden md:block cursor-pointer">
-              <button className="cursor-pointer px-6 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+              <button className="cursor-pointer px-4 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
                 Sign In
               </button>
             </Link>
           )}
+
+          <button className="cursor-pointer font-semibold px-4 bg-[#86EFAC] text-gray-800 p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+            Get started
+          </button>
 
           <button
             className="md:hidden cursor-pointer"

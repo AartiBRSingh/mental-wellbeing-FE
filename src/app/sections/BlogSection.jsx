@@ -36,6 +36,118 @@ const GraffitiDecoration = () => (
   </svg>
 );
 
+const AnimatedBackground = () => (
+  <div className="absolute inset-0 w-full h-full -z-20 opacity-[0.20]">
+    <svg
+      width="100%"
+      height="100%"
+      preserveAspectRatio="none"
+      viewBox="0 0 1440 560"
+    >
+      <g mask="url(#SvgjsMask1045)" fill="none">
+        <path
+          d="M492.2808232629382 101.5810851651076L410.46649701170605-40.12548468904271 268.75992715755575 41.68884156218947 350.5742534087879 183.39541141633975z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float3"
+        />
+        <path
+          d="M784.5026226134269 332.69404116415933L698.7971903478887 195.53667858322962 561.6398277669589 281.2421108487678 647.3452600324972 418.39947342969754z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float3"
+        />
+        <path
+          d="M312.0091831295798 18.060033743368663L304.026056082914 109.30759342634758 403.25674281255874 26.043160790034474z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float2"
+        />
+        <path
+          d="M1047.5851970125009 190.99726152587627L915.3763464286003 184.06848926521067 1040.6564247518352 323.2061121097769z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float3"
+        />
+        <path
+          d="M1345.3704613677994 281.74262237755863L1402.1558261246782 218.6760856194283 1339.089289366548 161.8907208625494 1282.3039246096691 224.9572576206797z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float3"
+        />
+        <path
+          d="M971.3081986680622 31.203208220363834L865.9723897771667-74.13260067053179 760.636580886271 31.203208220363848 865.9723897771667 136.53901711125945z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float2"
+        />
+        <path
+          d="M313.5062614317195 444.2028693823155L167.95124016682973 456.93728366226816 180.6856544467824 602.4923049271579 326.24067571167217 589.7578906472053z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float3"
+        />
+        <path
+          d="M949.5064394394894 390.3217331841341L831.7138448344011 349.762490220567 791.1546018708341 467.55508482565523 908.9471964759223 508.11432778922233z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float1"
+        />
+        <path
+          d="M1179.3569590037064 490.34987812910964L1295.1546908338971 539.503099065219 1344.3079117700065 423.7053672350281 1228.5101799398158 374.55214629891884z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float3"
+        />
+        <path
+          d="M678.6545895767308 221.99824876247678L747.9278015210969 91.71428571916198 617.6438384777821 22.44107377479594 548.370626533416 152.72503681811074z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float3"
+        />
+        <path
+          d="M498.5104417843806 614.3685630144779L442.95422596587775 442.82802055246793 335.4565445735176 558.1051704778375z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float2"
+        />
+        <path
+          d="M99.1693208040048 128.70324158200285L-10.23458114404923 109.41238187377753-29.525440852274556 218.81628382183158 79.87846109577949 238.10714353005687z"
+          fill="rgba(149, 97, 68, 0.4)"
+          className="triangle-float2"
+        />
+      </g>
+      <defs>
+        <mask id="SvgjsMask1045">
+          <rect width="1440" height="560" fill="#ffffff" />
+        </mask>
+        <style>
+          {`
+            @keyframes float1 {
+              0%{transform: translate(0, 0)}
+              50%{transform: translate(-10px, 0)}
+              100%{transform: translate(0, 0)}
+            }
+
+            .triangle-float1 {
+              animation: float1 5s infinite;
+            }
+
+            @keyframes float2 {
+              0%{transform: translate(0, 0)}
+              50%{transform: translate(-5px, -5px)}
+              100%{transform: translate(0, 0)}
+            }
+
+            .triangle-float2 {
+              animation: float2 4s infinite;
+            }
+
+            @keyframes float3 {
+              0%{transform: translate(0, 0)}
+              50%{transform: translate(0, -10px)}
+              100%{transform: translate(0, 0)}
+            }
+
+            .triangle-float3 {
+              animation: float3 6s infinite;
+            }
+          `}
+        </style>
+      </defs>
+    </svg>
+  </div>
+);
+
 const WaveBackground = () => (
   <div className="absolute bottom-0 left-0 w-full overflow-hidden">
     <div className="relative">
@@ -105,8 +217,9 @@ const BlogSection = () => {
   }
 
   return (
-    <div className="relative bg-[#FFF8F5] py-20 lg:py-32 overflow-hidden">
+    <div className="relative  py-20 lg:py-32 overflow-hidden">
       {/* Background decorations */}
+      <AnimatedBackground />
       <GraffitiDecoration />
       <WaveBackground />
 
@@ -114,7 +227,7 @@ const BlogSection = () => {
       <div className="absolute top-20 right-10 w-24 h-24 rounded-full bg-[#F5E6E0] animate-float" />
       <div className="absolute bottom-20 left-10 w-32 h-32 rounded-full bg-[#F5E6E0] animate-float-delayed" />
 
-      <div className="container mx-auto px-6 lg:px-12 relative">
+      <div className="container mx-auto px-6 lg:px-16 relative">
         {/* Header section */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-16">
           <div className="space-y-6">
@@ -161,7 +274,7 @@ const BlogSection = () => {
         </div>
 
         {/* Blog grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-8">
           {data?.map((item, index) => (
             <div key={index} className="group relative">
               <div className="absolute -inset-2 bg-[#F5E6E0] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
