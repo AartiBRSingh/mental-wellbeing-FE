@@ -148,7 +148,7 @@ const Navbar = () => {
                     <span className="text-sm">Logout</span>
                   </div>
                 </div>
-                <div className="absolute -top-3 left-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
+                <div className="absolute -top-2 left-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
               </div>
             </div>
           ) : (

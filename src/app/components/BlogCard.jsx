@@ -13,7 +13,7 @@ const BlogCard = ({
       {/* Image container with hover effects */}
       <div className="relative mb-6 group">
         {/* Background effect that only appears on hover */}
-        <div className="absolute -right-2 -top-2 w-full h-64 bg-orange-200 rounded-xl transform rotate-2 transition-all duration-300 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-105 group-hover:rotate-3"></div>
+        <div className="absolute -right-2 -top-2 w-full h-64 bg-orange-300 rounded-xl transform rotate-2 transition-all duration-300 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-105 group-hover:rotate-3"></div>
         <img
           src={imgUrl}
           alt="Helping to Navigate"
