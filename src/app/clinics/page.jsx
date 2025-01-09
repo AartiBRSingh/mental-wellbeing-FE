@@ -9,8 +9,10 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
+  ChevronRight,
 } from "lucide-react";
 import { baseURL } from "../baseURL";
+import Link from "next/link";
 
 const ClinicDisplay = () => {
   const [clinics, setClinics] = useState([]);
@@ -60,6 +62,13 @@ const ClinicDisplay = () => {
     );
 
   if (error) return <div className="text-red-500 text-center p-4">{error}</div>;
+
+  function generateSlug(title, id) {
+    return `${title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "")}?id=${id}`;
+  }
 
   return (
     <div className="container mx-auto p-4 max-w-6xl">
@@ -150,6 +159,14 @@ const ClinicDisplay = () => {
                     </span>
                   </button>
                 </div>
+                <Link
+                  href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
+                  className="inline-flex items-center text-blue-600 font-medium hover:text-blue-700 transition-colors"
+                  target="_blank"
+                >
+                  Read More
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
               </div>
 
               {/* Right Column - Images and Map */}
