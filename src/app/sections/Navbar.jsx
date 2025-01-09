@@ -35,7 +35,7 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Services", redirectTo: "#services" },
-    { label: "Clinics", redirectTo: "#" },
+    { label: "Clinics", redirectTo: "/clinics" },
     { label: "Treatments", redirectTo: "#" },
     // { label: "India Directory", redirectTo: "#" },
     // { label: "International Directory", redirectTo: "#" },
