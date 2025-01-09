@@ -9,11 +9,11 @@ const BlogCard = ({
   redirectTo,
 }) => {
   return (
-    <div className="bg-cream rounded-2xl shadow-xl p-5 min-h-[600px] relative">
+    <div className="bg-cream rounded-2xl shadow-xl p-8 min-h-[580px] relative size-auto">
       {/* Image container with hover effects */}
-      <div className="relative mb-6 group">
+      <div className="relative mb-8 group">
         {/* Background effect that only appears on hover */}
-        <div className="absolute -right-2 -top-2 w-full h-64 bg-orange-200 rounded-xl transform rotate-2 transition-all duration-300 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-105 group-hover:rotate-3"></div>
+        <div className="absolute -right-2 -top-2 w-full h-64 bg-orange-300 rounded-xl transform rotate-2 transition-all duration-300 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-105 group-hover:rotate-3"></div>
         <img
           src={imgUrl}
           alt="Helping to Navigate"
@@ -26,7 +26,7 @@ const BlogCard = ({
             {title}
           </h2>
         </div>
-        <p className="text-gray-600 mt-4 mb-4 text-base leading-relaxed">
+        <p className="text-gray-600 mt-4 mb-4 text-base leading-relaxed line-clamp-2">
           {description}
         </p>
       </div>

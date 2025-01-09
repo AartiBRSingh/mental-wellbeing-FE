@@ -192,9 +192,20 @@ const WhyUs = () => {
           <div className="flex gap-2 justify-center">
             <h1 className="text-4xl md:text-5xl font-semibold mt-10 mb-16">
               Our{" "}
-              <span className="relative inline-block">
+              <span className="relative text-[#FDD56A]">
                 Experts
-                <span className="absolute -bottom-1 left-0 w-full h-2 bg-[#FFA500]"></span>
+                <svg
+                  className="absolute w-full h-[10px] bottom-0 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
               </span>
             </h1>
             <Link

@@ -287,7 +287,7 @@ const BlogSection = () => {
                   <span
                     className="text-gray-600 line-clamp-3"
                     dangerouslySetInnerHTML={{
-                      __html: `${item.content.slice(0, 300)}${
+                      __html: `${item.content.slice(0, 250)}${
                         item.content.length > 100 ? "..." : ""
                       }`,
                     }}
