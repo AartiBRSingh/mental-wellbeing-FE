@@ -217,7 +217,7 @@ const BlogSection = () => {
   }
 
   return (
-    <div className="relative  py-20 lg:py-32 overflow-hidden">
+    <div className="relative  py-20 lg:py-16 overflow-hidden">
       {/* Background decorations */}
       <AnimatedBackground />
       <GraffitiDecoration />
@@ -227,10 +227,10 @@ const BlogSection = () => {
       <div className="absolute top-20 right-10 w-24 h-24 rounded-full bg-[#F5E6E0] animate-float" />
       <div className="absolute bottom-20 left-10 w-32 h-32 rounded-full bg-[#F5E6E0] animate-float-delayed" />
 
-      <div className="container mx-auto px-6 lg:px-16 relative">
+      <div className="container mx-auto px-6 lg:px-24 relative">
         {/* Header section */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-16">
-          <div className="space-y-6">
+          <div className="space-y-4 mx-24">
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-[#956144] opacity-10 rotate-2 rounded-lg" />
               <div className="relative px-4 py-1.5 bg-white rounded-lg text-sm text-[#956144] font-medium border border-[#956144]/20">
@@ -238,7 +238,7 @@ const BlogSection = () => {
               </div>
             </div>
 
-            <h2 className="relative text-4xl lg:text-6xl font-bold text-[#2D2D2D]">
+            <h2 className="relative text-4xl lg:text-5xl font-bold text-[#2D2D2D]">
               <span className="absolute -top-6 -left-6 w-12 h-12 bg-[#F5E6E0] rounded-full -z-10" />
               Latest from{" "}
               <span className="relative text-[#956144]">
@@ -265,7 +265,7 @@ const BlogSection = () => {
           </div>
 
           <Link href="/blogs" className="group">
-            <button className="relative flex items-center gap-2 px-8 py-3.5 bg-[#956144] text-white rounded-full transition-all duration-300 hover:bg-[#7A4F37] overflow-hidden">
+            <button className="relative flex items-center gap-2 px-8 mr-28 py-3.5 bg-[#956144] text-white rounded-full transition-all duration-300 hover:bg-[#7A4F37] overflow-hidden">
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
               <span className="font-medium">Read all articles</span>
               <MdChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -274,10 +274,10 @@ const BlogSection = () => {
         </div>
 
         {/* Blog grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-8 ml-24 mr-24 ">
           {data?.map((item, index) => (
             <div key={index} className="group relative">
-              <div className="absolute -inset-2 bg-[#F5E6E0] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+              <div className=" -inset-2 bg-[#F5E6E0] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
               <BlogCard
                 imgUrl={item?.image}
                 title={item?.title}
@@ -285,9 +285,9 @@ const BlogSection = () => {
                 date={formatDate(item.updatedAt)}
                 description={
                   <span
-                    className="text-gray-600 line-clamp-3"
+                    className="text-gray-600 line-clamp-2"
                     dangerouslySetInnerHTML={{
-                      __html: `${item.content.slice(0, 250)}${
+                      __html: `${item.content.slice(0, 300)}${
                         item.content.length > 100 ? "..." : ""
                       }`,
                     }}
