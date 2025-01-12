@@ -621,9 +621,19 @@ const SignupPage = () => {
                       className={inputClasses}
                     >
                       <option value="">Select User Type</option>
-                      <option value="Psychiatrist">Psychiatrist</option>
-                      <option value="Psychologist">Psychologist</option>
-                      <option value="Psychotherapist">Psychotherapist</option>
+                      <option value="individual-therapy">
+                        Individual Therapy
+                      </option>
+                      <option value="couples-marriage-counseling">
+                        Couples / Marriage Counseling
+                      </option>
+                      <option value="child-teen-therapy">
+                        Child & Teen Therapy
+                      </option>
+                      <option value="family-therapy">Family Therapy</option>
+                      <option value="psychiatry-medication">
+                        Psychiatry & Medication
+                      </option>
                       <option value="Psychotherapy Center">
                         Psychotherapy Center
                       </option>
