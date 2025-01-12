@@ -154,37 +154,65 @@ const shapes = ["square", "oval", "circle", "flower"];
 const underlineColors = ["#CAFA90", "#FF844C", "#CAFA90", "#FAD77B"];
 
 const WhyUs = () => {
-  const [experts, setExperts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [experts, setExperts] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchExperts = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/get-experts`);
-        setExperts(response.data.slice(0, 4));
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching experts:", error);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchExperts = async () => {
+  //     try {
+  //       const response = await axios.get(`${baseURL}/get-experts`);
+  //       setExperts(response.data.slice(0, 4));
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching experts:", error);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchExperts();
-  }, []);
+  //   fetchExperts();
+  // }, []);
 
-  if (loading) {
-    return (
-      <section className="py-16 bg-white relative">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          Loading experts...
-        </div>
-      </section>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <section className="py-16 bg-white relative">
+  //       <div className="max-w-6xl mx-auto px-4 text-center">
+  //         Loading experts...
+  //       </div>
+  //     </section>
+  //   );
+  // }
+
+  const expertTypes = [
+    {
+      id: 1,
+      title: "Individual Therapy",
+      slug: "individual-therapy",
+    },
+    {
+      id: 2,
+      title: "Couples / Marriage Counseling",
+      slug: "couples-marriage-counseling",
+    },
+    {
+      id: 3,
+      title: "Child & Teen Therapy",
+      slug: "child-teen-therapy",
+    },
+    {
+      id: 4,
+      title: "Family Therapy",
+      slug: "family-therapy",
+    },
+    {
+      id: 5,
+      title: "Psychiatry & Medication",
+      slug: "psychiatry-medication",
+    },
+  ];
 
   return (
     <section className="py-16 bg-white relative">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="w-full mx-auto px-4">
         <div className="text-center relative">
           <span className="inline-flex items-center px-4 py-2 rounded-full border border-[#956144] text-sm font-semibold">
             PEACEFUL BEGINNING
@@ -217,8 +245,8 @@ const WhyUs = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {experts.map((expert, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {expertTypes.map((expert, index) => (
             <div
               key={expert._id}
               className="text-center flex flex-col items-center"
@@ -227,12 +255,11 @@ const WhyUs = () => {
                 {getShapeSVG(shapes[index % shapes.length])}
               </div>
               <div className="relative inline-block pb-4 mb-2">
-                <h3 className="text-2xl font-semibold">{expert.name}</h3>
+                <h3 className="text-2xl font-semibold">{expert.title}</h3>
                 <TitleUnderline
                   stroke={underlineColors[index % underlineColors.length]}
                 />
               </div>
-              <p className="text-gray-600 text-base px-4">{expert.userType}</p>
             </div>
           ))}
         </div>

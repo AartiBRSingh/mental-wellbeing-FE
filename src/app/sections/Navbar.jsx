@@ -42,8 +42,8 @@ const Navbar = () => {
   ];
 
   const dropdownOptions = [
-    { label: "Disorder", href: "#" },
-    { label: "Therapy", href: "#" },
+    { label: "Disorder", href: "/disorder" },
+    { label: "Therapy", href: "/therapy" },
     { label: "Dictionary", href: "/dictionary" },
   ];
 
