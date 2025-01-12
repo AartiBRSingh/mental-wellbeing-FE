@@ -247,10 +247,7 @@ const WhyUs = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {expertTypes.map((expert, index) => (
-            <div
-              key={expert._id}
-              className="text-center flex flex-col items-center"
-            >
+            <div key={index} className="text-center flex flex-col items-center">
               <div className="w-48 h-48 mb-6">
                 {getShapeSVG(shapes[index % shapes.length])}
               </div>
