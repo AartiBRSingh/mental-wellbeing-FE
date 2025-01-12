@@ -5,26 +5,24 @@ import Link from "next/link";
 import { baseURL } from "../baseURL";
 import ContentCard from "../components/ContentCard";
 
-const DictionaryPage = () => {
+const TherapyPage = () => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchDictionary = async () => {
+    const fetchTherapy = async () => {
       try {
-        const response = await axios.get(
-          `${baseURL}/content?ogType=Dictionary`
-        );
+        const response = await axios.get(`${baseURL}/content?ogType=Therapy`);
         setEntries(response.data);
         setLoading(false);
       } catch (err) {
-        setError("Failed to fetch dictionary entries");
+        setError("Failed to fetch Therapy entries");
         setLoading(false);
       }
     };
 
-    fetchDictionary();
+    fetchTherapy();
   }, []);
 
   if (loading) {
@@ -47,7 +45,7 @@ const DictionaryPage = () => {
     <div className="min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center text-gray-900 mb-12">
-          Medical Dictionary
+          Medical Therapies
         </h1>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {entries.map((entry) => (
@@ -59,4 +57,4 @@ const DictionaryPage = () => {
   );
 };
 
-export default DictionaryPage;
+export default TherapyPage;

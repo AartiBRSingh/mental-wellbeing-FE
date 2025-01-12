@@ -7,13 +7,13 @@ import { useSearchParams } from "next/navigation";
 import { baseURL } from "../../baseURL";
 import ContentDetailCard from "@/app/components/ContentDetailCard";
 
-const DictionaryDetailPage = () => {
+const DisorderDetailPage = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const searchParams = useSearchParams();
-  const dictionaryId = searchParams.get("id");
+  const disorderId = searchParams.get("id");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +21,7 @@ const DictionaryDetailPage = () => {
         const api = axios.create({
           baseURL: baseURL,
         });
-        const postResponse = await api.get(`/content/${dictionaryId}`);
+        const postResponse = await api.get(`/content/${disorderId}`);
         setData(postResponse?.data);
         setLoading(false);
       } catch (err) {
@@ -31,10 +31,10 @@ const DictionaryDetailPage = () => {
       }
     };
 
-    if (dictionaryId) {
+    if (disorderId) {
       fetchData();
     }
-  }, [dictionaryId]);
+  }, [disorderId]);
 
   if (loading) {
     return (
@@ -49,11 +49,11 @@ const DictionaryDetailPage = () => {
       <div className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-red-500 text-xl font-semibold mb-4">{error}</div>
         <Link
-          href="/dictionary"
+          href="/disorder"
           className="flex items-center text-blue-600 hover:text-blue-800"
         >
           <ChevronLeft className="w-5 h-5 mr-2" />
-          Back to Dictionary
+          Back to Disorder
         </Link>
       </div>
     );
@@ -66,4 +66,4 @@ const DictionaryDetailPage = () => {
   return <ContentDetailCard data={data} />;
 };
 
-export default DictionaryDetailPage;
+export default DisorderDetailPage;
