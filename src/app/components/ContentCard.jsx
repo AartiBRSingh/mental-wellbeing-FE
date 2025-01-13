@@ -9,7 +9,7 @@ const ContentCard = ({ entry }) => {
       .replace(/(^-|-$)+/g, "")}?id=${id}`;
   }
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+    <div className="bg-white rounded-lg shadow-lg shadow-slate-500 overflow-hidden transition-transform duration-300 hover:scale-105">
       <div className="relative h-48 w-full">
         <img
           src={entry.image}

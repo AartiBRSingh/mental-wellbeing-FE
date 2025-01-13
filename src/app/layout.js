@@ -15,7 +15,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${font.className} antialiased bg-cream no-select`}>
+      <body
+        className={`${font.className} antialiased bg-cream no-select`}
+        // style={{ backgroundImage: "url('/bg-01.svg')" }}
+      >
         <CustomCursor />
         <Navbar />
         {children}

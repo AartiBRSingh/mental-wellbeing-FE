@@ -42,7 +42,10 @@ const TherapyPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8">
+    <div
+      className="min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8"
+      style={{ backgroundImage: "url('/bg-01.svg')" }}
+    >
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center text-gray-900 mb-12">
           Medical Therapies

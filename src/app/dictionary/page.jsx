@@ -44,11 +44,32 @@ const DictionaryPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8">
+    <div
+      className="min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8"
+      style={{ backgroundImage: "url('/bg-01.svg')" }}
+    >
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-gray-900 mb-12">
-          Medical Dictionary
+        <h1 className="text-4xl font-bold text-center text-orange-500 mb-12">
+          <span className="text-gray-700 relative">
+            M
+            <span className="relative">
+              edical Dictionary
+              <svg
+                className="absolute w-full h-[6px] bottom-0 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="6"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+          </span>
         </h1>
+
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {entries.map((entry) => (
             <ContentCard entry={entry} key={entry._id} />

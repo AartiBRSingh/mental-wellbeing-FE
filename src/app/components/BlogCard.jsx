@@ -22,18 +22,18 @@ const BlogCard = ({
       </div>
       <div className="px-1 bg-transparent">
         <div className="">
-          <h2 className="text-xl font-semibold border-l-4 border-amber-800 pl-4 py-2 bg-amber-100 rounded-r-xl">
+          <h2 className="text-lg font-semibold border-l-4 border-amber-800 pl-4 py-2 bg-amber-100 rounded-r-xl line-clamp-2">
             {title}
           </h2>
         </div>
-        <p className="text-gray-600 mt-4 mb-6 text-base leading-relaxed ">
+        <p className="text-gray-600 mt-4 mb-6 text-sm leading-relaxed ">
           {description}
         </p>
       </div>
       <div className="relative bottom-2 left-1 px-4">
         <a
           href={redirectTo}
-          className="flex items-center justify-center gap-2 py-2 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg"
+          className="flex items-center justify-center gap-2 py-2 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
         >
           <span className="text-center">Read More</span>
           <span className="text-2xl transition-transform duration-300 hover:translate-x-1">

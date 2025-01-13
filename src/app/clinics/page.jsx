@@ -168,7 +168,7 @@ const ClinicDisplay = () => {
     }, [testimonials?.length]);
 
     return testimonials?.length > 0 ? (
-      <div className="bg-gray-50 p-6 rounded-lg mt-6">
+      <div className="bg-gray-100 p-6 rounded-lg mt-6">
         <h3 className="text-lg font-semibold mb-4">What Our Patients Say</h3>
         <div className="relative overflow-hidden">
           <div className="transition-all duration-500 ease-in-out">
@@ -222,7 +222,24 @@ const ClinicDisplay = () => {
           className="mb-8 bg-white rounded-lg shadow-lg overflow-hidden"
         >
           <div className="bg-gradient-to-r from-green-500 to-green-300 p-6">
-            <h2 className="text-2xl font-bold text-white">{clinic.name}</h2>
+            {/* <h2 className="text-2xl font-bold text-white">{clinic.name}</h2> */}
+            <span className="text-white relative text-4xl md:text-6xl lg:text-4xl block">
+              <span className="relative">
+                {clinic.name}
+                <svg
+                  className="absolute w-full h-[6px] bottom-0 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
           </div>
           <div className="p-6">
             <div className="grid md:grid-cols-2 gap-6">
