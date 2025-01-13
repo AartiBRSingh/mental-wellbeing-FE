@@ -405,7 +405,6 @@ const CaseStudyPage = () => {
                   />
                 </div>
               </div>
-
               {questions.map((question, index) => (
                 <div
                   key={question._id}
@@ -413,7 +412,7 @@ const CaseStudyPage = () => {
                 >
                   <div className="bg-gradient-to-r from-gray-50 to-white px-8 py-4 border-b border-gray-100 flex justify-between items-center">
                     <span className="text-sm font-medium text-gray-500">
-                      Question {index + 1} of {questions.length}
+                      Question {index + 1} of {question.stage}
                     </span>
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium
