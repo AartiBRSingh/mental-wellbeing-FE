@@ -217,7 +217,7 @@ const BlogSection = () => {
   }
 
   return (
-    <div className="relative  py-20 lg:py-16 overflow-hidden">
+    <div className="relative py-20 lg:py-16 overflow-hidden">
       {/* Background decorations */}
       <AnimatedBackground />
       <GraffitiDecoration />
@@ -238,10 +238,10 @@ const BlogSection = () => {
               </div>
             </div>
 
-            <h2 className="relative text-4xl lg:text-5xl font-bold text-[#2D2D2D]">
+            <h2 className="relative text-xl lg:text-5xl font-bold text-[#2D2D2D]">
               <span className="absolute -top-6 -left-6 w-12 h-12 bg-[#F5E6E0] rounded-full -z-10" />
               Latest from{" "}
-              <span className="relative text-[#956144]">
+              {/* <span className="relative text-[#956144]">
                 Shareyrheart
                 <svg
                   className="absolute -bottom-2 left-0 w-full"
@@ -255,6 +255,24 @@ const BlogSection = () => {
                     strokeWidth="2"
                   />
                 </svg>
+              </span> */}
+              <span className="text-[#956144] relative">
+                S
+                <span className="relative">
+                  hareyrheart
+                  <svg
+                    className="absolute w-full h-[10px] bottom-0 left-0"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 -5, 100 5"
+                      stroke="orange"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                  </svg>
+                </span>
               </span>
             </h2>
 
@@ -266,9 +284,9 @@ const BlogSection = () => {
 
           <Link href="/blogs" className="group">
             <button className="relative flex items-center gap-2 px-8 mr-28 py-3.5 bg-[#956144] text-white rounded-full transition-all duration-300 hover:bg-[#7A4F37] overflow-hidden">
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
-              <span className="font-medium">Read all articles</span>
-              <MdChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity cursor-pointer" />
+              <span className="font-medium">Read More</span>
+              <MdChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1 text-lime-400" />
             </button>
           </Link>
         </div>
