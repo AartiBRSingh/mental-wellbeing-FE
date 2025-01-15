@@ -213,7 +213,7 @@ const ClinicDisplay = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 max-w-6xl">
+    <div className="container mx-auto p-4 max-w-3xl">
       <SearchSection />
 
       {filteredClinics.map((clinic) => (
@@ -263,6 +263,60 @@ const ClinicDisplay = () => {
                   </div>
                 </div>
 
+                <div className="space-y-3">
+                  <button
+                    onClick={() => handleCall(clinic.phoneNumber)}
+                    className="w-full flex items-center space-x-3 bg-white hover:bg-green-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-green-200"
+                  >
+                    <Phone className="w-5 h-5 text-green-500" />
+                    <span className="text-gray-600 hover:text-green-600">
+                      {clinic.phoneNumber}
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => handleEmail(clinic.email)}
+                    className="w-full flex items-center space-x-3 bg-white hover:bg-green-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-green-200"
+                  >
+                    <Mail className="w-5 h-5 text-green-500" />
+                    <span className="text-gray-600 hover:text-green-600">
+                      {clinic.email}
+                    </span>
+                  </button>
+
+                  <Link
+                    href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
+                    className="inline-flex text-lg pt-4 pl-2 items-center text-green-600 font-semibold hover:text-green-700 transition-colors"
+                    target="_blank"
+                  >
+                    Read More
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Link>
+                </div>
+
+                {/* <div className="mt-2">
+                  <a
+                    href={clinic.googleAddressUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  >
+                    <MapPin className="w-5 h-5" />
+                    View on Maps
+                  </a>
+                </div> */}
+              </div>
+
+              <div className="space-y-5">
+                <div className="aspect-video rounded-lg overflow-hidden shadow-md">
+                  <img
+                    src={clinic.images[0]}
+                    alt={`${clinic.name} - Featured Image`}
+                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+                    onClick={() => window.open(clinic.images[0], "_blank")}
+                  />
+                </div>
+
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div
                     className="flex items-center justify-between cursor-pointer"
@@ -293,53 +347,12 @@ const ClinicDisplay = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <button
-                    onClick={() => handleCall(clinic.phoneNumber)}
-                    className="w-full flex items-center space-x-3 bg-white hover:bg-green-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-green-200"
-                  >
-                    <Phone className="w-5 h-5 text-green-500" />
-                    <span className="text-gray-600 hover:text-green-600">
-                      {clinic.phoneNumber}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => handleEmail(clinic.email)}
-                    className="w-full flex items-center space-x-3 bg-white hover:bg-green-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-green-200"
-                  >
-                    <Mail className="w-5 h-5 text-green-500" />
-                    <span className="text-gray-600 hover:text-green-600">
-                      {clinic.email}
-                    </span>
-                  </button>
-                </div>
-
-                <Link
-                  href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
-                  className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
-                  target="_blank"
-                >
-                  Read More
-                  <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
-                <TestimonialSection
+                {/* <TestimonialSection
                   clinicId={clinic._id}
                   testimonials={clinic.testimonials}
-                />
-              </div>
+                /> */}
 
-              <div className="space-y-4">
-                <div className="aspect-video rounded-lg overflow-hidden shadow-md">
-                  <img
-                    src={clinic.images[0]}
-                    alt={`${clinic.name} - Featured Image`}
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300 cursor-pointer"
-                    onClick={() => window.open(clinic.images[0], "_blank")}
-                  />
-                </div>
-
-                <div className="aspect-video rounded-lg overflow-hidden shadow-md">
+                {/* <div className="aspect-video rounded-lg overflow-hidden shadow-md">
                   <iframe
                     src={clinic.googleAddressUrl}
                     className="w-full h-full border-0"
@@ -347,7 +360,7 @@ const ClinicDisplay = () => {
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
