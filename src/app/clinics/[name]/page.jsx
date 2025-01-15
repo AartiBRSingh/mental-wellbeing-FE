@@ -131,13 +131,13 @@ const ClinicDetailPage = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 md:w-6 md:h-6 flex-shrink-0" />
-                  <p className="text-base md:text-lg text-green-500">
+                  <p className="text-base md:text-lg text-white">
                     {clinic.phoneNumber}
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 md:w-6 md:h-6 flex-shrink-0" />
-                  <p className="text-base md:text-lg text-green-500">
+                  <p className="text-base md:text-lg text-white">
                     {clinic.email}
                   </p>
                 </div>
@@ -169,7 +169,7 @@ const ClinicDetailPage = () => {
         {/* Content Section - Updated with smaller boxes */}
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-            <div className="bg-white rounded-2xl p-4 shadow-lg shadow-slate-600 text-center">
+            <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl p-4 shadow-lg shadow-slate-600 text-center">
               <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">
                 About Us
               </h2>
@@ -179,7 +179,7 @@ const ClinicDetailPage = () => {
             </div>
             {/* Photo Gallery */}
             {clinic.images && clinic.images.length > 0 && (
-              <div className="bg-white rounded-2xl p-4 shadow-lg shadow-slate-600">
+              <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl p-4 shadow-lg shadow-slate-600">
                 <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">
                   Images
                 </h2>
@@ -202,13 +202,13 @@ const ClinicDetailPage = () => {
           </div>
           {/* Testimonials and Location Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="bg-white rounded-2xl p-4 shadow-lg shadow-slate-600 max-h-48 text-black">
+            <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl p-4 shadow-lg shadow-slate-600 max-h-48 text-black">
               {clinic.testimonials && clinic.testimonials.length > 0 && (
                 <SimpleTestimonialCarousel testimonials={clinic.testimonials} />
               )}
             </div>
             {/* Location */}
-            <div className="bg-white rounded-2xl p-4 shadow-lg shadow-slate-600 cursor-pointer">
+            <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl p-4 shadow-lg shadow-slate-600 cursor-pointer">
               <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">
                 Location
               </h3>
