@@ -111,7 +111,7 @@ const getShapeSVG = (shape) => {
           xmlns="http://www.w3.org/2000/svg"
           width="200"
           height="200"
-          viewBox="0 0 59 55"
+          viewBox="0 0 65 65"
         >
           <defs>
             <clipPath id="flowerClip">
@@ -137,7 +137,7 @@ const getShapeSVG = (shape) => {
           <image
             href="/man.png"
             width="56"
-            height="52"
+            height="56"
             x="2"
             y="2"
             preserveAspectRatio="xMidYMid slice"
@@ -211,8 +211,8 @@ const WhyUs = () => {
   ];
 
   return (
-    <section className="py-16 bg-white relative">
-      <div className="w-full mx-auto px-4">
+    <section className="py-16 bg-cream relative">
+      <div className="w-[1600px] mx-auto ">
         <div className="text-center relative">
           <span className="inline-flex items-center px-4 py-2 rounded-full border border-[#956144] text-sm font-semibold">
             PEACEFUL BEGINNING
@@ -245,14 +245,17 @@ const WhyUs = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           {expertTypes.map((expert, index) => (
-            <div key={index} className="text-center flex flex-col items-center">
-              <div className="w-48 h-48 mb-6">
+            <div
+              key={index}
+              className="text-center flex flex-col items-center -mx-10"
+            >
+              <div className="w-40 h-40 mb-4">
                 {getShapeSVG(shapes[index % shapes.length])}
               </div>
               <div className="relative inline-block pb-4 mb-2">
-                <h3 className="text-2xl font-semibold">{expert.title}</h3>
+                <h3 className="text-xl font-normal">{expert.title}</h3>
                 <TitleUnderline
                   stroke={underlineColors[index % underlineColors.length]}
                 />

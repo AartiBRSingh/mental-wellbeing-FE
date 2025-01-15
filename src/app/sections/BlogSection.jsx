@@ -238,7 +238,7 @@ const BlogSection = () => {
               </div>
             </div>
 
-            <h2 className="relative text-xl lg:text-5xl font-bold text-[#2D2D2D]">
+            <h2 className="relative text-xl lg:text-5xl font-semibold text-[#2D2D2D]">
               <span className="absolute -top-6 -left-6 w-12 h-12 bg-[#F5E6E0] rounded-full -z-10" />
               Latest from{" "}
               {/* <span className="relative text-[#956144]">
