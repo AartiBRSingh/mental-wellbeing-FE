@@ -28,17 +28,19 @@ const HealPoint = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white h-[430px] w-full" id="footer">
-      <div className=" flex items-center justify-center">
-        <div className="flex w-[80vw]  justify-between items-start h-[350px]">
-          <div className="w-2/3 h-full border-r border-gray-700">
-            <header className="flex justify-between items-center border-l rounded-l-3xl border-b  border-gray-700 h-[80px] px-20">
-              <section>
-                <ul className="flex justify-between items-center gap-10">
+    <div className="bg-gray-900 text-white min-h-[430px] w-full" id="footer">
+      <div className="flex items-center justify-center">
+        <div className="flex flex-col lg:flex-row w-[95vw] lg:w-[90vw] xl:w-[80vw] justify-between items-start min-h-[350px]">
+          {/* Left Section */}
+          <div className="w-full lg:w-2/3 border-r-0 lg:border-r border-gray-700">
+            {/* Navigation Header */}
+            <header className="flex flex-col sm:flex-row justify-between items-center border-l rounded-l-3xl border-b border-gray-700 min-h-[80px] px-4 sm:px-8 md:px-12 lg:px-20">
+              <section className="w-full sm:w-auto py-4 sm:py-0">
+                <ul className="flex flex-wrap justify-center sm:justify-between items-center gap-4 sm:gap-6 md:gap-10">
                   {navLinks.map((item, index) => (
                     <li
                       key={index}
-                      className="relative font-semibold text-white cursor-pointer text-sm group"
+                      className="relative font-semibold text-white cursor-pointer text-sm group whitespace-nowrap"
                     >
                       {item.label}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300 ease-in-out" />
@@ -46,7 +48,9 @@ const HealPoint = () => {
                   ))}
                 </ul>
               </section>
-              <section className="flex justify-between items-center gap-10">
+
+              {/* Hamburger Menu */}
+              <section className="flex justify-center sm:justify-between items-center">
                 <div className="relative group">
                   <button className="relative w-8 h-8 cursor-pointer">
                     <div className="relative flex flex-col justify-center w-full h-full">
@@ -62,15 +66,15 @@ const HealPoint = () => {
                   </button>
                   <div
                     className="absolute right-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 
-                    group-hover:visible transition-all duration-300 ease-in-out"
+                    group-hover:visible transition-all duration-300 ease-in-out z-50"
                   >
-                    <div className="bg-white rounded-lg overflow-hidden border border-gray-200 z-20">
+                    <div className="bg-white rounded-lg overflow-hidden border border-gray-200">
                       {dropdownOptions.map((option, index) => (
                         <a
                           key={index}
                           href={option.href}
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 
-                       transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
+                          transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
                         >
                           {option.label}
                         </a>
@@ -81,30 +85,36 @@ const HealPoint = () => {
                 </div>
               </section>
             </header>
-            <div className="flex space-x-16 items-center px-20 h-[270px]">
-              <div>
-                <div className="text-6xl font-bold">
-                  48<span className="text-3xl">k</span>
+
+            {/* Stats Section */}
+            <div className="flex flex-col sm:flex-row justify-center sm:space-x-8 md:space-x-16 items-center px-4 sm:px-8 md:px-12 lg:px-20 py-8 min-h-[270px]">
+              <div className="mb-8 sm:mb-0 text-center sm:text-left">
+                <div className="text-4xl md:text-5xl lg:text-6xl font-bold">
+                  48<span className="text-2xl md:text-3xl">k</span>
                 </div>
                 <div className="mt-2 text-gray-400">
                   People enrolled program
                 </div>
-                <div className="w-32 h-1 bg-blue-400 mt-2"></div>
+                <div className="w-32 h-1 bg-blue-400 mt-2 mx-auto sm:mx-0"></div>
               </div>
 
-              <div>
-                <div className="text-6xl font-bold">
-                  93<span className="text-3xl">%</span>
+              <div className="text-center sm:text-left">
+                <div className="text-4xl md:text-5xl lg:text-6xl font-bold">
+                  93<span className="text-2xl md:text-3xl">%</span>
                 </div>
                 <div className="mt-2 text-gray-400">People get benefitted</div>
-                <div className="w-32 h-1 bg-purple-400 mt-2"></div>
+                <div className="w-32 h-1 bg-purple-400 mt-2 mx-auto sm:mx-0"></div>
               </div>
             </div>
           </div>
-          <div className="text-center w-1/3 flex flex-col items-center justify-center min-h-full">
-            <div className="flex flex-col space-y-6 items-center">
+
+          {/* Right Section */}
+          <div className="text-center w-full lg:w-1/3 flex flex-col items-center justify-center py-8 lg:py-0">
+            <div className="flex flex-col space-y-6 items-center px-4">
               <div className="flex items-center justify-center">
-                <span className="text-2xl font-bold">ShareYrHeart</span>
+                <span className="text-xl sm:text-2xl font-bold">
+                  ShareYrHeart
+                </span>
               </div>
 
               <div>
@@ -112,6 +122,7 @@ const HealPoint = () => {
                   MENTAL HEALTH AT 30&apos;S
                 </span>
               </div>
+
               <div className="flex justify-center w-full my-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -126,23 +137,23 @@ const HealPoint = () => {
                       <stop offset="100%" stopColor="rgba(75,75,75,0)" />
                     </linearGradient>
                   </defs>
-
                   <path
-                    d="M 0,10 
-             C 40,15 60,5 100,10 
-             C 140,15 160,5 200,10"
+                    d="M 0,10 C 40,15 60,5 100,10 C 140,15 160,5 200,10"
                     fill="none"
                     stroke="url(#fadeEffect)"
                     strokeWidth="1.5"
                   />
                 </svg>
               </div>
-              <div className="text-lg">Subscribe to our newsletter !</div>
-              <div className="relative flex items-center">
+
+              <div className="text-base sm:text-lg">
+                Subscribe to our newsletter !
+              </div>
+              <div className="relative flex items-center w-full max-w-[300px]">
                 <input
                   type="email"
                   placeholder="Email address"
-                  className="w-64 bg-gray-800 text-white rounded-full px-4 py-2 pr-12 focus:outline-none"
+                  className="w-full bg-gray-800 text-white rounded-full px-4 py-2 pr-12 focus:outline-none"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -157,29 +168,32 @@ const HealPoint = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center">
-        <footer className="h-[80px] rounded-t-3xl shadow-sm flex justify-between items-center px-10  w-[80vw] border-t border-r border-l border-gray-700">
-          {" "}
+
+      {/* Bottom Footer */}
+      <div className="w-full flex justify-center mt-8 lg:mt-0">
+        <footer className="min-h-[80px] rounded-t-3xl shadow-sm flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 md:px-10 py-4 w-[95vw] lg:w-[90vw] xl:w-[80vw] border-t border-r border-l border-gray-700 gap-4 sm:gap-0">
           <div className="flex space-x-4 items-center">
-            <span className="cursor-pointer  hover:scale-125 delay-75 duration-300">
+            <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
               <FaXTwitter />
             </span>
-            <span className="cursor-pointer  hover:scale-125 delay-75 duration-300">
+            <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
               <FaFacebookF />
             </span>
-            <span className="cursor-pointer  hover:scale-125 delay-75 duration-300">
+            <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
               <AiFillInstagram size={20} />
             </span>
             <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
               <FaLinkedinIn size={20} />
             </span>
           </div>
-          <div className="text-gray-400 ">
+
+          <div className="text-gray-400 text-center text-sm sm:text-base">
             <span className="font-semibold text-white">
               © 2024 Shareyrheart{" "}
             </span>
             | All Rights Reserved
           </div>
+
           <div className="flex space-x-4">
             <Link href={"/about"}>
               <span className="cursor-pointer">About</span>
@@ -188,7 +202,7 @@ const HealPoint = () => {
               <span className="cursor-pointer">Terms</span>
             </Link>
             <Link href={"/privacy"}>
-              <span className="relative cursor-pointer">Privacy</span>
+              <span className="cursor-pointer">Privacy</span>
             </Link>
           </div>
         </footer>
