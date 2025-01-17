@@ -1,19 +1,25 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Clock, Eye, ArrowRight } from "lucide-react";
+import { Clock, Eye, ArrowRight, Share } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { baseURL } from "../../baseURL";
+import ShareModal from "@/app/components/ShareModal";
 
 const BlogDetailPage = () => {
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   const searchParams = useSearchParams();
   const postId = searchParams.get("id");
+
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
 
   function generateSlug(title, id) {
     return `${title
@@ -84,9 +90,9 @@ const BlogDetailPage = () => {
             />
           )}
           <div className="p-6">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              {post.title}
-            </h1>
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-3xl font-bold text-gray-900">{post.title}</h1>
+            </div>
             <div className="flex items-center text-gray-600 mb-6 space-x-4">
               <div className="flex items-center">
                 <Clock className="mr-2 h-5 w-5" />
@@ -96,6 +102,13 @@ const BlogDetailPage = () => {
                 <Eye className="mr-2 h-5 w-5" />
                 <span>{post.totalViews} Views</span>
               </div>
+              <button
+                onClick={() => setShowShareModal(true)}
+                className="px-4 py-2 bg-slate-400 text-white rounded-md hover:bg-blue-500 transition-colors cursor-pointer flex items-center gap-2"
+              >
+                Share
+                <Share size={20} />
+              </button>
             </div>
             <div
               className="prose max-w-none"
@@ -104,6 +117,7 @@ const BlogDetailPage = () => {
           </div>
         </article>
       </div>
+
       <div className="bg-white shadow-lg rounded-xl p-6 h-fit">
         <h3 className="text-xl font-bold text-gray-800 mb-4 border-b pb-3">
           Recent <span className="text-[#FF844C]">Posts</span>
@@ -129,6 +143,16 @@ const BlogDetailPage = () => {
           </div>
         ))}
       </div>
+
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <ShareModal
+            onClose={() => setShowShareModal(false)}
+            copyToClipboard={handleCopyToClipboard}
+            src={window.location.href}
+          />
+        </div>
+      )}
     </div>
   );
 };
