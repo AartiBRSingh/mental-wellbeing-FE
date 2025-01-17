@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { baseURL } from "../baseURL";
 import axios from "axios";
 import { DecorativeShapes } from "../sections/Services";
+import { Eye, EyeOff } from "lucide-react";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -18,6 +19,7 @@ const SignupPage = () => {
   const [isUserLogin, setIsUserLogin] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPasswordUser, setShowPasswordUser] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const userType = searchParams.get("userType");
@@ -349,18 +351,34 @@ const SignupPage = () => {
                       />
                     </div>
 
-                    <div>
+                    <div className="relative">
                       <label htmlFor="password" className={labelClasses}>
                         Password <span className="text-black">*</span>
                       </label>
-                      <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className={inputClasses}
-                      />
+                      <div className="relative">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          id="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                          className={`${inputClasses} pr-10`}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-full"
+                          aria-label={
+                            showPassword ? "Hide password" : "Show password"
+                          }
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4 text-gray-500" />
+                          ) : (
+                            <Eye className="h-4 w-4 text-gray-500" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -433,7 +451,7 @@ const SignupPage = () => {
                   <button
                     type="submit"
                     className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
-                    disabled={loading || (!userType && !selectedUserType)}
+                    disabled={loading}
                   >
                     {loading ? (
                       <span className="flex items-center justify-center">
@@ -697,7 +715,9 @@ const SignupPage = () => {
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                    ></button>
+                    >
+                      <Eye />
+                    </button>
                   </div>
                   {formData.password && (
                     <div className="mt-1 flex items-center space-x-2">
