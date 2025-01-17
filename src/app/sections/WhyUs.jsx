@@ -109,15 +109,13 @@ const getShapeSVG = (shape) => {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="200"
-          height="200"
           viewBox="0 0 65 65"
+          className="w-full h-full"
         >
           <defs>
             <clipPath id="flowerClip">
               <path d="M29.4 54.8c-2.3 0-4.1-4.7-6.3-5.2-2.3-.5-5.9 2.8-7.9 1.7-2-1.1-1.4-6-3.1-7.5-1.7-1.5-6.5-.4-7.8-2.3-1.2-1.9 1.8-5.8 1.1-8-.6-2.1-5.3-3.8-5.3-6.1s4.7-4 5.3-6.1c.7-2.2-2.4-6.1-1.1-8 1.2-1.9 6.1-.8 7.8-2.3 1.7-1.5 1-6.4 3.1-7.5 2-1 5.7 2.3 7.9 1.7C25.3 4.7 27 0 29.3 0c2.3 0 4.1 4.7 6.3 5.2 2.3.5 5.9-2.8 7.9-1.7 2 1.1 1.4 6 3.1 7.5 1.7 1.5 6.5.4 7.8 2.3 1.2 1.9-1.8 5.8-1.1 8 .6 2.1 5.3 3.8 5.3 6.1s-4.7 4-5.3 6.1c-.7 2.2 2.4 6.1 1.2 8-1.2 1.9-6.1.8-7.8 2.3-1.7 1.5-1 6.4-3.1 7.5-2 1-5.7-2.3-7.9-1.7-2.3.5-4 5.2-6.3 5.2Z" />
             </clipPath>
-
             <linearGradient
               id="blobGradient"
               x1="0%"
@@ -154,34 +152,6 @@ const shapes = ["square", "oval", "circle", "flower"];
 const underlineColors = ["#CAFA90", "#FF844C", "#CAFA90", "#FAD77B"];
 
 const WhyUs = () => {
-  // const [experts, setExperts] = useState([]);
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const fetchExperts = async () => {
-  //     try {
-  //       const response = await axios.get(`${baseURL}/get-experts`);
-  //       setExperts(response.data.slice(0, 4));
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching experts:", error);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchExperts();
-  // }, []);
-
-  // if (loading) {
-  //   return (
-  //     <section className="py-16 bg-white relative">
-  //       <div className="max-w-6xl mx-auto px-4 text-center">
-  //         Loading experts...
-  //       </div>
-  //     </section>
-  //   );
-  // }
-
   const expertTypes = [
     {
       id: 1,
@@ -211,16 +181,16 @@ const WhyUs = () => {
   ];
 
   return (
-    <section className="py-16 bg-cream relative">
-      <div className="w-[1600px] mx-auto ">
+    <section className="py-8 md:py-12 lg:py-16 bg-cream relative">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center relative">
           <span className="inline-flex items-center px-4 py-2 rounded-full border border-[#956144] text-sm font-semibold">
             PEACEFUL BEGINNING
           </span>
-          <div className="flex gap-2 justify-center">
-            <h1 className="text-4xl md:text-5xl font-semibold mt-10 mb-16">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-6 sm:mt-10">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold">
               Our{" "}
-              <span className="relative text-[#FDD56A]">
+              <span className="relative text-[#FDD56A] inline-block">
                 Experts
                 <svg
                   className="absolute w-full h-[10px] bottom-0 left-0"
@@ -238,24 +208,26 @@ const WhyUs = () => {
             </h1>
             <Link
               href={"/all-experts"}
-              className="font-semibold flex gap-2 underline items-center cursor-pointer"
+              className="font-semibold flex gap-2 underline items-center cursor-pointer hover:opacity-80 transition-opacity"
             >
               View all <FaArrowRightLong />
             </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mt-12">
           {expertTypes.map((expert, index) => (
             <div
               key={index}
-              className="text-center flex flex-col items-center -mx-10"
+              className="text-center flex flex-col items-center px-4"
             >
-              <div className="w-40 h-40 mb-4">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 mb-4">
                 {getShapeSVG(shapes[index % shapes.length])}
               </div>
               <div className="relative inline-block pb-4 mb-2">
-                <h3 className="text-xl font-normal">{expert.title}</h3>
+                <h3 className="text-lg sm:text-xl font-normal">
+                  {expert.title}
+                </h3>
                 <TitleUnderline
                   stroke={underlineColors[index % underlineColors.length]}
                 />

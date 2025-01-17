@@ -217,45 +217,30 @@ const BlogSection = () => {
   }
 
   return (
-    <div className="relative py-20 lg:py-16 overflow-hidden">
+    <div className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
       {/* Background decorations */}
       <AnimatedBackground />
       <GraffitiDecoration />
       <WaveBackground />
 
-      {/* Floating elements */}
-      <div className="absolute top-20 right-10 w-24 h-24 rounded-full bg-[#F5E6E0] animate-float" />
-      <div className="absolute bottom-20 left-10 w-32 h-32 rounded-full bg-[#F5E6E0] animate-float-delayed" />
+      {/* Floating elements - Adjusted for better mobile visibility */}
+      <div className="absolute top-10 md:top-20 right-4 md:right-10 w-16 md:w-24 h-16 md:h-24 rounded-full bg-[#F5E6E0] animate-float" />
+      <div className="absolute bottom-10 md:bottom-20 left-4 md:left-10 w-20 md:w-32 h-20 md:h-32 rounded-full bg-[#F5E6E0] animate-float-delayed" />
 
-      <div className="container mx-auto px-6 lg:px-24 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-24 relative">
         {/* Header section */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-16">
-          <div className="space-y-4 mx-24">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4 md:gap-6 mb-8 md:mb-16">
+          <div className="space-y-4 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-[#956144] opacity-10 rotate-2 rounded-lg" />
-              <div className="relative px-4 py-1.5 bg-white rounded-lg text-sm text-[#956144] font-medium border border-[#956144]/20">
+              <div className="relative px-3 md:px-4 py-1.5 bg-white rounded-lg text-xs md:text-sm text-[#956144] font-medium border border-[#956144]/20">
                 MENTAL HEALTH AT 30&apos;S
               </div>
             </div>
 
-            <h2 className="relative text-xl lg:text-5xl font-semibold text-[#2D2D2D]">
-              <span className="absolute -top-6 -left-6 w-12 h-12 bg-[#F5E6E0] rounded-full -z-10" />
+            <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#2D2D2D]">
+              <span className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-8 h-8 md:w-12 md:h-12 bg-[#F5E6E0] rounded-full -z-10" />
               Latest from{" "}
-              {/* <span className="relative text-[#956144]">
-                Shareyrheart
-                <svg
-                  className="absolute -bottom-2 left-0 w-full"
-                  height="6"
-                  viewBox="0 0 100 6"
-                >
-                  <path
-                    d="M0,3 Q25,0 50,3 T100,3"
-                    fill="none"
-                    stroke="#956144"
-                    strokeWidth="2"
-                  />
-                </svg>
-              </span> */}
               <span className="text-[#956144] relative">
                 S
                 <span className="relative">
@@ -276,14 +261,17 @@ const BlogSection = () => {
               </span>
             </h2>
 
-            <p className="text-gray-600 max-w-xl text-lg">
+            <p className="text-gray-600 max-w-xl text-base md:text-lg">
               To live your life to the fullest, we&apos;re continuing to find
               ways to prevent mental health problems.
             </p>
           </div>
 
-          <Link href="/blogs" className="group">
-            <button className="relative flex items-center gap-2 px-8 mr-28 py-3.5 bg-[#956144] text-white rounded-full transition-all duration-300 hover:bg-[#7A4F37] overflow-hidden">
+          <Link
+            href="/blogs"
+            className="group w-full sm:w-auto mx-4 sm:mx-8 md:mx-16 lg:mx-0"
+          >
+            <button className="relative flex items-center justify-center w-full sm:w-auto gap-2 px-6 md:px-8 lg:mr-28 py-3 md:py-3.5 bg-[#956144] text-white rounded-full transition-all duration-300 hover:bg-[#7A4F37] overflow-hidden">
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity cursor-pointer" />
               <span className="font-medium">Read More</span>
               <MdChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1 text-lime-400" />
@@ -292,10 +280,10 @@ const BlogSection = () => {
         </div>
 
         {/* Blog grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-8 ml-24 mr-24 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
           {data?.map((item, index) => (
             <div key={index} className="group relative">
-              <div className=" -inset-2 bg-[#F5E6E0] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+              <div className="absolute -inset-2 bg-[#F5E6E0] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
               <BlogCard
                 imgUrl={item?.image}
                 title={item?.title}

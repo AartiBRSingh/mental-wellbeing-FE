@@ -3,37 +3,42 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="w-full flex justify-center my-10">
-      {" "}
-      <main className="flex md:h-[500px] justify-center items-center w-[60vw]">
-        <section className="flex-1 flex flex-col gap-8">
+    <div className="w-full flex justify-center my-6 md:my-10">
+      <main className="flex flex-col md:flex-row justify-center items-center w-[90vw] md:w-[80vw] lg:w-[60vw] gap-8 md:gap-0">
+        {/* Text Section */}
+        <section className="flex-1 flex flex-col gap-6 md:gap-8 text-center md:text-left">
           <div className="inline-block">
-            <span className="px-4 py-2 rounded-full border border-[#956144] text-xs font-semibold">
+            <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#956144] text-xs font-semibold">
               MENTAL HEALTH AT 30&apos;S
             </span>
           </div>
-          <h1 className="lg:text-7xl text-xl">
+
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight">
             <span className="text-[#956144]">Mental Health </span>
             <br />
             <span>is Wealth</span>
           </h1>
-          <div className="flex gap-4">
+
+          <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
             <Link
               href={"#footer"}
-              className="bg-white p-2 rounded-full w-10 h-10 flex items-center justify-center cursor-pointer shadow-lg hover:scale-125"
+              className="bg-white p-2 rounded-full w-10 h-10 flex items-center justify-center cursor-pointer shadow-lg hover:scale-125 transition-transform"
             >
               <span className="text-2xl">↓</span>
             </Link>
 
-            <p className="text-gray-800 max-w-md">
+            <p className="text-gray-800 max-w-md text-center sm:text-left">
               To live your life to the fullest, we&apos;re continuing to find
               ways to prevent mental health problems.
             </p>
           </div>
         </section>
-        <section className="flex-1 flex justify-end bg-transparent z-10">
-          <div className="relative w-[500px] h-96">
-            <div className="absolute top-0 right-1/4 transform -translate-x-1/2">
+
+        {/* Image Section */}
+        <section className="flex-1 flex justify-center md:justify-end bg-transparent z-10 mt-8 md:mt-0">
+          <div className="relative w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[350px] md:h-96">
+            {/* Top Image */}
+            <div className="absolute top-0 right-1/4 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
                 <div className="absolute -top-8 left-0">
                   <span className="bg-yellow-400 px-3 py-1 rounded-lg text-sm font-semibold z-10">
@@ -52,7 +57,9 @@ const Hero = () => {
                 </span>
               </div>
             </div>
-            <div className="absolute top-1/4 right-0">
+
+            {/* Middle Image */}
+            <div className="absolute top-1/4 right-0 scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
                 <div className="absolute -top-8 right-0">
                   <span className="bg-green-300 px-3 py-1 rounded-md text-sm font-semibold">
@@ -66,7 +73,7 @@ const Hero = () => {
                     className="w-full h-full object-cover rounded-xl"
                   />
                 </div>
-                <div className="absolute -right-8 top-1/2  rounded-lg px-2 py-1">
+                <div className="absolute -right-8 top-1/2 rounded-lg px-2 py-1">
                   <span className="text-orange-500">✓</span>
                 </div>
                 <span className="absolute -right-4 bottom-0 text-green-400 text-2xl">
@@ -74,7 +81,9 @@ const Hero = () => {
                 </span>
               </div>
             </div>
-            <div className="absolute bottom-0 left-1/4 mr-20">
+
+            {/* Bottom Image */}
+            <div className="absolute bottom-0 left-1/4 mr-20 scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
                 <div className="w-56 h-56 bg-purple-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
@@ -96,6 +105,7 @@ const Hero = () => {
                 </span>
               </div>
             </div>
+
             <div className="absolute bottom-8 right-1/4 text-gray-300 text-2xl">
               ～
             </div>
