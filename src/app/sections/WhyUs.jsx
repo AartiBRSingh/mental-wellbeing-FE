@@ -207,7 +207,7 @@ const WhyUs = () => {
               </span>
             </h1>
             <Link
-              href={"#"}
+              href={"/all-experts"}
               className="font-semibold flex gap-2 underline items-center cursor-pointer hover:opacity-80 transition-opacity"
             >
               View all <FaArrowRightLong />
