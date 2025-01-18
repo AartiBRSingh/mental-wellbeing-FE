@@ -34,7 +34,7 @@ const SimpleTestimonialCarousel = ({ testimonials = [] }) => {
 
   return (
     <div className="w-full mx-auto">
-      <h2 className="text-2xl font-bold text-center mb-4 pt-4">
+      <h2 className="text-2xl font-bold text-center mb-4 pt-4 text-white">
         Patient Reviews
       </h2>
       <div className="relative overflow-hidden rounded-lg shadow text-center text-lg">
@@ -43,7 +43,7 @@ const SimpleTestimonialCarousel = ({ testimonials = [] }) => {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="w-full flex-shrink-0 p-10 bg-gray-200">
+            <div key={index} className="w-full flex-shrink-0 p-10 bg-cream">
               <div className="mb-4">
                 <h3 className="text-xl font-semibold">{testimonial.name}</h3>
               </div>
@@ -56,14 +56,14 @@ const SimpleTestimonialCarousel = ({ testimonials = [] }) => {
           <>
             <button
               onClick={goToPrev}
-              className="absolute left-6 top-1/2 -translate-y-1/2 bg-cream p-2 rounded-full shadow hover:bg-gray-100"
+              className="absolute left-6 top-1/2 -translate-y-1/2 bg-green-300 p-2 rounded-full shadow hover:bg-gray-100"
             >
               ←
             </button>
 
             <button
               onClick={goToNext}
-              className="absolute right-6 top-1/2 -translate-y-1/2 bg-cream p-2 rounded-full shadow hover:bg-gray-100"
+              className="absolute right-6 top-1/2 -translate-y-1/2 bg-green-300 p-2 rounded-full shadow hover:bg-gray-100"
             >
               →
             </button>
