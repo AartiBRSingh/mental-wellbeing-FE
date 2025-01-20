@@ -26,20 +26,18 @@ const Page = () => {
 
     loadRazorpayScript();
 
-    const userPaymentDetails = JSON.parse(
-      localStorage.getItem("paymentDetails")
-    );
     const storedUserId = localStorage.getItem("userId");
     const storedUserName = localStorage.getItem("name");
     const storedEmail = localStorage.getItem("email");
     const storedPhoneNo = localStorage.getItem("contactNumber");
+    const paidForSelf = localStorage.getItem("paidForSelf");
 
     setUserId(storedUserId);
     setUserName(storedUserName);
     setEmail(storedEmail);
     setPhoneNo(storedPhoneNo);
 
-    if (userPaymentDetails && userPaymentDetails.hasPaid) {
+    if (paidForSelf !== "false") {
       setHasPaid(true);
     }
   }, []);
@@ -83,16 +81,14 @@ const Page = () => {
             razorpay_signature: response.razorpay_signature,
             userId,
             amount,
+            planType: "self",
           }),
         });
 
         const verifyData = await verifyResponse.json();
         if (verifyData.success) {
           alert("Payment Successful!");
-          localStorage.setItem(
-            "paymentDetails",
-            JSON.stringify({ hasPaid: true })
-          );
+          localStorage.setItem("paidForSelf", "true");
           router.push("/questionnaires?userType=self");
         } else {
           alert("Payment verification failed. Please try again.");

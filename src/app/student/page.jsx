@@ -33,13 +33,14 @@ const StudentWellbeingPage = () => {
     const storedUserName = localStorage.getItem("name");
     const storedEmail = localStorage.getItem("email");
     const storedPhoneNo = localStorage.getItem("contactNumber");
+    const paidForStudent = localStorage.getItem("paidForStudent");
 
     setUserId(storedUserId);
     setUserName(storedUserName);
     setEmail(storedEmail);
     setPhoneNo(storedPhoneNo);
 
-    if (userPaymentDetails && userPaymentDetails.hasPaid) {
+    if (paidForStudent !== "false") {
       setHasPaid(true);
     }
   }, []);
@@ -83,16 +84,14 @@ const StudentWellbeingPage = () => {
             razorpay_signature: response.razorpay_signature,
             userId,
             amount,
+            planType: "student",
           }),
         });
 
         const verifyData = await verifyResponse.json();
         if (verifyData.success) {
           alert("Payment Successful!");
-          localStorage.setItem(
-            "paymentDetails",
-            JSON.stringify({ hasPaid: true })
-          );
+          localStorage.setItem("paidForEmployee", "true");
           router.push("/questionnaires?userType=student");
         } else {
           alert("Payment verification failed. Please try again.");

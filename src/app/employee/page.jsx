@@ -33,13 +33,14 @@ const WorkplaceMentalHealthPage = () => {
     const storedUserName = localStorage.getItem("name");
     const storedEmail = localStorage.getItem("email");
     const storedPhoneNo = localStorage.getItem("contactNumber");
+    const paidForEmployee = localStorage.getItem("paidForEmployee");
 
     setUserId(storedUserId);
     setUserName(storedUserName);
     setEmail(storedEmail);
     setPhoneNo(storedPhoneNo);
 
-    if (userPaymentDetails && userPaymentDetails.hasPaid) {
+    if (paidForEmployee !== "false") {
       setHasPaid(true);
     }
   }, []);
@@ -83,16 +84,14 @@ const WorkplaceMentalHealthPage = () => {
             razorpay_signature: response.razorpay_signature,
             userId,
             amount,
+            planType: "employee",
           }),
         });
 
         const verifyData = await verifyResponse.json();
         if (verifyData.success) {
           alert("Payment Successful!");
-          localStorage.setItem(
-            "paymentDetails",
-            JSON.stringify({ hasPaid: true })
-          );
+          localStorage.setItem("paidForStudent", "true");
           router.push("/questionnaires?userType=employee");
         } else {
           alert("Payment verification failed. Please try again.");
