@@ -88,7 +88,7 @@ const Testimonials = () => {
   }, [currentTestimonial]);
 
   return (
-    <div className="bg-white py-8 lg:py-20">
+    <div className="bg-white py-4 lg:py-20">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-0">
         <div className="flex flex-col lg:flex-row lg:justify-end">
           <div className="w-full lg:w-4/5 bg-slate-100 rounded-2xl p-6 lg:p-12">
@@ -122,7 +122,7 @@ const Testimonials = () => {
               </div>
 
               {/* Testimonial Content */}
-              <div className="flex-1 flex gap-4">
+              <div className="flex-1 flex gap-4 ">
                 <div className="flex-1">
                   <div className="relative mb-4">
                     <h2 className="text-2xl lg:text-3xl font-serif font-semibold">
