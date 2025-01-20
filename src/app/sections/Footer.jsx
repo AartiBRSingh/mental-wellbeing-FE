@@ -112,7 +112,7 @@ const HealPoint = () => {
           <div className="text-center w-full lg:w-1/3 flex flex-col items-center justify-center py-8 lg:py-0">
             <div className="flex flex-col space-y-6 items-center px-4">
               <div className="flex items-center justify-center">
-                <span className="text-xl sm:text-2xl font-bold">
+                <span className="text-xl sm:text-2xl font-bold mt-4">
                   ShareYrHeart
                 </span>
               </div>

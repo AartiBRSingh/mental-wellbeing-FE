@@ -35,10 +35,10 @@ const Hero = () => {
         </section>
 
         {/* Image Section */}
-        <section className="flex-1 flex justify-center md:justify-end bg-transparent z-10 mt-8 md:mt-0">
-          <div className="relative w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[350px] md:h-96">
+        <section className="flex-1 flex justify-center md:justify-end bg-transparent  mt-8 md:mt-0">
+          <div className="relative w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[350px] md:h-96 mr-20">
             {/* Top Image */}
-            <div className="absolute top-0 right-1/4 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100">
+            <div className="absolute lg:top-4 lg:right-1/4 right-10 -top-8 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
                 <div className="absolute -top-8 left-0">
                   <span className="bg-yellow-400 px-3 py-1 rounded-lg text-sm font-semibold z-10">
@@ -59,9 +59,9 @@ const Hero = () => {
             </div>
 
             {/* Middle Image */}
-            <div className="absolute top-1/4 right-0 scale-75 sm:scale-90 md:scale-100">
+            <div className="absolute lg:top-1/4 top-2 lg:right-0 -right-16 scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
-                <div className="absolute -top-8 right-0">
+                <div className="absolute -top-8 right-14">
                   <span className="bg-green-300 px-3 py-1 rounded-md text-sm font-semibold">
                     Calm
                   </span>
@@ -83,7 +83,7 @@ const Hero = () => {
             </div>
 
             {/* Bottom Image */}
-            <div className="absolute bottom-0 left-1/4 mr-20 scale-75 sm:scale-90 md:scale-100">
+            <div className="absolute bottom-0 lg:left-1/4 left-10 mr-20 scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
                 <div className="w-56 h-56 bg-purple-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img

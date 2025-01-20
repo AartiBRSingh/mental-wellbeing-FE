@@ -2,15 +2,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import {
-  LogOut,
-  User,
-  FileText,
-  Menu,
-  X,
-  UserIcon,
-  Download,
-} from "lucide-react";
+import { LogOut, User, Menu, X, UserIcon } from "lucide-react";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,8 +29,6 @@ const Navbar = () => {
     { label: "Services", redirectTo: "#services" },
     { label: "Clinics", redirectTo: "/clinics" },
     { label: "Treatments", redirectTo: "#" },
-    // { label: "India Directory", redirectTo: "#" },
-    // { label: "International Directory", redirectTo: "#" },
   ];
 
   const dropdownOptions = [
@@ -71,10 +61,9 @@ const Navbar = () => {
   }
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-center relative">
       <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center bg-white px-4 md:px-10 w-full md:w-[80vw]">
         {/* Logo */}
-
         <Link href={"/"}>
           <img
             src="/logo.png"
@@ -82,6 +71,7 @@ const Navbar = () => {
             className="w-full h-16 cursor-pointer"
           />
         </Link>
+
         {/* Desktop Navigation */}
         <section className="hidden md:block">
           <ul className="flex justify-between items-center gap-10">
@@ -97,6 +87,7 @@ const Navbar = () => {
         </section>
 
         <section className="flex items-center gap-4 md:gap-6">
+          {/* Desktop Dropdown */}
           <div className="relative group hidden md:block">
             <button className="relative w-8 h-8 cursor-pointer">
               <div className="relative flex flex-col justify-center w-full h-full">
@@ -104,8 +95,8 @@ const Navbar = () => {
                 <div className="w-full h-[2px] bg-black mt-[10px] transition-all duration-300 ease-in-out group-hover:-rotate-45 group-hover:-translate-y-[6px]" />
               </div>
             </button>
-            <div className="absolute r-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
-              <div className="bg-white rounded-lg overflow-hidden border border-gray-200 z-30">
+            <div className="absolute right-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
+              <div className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg">
                 {dropdownOptions.map((option, index) => (
                   <a
                     key={index}
@@ -116,17 +107,18 @@ const Navbar = () => {
                   </a>
                 ))}
               </div>
-              <div className="absolute -top-2 left-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
+              <div className="absolute -top-2 right-3 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
             </div>
           </div>
 
+          {/* Desktop User Menu */}
           {isAuthenticated ? (
             <div className="relative group hidden md:block">
               <button className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
                 <User size={20} />
                 <span className="text-sm font-medium">{userData.name}</span>
               </button>
-              <div className="absolute left-0 top-full mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
+              <div className="absolute right-0 top-full mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
                 <div className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg">
                   <div className="px-4 py-3 border-b border-gray-200">
                     <p className="text-sm font-medium text-gray-900">
@@ -148,11 +140,11 @@ const Navbar = () => {
                     <span className="text-sm">Logout</span>
                   </div>
                 </div>
-                <div className="absolute -top-2 left-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
+                <div className="absolute -top-2 right-3 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
               </div>
             </div>
           ) : (
-            <Link href="/login" className="hidden md:block cursor-pointer">
+            <Link href="/login" className="hidden md:block">
               <button className="cursor-pointer px-4 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
                 Sign In
               </button>
@@ -171,9 +163,10 @@ const Navbar = () => {
           </button>
         </section>
 
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden z-30">
-            <div className="flex flex-col">
+          <div className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden z-50">
+            <div className="flex flex-col max-h-[calc(100vh-5rem)] overflow-y-auto">
               {navLinks.map((item, index) => (
                 <Link
                   href={item.redirectTo}
@@ -207,13 +200,12 @@ const Navbar = () => {
                     </p>
                     <p className="text-sm text-gray-500">{userData.email}</p>
                   </div>
-                  <div
-                    onClick={() => router.push("/profile")}
-                    className="px-4 py-3 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-blue-600"
-                  >
-                    <UserIcon size={16} />{" "}
-                    <span className="text-sm">Go to Profile</span>
-                  </div>
+                  <Link href="/expert/profile" onClick={toggleMobileMenu}>
+                    <div className="px-4 py-3 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-blue-600">
+                      <UserIcon size={16} />
+                      <span className="text-sm">Go to Profile</span>
+                    </div>
+                  </Link>
                   <div
                     onClick={handleLogout}
                     className="px-4 py-3 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-red-600"
