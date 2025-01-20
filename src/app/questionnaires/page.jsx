@@ -233,7 +233,7 @@ const UserTypeModal = ({ expectedUserType, userType, onClose }) => {
             </button>
           </span>
         </p>
-        <p className="mb-4 text-gray-700">
+        {/* <p className="mb-4 text-gray-700">
           Or go to the the{" "}
           <span>
             <button
@@ -246,11 +246,11 @@ const UserTypeModal = ({ expectedUserType, userType, onClose }) => {
               eligible questionnaire.
             </button>
           </span>
-        </p>
+        </p> */}
         <div className="bg-yellow-50 p-3 rounded-lg mb-4">
           <h3 className="font-semibold text-yellow-800 mb-2">Need Help?</h3>
           <p className="text-yellow-700 text-sm">
-            Contact Support: support@company.com
+            Contact Support: support@shareyrheart.com
           </p>
         </div>
         <div className="flex justify-end space-x-3">
@@ -277,16 +277,25 @@ const CaseStudyPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const storedUserType = localStorage.getItem("userType");
+    const storedUserType =
+      localStorage.getItem("paidForSelf") === "true" &&
+      expectedUserType === "self"
+        ? "self"
+        : localStorage.getItem("paidForEmployee") === "true" &&
+          expectedUserType === "employee"
+        ? "employee"
+        : localStorage.getItem("paidForStudent") === "true" &&
+          expectedUserType === "student"
+        ? "student"
+        : null;
     setUserType(storedUserType);
-
     if (storedUserType !== expectedUserType) {
       setShowModal(true);
     }
   }, [expectedUserType]);
 
   const handleModalClose = () => {
-    router.push(`/questionnaires?userType=${localStorage.getItem("userType")}`);
+    router.push(`/`);
   };
 
   useEffect(() => {

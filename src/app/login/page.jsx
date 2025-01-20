@@ -57,6 +57,9 @@ const Login = () => {
         localStorage.setItem("verifyEmail", profile.verifyEmail);
       } else {
         localStorage.setItem("caseStudy", profile.caseStudy);
+        localStorage.setItem("paidForSelf", profile.paidForSelf);
+        localStorage.setItem("paidForEmployee", profile.paidForEmployee);
+        localStorage.setItem("paidForStudent", profile.paidForStudent);
       }
       if (isUserLogin) {
         router.push(`/${localStorage.getItem("userType")}`);

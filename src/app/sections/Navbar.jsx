@@ -15,13 +15,20 @@ const Navbar = () => {
     const token = localStorage.getItem("authToken");
     const name = localStorage.getItem("name");
     const email = localStorage.getItem("email");
+    const userType = localStorage.getItem("userType");
+    const userId = localStorage.getItem("userId");
 
     setAuthToken(token);
     setUserData({ name, email });
 
     if (authToken) {
       setIsAuthenticated(true);
-      setUserData({ name: name || "", email: email || "" });
+      setUserData({
+        name: name || "",
+        email: email || "",
+        userType: userType || "",
+        userId: userId || "",
+      });
     }
   }, [authToken]);
 
@@ -126,7 +133,13 @@ const Navbar = () => {
                     </p>
                     <p className="text-sm text-gray-500">{userData.email}</p>
                   </div>
-                  <Link href={"/expert/profile"}>
+                  <Link
+                    href={
+                      userData.userType === "self"
+                        ? `user-profile?id=${userData?.userId}`
+                        : "/expert/profile"
+                    }
+                  >
                     <div className="px-4 py-3 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-blue-600">
                       <UserIcon size={16} />
                       <span className="text-sm">Go to Profile</span>
@@ -200,7 +213,14 @@ const Navbar = () => {
                     </p>
                     <p className="text-sm text-gray-500">{userData.email}</p>
                   </div>
-                  <Link href="/expert/profile" onClick={toggleMobileMenu}>
+                  <Link
+                    href={
+                      userData.userType === "self"
+                        ? `user-profile?id=${userData?.userId}`
+                        : "/expert/profile"
+                    }
+                    onClick={toggleMobileMenu}
+                  >
                     <div className="px-4 py-3 hover:bg-gray-50 flex items-center gap-2 cursor-pointer text-blue-600">
                       <UserIcon size={16} />
                       <span className="text-sm">Go to Profile</span>
