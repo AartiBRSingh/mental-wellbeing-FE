@@ -16,6 +16,7 @@ import {
   ChevronsUpDownIcon,
   Upload,
 } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 const CompleteProfile = () => {
   const router = useRouter();
@@ -65,12 +66,52 @@ const CompleteProfile = () => {
     formData.languages || []
   );
 
-  const handleSelectionChange = (selected) => {
+  const [selectedSpecialization, setSelectedSpecialization] = useState(
+    formData.specialization || []
+  );
+  const [selectedServices, setSelectedServices] = useState(
+    formData.services || []
+  );
+  const [selectedTherapy, setSelectedTherapy] = useState(
+    formData.therapy || []
+  );
+
+  const handleLanguageChange = (selected) => {
     setSelectedLanguages(selected);
     setFormData((prev) => ({
       ...prev,
       languages: selected,
     }));
+  };
+
+  const handleSpecializationChange = (selected) => {
+    if (selected.length <= 6) {
+      setSelectedSpecialization(selected);
+      setFormData((prev) => ({
+        ...prev,
+        specialization: selected,
+      }));
+    }
+  };
+
+  const handleTherapyChange = (selected) => {
+    if (selected.length <= 6) {
+      setSelectedTherapy(selected);
+      setFormData((prev) => ({
+        ...prev,
+        therapy: selected,
+      }));
+    }
+  };
+
+  const handleServicesChange = (selected) => {
+    if (selected.length <= 6) {
+      setSelectedServices(selected);
+      setFormData((prev) => ({
+        ...prev,
+        therapies: selected,
+      }));
+    }
   };
 
   const languagesList = [
@@ -91,6 +132,51 @@ const CompleteProfile = () => {
     "Russian",
     "Spanish",
     "German",
+  ];
+
+  const specializationFields = [
+    "General Psychiatry",
+    "Child and Adolescent Psychiatry",
+    "Geriatric Psychiatry",
+    "Addiction Psychiatry",
+    "Forensic Psychiatry",
+    "Neuropsychiatry",
+    "Consultation-Liaison Psychiatry",
+    "Emergency Psychiatry",
+    "Clinical Psychology",
+    "Counseling Psychology",
+    "Neuropsychology",
+    "Developmental Psychology",
+    "Educational Psychology",
+    "Health Psychology",
+    "Industrial-Organizational Psychology",
+    "Social Psychology",
+  ];
+
+  const serviceFields = [
+    "Emotional and Psychological Disorders",
+    "Stress and Coping",
+    "Interpersonal and Relationship Issues",
+    "Addiction and Behavioral Issues",
+    "Child and Adolescent Challenges",
+    "Trauma and Abuse",
+    "Severe Mental Health Conditions",
+    "Life Transitions and Challenges",
+    "Self-Understanding and Personal Growth",
+    "Workplace and Academic Pressures",
+  ];
+
+  const therapyFields = [
+    "Cognitive Behavioral Therapy (CBT)",
+    "Dialectical Behavior Therapy (DBT)",
+    "Trauma-Focused Therapy",
+    "Family Therapy",
+    "Couples Therapy",
+    "Psychoanalysis",
+    "Humanistic Therapy",
+    "Art and Creative Therapy",
+    "Gestalt Therapy",
+    "Hypnotherapy",
   ];
 
   const handleArrayFieldAdd = (fieldName, template) => {
@@ -742,61 +828,184 @@ const CompleteProfile = () => {
 
             {/* Specialization */}
             <div>
-              <label className="block mb-1 py-2 text-[23px] font-semibold">
-                Specializations
+              <label className="font-semibold text-[23px]">
+                Specialization
               </label>
-              <input
-                type="text"
-                value={formData.specialization.join(", ")}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    specialization: e.target.value
-                      .split(",")
-                      .map((s) => s.trim()),
-                  }))
-                }
-                className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                placeholder="Enter specializations separated by commas"
-              />
+              <Listbox
+                value={selectedSpecialization}
+                onChange={handleSpecializationChange}
+                multiple
+              >
+                <div className="relative mt-1 pt-4">
+                  <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                    <span className="block truncate">
+                      {selectedSpecialization.length > 0
+                        ? selectedSpecialization.join(", ")
+                        : "Select specialization"}
+                    </span>
+                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronsUpDownIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </ListboxButton>
+
+                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {specializationFields.map((specialization) => (
+                      <ListboxOption
+                        key={specialization}
+                        value={specialization}
+                        className={({ active, selected }) =>
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                            active ? "bg-green-700 text-white" : "text-gray-900"
+                          }`
+                        }
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span
+                              className={`block truncate ${
+                                selected ? "font-medium" : "font-normal"
+                              }`}
+                            >
+                              {specialization}
+                            </span>
+                            {selected ? (
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                <CheckIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </ListboxOption>
+                    ))}
+                  </ListboxOptions>
+                </div>
+              </Listbox>
             </div>
 
             {/* Services */}
             <div>
-              <label className="block mb-1 text-[23px] font-semibold">
-                Services Offered
-              </label>
-              <input
-                type="text"
-                value={formData.services.join(", ")}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    services: e.target.value.split(",").map((s) => s.trim()),
-                  }))
-                }
-                className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                placeholder="Enter services separated by commas"
-              />
+              <label className="font-semibold text-[23px]">Services</label>
+              <Listbox
+                value={selectedServices}
+                onChange={handleServicesChange}
+                multiple
+              >
+                <div className="relative mt-1 pt-4">
+                  <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                    <span className="block truncate">
+                      {selectedServices.length > 0
+                        ? selectedServices.join(", ")
+                        : "Select services"}
+                    </span>
+                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronsUpDownIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </ListboxButton>
+
+                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {serviceFields.map((services) => (
+                      <ListboxOption
+                        key={services}
+                        value={services}
+                        className={({ active, selected }) =>
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                            active ? "bg-green-700 text-white" : "text-gray-900"
+                          }`
+                        }
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span
+                              className={`block truncate ${
+                                selected ? "font-medium" : "font-normal"
+                              }`}
+                            >
+                              {services}
+                            </span>
+                            {selected ? (
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                <CheckIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </ListboxOption>
+                    ))}
+                  </ListboxOptions>
+                </div>
+              </Listbox>
             </div>
 
             {/* Therapies */}
             <div>
-              <label className="block mb-1 font-semibold text-[23px]">
-                Therapies
-              </label>
-              <input
-                type="text"
-                value={formData.therapies.join(", ")}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    therapies: e.target.value.split(",").map((s) => s.trim()),
-                  }))
-                }
-                className="block w-full border rounded-xl p-3 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
-                placeholder="Enter therapies separated by commas"
-              />
+              <label className="font-semibold text-[23px]">Therapy</label>
+              <Listbox
+                value={selectedTherapy}
+                onChange={handleTherapyChange}
+                multiple
+              >
+                <div className="relative mt-1 pt-4">
+                  <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                    <span className="block truncate">
+                      {selectedTherapy.length > 0
+                        ? selectedTherapy.join(", ")
+                        : "Select therapies"}
+                    </span>
+                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronsUpDownIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </ListboxButton>
+
+                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {therapyFields.map((therapy) => (
+                      <ListboxOption
+                        key={therapy}
+                        value={therapy}
+                        className={({ active, selected }) =>
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                            active ? "bg-green-700 text-white" : "text-gray-900"
+                          }`
+                        }
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span
+                              className={`block truncate ${
+                                selected ? "font-medium" : "font-normal"
+                              }`}
+                            >
+                              {therapy}
+                            </span>
+                            {selected ? (
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                <CheckIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </ListboxOption>
+                    ))}
+                  </ListboxOptions>
+                </div>
+              </Listbox>
             </div>
           </div>
         </div>
@@ -1661,11 +1870,11 @@ const CompleteProfile = () => {
               <label className="font-semibold text-[23px]">Languages</label>
               <Listbox
                 value={selectedLanguages}
-                onChange={handleSelectionChange}
+                onChange={handleLanguageChange}
                 multiple
               >
                 <div className="relative mt-1 pt-4">
-                  <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                  <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm">
                     <span className="block truncate">
                       {selectedLanguages.length > 0
                         ? selectedLanguages.join(", ")
@@ -1677,11 +1886,11 @@ const CompleteProfile = () => {
                         aria-hidden="true"
                       />
                     </span>
-                  </Listbox.Button>
+                  </ListboxButton>
 
-                  <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {languagesList.map((language) => (
-                      <Listbox.Option
+                      <ListboxOption
                         key={language}
                         value={language}
                         className={({ active, selected }) =>
@@ -1709,9 +1918,9 @@ const CompleteProfile = () => {
                             ) : null}
                           </>
                         )}
-                      </Listbox.Option>
+                      </ListboxOption>
                     ))}
-                  </Listbox.Options>
+                  </ListboxOptions>
                 </div>
               </Listbox>
             </div>
