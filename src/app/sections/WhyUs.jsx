@@ -27,7 +27,7 @@ const getShapeSVG = (shape) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 480 480"
-          className="w-full h-full transition-transform duration-300 group-hover:scale-110"
+          className="w-full h-full"
         >
           <defs>
             <clipPath id="squareClip">
@@ -42,7 +42,6 @@ const getShapeSVG = (shape) => {
             rx="80"
             ry="80"
             fill="#78E1FE"
-            className="transition-all duration-300 group-hover:opacity-90"
           />
           <image
             href="/man.png"
@@ -60,7 +59,7 @@ const getShapeSVG = (shape) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 480 480"
-          className="w-full h-full transition-transform duration-300 group-hover:scale-110"
+          className="w-full h-full"
         >
           <defs>
             <clipPath id="ovalClip">
@@ -70,7 +69,6 @@ const getShapeSVG = (shape) => {
           <path
             d="M447.9 240c20.4-24.6 32.1-53.1 32.1-80 0-84.9-107.5-153.7-240-153.7S0 99.1 0 184c0 26.9 11.7 55.4 32.1 80C11.7 275.5 0 304 0 328c0 84.9 107.5 153.7 240 153.7s240-68.8 240-153.7c0-24-11.7-52.5-32.1-80Z"
             fill="#FF844C"
-            className="transition-all duration-300 group-hover:opacity-90"
           />
           <image
             href="/woman.png"
@@ -88,20 +86,14 @@ const getShapeSVG = (shape) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 480 480"
-          className="w-full h-full transition-transform duration-300 group-hover:scale-110"
+          className="w-full h-full"
         >
           <defs>
             <clipPath id="circleClip">
               <circle cx="240" cy="240" r="240" />
             </clipPath>
           </defs>
-          <circle
-            cx="240"
-            cy="240"
-            r="240"
-            fill="#CAFA90"
-            className="transition-all duration-300 group-hover:opacity-90"
-          />
+          <circle cx="240" cy="240" r="240" fill="#CAFA90" />
           <image
             href="/man.png"
             width="480"
@@ -117,13 +109,15 @@ const getShapeSVG = (shape) => {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 65 65"
-          className="w-full h-full transition-transform duration-300 group-hover:scale-110"
+          width="200"
+          height="200"
+          viewBox="0 0 59 55"
         >
           <defs>
             <clipPath id="flowerClip">
               <path d="M29.4 54.8c-2.3 0-4.1-4.7-6.3-5.2-2.3-.5-5.9 2.8-7.9 1.7-2-1.1-1.4-6-3.1-7.5-1.7-1.5-6.5-.4-7.8-2.3-1.2-1.9 1.8-5.8 1.1-8-.6-2.1-5.3-3.8-5.3-6.1s4.7-4 5.3-6.1c.7-2.2-2.4-6.1-1.1-8 1.2-1.9 6.1-.8 7.8-2.3 1.7-1.5 1-6.4 3.1-7.5 2-1 5.7 2.3 7.9 1.7C25.3 4.7 27 0 29.3 0c2.3 0 4.1 4.7 6.3 5.2 2.3.5 5.9-2.8 7.9-1.7 2 1.1 1.4 6 3.1 7.5 1.7 1.5 6.5.4 7.8 2.3 1.2 1.9-1.8 5.8-1.1 8 .6 2.1 5.3 3.8 5.3 6.1s-4.7 4-5.3 6.1c-.7 2.2 2.4 6.1 1.2 8-1.2 1.9-6.1.8-7.8 2.3-1.7 1.5-1 6.4-3.1 7.5-2 1-5.7-2.3-7.9-1.7-2.3.5-4 5.2-6.3 5.2Z" />
             </clipPath>
+
             <linearGradient
               id="blobGradient"
               x1="0%"
@@ -139,12 +133,11 @@ const getShapeSVG = (shape) => {
           <path
             fill="url(#blobGradient)"
             d="M29.4 54.8c-2.3 0-4.1-4.7-6.3-5.2-2.3-.5-5.9 2.8-7.9 1.7-2-1.1-1.4-6-3.1-7.5-1.7-1.5-6.5-.4-7.8-2.3-1.2-1.9 1.8-5.8 1.1-8-.6-2.1-5.3-3.8-5.3-6.1s4.7-4 5.3-6.1c.7-2.2-2.4-6.1-1.1-8 1.2-1.9 6.1-.8 7.8-2.3 1.7-1.5 1-6.4 3.1-7.5 2-1 5.7 2.3 7.9 1.7C25.3 4.7 27 0 29.3 0c2.3 0 4.1 4.7 6.3 5.2 2.3.5 5.9-2.8 7.9-1.7 2 1.1 1.4 6 3.1 7.5 1.7 1.5 6.5.4 7.8 2.3 1.2 1.9-1.8 5.8-1.1 8 .6 2.1 5.3 3.8 5.3 6.1s-4.7 4-5.3 6.1c-.7 2.2 2.4 6.1 1.2 8-1.2 1.9-6.1.8-7.8 2.3-1.7 1.5-1 6.4-3.1 7.5-2 1-5.7-2.3-7.9-1.7-2.3.5-4 5.2-6.3 5.2Z"
-            className="transition-all duration-300 group-hover:opacity-90"
           />
           <image
             href="/man.png"
             width="56"
-            height="56"
+            height="52"
             x="2"
             y="2"
             preserveAspectRatio="xMidYMid slice"
@@ -190,72 +183,43 @@ const WhyUs = () => {
   ];
 
   return (
-    <section className="py-8 md:py-12 lg:py-16 bg-cream relative">
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center relative mb-12 ">
+    <section className="py-16 bg-white relative">
+      <div className="w-full mx-auto px-4">
+        <div className="text-center relative">
           <span className="inline-flex items-center px-4 py-2 rounded-full border border-[#956144] text-sm font-semibold">
             PEACEFUL BEGINNING
           </span>
-
-          <div className="mt-6 sm:mt-10 flex flex-col items-center sm:flex-row sm:justify-center sm:gap-6 ">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6 sm:mb-0 absolute">
+          <div className="flex gap-2 justify-center">
+            <h1 className="text-4xl md:text-5xl font-semibold mt-10 mb-16">
               Our{" "}
-              <span className="relative text-[#FDD56A] inline-block">
+              <span className="relative text-[#FDD56A]">
                 Experts
-                <svg
-                  className="absolute w-full h-[10px] bottom-0 left-0"
-                  viewBox="0 0 100 10"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M0 5 Q 50 -5, 100 5"
-                    stroke="orange"
-                    strokeWidth="4"
-                    fill="transparent"
-                  />
-                </svg>
+                <TitleUnderline stroke="orange" />
               </span>
             </h1>
             <Link
-              href={"/all-experts"}
-              className="hidden sm:inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#956144] text-white rounded-full font-semibold hover:bg-[#7D513A] transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm cursor-pointer relative left-[300px]"
+              href={"#"}
+              className="font-semibold flex gap-2 underline items-center cursor-pointer"
             >
-              View all{" "}
-              <FaArrowRightLong className="transition-transform duration-300 group-hover:translate-x-1" />
+              View all <FaArrowRightLong />
             </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div className="flex flex-wrap justify-center items-center gap-10">
           {expertTypes.map((expert, index) => (
-            <div
-              key={index}
-              className="group text-center flex flex-col items-center px-4 cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-lg rounded-xl p-4"
-            >
-              <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-32 lg:h-32 mb-4 overflow-hidden">
+            <div key={index} className="text-center flex flex-col items-center">
+              <div className="w-48 h-48 mb-6">
                 {getShapeSVG(shapes[index % shapes.length])}
               </div>
               <div className="relative inline-block pb-4 mb-2">
-                <h3 className="text-lg sm:text-xl font-normal transition-colors duration-300 group-hover:text-[#4c69d2]">
-                  {expert.title}
-                </h3>
+                <h3 className="text-lg font-semibold">{expert.title}</h3>
                 <TitleUnderline
                   stroke={underlineColors[index % underlineColors.length]}
                 />
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Mobile View All Button */}
-        <div className="mt-8 text-center sm:hidden">
-          <Link
-            href={"/all-experts"}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#956144] text-white rounded-full font-semibold hover:bg-[#7D513A] transition-all duration-300 ease-in-out"
-          >
-            View all{" "}
-            <FaArrowRightLong className="transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
         </div>
       </div>
     </section>

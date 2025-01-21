@@ -88,7 +88,7 @@ const Testimonials = () => {
   }, [currentTestimonial]);
 
   return (
-    <div className="bg-white py-4">
+    <div className="bg-white py-10">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-0">
         <div className="flex flex-col lg:flex-row lg:justify-end">
           <div className="w-full lg:w-4/5 bg-cream rounded-2xl p-6 lg:p-12">

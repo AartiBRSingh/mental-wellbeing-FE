@@ -126,7 +126,7 @@ const Services = () => {
 
   return (
     <div
-      className="w-full flex justify-center bg-[#003B29] mt-10 relative px-4 sm:px-6 py-12 md:py-0"
+      className="w-full flex justify-center bg-[#003B29] relative px-4 sm:px-6 py-12 md:py-0"
       id="services"
     >
       <DecorativeShapes />
