@@ -4,18 +4,18 @@ import { MdChevronRight } from "react-icons/md";
 
 const GetHelp = () => {
   return (
-    <div className="w-full flex justify-center px-4 sm:px-6 my-10">
-      <main className="flex flex-col md:flex-row justify-center md:gap-12 lg:gap-24 items-center w-full max-w-7xl">
+    <div className="w-full flex justify-center px-4 sm:px-6 my-10 lg:my-20">
+      <main className="flex md:flex-row  flex-col-reverse justify-center md:gap-12 lg:gap-24 items-center w-full max-w-7xl">
         <section className="w-full md:w-1/2 bg-transparent z-10 mb-8 md:mb-0">
           <img
             src="/dummyimg.png"
             alt="Help illustration"
-            className="w-full h-auto object-cover"
+            className="max-md:w-full max-md:h-auto object-cover"
           />
         </section>
 
-        <section className="w-full md:w-1/2 flex flex-col gap-6 md:gap-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-semibold">
+        <section className="w-full md:w-1/2 flex flex-col gap-6 md:gap-8 max-md:text-center">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl">
             <span>How </span>
             <span className="text-[#956144]">can we </span>
             <br className="hidden sm:block" />
@@ -33,10 +33,12 @@ const GetHelp = () => {
             </p>
           </div>
 
-          <button className="cursor-pointer flex items-center gap-2 w-fit px-6 sm:px-8 bg-black text-white font-bold py-2.5 sm:py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner text-sm sm:text-base">
-            Get help
-            <MdChevronRight className="text-[#FF7F4B]" size={24} />
-          </button>
+          <div className="flex items-center max-md:justify-center">
+            <button className="cursor-pointer flex items-center gap-2 w-fit px-6 sm:px-8 bg-black text-white font-bold py-2.5 sm:py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner text-sm sm:text-base">
+              Get help
+              <MdChevronRight className="text-[#FF7F4B]" size={24} />
+            </button>
+          </div>
         </section>
       </main>
     </div>
