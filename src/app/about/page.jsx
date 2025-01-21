@@ -1,4 +1,5 @@
 "use client";
+import { Content } from "next/font/google";
 import React, { useState } from "react";
 
 const AboutPage = () => {
@@ -6,46 +7,68 @@ const AboutPage = () => {
 
   const offerings = [
     {
-      title: "Connect with Mental Health Professionals",
+      title: "Mental Health Expert Directory",
       description:
-        "ShareYrHeart connects you to a vast network of licensed mental health professionals across India and globally. Whether you're dealing with anxiety, depression, stress, relationship issues, or any other mental health concern, you can easily book appointments with qualified therapists, psychologists, and counselors who specialize in a variety of therapeutic approaches.",
+        "ShareYrHeart offers an extensive directory of certified mental health professionals across India. Whether you are seeking therapy, counseling, or expert advice, our platform connects you with specialists who can provide personalized support tailored to your unique needs.",
       color: "bg-pink-50",
       iconBg: "bg-pink-200",
       textColor: "text-pink-600",
     },
     {
-      title: "Mental Well-Being Programs",
+      title: "Dedicated Well-Being Services",
       description:
-        "ShareYrHeart offers tailored mental well-being programs for both employees and students. These programs are designed to improve mental resilience, reduce stress, enhance emotional intelligence, and foster a healthier work-life balance. The programs offer practical tools and techniques to build mental fitness, improve productivity, and support overall well-being.",
+        "Employee Well-Being: Empower your workforce with mental health programs designed to reduce stress, enhance productivity, and promote a healthier work environment // Student Well-Being: Support young minds with tools and resources to manage academic stress, build resilience, and improve focus // Self-Understanding: Gain insights into your mental health through self-assessment tools, workshops, and guided programs that foster personal growth .",
       color: "bg-teal-50",
       iconBg: "bg-teal-200",
       textColor: "text-teal-600",
     },
     {
-      title: "Self-Understanding Programs",
+      title: "Professional Certificate Courses",
       description:
-        "Gain deeper insights into your own mind and emotions with ShareYrHeart's self-understanding programs. These programs help you explore your psychological patterns, build emotional awareness, and improve self-growth. By understanding your emotions and behaviors, you can make more informed choices and lead a more fulfilling life.",
+        "Advance your career in mental health with our professional courses, certified by a renowned university. These courses combine theoretical knowledge with practical experience, making them ideal for both aspiring professionals and those seeking to enhance their skills.",
       color: "bg-indigo-50",
       iconBg: "bg-indigo-200",
       textColor: "text-indigo-600",
     },
     {
-      title: "Certificate Courses in Psychology",
+      title: "Anonymous Discussion Forum",
       description:
-        "ShareYrHeart offers certificate courses in psychology, providing you with an opportunity to deepen your knowledge in areas such as clinical psychology, counseling techniques, mental health interventions, and psychological assessments. These courses are designed for anyone looking to pursue a career in psychology or enhance their existing skill set.",
+        "A safe space for sharing thoughts, experiences, and emotions—whether happy or sad. Our forum allows you to express yourself freely while keeping your identity confidential, fostering open and judgment-free conversations.",
+      color: "bg-purple-50",
+      iconBg: "bg-purple-200",
+      textColor: "text-purple-600",
+    },
+
+    {
+      title: "24/7 Live Chat with Experts",
+      description:
+        "Connect with mental health professionals anytime, anywhere, through our live chat service. Our experts are available 24/7 to provide immediate support and guidance, ensuring you're never alone in your mental health journey.",
+      color: "bg-purple-50",
+      iconBg: "bg-purple-200",
+      textColor: "text-purple-600",
+    },
+
+    {
+      title: "Clinics Across India",
+      description:
+        "With clinics in multiple locations across India, ShareyRHeart ensures access to in-person mental health services. Our centers provide a range of therapies and interventions to meet the needs of individuals, families, and organizations.",
       color: "bg-purple-50",
       iconBg: "bg-purple-200",
       textColor: "text-purple-600",
     },
   ];
 
-  const reasons = [
-    "Global Network of Professionals",
-    "Comprehensive Mental Health Solutions",
-    "Educational Hub",
-    "Convenience & Accessibility",
-    "Confidential & Secure",
-  ];
+  // const reasons = [
+  //   "Global Network of Professionals: Access qualified mental health experts from India and around the world, ensuring you receive the best support no matter where you are located.",
+
+  //   "Comprehensive Mental Health Solutions: From personalized therapy to well-being programs and educational resources, ShareYrHeart offers a full spectrum of services to support mental health at every stage of life.",
+
+  //   "Educational Hub: Stay informed with expert content on psychological disorders, psychotherapy techniques, and the latest research in the field of psychology.",
+
+  //   "Convenience & Accessibility: Access services and educational content online, giving you the flexibility to seek help or improve your knowledge anytime, anywhere.",
+
+  //   "Confidential & Secure: ShareYrHeart prioritizes your privacy with secure platforms for therapy sessions, course enrollment, and payment processing, ensuring a safe and confidential experience.",
+  // ];
 
   return (
     <div className="bg-transparent text-gray-900">
@@ -56,16 +79,16 @@ const AboutPage = () => {
             ShareYrHeart
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A holistic platform dedicated to your mental health, psychological
-            growth, and well-being. Empowering you with knowledge, support, and
-            professional guidance.
+            ShareYrHeart is a comprehensive mental health platform designed to
+            cater to diverse needs with a focus on holistic well-being, personal
+            growth, and professional development.
           </p>
         </div>
 
         {/* Offerings Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
-            Our Key Offerings
+            Key Features:
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             {offerings.map((offering, index) => (
@@ -97,7 +120,7 @@ const AboutPage = () => {
         </section>
 
         {/* Why Choose Us Section */}
-        <section className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-12">
+        {/* <section className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-12">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
             Why Choose ShareYrHeart?
           </h2>
@@ -121,6 +144,77 @@ const AboutPage = () => {
                 <span className="text-lg text-gray-700">{reason}</span>
               </div>
             ))}
+          </div>
+        </section> */}
+
+        <section className="bg-gradient-to-r from-blue-100 to-purple-100 p-6 rounded-2xl">
+          <h2 className="text-3xl text-center font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+            Why Choose ShareYrHeart?
+          </h2>
+          <div className="space-y-4">
+            <p className="text-gray-700 ml-2">
+              If you have any questions about this Privacy Policy, our data
+              practices, or would like to exercise your rights, please contact
+              us at:
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Global Network of Professionals
+                </h3>
+                <p className="text-gray-700">
+                  {" "}
+                  Access qualified mental health experts from India and around
+                  the world, ensuring you receive the best support no matter
+                  where you are located.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Comprehensive Mental Health Solutions
+                </h3>
+                <p className="text-gray-700">
+                  {" "}
+                  From personalized therapy to well-being programs and
+                  educational resources, ShareYrHeart offers a full spectrum of
+                  services to support mental health at every stage of life
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Educational Hub
+                </h3>
+                <p className="text-gray-700">
+                  Stay informed with expert content on psychological disorders,
+                  psychotherapy techniques, and the latest research in the field
+                  of psychology.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Convenience & Accessibility
+                </h3>
+                <p className="text-gray-700">
+                  Access services and educational content online, giving you the
+                  flexibility to seek help or improve your knowledge anytime,
+                  anywhere.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Confidential & Secure
+                </h3>
+                <p className="text-gray-700">
+                  ShareYrHeart prioritizes your privacy with secure platforms
+                  for therapy sessions, course enrollment, and payment
+                  processing, ensuring a safe and confidential experience.
+                </p>
+              </div>
+            </div>
+            <p className="mt-2">
+              By using ShareYrHeart, you acknowledge that you have read and
+              understood this Privacy Policy and agree to its terms.
+            </p>
           </div>
         </section>
 
