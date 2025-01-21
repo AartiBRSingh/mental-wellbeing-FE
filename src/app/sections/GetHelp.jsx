@@ -15,7 +15,7 @@ const GetHelp = () => {
         </section>
 
         <section className="w-full md:w-1/2 flex flex-col gap-6 md:gap-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-semibold">
             <span>How </span>
             <span className="text-[#956144]">can we </span>
             <br className="hidden sm:block" />

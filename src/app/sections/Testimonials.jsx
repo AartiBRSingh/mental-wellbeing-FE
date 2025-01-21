@@ -88,10 +88,10 @@ const Testimonials = () => {
   }, [currentTestimonial]);
 
   return (
-    <div className="bg-white py-4 lg:py-20">
+    <div className="bg-white py-4">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-0">
         <div className="flex flex-col lg:flex-row lg:justify-end">
-          <div className="w-full lg:w-4/5 bg-slate-100 rounded-2xl p-6 lg:p-12">
+          <div className="w-full lg:w-4/5 bg-cream rounded-2xl p-6 lg:p-12">
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-20">
               {/* Service Card */}
               <div className="bg-[#49382E] rounded-3xl shadow-lg w-full lg:w-[350px] p-6 lg:p-10">
