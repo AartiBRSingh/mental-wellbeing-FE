@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { baseURL } from "../baseURL";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const UpdateUserPage = () => {
   const [userId, setUserId] = useState(null);
