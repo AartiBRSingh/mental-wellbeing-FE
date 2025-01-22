@@ -35,7 +35,7 @@ const GetHelp = () => {
 
           <div className="flex items-center max-md:justify-center">
             <Link
-              href={"/get-started"}
+              href={"#"}
               className="cursor-pointer flex items-center gap-2 w-fit px-6 sm:px-8 bg-black text-white font-bold py-2.5 sm:py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner text-sm sm:text-base"
             >
               Get help

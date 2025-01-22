@@ -86,7 +86,7 @@ const UpdateUserPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F1EA]">
+    <div className="min-h-screen bg-transparent">
       <div className="container mx-auto p-8 max-w-4xl">
         <h1 className="text-4xl font-serif text-[#4A3B24] mb-8 text-center">
           Update Your Information
