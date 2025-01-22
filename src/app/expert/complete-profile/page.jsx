@@ -73,7 +73,7 @@ const CompleteProfile = () => {
     formData.services || []
   );
   const [selectedTherapy, setSelectedTherapy] = useState(
-    formData.therapy || []
+    formData.therapies || []
   );
 
   const handleLanguageChange = (selected) => {
@@ -99,7 +99,7 @@ const CompleteProfile = () => {
       setSelectedTherapy(selected);
       setFormData((prev) => ({
         ...prev,
-        therapy: selected,
+        therapies: selected,
       }));
     }
   };
@@ -109,7 +109,7 @@ const CompleteProfile = () => {
       setSelectedServices(selected);
       setFormData((prev) => ({
         ...prev,
-        therapies: selected,
+        services: selected,
       }));
     }
   };
@@ -972,10 +972,10 @@ const CompleteProfile = () => {
                   </ListboxButton>
 
                   <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {therapyFields.map((therapy) => (
+                    {therapyFields.map((therapies) => (
                       <ListboxOption
-                        key={therapy}
-                        value={therapy}
+                        key={therapies}
+                        value={therapies}
                         className={({ active, selected }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
                             active ? "bg-green-700 text-white" : "text-gray-900"
@@ -989,7 +989,7 @@ const CompleteProfile = () => {
                                 selected ? "font-medium" : "font-normal"
                               }`}
                             >
-                              {therapy}
+                              {therapies}
                             </span>
                             {selected ? (
                               <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">

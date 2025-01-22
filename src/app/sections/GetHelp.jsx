@@ -34,10 +34,13 @@ const GetHelp = () => {
           </div>
 
           <div className="flex items-center max-md:justify-center">
-            <button className="cursor-pointer flex items-center gap-2 w-fit px-6 sm:px-8 bg-black text-white font-bold py-2.5 sm:py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner text-sm sm:text-base">
+            <Link
+              href={"/get-started"}
+              className="cursor-pointer flex items-center gap-2 w-fit px-6 sm:px-8 bg-black text-white font-bold py-2.5 sm:py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner text-sm sm:text-base"
+            >
               Get help
               <MdChevronRight className="text-[#FF7F4B]" size={24} />
-            </button>
+            </Link>
           </div>
         </section>
       </main>

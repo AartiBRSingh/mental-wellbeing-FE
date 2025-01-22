@@ -126,6 +126,8 @@ const UserProfile = () => {
     </div>
   );
 
+  console.log(user.caseStudy);
+
   return (
     <div className=" py-8">
       <div className="max-w-4xl mx-auto px-4">
@@ -296,7 +298,7 @@ const UserProfile = () => {
                 </div>
               )}
             </div>
-            {!user?.caseStudy && !isEditing && (
+            {user?.caseStudy?.length <= 0 && !isEditing && (
               <div className="mt-4 border-t border-gray-100 bg-gray-50 p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
@@ -314,7 +316,7 @@ const UserProfile = () => {
                   </div>
                   <Link
                     href="/self"
-                    className="px-4 py-2 bg-black text-white rounded-lg hover:bg-black transition-colors text-sm font-medium"
+                    className="px-4 py-2 bg-black text-white rounded-lg hover:bg-black transition-colors text-sm font-medium cursor-pointer"
                   >
                     Start Now
                   </Link>
