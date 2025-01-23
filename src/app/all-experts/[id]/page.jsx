@@ -61,15 +61,15 @@ async function ExpertDetailsPage({ params, searchParams }) {
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="flex justify-between items-center">
             <div className="flex flex-col md:flex-row gap-6">
-              <div className="relative">
+              <div className="relative flex flex-col items-center">
                 <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-lg">
                   <img
-                    src={expert.image || "/api/placeholder/160/160"}
+                    src={expert.image}
                     alt={expert.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 flex items-center bg-white shadow-md rounded-full px-3 py-1">
+                <div className="flex items-center bg-white shadow-md rounded-full px-3">
                   {[...Array(5)].map((_, index) => (
                     <Star
                       key={index}
@@ -82,6 +82,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   ))}
                 </div>
               </div>
+
               <div className="flex-1">
                 <div className="flex items-center gap-3">
                   <h1 className="text-3xl font-bold">{expert.name}</h1>
@@ -101,12 +102,24 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   <span>{`${expert.city}, ${expert.state}`}</span>
                 </div>
               </div> */}
+
                 {expert.paymentDetails.hasPaid === true && (
                   <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium space-x-2 shadow-sm">
                     <span>SYH Assured</span>
                     <Check className="w-4 h-4 text-green-600" strokeWidth={3} />
                   </div>
                 )}
+                <p className="text-sm text-gray-500 mt-2">
+                  Experience:{" "}
+                  <span className="font-semibold">
+                    {new Date(expert.experience[0].endDate).getFullYear() -
+                      new Date(
+                        expert.experience[0].startDate
+                      ).getFullYear()}{" "}
+                    years
+                  </span>
+                </p>
+
                 <div className="mt-6">
                   {expert.paymentDetails.hasPaid === true ? (
                     <div className="flex gap-4 w-full overflow-x-auto pb-2 flex-wrap">
