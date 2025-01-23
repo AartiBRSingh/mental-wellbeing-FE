@@ -101,12 +101,24 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   <span>{`${expert.city}, ${expert.state}`}</span>
                 </div>
               </div> */}
+
                 {expert.paymentDetails.hasPaid === true && (
                   <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium space-x-2 shadow-sm">
                     <span>SYH Assured</span>
                     <Check className="w-4 h-4 text-green-600" strokeWidth={3} />
                   </div>
                 )}
+                <p className="text-sm text-gray-500 mt-2">
+                  Experience:{" "}
+                  <span className="font-semibold">
+                    {new Date(expert.experience[0].endDate).getFullYear() -
+                      new Date(
+                        expert.experience[0].startDate
+                      ).getFullYear()}{" "}
+                    years
+                  </span>
+                </p>
+
                 <div className="mt-6">
                   {expert.paymentDetails.hasPaid === true ? (
                     <div className="flex gap-4 w-full overflow-x-auto pb-2 flex-wrap">
