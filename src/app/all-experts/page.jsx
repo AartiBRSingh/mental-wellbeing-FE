@@ -1,39 +1,12 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Mail, Phone, CheckCircle, XCircle, ExternalLink } from "lucide-react";
-import { baseURL } from "../baseURL";
+import React from "react";
+import { Mail, Phone, CheckCircle } from "lucide-react";
 import Link from "next/link";
+import { baseURL } from "../baseURL";
+import axios from "axios";
 
-const ExpertPage = () => {
-  const [experts, setExperts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchExperts = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/get-experts`);
-        setExperts(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching experts:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchExperts();
-  }, []);
-
-  if (loading) {
-    return (
-      <section className="py-16 bg-cream relative">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <div className="animate-pulse text-gray-600">Loading experts...</div>
-        </div>
-      </section>
-    );
-  }
-
+const ExpertPage = async () => {
+  const response = await axios.get(`${baseURL}/get-experts`);
+  const experts = await response.data;
   return (
     <section className="py-16 bg-cream">
       <div className="max-w-6xl mx-auto px-4">
@@ -59,7 +32,7 @@ const ExpertPage = () => {
           journey
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {experts.map((expert) => (
+          {experts?.map((expert) => (
             <div
               key={expert._id}
               className="bg-cream rounded-3xl p-4 relative size-auto border border-red-100"
@@ -101,8 +74,8 @@ const ExpertPage = () => {
 
               <div className="relative bottom-2 left-1 px-4">
                 <Link
-                  href={`/all-experts/${expert._id}`}
-                  className="flex items-center justify-center gap-2 py-2 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg"
+                  href={`/all-experts/${expert._id}?tab=info`}
+                  className="cursor-pointer flex items-center justify-center gap-2 py-2 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   <span className="text-center">View Details</span>
                   <span className="text-2xl transition-transform duration-300 group-hover:translate-x-1">
