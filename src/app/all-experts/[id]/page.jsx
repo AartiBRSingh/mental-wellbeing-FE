@@ -61,15 +61,15 @@ async function ExpertDetailsPage({ params, searchParams }) {
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="flex justify-between items-center">
             <div className="flex flex-col md:flex-row gap-6">
-              <div className="relative">
+              <div className="relative flex flex-col items-center">
                 <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-lg">
                   <img
-                    src={expert.image || "/api/placeholder/160/160"}
+                    src={expert.image}
                     alt={expert.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 flex items-center bg-white shadow-md rounded-full px-3 py-1">
+                <div className="flex items-center bg-white shadow-md rounded-full px-3">
                   {[...Array(5)].map((_, index) => (
                     <Star
                       key={index}
@@ -82,6 +82,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   ))}
                 </div>
               </div>
+
               <div className="flex-1">
                 <div className="flex items-center gap-3">
                   <h1 className="text-3xl font-bold">{expert.name}</h1>
