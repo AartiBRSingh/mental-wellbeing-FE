@@ -47,7 +47,7 @@ const ExpertPage = async () => {
                 {expert.isProfileVerified && (
                   <div className="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm flex items-center shadow-sm">
                     <CheckCircle className="w-4 h-4 mr-1.5" />
-                    Verified
+                    SYH Approved
                   </div>
                 )}
               </div>
