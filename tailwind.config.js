@@ -14,5 +14,35 @@ module.exports = {
       },
     },
   },
+  theme: {
+    extend: {
+      keyframes: {
+        slideInRight: {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(100%)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        },
+        slideInLeft: {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        },
+      },
+      animation: {
+        "slide-in-right": "slideInRight 0.7s ease-out",
+        "slide-in-left": "slideInLeft 0.7s ease-out",
+      },
+    },
+  },
   plugins: [],
 };
