@@ -10,14 +10,14 @@ import Link from "next/link";
 const HealPoint = () => {
   const [email, setEmail] = useState("");
   const navLinks = [
-    { label: "Home", redirectTo: "" },
-    { label: "Product", redirectTo: "" },
-    { label: "Testimonials", redirectTo: "" },
+    { label: "Insurance", redirectTo: "" },
+    { label: "Career", redirectTo: "" },
+    { label: "FAQ", redirectTo: "" },
   ];
   const dropdownOptions = [
-    { label: "Self", href: "#" },
-    { label: "Student", href: "#" },
-    { label: "Employee", href: "#" },
+    { label: "Disorder", href: "/disorder" },
+    { label: "Therapy", href: "/therapy" },
+    { label: "Dictionary", href: "/dictionary" },
   ];
   const pathname = usePathname();
 
@@ -40,7 +40,7 @@ const HealPoint = () => {
                   {navLinks.map((item, index) => (
                     <li
                       key={index}
-                      className="relative font-semibold text-white cursor-pointer text-sm group whitespace-nowrap"
+                      className="relative font-semibold text-white cursor-pointer text-md group whitespace-nowrap"
                     >
                       {item.label}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300 ease-in-out" />
@@ -189,7 +189,7 @@ const HealPoint = () => {
 
           <div className="text-gray-400 text-center text-sm sm:text-base">
             <span className="font-semibold text-white">
-              © 2024 Shareyrheart{" "}
+              © 2021 Shareyrheart{" "}
             </span>
             | All Rights Reserved
           </div>

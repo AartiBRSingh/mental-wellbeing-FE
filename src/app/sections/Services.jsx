@@ -210,7 +210,7 @@ const Services = () => {
                 ></div>
               ))}
             </div>
-            <div className="bg-cream rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 sm:w-xl sm:w-auto max-w-sm">
+            <div className="bg-white rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 sm:w-xl sm:w-auto max-w-sm">
               <div className="mb-4">
                 <img
                   src={serviceCardData[currentService].imgUrl}

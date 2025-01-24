@@ -39,9 +39,9 @@ const Navbar = () => {
   ];
 
   const dropdownOptions = [
-    { label: "Disorder", href: "/disorder" },
-    { label: "Therapy", href: "/therapy" },
-    { label: "Dictionary", href: "/dictionary" },
+    { label: "Employee", href: "#" },
+    { label: "Student", href: "#" },
+    { label: "Self", href: "#" },
   ];
 
   const pathname = usePathname();
