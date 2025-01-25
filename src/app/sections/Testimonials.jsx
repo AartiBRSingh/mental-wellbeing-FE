@@ -67,15 +67,15 @@ const TestimonialsCarousel = () => {
   } = testimonials[currentTestimonial];
 
   return (
-    <div className="bg-white py-2 sm:py-2 md:py-4 overflow-hidden">
+    <div className="bg-white py-2 sm:py-2 md:py-4 overflow-hidden mb-4">
       <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative">
-        <div className="relative w-full h-auto sm:h-80 md:h-96 overflow-hidden rounded-2xl shadow-md">
+        <div className="relative w-full h-auto sm:h-72 md:h-72 overflow-hidden rounded-2xl shadow-xl">
           {/* Testimonial Slide */}
           <div
             key={currentTestimonial}
             className={`
-              absolute inset-0 rounded-2xl shadow-xl 
-              p-4 sm:p-6 md:p-8 lg:p-12
+              absolute inset-0 rounded-2xl shadow-2xl 
+              p-0 sm:p-0 md:p-0 lg:p-0
               transition-all duration-700 ease-in-out
               ${bgColor}
               ${
@@ -87,7 +87,7 @@ const TestimonialsCarousel = () => {
           >
             <div
               className="flex flex-col sm:flex-row items-center h-full sm:space-x-4 md:space-x-8 
-                            max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto"
+                            max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto p-0"
             >
               {/* Profile Image */}
               <div

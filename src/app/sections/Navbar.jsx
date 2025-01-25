@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { LogOut, User, Menu, X, UserIcon } from "lucide-react";
+import CustomCursor from "../components/CustomCursor";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -39,9 +40,9 @@ const Navbar = () => {
   ];
 
   const dropdownOptions = [
-    { label: "Employee", href: "#" },
-    { label: "Student", href: "#" },
-    { label: "Self", href: "#" },
+    { label: "Employee", href: "/employee" },
+    { label: "Student", href: "/student" },
+    { label: "Self", href: "/self" },
   ];
 
   const pathname = usePathname();
@@ -69,6 +70,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full flex justify-center relative">
+      <CustomCursor />
       <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center bg-white px-4 md:px-10 w-full md:w-[80vw]">
         {/* Logo */}
         <Link href={"/"}>
@@ -104,6 +106,7 @@ const Navbar = () => {
             </button>
             <div className="absolute right-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
               <div className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg">
+                <CustomCursor />
                 {dropdownOptions.map((option, index) => (
                   <a
                     key={index}
@@ -119,15 +122,18 @@ const Navbar = () => {
           </div>
 
           {/* Desktop User Menu */}
+
           {isAuthenticated ? (
             <div className="relative group hidden md:block">
               <button className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
                 <User size={20} />
+
                 <span className="text-sm font-medium">{userData.name}</span>
               </button>
               <div className="absolute right-0 top-full mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
                 <div className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg">
                   <div className="px-4 py-3 border-b border-gray-200">
+                    <CustomCursor />
                     <p className="text-sm font-medium text-gray-900">
                       {userData.name}
                     </p>
