@@ -18,6 +18,7 @@ import {
   Check,
   Star,
   User,
+  NotebookPen,
 } from "lucide-react";
 import { baseURL } from "@/app/baseURL";
 import Link from "next/link";
@@ -69,7 +70,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="flex items-center bg-white shadow-md rounded-full px-3">
+                <div className="flex items-center bg-white shadow-md rounded-full px-3 mt-4">
                   {[...Array(5)].map((_, index) => (
                     <Star
                       key={index}
@@ -103,12 +104,6 @@ async function ExpertDetailsPage({ params, searchParams }) {
                 </div>
               </div> */}
 
-                {expert.paymentDetails.hasPaid === true && (
-                  <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium space-x-2 shadow-sm">
-                    <span>SYH Assured</span>
-                    <Check className="w-4 h-4 text-green-600" strokeWidth={3} />
-                  </div>
-                )}
                 <p className="text-sm text-gray-500 mt-2">
                   Experience:{" "}
                   <span className="font-semibold">
@@ -120,15 +115,34 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   </span>
                 </p>
 
+                {expert.paymentDetails.hasPaid === true && (
+                  <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium space-x-2 shadow-sm mt-3">
+                    <span>SYH Assured</span>
+                    <Check className="w-4 h-4 text-green-600" strokeWidth={3} />
+                  </div>
+                )}
+
+                <div>
+                  {expert.paymentDetails.hasPaid === true && (
+                    <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium space-x-2 shadow-sm mt-3">
+                      <span>Medical Registration Verified</span>
+                      <Check
+                        className="w-4 h-4 text-green-600"
+                        strokeWidth={3}
+                      />
+                    </div>
+                  )}
+                </div>
+
                 <div className="mt-6">
                   {expert.paymentDetails.hasPaid === true ? (
                     <div className="flex gap-4 w-full overflow-x-auto pb-2 flex-wrap">
                       <button className="cursor-pointer group flex-shrink-0 flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        <MessageCircle className="w-5 h-5 group-hover:animate-pulse" />
+                        <Phone className="w-5 h-5 group-hover:animate-pulse" />
                         <span className="whitespace-nowrap">Call</span>
                       </button>
                       <button className="cursor-pointer group flex-shrink-0 flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                        <Video className="w-5 h-5 group-hover:animate-pulse" />
+                        <NotebookPen className="w-5 h-5 group-hover:animate-pulse" />
                         <span className="whitespace-nowrap">Book</span>
                       </button>
                       <button className="cursor-pointer group flex-shrink-0 flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
