@@ -1,34 +1,25 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Dot, Star } from "lucide-react";
 
-const TestimonialsCarousel = () => {
+const TestimonialsSlider = () => {
   const [testimonials, setTestimonials] = useState([]);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [direction, setDirection] = useState("right");
+  const [isHovered, setIsHovered] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
         const response = await axios.get(`${baseURL}/get-testimonials`);
         if (response?.data && response?.data?.length > 0) {
-          // Example of adding bgColor to testimonials
-          const testimonialWithColors = response.data
-            .slice(0, 5)
-            .map((testimonial, index) => ({
-              ...testimonial,
-              bgColor:
-                [
-                  "bg-red-100",
-                  "bg-green-100",
-                  "bg-blue-100",
-                  "bg-yellow-100",
-                  "bg-purple-100",
-                ][index % 5] || "bg-slate-50",
-            }));
-          setTestimonials(testimonialWithColors);
+          setTestimonials([
+            ...response.data,
+            ...response.data,
+            ...response.data,
+          ]);
         }
       } catch (error) {
         console.error("Failed to fetch testimonials:", error);
@@ -38,110 +29,139 @@ const TestimonialsCarousel = () => {
     fetchTestimonials();
   }, []);
 
-  const nextTestimonial = useCallback(() => {
-    setDirection("right");
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  }, [testimonials.length]);
+  const handleScroll = useCallback(
+    (direction) => {
+      const scrollAmount = 250;
+      if (direction === "left") {
+        setScrollPosition((prev) => {
+          const newPosition = prev - scrollAmount;
+          // If at start, jump to end
+        });
+      } else {
+        setScrollPosition((prev) => {
+          const newPosition = prev + scrollAmount;
+          // If at end, jump to start
+          if (newPosition >= (testimonials.length * scrollAmount) / 2) {
+            return 0;
+          }
+          return newPosition;
+        });
+      }
+    },
+    [testimonials.length]
+  );
 
-  const prevTestimonial = useCallback(() => {
-    setDirection("left");
-    setCurrentTestimonial((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
-    );
-  }, [testimonials.length]);
-
+  // Auto scroll effect
   useEffect(() => {
-    const intervalId = setInterval(nextTestimonial, 5000);
+    let intervalId;
+    if (!isHovered) {
+      intervalId = setInterval(() => {
+        handleScroll("right");
+      }, 3000);
+    }
     return () => clearInterval(intervalId);
-  }, [nextTestimonial]);
+  }, [isHovered, handleScroll]);
 
   if (testimonials.length === 0) return null;
 
-  const {
-    name,
-    title,
-    review,
-    image,
-    productType,
-    bgColor = "bg-slate-50",
-  } = testimonials[currentTestimonial];
-
   return (
-    <div className="bg-white py-2 sm:py-2 md:py-4 overflow-hidden mb-4">
-      <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative">
-        <div className="relative w-full h-auto sm:h-72 md:h-72 overflow-hidden rounded-2xl shadow-xl">
-          {/* Testimonial Slide */}
-          <div
-            key={currentTestimonial}
-            className={`
-              absolute inset-0 rounded-2xl shadow-2xl 
-              p-0 sm:p-0 md:p-0 lg:p-0
-              transition-all duration-700 ease-in-out
-              ${bgColor}
-              ${
-                direction === "right"
-                  ? "animate-slide-in-right"
-                  : "animate-slide-in-left"
-              }
-            `}
+    <div className="bg-white py-4 overflow-hidden relative my-4">
+      <h1 className="text-[#956144] relative text-center mb-5 text-4xl">
+        T
+        <span className="relative text-black">
+          estimonials
+          <svg
+            className="absolute w-full h-[10px] -bottom-1 left-0"
+            viewBox="0 0 100 10"
+            preserveAspectRatio="none"
           >
-            <div
-              className="flex flex-col sm:flex-row items-center h-full sm:space-x-4 md:space-x-8 
-                            max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto p-0"
-            >
-              {/* Profile Image */}
-              <div
-                className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 
-             lg:w-48 lg:h-48 
-             mb-4 sm:mb-0 rounded-full overflow-hidden flex-shrink-0"
-              >
-                <img
-                  src={image}
-                  alt={name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <path
+              d="M0 5 Q 50 -5, 100 5"
+              stroke="orange"
+              strokeWidth="4"
+              fill="transparent"
+            />
+          </svg>
+        </span>
+        <button
+          onClick={() => handleScroll("left")}
+          className=" p-2 rounded-full bg-white shadow-lg hover:bg-slate-300 transition-colors ml-4"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={() => handleScroll("right")}
+          className=" p-2 ml-2 rounded-full bg-white shadow-lg hover:bg-slate-300 transition-colors"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </h1>
 
-              {/* Testimonial Content */}
-              <div className="flex-1 text-center sm:text-left space-y-2 sm:space-y-3 md:space-y-4">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800">
-                  &quot;{title}&quot;
-                </h3>
-                <p className="text-gray-600 max-w-[500px] italic text-sm sm:text-base md:text-lg">
-                  &quot;{review}&quot;
-                </p>
-                <div className="text-xs sm:text-sm md:text-base">
-                  <span className="font-bold text-gray-900">{name}</span>
-                  <span className="text-gray-500 ml-2">{productType}</span>
+      <div className="max-w-[1700px] mx-auto">
+        <div
+          ref={containerRef}
+          className="relative overflow-hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div
+            className="flex transition-transform duration-500 ease-in-out gap-2"
+            style={{
+              transform: `translateX(-${scrollPosition}px)`,
+            }}
+          >
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="min-w-[350px] px-2 flex-shrink-0 p-3">
+                <div
+                  className=" rounded-lg shadow-md p-4 h-full transition-transform hover:scale-105
+                "
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('/testimonialbg.svg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                >
+                  <div className="flex flex-col space-y-4">
+                    <div className="flex">
+                      <div className="w-14 h-14 rounded-full overflow-hidden ml-4">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      <div className="text-lg p-2 mt-3">
+                        <span className="font-semibold text-gray-900">
+                          {testimonial.name}
+                        </span>
+
+                        <span className="text-gray-500 ml-1">
+                          {testimonial.productType}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="">
+                      <h3 className="text-md font-medium text-black line-clamp-2 mb-2 ml-0 flex">
+                        <Dot />
+                        {testimonial.title}
+                      </h3>
+                      <p className="text-gray-600 text-xs italic line-clamp-4 max-w-64">
+                        &quot;{testimonial.review}&quot;
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
-
-        {/* Pagination Dots */}
-        <div className="flex justify-center mt-4 sm:mt-6 space-x-2">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setDirection(index > currentTestimonial ? "right" : "left");
-                setCurrentTestimonial(index);
-              }}
-              className={`
-                w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors duration-300 
-                ${
-                  index === currentTestimonial
-                    ? "bg-gray-800"
-                    : "bg-gray-300 hover:bg-gray-500"
-                }
-              `}
-            />
-          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default TestimonialsCarousel;
+export default TestimonialsSlider;
