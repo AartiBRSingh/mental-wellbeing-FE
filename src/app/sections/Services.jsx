@@ -72,21 +72,21 @@ export const serviceCardData = [
   {
     redirectTo: "/employee",
     imgUrl:
-      "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://img.freepik.com/free-vector/good-team-concept-illustration_114360-4225.jpg?t=st=1737958269~exp=1737961869~hmac=9f55dffa1ad3cbe3003fbe6986667390cde22ce60ebf14ec70599896f3d62e8b&w=740",
     title: "Employee Well-being",
     desc: "Curated programs for Corporate Employees",
   },
   {
     redirectTo: "/student",
     imgUrl:
-      "https://images.unsplash.com/photo-1608453162650-cba45689c284?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://img.freepik.com/free-vector/happy-students-jumping-with-flat-design_23-2147907627.jpg?t=st=1737958353~exp=1737961953~hmac=b35ff6009000582dff7710c6c86c923f98fb82aa915ccc17fbbd564321b15760&w=740",
     title: "Student Well-being",
     desc: "Reach out to program from college to elementary school students",
   },
   {
     redirectTo: "/self",
     imgUrl:
-      "https://images.unsplash.com/photo-1625019030820-e4ed970a6c95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://img.freepik.com/free-vector/high-self-esteem-illustration_23-2148766834.jpg?t=st=1737958010~exp=1737961610~hmac=d9a5dae22d9564405a029e95ac231f84cde03a92482ba9557231c5ecd9498571&w=740",
     title: "Self Understanding",
     desc: "Get to know yourself better with this program",
   },
@@ -215,7 +215,7 @@ const Services = () => {
                 <img
                   src={serviceCardData[currentService].imgUrl}
                   alt="Helping to Navigate"
-                  className="rounded-t-lg h-48 sm:h-60 w-full object-cover"
+                  className="rounded-t-lg h-60 sm:h-60 w-full object-contain"
                 />
               </div>
               <div className="px-4">
