@@ -86,27 +86,56 @@ const UpdateUserPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent">
-      <div className="container mx-auto p-8 max-w-4xl">
-        <h1 className="text-4xl font-serif text-[#4A3B24] mb-8 text-center">
-          Update Your Information
+    <div
+      className="min-h-screen bg-white"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('/getstartedbg.svg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div className="container mx-auto p-8 max-w-5xl">
+        <h1 className="text-5xl text-[#4A3B24] mb-12 text-center font-semibold tracking-wide">
+          Update Your
+          <span className="text-[#FDD56A] relative ml-2">
+            I
+            <span className="relative">
+              nformation
+              <svg
+                className="absolute w-full h-[10px] bottom-0 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+          </span>
         </h1>
+
         {userId ? (
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="bg-white rounded-lg p-6 shadow-md border border-[#DED5C6]">
-              <h2 className="text-2xl font-serif text-[#4A3B24] mb-6 pb-2 border-b border-[#DED5C6]">
+          <form onSubmit={handleSubmit} className="space-y-10">
+            {/* Expert Booking Section */}
+            <div className="bg-blue-100 rounded-xl p-8 shadow-lg border ">
+              <h2 className="text-2xl text-[#4A3B24] mb-8 pb-3 border-b-2 border-black tracking-wide">
                 Expert Booking
               </h2>
-              <div className="grid gap-6">
+              <div className="grid gap-8">
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     Support Type
                   </span>
                   <select
                     name="expertSupport.supportType"
                     value={formData.expertSupport.supportType}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   >
                     <option value="Anxiety or Stress Management">
                       Anxiety or Stress Management
@@ -123,7 +152,7 @@ const UpdateUserPage = () => {
                   </select>
                 </label>
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     Therapist Specialization
                   </span>
                   <input
@@ -131,78 +160,84 @@ const UpdateUserPage = () => {
                     name="expertSupport.therapistSpecialization"
                     value={formData.expertSupport.therapistSpecialization}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   />
                 </label>
-                <label className="block">
-                  <span className="text-[#6B573B] font-medium">
-                    Session Format
-                  </span>
-                  <select
-                    name="expertSupport.sessionFormat"
-                    value={formData.expertSupport.sessionFormat}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
-                  >
-                    <option value="In-person">In-person</option>
-                    <option value="Virtual">Virtual</option>
-                    <option value="Both">Both</option>
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-[#6B573B] font-medium">
-                    Preferred Days (Weekdays)
-                  </span>
-                  <input
-                    type="text"
-                    name="expertSupport.preferredDays.weekdays"
-                    value={formData.expertSupport.preferredDays.weekdays}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
-                    placeholder="e.g. Morning, Afternoon"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-[#6B573B] font-medium">
-                    Preferred Days (Weekends)
-                  </span>
-                  <input
-                    type="text"
-                    name="expertSupport.preferredDays.weekends"
-                    value={formData.expertSupport.preferredDays.weekends}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
-                    placeholder="e.g. Morning, Afternoon"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-[#6B573B] font-medium">
-                    Budget per Session (INR)
-                  </span>
-                  <input
-                    type="number"
-                    name="expertSupport.budgetPerSession"
-                    value={formData.expertSupport.budgetPerSession}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
-                  />
-                </label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <label className="block">
+                    <span className="text-[#6B573B] font-medium text-lg mb-2 block">
+                      Session Format
+                    </span>
+                    <select
+                      name="expertSupport.sessionFormat"
+                      value={formData.expertSupport.sessionFormat}
+                      onChange={handleChange}
+                      className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
+                    >
+                      <option value="In-person">In-person</option>
+                      <option value="Virtual">Virtual</option>
+                      <option value="Both">Both</option>
+                    </select>
+                  </label>
+                  <label className="block">
+                    <span className="text-[#6B573B] font-medium text-lg mb-2 block">
+                      Budget per Session (INR)
+                    </span>
+                    <input
+                      type="number"
+                      name="expertSupport.budgetPerSession"
+                      value={formData.expertSupport.budgetPerSession}
+                      onChange={handleChange}
+                      className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
+                    />
+                  </label>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <label className="block">
+                    <span className="text-[#6B573B] font-medium text-lg mb-2 block">
+                      Preferred Days (Weekdays)
+                    </span>
+                    <input
+                      type="text"
+                      name="expertSupport.preferredDays.weekdays"
+                      value={formData.expertSupport.preferredDays.weekdays}
+                      onChange={handleChange}
+                      className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
+                      placeholder="e.g. Morning, Afternoon"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="text-[#6B573B] font-medium text-lg mb-2 block">
+                      Preferred Days (Weekends)
+                    </span>
+                    <input
+                      type="text"
+                      name="expertSupport.preferredDays.weekends"
+                      value={formData.expertSupport.preferredDays.weekends}
+                      onChange={handleChange}
+                      className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
+                      placeholder="e.g. Morning, Afternoon"
+                    />
+                  </label>
+                </div>
               </div>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-md border border-[#DED5C6]">
-              <h2 className="text-2xl font-serif text-[#4A3B24] mb-6 pb-2 border-b border-[#DED5C6]">
+
+            {/* Mental Well-Being Section */}
+            <div className="bg-purple-100 rounded-xl p-8 shadow-lg border">
+              <h2 className="text-2xl font-serif text-[#4A3B24] mb-8 pb-3 border-b-2 border-black tracking-wide">
                 Mental Well-Being Program
               </h2>
-              <div className="grid gap-6">
+              <div className="grid gap-8">
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     Current Goal
                   </span>
                   <select
                     name="mentalWellBeing.currentGoal"
                     value={formData.mentalWellBeing.currentGoal}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   >
                     <option value="Reducing Stress">Reducing Stress</option>
                     <option value="Improving Focus and Mental Clarity">
@@ -220,14 +255,14 @@ const UpdateUserPage = () => {
                   </select>
                 </label>
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     Familiarity Level
                   </span>
                   <select
                     name="mentalWellBeing.familiarityLevel"
                     value={formData.mentalWellBeing.familiarityLevel}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   >
                     <option value="Beginner">Beginner</option>
                     <option value="Intermediate">Intermediate</option>
@@ -235,14 +270,14 @@ const UpdateUserPage = () => {
                   </select>
                 </label>
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     Program Type
                   </span>
                   <select
                     name="mentalWellBeing.programType"
                     value={formData.mentalWellBeing.programType}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   >
                     <option value="Self-paced">Self-paced</option>
                     <option value="Group sessions">Group sessions</option>
@@ -252,34 +287,36 @@ const UpdateUserPage = () => {
                     <option value="Hybrid">Hybrid</option>
                   </select>
                 </label>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-3">
                   <input
                     type="checkbox"
                     name="mentalWellBeing.accessToLiveSessions"
                     checked={formData.mentalWellBeing.accessToLiveSessions}
                     onChange={handleChange}
-                    className="rounded border-[#DED5C6] text-[#749F82] focus:ring-[#749F82]"
+                    className="rounded-lg border-black text-[#749F82] focus:ring-[#749F82] h-5 w-5"
                   />
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg">
                     Access to Live Sessions
                   </span>
                 </div>
               </div>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-md border border-[#DED5C6]">
-              <h2 className="text-2xl font-serif text-[#4A3B24] mb-6 pb-2 border-b border-[#DED5C6]">
+
+            {/* Professional Course Section */}
+            <div className="bg-yellow-100 rounded-xl p-8 shadow-lg border ">
+              <h2 className="text-2xl font-serif text-[#4A3B24] mb-8 pb-3 border-b-2 border-black tracking-wide">
                 Professional Course
               </h2>
-              <div className="grid gap-6">
+              <div className="grid gap-8">
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     Primary Goal for Enrolling
                   </span>
                   <select
                     name="professionalCourse.goalForEnrollment"
                     value={formData.professionalCourse.goalForEnrollment}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   >
                     <option value="Career Change">Career Change</option>
                     <option value="Professional Development">
@@ -288,27 +325,27 @@ const UpdateUserPage = () => {
                     <option value="Personal Growth">Personal Growth</option>
                   </select>
                 </label>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-3">
                   <input
                     type="checkbox"
                     name="professionalCourse.useForCareer"
                     checked={formData.professionalCourse.useForCareer}
                     onChange={handleChange}
-                    className="rounded border-[#DED5C6] text-[#749F82] focus:ring-[#749F82]"
+                    className="rounded-lg border-black text-[#749F82] focus:ring-[#749F82] h-5 w-5"
                   />
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg">
                     Planning to use certification professionally?
                   </span>
                 </div>
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     Area of Interest
                   </span>
                   <select
                     name="professionalCourse.courseAreaOfInterest"
                     value={formData.professionalCourse.courseAreaOfInterest}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   >
                     <option value="Clinical Psychology">
                       Clinical Psychology
@@ -329,21 +366,21 @@ const UpdateUserPage = () => {
                   </select>
                 </label>
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     Learning Format
                   </span>
                   <select
                     name="professionalCourse.learningFormat"
                     value={formData.professionalCourse.learningFormat}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   >
                     <option value="Online">Online</option>
                     <option value="Hybrid">Hybrid</option>
                     <option value="In-person">In-person</option>
                   </select>
                 </label>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-3">
                   <input
                     type="checkbox"
                     name="professionalCourse.includesPracticalExperience"
@@ -351,21 +388,21 @@ const UpdateUserPage = () => {
                       formData.professionalCourse.includesPracticalExperience
                     }
                     onChange={handleChange}
-                    className="rounded border-[#DED5C6] text-[#749F82] focus:ring-[#749F82]"
+                    className="rounded-lg border-black text-[#749F82] focus:ring-[#749F82] h-5 w-5"
                   />
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg">
                     Includes Practical Experience
                   </span>
                 </div>
                 <label className="block">
-                  <span className="text-[#6B573B] font-medium">
+                  <span className="text-[#6B573B] font-medium text-lg mb-2 block">
                     When would you like to start the course?
                   </span>
                   <select
                     name="professionalCourse.courseStartTime"
                     value={formData.professionalCourse.courseStartTime}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-[#DED5C6] shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20"
+                    className="mt-1 block w-full rounded-lg border-black shadow-sm focus:border-[#749F82] focus:ring focus:ring-[#749F82] focus:ring-opacity-20 bg-white py-3 text-[#4A3B24]"
                   >
                     <option value="Immediately">Immediately</option>
                     <option value="Within 1 month">Within 1 month</option>
@@ -374,17 +411,23 @@ const UpdateUserPage = () => {
                 </label>
               </div>
             </div>
-            <div className="flex justify-end mt-8">
+
+            <div className="flex justify-end mt-12">
               <button
                 type="submit"
-                className="bg-[#749F82] text-white py-3 px-6 rounded-md hover:bg-[#638B70] transition-colors duration-200 shadow-md font-medium"
+                className="bg-[#749F82] text-white py-4 px-8 rounded-lg hover:bg-[#638B70] transition-colors duration-300 shadow-lg font-medium text-lg tracking-wide"
               >
                 Update Information
               </button>
             </div>
           </form>
         ) : (
-          <p className="text-[#4A3B24] text-center">Loading user details...</p>
+          <div className="flex flex-col items-center justify-center py-12">
+            <div className="w-16 h-16 border-4 border-[#749F82] border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-[#4A3B24] text-lg mt-4 font-medium">
+              Loading user details...
+            </p>
+          </div>
         )}
       </div>
     </div>

@@ -113,15 +113,15 @@ const TestimonialsSlider = () => {
             {testimonials.map((testimonial, index) => (
               <div key={index} className="min-w-[350px] px-2 flex-shrink-0 p-3">
                 <div
-                  className=" rounded-lg shadow-md p-4 h-full transition-transform hover:scale-105
+                  className="bg-gray-50 rounded-lg shadow-md p-4 h-full transition-transform hover:scale-105
                 "
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('/testimonialbg.svg')",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                  }}
+                  // style={{
+                  //   backgroundImage:
+                  //     "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('/testimonial.svg')",
+                  //   backgroundSize: "cover",
+                  //   backgroundPosition: "center",
+                  //   backgroundRepeat: "no-repeat",
+                  // }}
                 >
                   <div className="flex flex-col space-y-4">
                     <div className="flex">

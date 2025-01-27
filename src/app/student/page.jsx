@@ -116,7 +116,7 @@ const StudentWellbeingPage = () => {
         {/* Image Section */}
         <div className="relative">
           <img
-            src="/self.png"
+            src="https://img.freepik.com/free-vector/flat-illustration-businesswoman-meditating_23-2148927163.jpg?t=st=1737959690~exp=1737963290~hmac=dea5002a5988d075cea7f561218448fb0ce2a5f512b8516c833e45a5ffcb17c8&w=740"
             alt="Student Well-being"
             className="w-full h-full object-cover object-center"
           />
