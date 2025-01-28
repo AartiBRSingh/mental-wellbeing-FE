@@ -57,7 +57,7 @@ const DictionaryPage = () => {
   const groupedEntries = groupEntriesByFirstLetter(entries);
 
   return (
-    <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-transparent py-8 px-4 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
       <div className="max-w-6xl mx-auto mb-6">
         <nav className="text-sm">
@@ -83,33 +83,36 @@ const DictionaryPage = () => {
       </div>
 
       {/* Main content */}
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">
-          Diagnosis Dictionary
-        </h1>
-
-        {Object.keys(groupedEntries)
-          .sort()
-          .map((letter) => (
-            <div key={letter} className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                {letter}
-              </h2>
-              <div className="grid md:grid-cols-2 gap-x-8 gap-y-2">
-                {groupedEntries[letter]
-                  .sort((a, b) => a.title.localeCompare(b.title))
-                  .map((entry) => (
-                    <Link
-                      href={`/dictionary/detail?id=${entry._id}`}
-                      key={entry._id}
-                      className="text-blue-600 hover:text-blue-800 hover:underline py-1"
-                    >
-                      {entry.title}
-                    </Link>
-                  ))}
-              </div>
-            </div>
-          ))}
+      <div className="max-w-6xl mx-auto flex gap-8">
+        {/* Left Sidebar (Index List) */}
+        <div className="w-full">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Index</h2>
+          <div className="overflow-y-auto h-[80vh]">
+            {Object.keys(groupedEntries)
+              .sort()
+              .map((letter) => (
+                <div key={letter} className="mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {letter}
+                  </h3>
+                  <ul>
+                    {groupedEntries[letter]
+                      .sort((a, b) => a.title.localeCompare(b.title))
+                      .map((entry) => (
+                        <li key={entry._id}>
+                          <Link
+                            href={`/dictionary/detail?id=${entry._id}`}
+                            className="text-blue-600 hover:text-blue-800 hover:underline py-1 w-full text-left"
+                          >
+                            {entry.title}
+                          </Link>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,8 @@ import Link from "next/link";
 import React from "react";
 
 const ContentDetailCard = ({ data }) => {
+  console.log(data.content, "raju");
+
   return (
     <div className="min-h-screen  py-8">
       <div className="container mx-auto px-4">

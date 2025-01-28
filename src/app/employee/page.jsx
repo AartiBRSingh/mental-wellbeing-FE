@@ -115,9 +115,9 @@ const WorkplaceMentalHealthPage = () => {
       <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl">
         <div className="relative">
           <img
-            src="https://img.freepik.com/free-vector/mental-health-flat-concept-with-man-dealing-with-office-stress-vector-illustration_1284-80679.jpg?t=st=1737959565~exp=1737963165~hmac=b3ce69cbab0a133c565ae7331b2f35e7e6a30224ca78982345f074773520b0c1&w=1380"
+            src="https://img.freepik.com/free-vector/good-team-concept-illustration_114360-4225.jpg?t=st=1737958269~exp=1737961869~hmac=9f55dffa1ad3cbe3003fbe6986667390cde22ce60ebf14ec70599896f3d62e8b&w=740"
             alt="Workplace Mental Health"
-            className="w-full h-full object-cover object-contain"
+            className="w-full h-full object-contain"
           />
         </div>
         <div className="p-8 space-y-6 flex flex-col justify-center">

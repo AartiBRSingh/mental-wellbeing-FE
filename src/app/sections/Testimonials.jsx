@@ -1,25 +1,20 @@
 "use client";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Dot } from "lucide-react";
 import { baseURL } from "../baseURL";
-import { ChevronLeft, ChevronRight, Dot, Star } from "lucide-react";
 
-const TestimonialsSlider = () => {
+const StyledTestimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const containerRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
         const response = await axios.get(`${baseURL}/get-testimonials`);
-        if (response?.data && response?.data?.length > 0) {
-          setTestimonials([
-            ...response.data,
-            ...response.data,
-            ...response.data,
-          ]);
+        if (response?.data?.length > 0) {
+          setTestimonials(response.data.slice(0, 3));
         }
       } catch (error) {
         console.error("Failed to fetch testimonials:", error);
@@ -29,139 +24,100 @@ const TestimonialsSlider = () => {
     fetchTestimonials();
   }, []);
 
-  const handleScroll = useCallback(
-    (direction) => {
-      const scrollAmount = 250;
-      if (direction === "left") {
-        setScrollPosition((prev) => {
-          const newPosition = prev - scrollAmount;
-          // If at start, jump to end
-        });
-      } else {
-        setScrollPosition((prev) => {
-          const newPosition = prev + scrollAmount;
-          // If at end, jump to start
-          if (newPosition >= (testimonials.length * scrollAmount) / 2) {
-            return 0;
-          }
-          return newPosition;
-        });
-      }
-    },
-    [testimonials.length]
-  );
-
-  // Auto scroll effect
   useEffect(() => {
-    let intervalId;
     if (!isHovered) {
-      intervalId = setInterval(() => {
-        handleScroll("right");
-      }, 3000);
+      const intervalId = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % 3);
+      }, 5000);
+      return () => clearInterval(intervalId);
     }
-    return () => clearInterval(intervalId);
-  }, [isHovered, handleScroll]);
+  }, [isHovered]);
 
   if (testimonials.length === 0) return null;
 
   return (
-    <div className="bg-white py-4 overflow-hidden relative my-4">
-      <h1 className="text-[#956144] relative text-center mb-5 text-4xl">
-        T
-        <span className="relative text-black">
-          estimonials
-          <svg
-            className="absolute w-full h-[10px] -bottom-1 left-0"
-            viewBox="0 0 100 10"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M0 5 Q 50 -5, 100 5"
-              stroke="orange"
-              strokeWidth="4"
-              fill="transparent"
-            />
-          </svg>
-        </span>
-        <button
-          onClick={() => handleScroll("left")}
-          className=" p-2 rounded-full bg-white shadow-lg hover:bg-slate-300 transition-colors ml-4"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={() => handleScroll("right")}
-          className=" p-2 ml-2 rounded-full bg-white shadow-lg hover:bg-slate-300 transition-colors"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </h1>
+    <div className="bg-[#2F4F4F] min-h-[400px] relative overflow-hidden mb-20">
+      <div className="absolute w-full h-[100px] bottom-0 bg-[#F4D03F] transform -skew-y-3"></div>
 
-      <div className="max-w-[1700px] mx-auto">
+      <div className="max-w-5xl mx-auto px-6 py-12 relative">
+        <h1 className="text-4xl text-center mb-10 text-white">
+          Testimonials
+          <div className="h-1 w-24 bg-[#F4D03F] mx-auto mt-2"></div>
+        </h1>
+
         <div
-          ref={containerRef}
-          className="relative overflow-hidden"
+          className="flex items-center justify-between"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div
-            className="flex transition-transform duration-500 ease-in-out gap-2"
-            style={{
-              transform: `translateX(-${scrollPosition}px)`,
-            }}
-          >
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="min-w-[350px] px-2 flex-shrink-0 p-3">
-                <div
-                  className="bg-gray-50 rounded-lg shadow-md p-4 h-full transition-transform hover:scale-105
-                "
-                  // style={{
-                  //   backgroundImage:
-                  //     "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('/testimonial.svg')",
-                  //   backgroundSize: "cover",
-                  //   backgroundPosition: "center",
-                  //   backgroundRepeat: "no-repeat",
-                  // }}
-                >
-                  <div className="flex flex-col space-y-4">
-                    <div className="flex">
-                      <div className="w-14 h-14 rounded-full overflow-hidden ml-4">
-                        <img
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-
-                      <div className="text-lg p-2 mt-3">
-                        <span className="font-semibold text-gray-900">
-                          {testimonial.name}
-                        </span>
-
-                        <span className="text-gray-500 ml-1">
-                          {testimonial.productType}
-                        </span>
+          <div className="w-2/3">
+            <div className="overflow-hidden">
+              <div
+                className="transition-transform duration-1000 ease-in-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              >
+                <div className="flex">
+                  {testimonials.map((testimonial, index) => (
+                    <div key={index} className="w-full flex-shrink-0">
+                      <div className="text-white">
+                        <div className="flex items-center gap-4 mb-6">
+                          <img
+                            src={testimonial.image}
+                            alt={testimonial.name}
+                            className="w-16 h-16 rounded-full object-cover"
+                          />
+                          <div>
+                            <div className="text-xl font-semibold">
+                              {testimonial.name}
+                            </div>
+                            <div className="text-[#F4D03F]">
+                              {testimonial.productType}
+                            </div>
+                          </div>
+                        </div>
+                        <h3 className="text-lg font-medium mb-4 flex items-center">
+                          <Dot className="w-6 h-6 text-[#F4D03F]" />
+                          {testimonial.title}
+                        </h3>
+                        <div className="text-2xl font-light leading-relaxed">
+                          {testimonial.review}
+                        </div>
                       </div>
                     </div>
-
-                    <div className="">
-                      <h3 className="text-md font-medium text-black line-clamp-2 mb-2 ml-0 flex">
-                        <Dot />
-                        {testimonial.title}
-                      </h3>
-                      <p className="text-gray-600 text-xs italic line-clamp-4 max-w-64">
-                        &quot;{testimonial.review}&quot;
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
-            ))}
+            </div>
+
+            <div className="flex gap-3 mt-8">
+              {[0, 1, 2].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    currentIndex === index ? "bg-[#F4D03F]" : "bg-white/30"
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="w-1/3 flex justify-end">
+            <img
+              src="https://img.freepik.com/free-vector/enthusiastic-concept-illustration_114360-3478.jpg?t=st=1738038382~exp=1738041982~hmac=99e9dbc5f18ed07c445d1b78e18ec238ae1b9300f16961901f1a38b45d199041&w=740"
+              alt="Help illustration"
+              className="max-w-[300px] object-contain"
+            />
           </div>
         </div>
+
+        <button className="mt-8 px-8 py-3 bg-[#F4D03F] text-[#2F4F4F] rounded-full hover:bg-[#E4C03F] transition-colors font-medium">
+          More Stories
+        </button>
       </div>
     </div>
   );
 };
 
-export default TestimonialsSlider;
+export default StyledTestimonial;

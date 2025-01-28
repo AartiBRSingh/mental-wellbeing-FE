@@ -113,9 +113,9 @@ const Page = () => {
       <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl">
         <div className="relative">
           <img
-            src="https://img.freepik.com/free-vector/high-self-esteem-illustration_23-2148743572.jpg?t=st=1737959750~exp=1737963350~hmac=cc9bf35b8235cfeb9abc13dda2a838bc5aa1a7013d0ce4b12e66883506f52394&w=740"
+            src="https://img.freepik.com/free-vector/high-self-esteem-illustration_23-2148766834.jpg?t=st=1737958010~exp=1737961610~hmac=d9a5dae22d9564405a029e95ac231f84cde03a92482ba9557231c5ecd9498571&w=740"
             alt="Student Well-being"
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-contain object-center"
           />
         </div>
         <div className="p-8 space-y-6 flex flex-col justify-center">
