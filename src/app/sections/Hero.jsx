@@ -47,7 +47,7 @@ const Hero = () => {
                 </div>
                 <div className="w-36 h-36 bg-yellow-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="https://images.unsplash.com/photo-1625019030820-e4ed970a6c95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src="https://img.freepik.com/free-vector/hand-drawn-fingers-crossed-illustration_23-2150212632.jpg?t=st=1738051346~exp=1738054946~hmac=2b5264f4fd2426e5b85b75a8389299e69dd47b481e0a90fa1e53c1a8d1033dfe&w=740"
                     alt="Profile 1"
                     className="w-full h-full object-cover rounded-xl"
                   />
@@ -68,7 +68,7 @@ const Hero = () => {
                 </div>
                 <div className="w-48 h-48 bg-green-300 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src="https://img.freepik.com/free-vector/ash-wednesday-concept-illustration_114360-4563.jpg?t=st=1738051234~exp=1738054834~hmac=8b1b551097a0db2f13c07d8ec1476ff8d95d4413a0ba5ddc2b3b89984f7c365f&w=740"
                     alt="Profile 2"
                     className="w-full h-full object-cover rounded-xl"
                   />
@@ -87,7 +87,7 @@ const Hero = () => {
               <div className="relative">
                 <div className="w-56 h-56 bg-purple-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="https://images.unsplash.com/photo-1535295972055-1c762f4483e5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src="https://img.freepik.com/free-vector/beautiful-woman-with-brown-hair_24908-81058.jpg?t=st=1738051683~exp=1738055283~hmac=87eebd9b79e21150a58a9d1ca2e775b0dadc6addc87f9adc1661e3ba04a7fbb8&w=740"
                     alt="Profile 3"
                     className="w-full h-full object-cover rounded-xl"
                   />
