@@ -172,7 +172,7 @@ const Navbar = () => {
 
           <Link
             href={"/get-started"}
-            className="cursor-pointer font-semibold px-4 bg-[#86EFAC] text-black p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
+            className="cursor-pointer font-semibold px-4 bg-yellow-700 text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
           >
             Get Started
           </Link>

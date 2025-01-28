@@ -1,20 +1,25 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
-import { Dot } from "lucide-react";
 import { baseURL } from "../baseURL";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const StyledTestimonial = () => {
+const TestimonialsSlider = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
         const response = await axios.get(`${baseURL}/get-testimonials`);
-        if (response?.data?.length > 0) {
-          setTestimonials(response.data.slice(0, 3));
+        if (response?.data && response?.data?.length > 0) {
+          setTestimonials([
+            ...response.data,
+            ...response.data,
+            ...response.data,
+          ]);
         }
       } catch (error) {
         console.error("Failed to fetch testimonials:", error);
@@ -24,100 +29,110 @@ const StyledTestimonial = () => {
     fetchTestimonials();
   }, []);
 
+  const handleScroll = useCallback(
+    (direction) => {
+      const scrollAmount = 250;
+      if (direction === "left") {
+        setScrollPosition((prev) => {
+          const newPosition = prev - scrollAmount;
+          // If at start, jump to end
+          if (newPosition < 0) {
+            return (testimonials.length / 3) * scrollAmount;
+          }
+          return newPosition;
+        });
+      } else {
+        setScrollPosition((prev) => {
+          const newPosition = prev + scrollAmount;
+          // If at end, jump to start
+          if (newPosition >= (testimonials.length * scrollAmount) / 2) {
+            return 0;
+          }
+          return newPosition;
+        });
+      }
+    },
+    [testimonials.length]
+  );
+
+  // Auto scroll effect
   useEffect(() => {
+    let intervalId;
     if (!isHovered) {
-      const intervalId = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % 3);
-      }, 5000);
-      return () => clearInterval(intervalId);
+      intervalId = setInterval(() => {
+        handleScroll("right");
+      }, 3000);
     }
-  }, [isHovered]);
+    return () => clearInterval(intervalId);
+  }, [isHovered, handleScroll]);
 
   if (testimonials.length === 0) return null;
 
   return (
-    <div className="bg-[#2F4F4F] min-h-[400px] relative overflow-hidden mb-20">
-      <div className="absolute w-full h-[100px] bottom-0 bg-[#F4D03F] transform -skew-y-3"></div>
+    <div className="bg-white py-4 overflow-hidden relative">
+      <button
+        onClick={() => handleScroll("left")}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+      <button
+        onClick={() => handleScroll("right")}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
 
-      <div className="max-w-5xl mx-auto px-6 py-12 relative">
-        <h1 className="text-4xl text-center mb-10 text-white">
-          Testimonials
-          <div className="h-1 w-24 bg-[#F4D03F] mx-auto mt-2"></div>
-        </h1>
-
+      <div className="max-w-9xl mx-auto">
         <div
-          className="flex items-center justify-between"
+          ref={containerRef}
+          className="relative overflow-hidden"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="w-2/3">
-            <div className="overflow-hidden">
-              <div
-                className="transition-transform duration-1000 ease-in-out"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-              >
-                <div className="flex">
-                  {testimonials.map((testimonial, index) => (
-                    <div key={index} className="w-full flex-shrink-0">
-                      <div className="text-white">
-                        <div className="flex items-center gap-4 mb-6">
-                          <img
-                            src={testimonial.image}
-                            alt={testimonial.name}
-                            className="w-16 h-16 rounded-full object-cover"
-                          />
-                          <div>
-                            <div className="text-xl font-semibold">
-                              {testimonial.name}
-                            </div>
-                            <div className="text-[#F4D03F]">
-                              {testimonial.productType}
-                            </div>
-                          </div>
-                        </div>
-                        <h3 className="text-lg font-medium mb-4 flex items-center">
-                          <Dot className="w-6 h-6 text-[#F4D03F]" />
-                          {testimonial.title}
-                        </h3>
-                        <div className="text-2xl font-light leading-relaxed">
-                          {testimonial.review}
-                        </div>
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${scrollPosition}px)`,
+            }}
+          >
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="min-w-[250px] px-2 flex-shrink-0">
+                <div className="bg-slate-100 rounded-lg shadow-md p-4 h-full transition-transform hover:scale-105">
+                  <div className="flex flex-col items-center space-y-3">
+                    <div className="w-12 h-12 rounded-full overflow-hidden">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    <div className="text-center space-y-2">
+                      <h3 className="text-sm font-semibold text-gray-800 line-clamp-2">
+                        &quot;{testimonial.title}&quot;
+                      </h3>
+                      <p className="text-gray-600 text-xs italic line-clamp-3 max-w-44">
+                        &quot;{testimonial.review}&quot;
+                      </p>
+                      <div className="text-xs">
+                        <span className="font-bold text-gray-900">
+                          {testimonial.name}
+                        </span>
+                        <span className="text-gray-500 ml-1">
+                          {testimonial.productType}
+                        </span>
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="flex gap-3 mt-8">
-              {[0, 1, 2].map((index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    currentIndex === index ? "bg-[#F4D03F]" : "bg-white/30"
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="w-1/3 flex justify-end">
-            <img
-              src="https://img.freepik.com/free-vector/enthusiastic-concept-illustration_114360-3478.jpg?t=st=1738038382~exp=1738041982~hmac=99e9dbc5f18ed07c445d1b78e18ec238ae1b9300f16961901f1a38b45d199041&w=740"
-              alt="Help illustration"
-              className="max-w-[300px] object-contain"
-            />
+            ))}
           </div>
         </div>
-
-        <button className="mt-8 px-8 py-3 bg-[#F4D03F] text-[#2F4F4F] rounded-full hover:bg-[#E4C03F] transition-colors font-medium">
-          More Stories
-        </button>
       </div>
     </div>
   );
 };
 
-export default StyledTestimonial;
+export default TestimonialsSlider;

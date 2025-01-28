@@ -12,10 +12,11 @@ export default function Home() {
     <>
       <Hero />
       <GetHelp />
-      <Testimonials />
+
       <Services />
       <WhyUs />
       <BlogSection />
+      <Testimonials />
       {/* <NewsSection /> */}
     </>
   );
