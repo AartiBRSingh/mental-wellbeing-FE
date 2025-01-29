@@ -1,5 +1,25 @@
 import React from "react";
-import { Mail, Phone, CheckCircle } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Award,
+  Book,
+  Languages,
+  Briefcase,
+  GraduationCap,
+  Medal,
+  FileText,
+  Heart,
+  MessageCircle,
+  Video,
+  XCircle,
+  Check,
+  Star,
+  User,
+  NotebookPen,
+  CheckCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { baseURL } from "../baseURL";
 import axios from "axios";
@@ -10,7 +30,7 @@ const ExpertPage = async () => {
   return (
     <section className="py-16 bg-cream">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
+        <h2 className="text-6xl font-bold text-center mb-4 text-gray-800">
           <span className="relative">
             Our Experts
             <svg
@@ -31,57 +51,90 @@ const ExpertPage = async () => {
           Connect with our verified experts who are here to help you on your
           journey
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="space-y-6">
           {experts?.map((expert) => (
             <div
               key={expert._id}
-              className="bg-cream rounded-3xl p-4 relative size-auto border border-red-100"
+              className="bg-slate-50 rounded-3xl p-8 relative border shadow-xl border-red-100"
             >
-              <div className="relative mb-4 group">
-                <div className="absolute -right-2 -top-2 w-full h-40 bg-slate-400 rounded-xl transform rotate-2 transition-all duration-300 opacity-0 scale-85 group-hover:opacity-100 group-hover:scale-105 group-hover:rotate-3"></div>
-                <img
-                  src={expert.image || "/api/placeholder/300/200"}
-                  alt={expert.name}
-                  className="relative w-full h-56 object-cover rounded-xl shadow-md transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
-                />
-                {expert.isProfileVerified && (
-                  <div className="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm flex items-center shadow-sm">
-                    <CheckCircle className="w-4 h-4 mr-1.5" />
-                    SYH Approved
+              <div className="flex gap-6">
+                {/* Left side - Profile Image */}
+                <div className="flex flex-col items-center gap-4">
+                  <div className="relative">
+                    <img
+                      src={expert.image || "/api/placeholder/300/200"}
+                      alt={expert.name}
+                      className="w-44 h-44 object-cover rounded-full shadow-md"
+                    />
                   </div>
-                )}
-              </div>
+                  <Link
+                    href={`/all-experts/${expert._id}?tab=info`}
+                    className="cursor-pointer flex items-center justify-center gap-2 py-2 w-full bg-amber-500 text-white font-semibold rounded-full hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg"
+                  >
+                    <span className="text-center">View profile</span>
+                    <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </Link>
+                </div>
 
-              <div className="px-1 bg-transparent">
-                <div>
-                  <h3 className="text-xl font-medium border-l-4 border-amber-800 pl-4 py-2 bg-amber-100 rounded-r-xl line-clamp-2">
-                    {expert.name}
+                {/* Right side - Details */}
+                <div className="flex-1 mt-4">
+                  <h3 className=" flex text-3xl font-medium mb-4">
+                    {expert.name}{" "}
+                    {expert.isProfileVerified && (
+                      <div className="ml-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm flex items-center shadow-sm">
+                        <CheckCircle className="w-4 h-4 mr-1.5" />
+                        SYH Approved
+                      </div>
+                    )}
                   </h3>
+                  <div className="space-y-3">
+                    <p className="text-xl font-medium text-gray-600">
+                      {expert.userType}
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <Mail className="w-4 h-4 text-black" />
+                      <span className="text-xl truncate text-gray-600">
+                        {expert.email}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-4 h-4 text-black" />
+                      <span className="text-xl text-gray-600">
+                        {expert.contactNumber}
+                      </span>
+                    </div>
+                    <div className="flex items-center bg-white shadow-md rounded-full px-3 mt-4 max-w-24">
+                      {[...Array(5)].map((_, index) => (
+                        <Star
+                          key={index}
+                          className={`w-8 h-8 ${
+                            index < expert.rating
+                              ? "text-yellow-500 fill-current"
+                              : "text-yellow-500 fill-current"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="text-gray-600 mt-4 mb-6 space-y-3">
-                  <p className="text-sm font-medium">{expert.userType}</p>
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-4 h-4 text-black" />
-                    <span className="text-sm truncate">{expert.email}</span>
+                <div className="p-2 mr-4">
+                  <div className="bg-blue-100 rounded-xl p-2 text-center">
+                    <h4 className="text-black text-lg font-semibold mb-2">
+                      Clinic Timings
+                    </h4>
+                    <p className="text-slate-500 text-lg">Monday - Friday</p>
+                    <p className="text-slate-500 text-lg mt-3">
+                      9:00 AM - 5:00 PM
+                    </p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-black" />
-                    <span className="text-sm">{expert.contactNumber}</span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="relative bottom-2 left-1 px-4">
-                <Link
-                  href={`/all-experts/${expert._id}?tab=info`}
-                  className="cursor-pointer flex items-center justify-center gap-2 py-2 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg"
-                >
-                  <span className="text-center">View Details</span>
-                  <span className="text-2xl transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
+                  <button className="w-40 absolute right-16 bottom-10 bg-green-700 text-white p-2 rounded-xl hover:bg-green-800 transition-colors font-semibold">
+                    Book Appointment
+                  </button>
+                </div>
               </div>
             </div>
           ))}
