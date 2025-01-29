@@ -3,15 +3,19 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MultiStepForm = () => {
+  const [selectedSection, setSelectedSection] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     expertSupport: {
       supportType: "",
       therapistSpecialization: "",
+      therapistSpecializationDetails: "",
       sessionFormat: "",
       preferredDays: { weekdays: [], weekends: [] },
+      timePreference: { weekdays: "", weekends: "" },
       genderPreference: "",
       culturalExpertise: "",
+      culturalExpertiseDetails: "",
       budgetPerSession: "",
     },
     mentalWellBeing: {
@@ -19,295 +23,448 @@ const MultiStepForm = () => {
       familiarityLevel: "",
       programType: "",
       timeCommitment: "",
-      accessToLiveSessions: false,
-      progressTracking: false,
+      accessToLiveSessions: "",
+      progressTracking: "",
     },
     professionalCourse: {
       goalForEnrollment: "",
-      useForCareer: false,
+      useForCareer: "",
       courseAreaOfInterest: "",
       learningFormat: "",
-      includesPracticalExperience: false,
+      includesPracticalExperience: "",
       courseStartTime: "",
     },
   });
 
-  // Define sections with their respective questions
-  const sections = [
-    {
-      name: "Expert Booking",
-      image: "/images/expert-booking.png",
-      questions: [
-        {
-          section: "expertSupport",
-          field: "supportType",
-          question: "What type of support are you looking for?",
-          type: "select",
-          options: [
-            "Anxiety or Stress Management",
-            "Depression",
-            "Relationship Issues",
-            "Personal Growth and Well-Being",
-            "Career Counseling",
-          ],
-        },
-        {
-          section: "expertSupport",
-          field: "therapistSpecialization",
-          question: "What specialization would you prefer in a therapist?",
-          type: "text",
-          placeholder: "E.g., CBT, Trauma, Family Therapy",
-        },
-        {
-          section: "expertSupport",
-          field: "sessionFormat",
-          question: "What session format do you prefer?",
-          type: "select",
-          options: ["In-person", "Virtual", "Both"],
-        },
-      ],
-    },
-    {
-      name: "Mental Well-being Program",
-      image: "/images/mental-wellbeing.png",
-      questions: [
-        {
-          section: "mentalWellBeing",
-          field: "currentGoal",
-          question: "What is your current mental well-being goal?",
-          type: "select",
-          options: [
-            "Reducing Stress",
-            "Improving Focus and Mental Clarity",
-            "Building Emotional Resilience",
-            "Overcoming Anxiety",
-            "General Well-Being",
-          ],
-        },
-        {
-          section: "mentalWellBeing",
-          field: "familiarityLevel",
-          question: "How familiar are you with mental well-being practices?",
-          type: "select",
-          options: ["Beginner", "Intermediate", "Advanced"],
-        },
-        {
-          section: "mentalWellBeing",
-          field: "programType",
-          question: "What type of program would you prefer?",
-          type: "select",
-          options: [
-            "Self-paced",
-            "Group sessions",
-            "One-on-one session",
-            "Hybrid",
-          ],
-        },
-      ],
-    },
-    {
-      name: "Certificate Course",
-      image: "/images/certificate-course.png",
-      questions: [
-        {
-          section: "professionalCourse",
-          field: "goalForEnrollment",
-          question:
-            "What is your primary goal for enrolling in a professional course?",
-          type: "select",
-          options: [
-            "Career Change",
-            "Professional Development",
-            "Personal Growth",
-          ],
-        },
-        {
-          section: "professionalCourse",
-          field: "useForCareer",
-          question: "Do you plan to use this certification professionally?",
-          type: "checkbox",
-        },
-        {
-          section: "professionalCourse",
-          field: "courseAreaOfInterest",
-          question: "Which area of study interests you most?",
-          type: "select",
-          options: [
-            "Clinical Psychology",
-            "Counseling and Therapy",
-            "Mental Health Research",
-            "Child Psychology",
-            "Organizational Psychology",
-          ],
-        },
-      ],
-    },
+  const mainSections = [
+    { id: "expertSupport", name: "Expert Booking" },
+    { id: "mentalWellBeing", name: "Mental Well-being Program" },
+    { id: "professionalCourse", name: "Certificate Course" },
   ];
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const currentSection = sections[Math.floor(currentStep / 3)];
-    const currentQuestion = currentSection.questions[currentStep % 3];
+  // Questions data structure
+  const sections = {
+    expertSupport: [
+      {
+        question: "What type of support are you seeking?",
+        field: "supportType",
+        options: [
+          "Anxiety or Stress Management",
+          "Depression",
+          "Relationship Issues",
+          "Personal Growth and Well-Being",
+          "Career Counseling",
+          "Other",
+        ],
+      },
+      {
+        question:
+          "Do you have a specific preference for the therapist's specialization?",
+        field: "therapistSpecialization",
+        options: ["Yes", "No preference"],
+        conditional: {
+          showIf: "Yes",
+          field: "therapistSpecializationDetails",
+          type: "text",
+          placeholder: "Specify the area, e.g., CBT, mindfulness",
+        },
+      },
+      {
+        question: "What format do you prefer for your sessions?",
+        field: "sessionFormat",
+        options: ["In-person", "Virtual (Online)", "Both"],
+      },
+      {
+        question: "What days and times work best for you?",
+        field: "preferredDays",
+        multiSelect: true,
+        options: {
+          weekdays: ["Morning", "Afternoon", "Evening"],
+          weekends: ["Morning", "Afternoon", "Evening"],
+        },
+      },
+      {
+        question: "Do you have a gender preference for your therapist?",
+        field: "genderPreference",
+        options: ["No preference", "Female", "Male"],
+      },
+      {
+        question:
+          "Would you like to work with a therapist with specific cultural or linguistic expertise?",
+        field: "culturalExpertise",
+        options: ["Yes", "No preference"],
+        conditional: {
+          showIf: "Yes",
+          field: "culturalExpertiseDetails",
+          type: "text",
+          placeholder: "Specify your preferences",
+        },
+      },
+      {
+        question: "What is your budget per session?",
+        field: "budgetPerSession",
+        options: [
+          "Upto INR 1,000",
+          "Upto INR 3,000",
+          "Upto INR 5,000",
+          "No preference",
+        ],
+      },
+    ],
+    mentalWellBeing: [
+      {
+        question: "What is your current mental health goal?",
+        field: "supportType",
+        options: [
+          "Reducing Stress",
+          "Improving Focus and Mental Clarity",
+          "Building Emotional Resilience",
+          "Overcoming Anxiety",
+          "General Well-Being",
+        ],
+      },
+      {
+        question: "How familiar are you with mental well-being practices?",
+        field: "familiarityLevel",
+        options: [
+          "Beginner (New to mental health programs)",
+          "Intermediate (Some experience with self-help or therapy)",
+          "Advanced (Regularly engage in mental well-being practices)",
+        ],
+      },
+      {
+        question: "What type of program suits you best?",
+        field: "programType",
+        options: [
+          "Self-paced (Online)",
+          "One-on-one session",
+          "Hybrid (Combination of self-paced and group)",
+          "Group sessions",
+        ],
+      },
+      {
+        question: "How much time can you commit to this program?",
+        field: "timeCommitment",
+        options: ["1-2 Weeks", "1 Month", "3 Months", "6 Months or More"],
+      },
+      {
+        question: "Would you like access to live sessions or webinars?",
+        field: "accessToLiveSessions",
+        options: ["Yes", "No"],
+      },
+      {
+        question:
+          "Do you prefer programs with assessments or progress tracking?",
+        field: "progressTracking",
+        options: ["Yes", "No"],
+      },
+    ],
+    professionalCourse: [
+      {
+        question: "What is your primary goal for enrolling in this course?",
+        field: "goalForEnrollment",
+        options: [
+          "Career Change (Interested in becoming a mental health professional)",
+          "Professional Development (Enhancing existing skills)",
+          "Personal Growth (Deepening knowledge about mental health)",
+        ],
+      },
+      {
+        question: "Are you planning to use this certification professionally?",
+        field: "useForCareer",
+        options: ["Yes, for career purposes", "No, for personal interest"],
+      },
+      {
+        question:
+          "Which area of mental health or psychology interests you most?",
+        field: "courseAreaOfInterest",
+        options: [
+          "Clinical Psychology",
+          "Counseling and Therapy",
+          "Mental Health Research",
+          "Child Psychology",
+          "Organizational Psychology",
+          "General Mental Health Awareness",
+        ],
+      },
+      {
+        question: "What type of learning format do you prefer?",
+        field: "learningFormat",
+        options: [
+          "Online (Flexible, self-paced)",
+          "Hybrid (Online and live sessions)",
+          "In-person",
+        ],
+      },
+      {
+        question:
+          "Would you prefer a certification that includes practical experience (e.g., internships)?",
+        field: "includesPracticalExperience",
+        options: ["Yes", "No"],
+      },
+      {
+        question: "How soon are you looking to start the course?",
+        field: "courseStartTime",
+        options: ["Immediately", "Within 1 month", "Within 3 months"],
+      },
+    ],
+  };
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [currentQuestion.section]: {
-        ...prevData[currentQuestion.section],
-        [currentQuestion.field]: type === "checkbox" ? checked : value,
+  const ProgressBar = () => {
+    if (!selectedSection) return null;
+
+    const totalSteps = sections[selectedSection].length;
+    const progress = ((currentStep + 1) / totalSteps) * 100;
+
+    return (
+      <div className="mb-8">
+        <div className="flex justify-center gap-8 mb-4">
+          {mainSections.map((section) => (
+            <div
+              key={section.id}
+              className={`text-lg font-semibold bg-gradient-to-r from-blue-200 to-purple-200 rounded-full p-3 ${
+                selectedSection === section.id
+                  ? "text-blue-600"
+                  : "text-slate-500"
+              }`}
+            >
+              {section.name}
+            </div>
+          ))}
+        </div>
+        <div className="w-full h-3 bg-gray-200 rounded-full">
+          <div
+            className="h-full bg-blue-600 rounded-full transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        <div className="mt-2 text-sm text-gray-500 text-right">
+          Question {currentStep + 1} of {totalSteps}
+        </div>
+      </div>
+    );
+  };
+
+  const Option = ({ text, selected, onClick }) => (
+    <div
+      onClick={onClick}
+      className={`p-4 border text-center rounded-xl cursor-pointer transition-all ${
+        selected
+          ? "bg-[#FF8556] text-white"
+          : "bg-white hover:bg-[#FF8556] hover:text-white"
+      }`}
+    >
+      {text}
+    </div>
+  );
+
+  const MainSectionButton = ({ section }) => (
+    <button
+      onClick={() => {
+        setSelectedSection(section.id);
+        setCurrentStep(0);
+      }}
+      className="w-full p-6 text-xl font-medium text-left bg-white border rounded-lg hover:bg-[#A1DD6C] transition-all hover:text-white"
+    >
+      {section.name}
+    </button>
+  );
+
+  const handleOptionSelect = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [selectedSection]: {
+        ...prev[selectedSection],
+        [field]: value,
       },
     }));
   };
 
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, sections.length * 3 - 1));
+    if (currentStep < sections[selectedSection].length - 1) {
+      setCurrentStep((prev) => prev + 1);
+    }
   };
 
   const handlePrevious = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 0));
+    if (currentStep === 0) {
+      setSelectedSection(null);
+    } else {
+      setCurrentStep((prev) => prev - 1);
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
+  const handleSubmit = () => {
+    console.log(formData[selectedSection]);
+    // Add your submission logic here
   };
 
-  const slideVariants = {
-    enter: {
-      opacity: 0,
-      x: -100,
-    },
-    center: {
-      opacity: 1,
-      x: 0,
-    },
-    exit: {
-      opacity: 0,
-      x: 100,
-    },
-  };
+  const renderInitialSelection = () => (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-center mb-8">
+        Help us get you the most relevant and effective solutions for your
+        Mental Health and Personal Growth journey.
+      </h2>
+      <div className="space-y-4">
+        {mainSections.map((section) => (
+          <MainSectionButton key={section.id} section={section} />
+        ))}
+      </div>
+    </div>
+  );
 
-  const getCurrentValue = () => {
-    const currentSection = sections[Math.floor(currentStep / 3)];
-    const currentQuestion = currentSection.questions[currentStep % 3];
-    return formData[currentQuestion.section][currentQuestion.field];
-  };
+  const renderQuestion = () => {
+    const currentQuestion = sections[selectedSection][currentStep];
 
-  const currentSection = sections[Math.floor(currentStep / 3)];
-  const currentQuestion = currentSection.questions[currentStep % 3];
+    return (
+      <div className="space-y-6">
+        <h3 className="text-lg font-medium">{currentQuestion.question}</h3>
+        <div className="grid gap-3">
+          {currentQuestion.options instanceof Array ? (
+            currentQuestion.options.map((option, idx) => (
+              <Option
+                key={idx}
+                text={option}
+                selected={
+                  formData[selectedSection][currentQuestion.field] === option
+                }
+                onClick={() =>
+                  handleOptionSelect(currentQuestion.field, option)
+                }
+              />
+            ))
+          ) : (
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-medium mb-2">Weekdays</h4>
+                <div className="grid gap-2">
+                  {currentQuestion.options.weekdays.map((time, idx) => (
+                    <Option
+                      key={idx}
+                      text={time}
+                      selected={formData[
+                        selectedSection
+                      ].preferredDays.weekdays.includes(time)}
+                      onClick={() => {
+                        const weekdays =
+                          formData[selectedSection].preferredDays.weekdays;
+                        const updated = weekdays.includes(time)
+                          ? weekdays.filter((t) => t !== time)
+                          : [...weekdays, time];
+                        handleOptionSelect("preferredDays", {
+                          ...formData[selectedSection].preferredDays,
+                          weekdays: updated,
+                        });
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="font-medium mb-2">Weekends</h4>
+                <div className="grid gap-2">
+                  {currentQuestion.options.weekends.map((time, idx) => (
+                    <Option
+                      key={idx}
+                      text={time}
+                      selected={formData[
+                        selectedSection
+                      ].preferredDays.weekends.includes(time)}
+                      onClick={() => {
+                        const weekends =
+                          formData[selectedSection].preferredDays.weekends;
+                        const updated = weekends.includes(time)
+                          ? weekends.filter((t) => t !== time)
+                          : [...weekends, time];
+                        handleOptionSelect("preferredDays", {
+                          ...formData[selectedSection].preferredDays,
+                          weekends: updated,
+                        });
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        {currentQuestion.conditional &&
+          formData[selectedSection][currentQuestion.field] ===
+            currentQuestion.conditional.showIf && (
+            <input
+              type="text"
+              placeholder={currentQuestion.conditional.placeholder}
+              className="w-full p-3 border rounded-md"
+              value={
+                formData[selectedSection][currentQuestion.conditional.field] ||
+                ""
+              }
+              onChange={(e) =>
+                handleOptionSelect(
+                  currentQuestion.conditional.field,
+                  e.target.value
+                )
+              }
+            />
+          )}
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="relative bg-white rounded-lg shadow-lg p-8">
           <img
-            src={currentSection.image}
-            alt={`${currentSection.name} image`}
-            className="w-full h-48 object-cover rounded-lg mb-6"
+            src="https://img.freepik.com/free-vector/beige-green-abstract-botanical-background_53876-118412.jpg?t=st=1738166814~exp=1738170414~hmac=8810fc3bd07f4edf419cb636f89bc93aa1120d812337493ba67c10ad1a3f6a11&w=740"
+            alt="Background"
+            className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50"
           />
-          <h1 className="text-3xl font-bold text-center mb-6">
-            {currentSection.name}
-          </h1>
-          <div className="mb-6">
-            <div className="w-full bg-gray-200 h-2 rounded-full">
-              <div
-                className="bg-blue-500 h-2 rounded-full"
-                style={{
-                  width: `${
-                    (Math.floor(currentStep / 3) / (sections.length - 1)) * 100
-                  }%`,
-                }}
-              ></div>
-            </div>
-            <p className="text-sm text-gray-500 mt-2 text-center">
-              Stage {Math.floor(currentStep / 3) + 1} of {sections.length}
-            </p>
-          </div>
-          <form onSubmit={handleSubmit}>
+          <div className="relative z-10">
+            <ProgressBar />
+
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentStep}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                variants={slideVariants}
-                transition={{ duration: 0.5 }}
+                key={
+                  selectedSection
+                    ? `${selectedSection}-${currentStep}`
+                    : "initial"
+                }
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }}
               >
-                <div className="space-y-4">
-                  <h2 className="text-xl font-medium text-gray-700">
-                    {currentQuestion.question}
-                  </h2>
-
-                  {currentQuestion.type === "select" && (
-                    <select
-                      name={currentQuestion.field}
-                      value={getCurrentValue()}
-                      onChange={handleChange}
-                      className="w-full p-3 border border-gray-300 rounded-md"
-                    >
-                      <option value="">Select an option</option>
-                      {currentQuestion.options.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-
-                  {currentQuestion.type === "text" && (
-                    <input
-                      type="text"
-                      name={currentQuestion.field}
-                      value={getCurrentValue()}
-                      onChange={handleChange}
-                      placeholder={currentQuestion.placeholder}
-                      className="w-full p-3 border border-gray-300 rounded-md"
-                    />
-                  )}
-
-                  {currentQuestion.type === "checkbox" && (
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        name={currentQuestion.field}
-                        checked={getCurrentValue()}
-                        onChange={handleChange}
-                        className="h-5 w-5 text-blue-600"
-                      />
-                      <span className="ml-3 text-gray-700">Yes</span>
-                    </div>
-                  )}
-                </div>
+                {!selectedSection ? renderInitialSelection() : renderQuestion()}
               </motion.div>
             </AnimatePresence>
 
-            <div className="flex justify-between pt-6">
-              <button
-                type="button"
-                onClick={handlePrevious}
-                className={`px-4 py-2 bg-gray-300 text-gray-700 rounded-md ${
-                  currentStep === 0 ? "invisible" : ""
-                }`}
-              >
-                Previous
-              </button>
-              {currentStep < sections.length * 3 - 1 ? (
+            {selectedSection && (
+              <div className="flex justify-between mt-8">
                 <button
-                  type="button"
-                  onClick={handleNext}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                  onClick={handlePrevious}
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
                 >
-                  Next
+                  Previous
                 </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-green-500 text-white rounded-md"
-                >
-                  Submit
-                </button>
-              )}
-            </div>
-          </form>
+                {currentStep < sections[selectedSection].length - 1 ? (
+                  <button
+                    onClick={handleNext}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    className="px-4 py-2 bg-green-500 text-white rounded-md"
+                  >
+                    Submit
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
