@@ -5,6 +5,7 @@ import { baseURL } from "../baseURL";
 import axios from "axios";
 import { DecorativeShapes } from "../sections/Services";
 import { Eye, EyeOff } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -74,7 +75,9 @@ const SignupPage = () => {
       setPassword("");
       setLoading(false);
       router.push(`/login?userType=${finalUserType}`);
+      toast.success("Succesfully SignedUp");
     } catch (error) {
+      toast.error("Error in SignUp:", error);
       console.error(error);
       setError("An error occurred while signing up. Please try again.");
       setLoading(false);
@@ -195,6 +198,7 @@ const SignupPage = () => {
   return (
     <>
       <div className="w-full h-[100vh] flex justify-center items-center">
+        <Toaster position="bottom-left" reverseOrder={false} />
         <div className="flex justify-center items-center bg-[#003B29] rounded-3xl w-[80vw] h-[90vh] flex-wrap px-16 relative">
           <DecorativeShapes />
           <div className="flex-1 flex items-center justify-center p-4">

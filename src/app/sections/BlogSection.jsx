@@ -219,14 +219,12 @@ const BlogSection = () => {
   return (
     <div className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
       {/* Background decorations */}
-      <AnimatedBackground />
+      {/* <AnimatedBackground /> */}
       <GraffitiDecoration />
       <WaveBackground />
-
-      {/* Floating elements - Adjusted for better mobile visibility */}
+      {/* Floating elements - Adjusted for better mobile visibility
       <div className="absolute top-10 md:top-20 right-4 md:right-10 w-16 md:w-24 h-16 md:h-24 rounded-full bg-[#F5E6E0] animate-float" />
-      <div className="absolute bottom-10 md:bottom-20 left-4 md:left-10 w-20 md:w-32 h-20 md:h-32 rounded-full bg-[#F5E6E0] animate-float-delayed" />
-
+      <div className="absolute bottom-10 md:bottom-20 left-4 md:left-10 w-20 md:w-32 h-20 md:h-32 rounded-full bg-[#F5E6E0] animate-float-delayed" /> */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-24 relative">
         {/* Header section */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4 md:gap-6 mb-8 md:mb-16">
@@ -272,7 +270,7 @@ const BlogSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
           {data?.map((item, index) => (
             <div key={index} className="group relative">
-              <div className="absolute -inset-2 bg-[#F5E6E0] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
+              <div className="absolute -inset-2 bg-[#F5E6E0] rounded-3xl opacity-0  transition-opacity -z-10" />
               <BlogCard
                 imgUrl={item?.image}
                 title={item?.title}

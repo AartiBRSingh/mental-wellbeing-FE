@@ -327,6 +327,7 @@ const ClinicDetailPage = () => {
                   name="date"
                   value={appointmentForm.date}
                   onChange={handleInputChange}
+                  min={new Date().toISOString().split("T")[0]}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />

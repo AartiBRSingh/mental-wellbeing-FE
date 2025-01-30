@@ -4,6 +4,7 @@ import axios from "axios";
 import { Search, Filter, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { baseURL } from "../baseURL";
+import toast, { Toaster } from "react-hot-toast";
 
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
@@ -13,6 +14,7 @@ const BlogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [recentPosts, setRecentPosts] = useState([]);
+  const [Loading, setLoading] = useState(false);
 
   function generateSlug(title, id) {
     return `${title
@@ -25,12 +27,15 @@ const BlogPage = () => {
     try {
       const response = await axios.get(`${baseURL}/get-categories`);
       setCategories(response.data);
+
+      toast.success("Succesfully fetched blogs");
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      toast.error("Error fetching Blogs:", error);
     }
   };
 
   const fetchPosts = async () => {
+    setLoading(true);
     try {
       let url = `${baseURL}/posts?category=${selectedCategory}&page=${currentPage}`;
 
@@ -41,6 +46,7 @@ const BlogPage = () => {
       const response = await axios.get(url);
       setPosts(response.data.posts);
       setTotalPages(response.data.totalPages);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
@@ -85,6 +91,7 @@ const BlogPage = () => {
 
   return (
     <div className="bg-transparent font-sans">
+      <Toaster position="bottom-left" reverseOrder={false} />
       <div className="container mx-auto px-4 py-12">
         <header className="text-center mb-16">
           <div className="w-32 h-fit bg-green-100 rounded-full blur-3xl opacity-20 mx-auto mb-4" />

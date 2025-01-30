@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { baseURL } from "../baseURL";
 import Link from "next/link";
 import CustomCursor from "../components/CustomCursor";
+import Cookies from "js-cookie";
 
 const QuestionInput = ({ question, answer, onAnswerChange }) => {
   switch (question.questionType) {
@@ -278,13 +279,12 @@ const CaseStudyPage = () => {
 
   useEffect(() => {
     const storedUserType =
-      localStorage.getItem("paidForSelf") === "true" &&
-      expectedUserType === "self"
+      Cookies.get("paidForSelf") === "true" && expectedUserType === "self"
         ? "self"
-        : localStorage.getItem("paidForEmployee") === "true" &&
+        : Cookies.get("paidForEmployee") === "true" &&
           expectedUserType === "employee"
         ? "employee"
-        : localStorage.getItem("paidForStudent") === "true" &&
+        : Cookies.get("paidForStudent") === "true" &&
           expectedUserType === "student"
         ? "student"
         : null;
@@ -323,7 +323,7 @@ const CaseStudyPage = () => {
   };
 
   const handleSubmit = async () => {
-    const authToken = localStorage.getItem("authToken");
+    const authToken = Cookies.get("authToken");
 
     if (!authToken) {
       console.error("No authentication token found. Please log in.");

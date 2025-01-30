@@ -429,42 +429,6 @@ const PrivacyPolicy = () => {
               protecting your information.
             </p>
           </div>
-
-          {/* Contact Us */}
-          <section className="bg-gradient-to-r from-blue-100 to-purple-100 p-6 rounded-2xl">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
-              Contact Us
-            </h2>
-            <div className="space-y-4">
-              <p className="text-gray-700">
-                If you have any questions about this Privacy Policy, our data
-                practices, or would like to exercise your rights, please contact
-                us at:
-              </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded-2xl shadow-md">
-                  <h3 className="font-semibold text-gray-800 mb-2">Email</h3>
-                  <p className="text-blue-600">support@shareyrheart.com</p>
-                </div>
-                <div className="bg-white p-4 rounded-2xl shadow-md">
-                  <h3 className="font-semibold text-gray-800 mb-2">Phone</h3>
-                  <p className="text-green-600">+91 9874021437</p>
-                </div>
-                <div className="md:col-span-2 bg-white p-4 rounded-2xl shadow-md">
-                  <h3 className="font-semibold text-gray-800 mb-2">
-                    Mailing Address
-                  </h3>
-                  <p className="text-gray-700">
-                    7B, Mysore Road, Rashbehari Avenue, Kolkata-700026. INDIA
-                  </p>
-                </div>
-              </div>
-              <p className="mt-2">
-                By using ShareYrHeart, you acknowledge that you have read and
-                understood this Privacy Policy and agree to its terms.
-              </p>
-            </div>
-          </section>
         </div>
       </div>
     </div>

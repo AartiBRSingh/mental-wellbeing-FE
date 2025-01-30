@@ -135,7 +135,7 @@ const WhyUs = () => {
         <div className="flex justify-center mt-2">
           <Link
             href={"/all-experts"}
-            className="font-semibold flex gap-2 underline items-center cursor-pointer bg-[#7CDEFF] rounded-3xl p-3"
+            className="relative flex items-center justify-center w-full sm:w-auto gap-2 px-6 md:px-8 lg:mr-8 py-3 md:py-3 bg-blue-400 text-white rounded-full transition-all duration-300 hover:bg-blue-600 overflow-hidden"
           >
             View all <FaArrowRightLong />
           </Link>
