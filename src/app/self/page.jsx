@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { baseURL } from "../baseURL";
+import Cookies from "js-cookie";
 
 const Page = () => {
   const [hasPaid, setHasPaid] = useState(false);
@@ -26,11 +27,11 @@ const Page = () => {
 
     loadRazorpayScript();
 
-    const storedUserId = localStorage.getItem("userId");
-    const storedUserName = localStorage.getItem("name");
-    const storedEmail = localStorage.getItem("email");
-    const storedPhoneNo = localStorage.getItem("contactNumber");
-    const paidForSelf = localStorage.getItem("paidForSelf");
+    const storedUserId = Cookies.get("userId");
+    const storedUserName = Cookies.get("name");
+    const storedEmail = Cookies.get("email");
+    const storedPhoneNo = Cookies.get("contactNumber");
+    const paidForSelf = Cookies.get("paidForSelf");
 
     setUserId(storedUserId);
     setUserName(storedUserName);
@@ -88,7 +89,7 @@ const Page = () => {
         const verifyData = await verifyResponse.json();
         if (verifyData.success) {
           alert("Payment Successful!");
-          localStorage.setItem("paidForSelf", "true");
+          Cookies.set("paidForSelf", "true");
           router.push("/questionnaires?userType=self");
         } else {
           alert("Payment verification failed. Please try again.");

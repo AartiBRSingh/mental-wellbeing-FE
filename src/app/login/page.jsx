@@ -5,6 +5,8 @@ import axios from "axios";
 import { DecorativeShapes } from "../sections/Services";
 import { baseURL } from "../baseURL";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,28 +43,28 @@ const Login = () => {
       });
       const { token, profile } = response?.data;
 
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("userId", profile.userId);
-      localStorage.setItem("name", profile.name);
-      localStorage.setItem("email", profile.email);
-      localStorage.setItem("userType", profile.userType);
-      localStorage.setItem("contactNumber", profile.contactNumber);
+      Cookies.set("authToken", token);
+      Cookies.set("userId", profile.userId);
+      Cookies.set("name", profile.name);
+      Cookies.set("email", profile.email);
+      Cookies.set("userType", profile.userType);
+      Cookies.set("contactNumber", profile.contactNumber);
 
       if (!isUserLogin) {
-        localStorage.setItem("hasPackage", profile.hasPackage);
-        localStorage.setItem("packageId", profile.packageId || "");
-        localStorage.setItem("city", profile.city);
-        localStorage.setItem("state", profile.state);
-        localStorage.setItem("verifyPhone", profile.verifyPhone);
-        localStorage.setItem("verifyEmail", profile.verifyEmail);
+        Cookies.set("hasPackage", profile.hasPackage);
+        Cookies.set("packageId", profile.packageId || "");
+        Cookies.set("city", profile.city);
+        Cookies.set("state", profile.state);
+        Cookies.set("verifyPhone", profile.verifyPhone);
+        Cookies.set("verifyEmail", profile.verifyEmail);
       } else {
-        localStorage.setItem("caseStudy", profile.caseStudy);
-        localStorage.setItem("paidForSelf", profile.paidForSelf);
-        localStorage.setItem("paidForEmployee", profile.paidForEmployee);
-        localStorage.setItem("paidForStudent", profile.paidForStudent);
+        Cookies.set("caseStudy", profile.caseStudy);
+        Cookies.set("paidForSelf", profile.paidForSelf);
+        Cookies.set("paidForEmployee", profile.paidForEmployee);
+        Cookies.set("paidForStudent", profile.paidForStudent);
       }
       if (isUserLogin) {
-        router.push(`/${localStorage.getItem("userType")}`);
+        router.push(`/${Cookies.get("userType")}`);
       } else {
         router.push(`/expert/profile`);
       }
@@ -78,6 +80,7 @@ const Login = () => {
 
     try {
       await onEmailSubmit(email);
+      toast.success("Succesfully SignedIn");
     } catch (error) {
       setError("An error occurred while sending OTP");
     } finally {
@@ -101,6 +104,7 @@ const Login = () => {
 
   return (
     <div className="w-full h-[100vh] flex justify-center items-center">
+      <Toaster position="bottom-left" reverseOrder={false} />
       <div className="flex justify-center items-center bg-[#003B29] rounded-3xl w-[80vw] h-[80vh] flex-wrap px-16 relative">
         <DecorativeShapes />
         <div className="flex-1 flex items-center justify-center p-4">

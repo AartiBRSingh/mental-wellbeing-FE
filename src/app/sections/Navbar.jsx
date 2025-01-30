@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { LogOut, User, Menu, X, UserIcon } from "lucide-react";
 import CustomCursor from "../components/CustomCursor";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,11 +14,11 @@ const Navbar = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    const name = localStorage.getItem("name");
-    const email = localStorage.getItem("email");
-    const userType = localStorage.getItem("userType");
-    const userId = localStorage.getItem("userId");
+    const token = Cookies.get("authToken");
+    const name = Cookies.get("name");
+    const email = Cookies.get("email");
+    const userType = Cookies.get("userType");
+    const userId = Cookies.get("userId");
 
     setAuthToken(token);
     setUserData({ name, email });

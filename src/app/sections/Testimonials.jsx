@@ -69,21 +69,21 @@ const TestimonialsSlider = () => {
   if (testimonials.length === 0) return null;
 
   return (
-    <div className="bg-white py-4 overflow-hidden relative">
+    <div className="bg-white py-10 overflow-hidden relative">
       <button
         onClick={() => handleScroll("left")}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
+        className="absolute left-[350px] top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={() => handleScroll("right")}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
+        className="absolute right-[350px] top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
       >
         <ChevronRight className="w-6 h-6" />
       </button>
 
-      <div className="max-w-9xl mx-auto">
+      <div className="max-w-[1000px] mx-auto">
         <div
           ref={containerRef}
           className="relative overflow-hidden"
@@ -97,10 +97,10 @@ const TestimonialsSlider = () => {
             }}
           >
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="min-w-[250px] px-2 flex-shrink-0">
-                <div className="bg-slate-100 rounded-lg shadow-md p-4 h-full transition-transform hover:scale-105">
-                  <div className="flex flex-col items-center space-y-3">
-                    <div className="w-12 h-12 rounded-full overflow-hidden">
+              <div key={index} className="min-w-[250px]  px-2 flex-shrink-0 ">
+                <div className="bg-slate-50 rounded-2xl  p-4 h-full transition-transform ">
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="w-20 h-20 rounded-full overflow-hidden">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
@@ -108,7 +108,7 @@ const TestimonialsSlider = () => {
                       />
                     </div>
 
-                    <div className="text-center space-y-2">
+                    <div className="text-center space-y-3">
                       <h3 className="text-sm font-semibold text-gray-800 line-clamp-2">
                         &quot;{testimonial.title}&quot;
                       </h3>

@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Check, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import CustomCursor from "../components/CustomCursor";
+import Cookies from "js-cookie";
 
 const UserTypeModal = ({ expectedUserType, userType }) => {
   const router = useRouter();
@@ -80,7 +81,7 @@ const QuestionnaireInterface = ({ onSubmit }) => {
   console.log(expectedUserType, "raju");
 
   const router = useRouter();
-  const userType = localStorage.getItem("userType");
+  const userType = Cookies.get("userType");
 
   useEffect(() => {
     if (userType !== expectedUserType) {
@@ -111,7 +112,7 @@ const QuestionnaireInterface = ({ onSubmit }) => {
   };
 
   const handleModalClose = () => {
-    router.push(`/questionnaires?userType=${localStorage.getItem("userType")}`);
+    router.push(`/questionnaires?userType=${Cookies.get("userType")}`);
   };
 
   const progressPercentage = ((currentQuestion + 1) / questions.length) * 100;

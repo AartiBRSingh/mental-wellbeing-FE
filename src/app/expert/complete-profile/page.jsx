@@ -17,6 +17,7 @@ import {
   Upload,
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const CompleteProfile = () => {
   const router = useRouter();
@@ -49,7 +50,7 @@ const CompleteProfile = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
+    const storedUserId = Cookies.get("userId");
     setUserId(storedUserId);
   }, []);
 

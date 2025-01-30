@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { baseURL } from "../baseURL";
+import Cookies from "js-cookie";
 
 const WorkplaceMentalHealthPage = () => {
   const [hasPaid, setHasPaid] = useState(false);
@@ -26,14 +27,11 @@ const WorkplaceMentalHealthPage = () => {
 
     loadRazorpayScript();
 
-    const userPaymentDetails = JSON.parse(
-      localStorage.getItem("paymentDetails")
-    );
-    const storedUserId = localStorage.getItem("userId");
-    const storedUserName = localStorage.getItem("name");
-    const storedEmail = localStorage.getItem("email");
-    const storedPhoneNo = localStorage.getItem("contactNumber");
-    const paidForEmployee = localStorage.getItem("paidForEmployee");
+    const storedUserId = Cookies.get("userId");
+    const storedUserName = Cookies.get("name");
+    const storedEmail = Cookies.get("email");
+    const storedPhoneNo = Cookies.get("contactNumber");
+    const paidForEmployee = Cookies.get("paidForEmployee");
 
     setUserId(storedUserId);
     setUserName(storedUserName);
@@ -91,7 +89,7 @@ const WorkplaceMentalHealthPage = () => {
         const verifyData = await verifyResponse.json();
         if (verifyData.success) {
           alert("Payment Successful!");
-          localStorage.setItem("paidForStudent", "true");
+          Cookies.set("paidForStudent", "true");
           router.push("/questionnaires?userType=employee");
         } else {
           alert("Payment verification failed. Please try again.");
@@ -111,85 +109,96 @@ const WorkplaceMentalHealthPage = () => {
     razorpay.open();
   };
   return (
-    <div className="bg-transparent flex items-center justify-center p-6">
-      <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl">
-        <div className="relative">
-          <img
-            src="https://img.freepik.com/free-vector/good-team-concept-illustration_114360-4225.jpg?t=st=1737958269~exp=1737961869~hmac=9f55dffa1ad3cbe3003fbe6986667390cde22ce60ebf14ec70599896f3d62e8b&w=740"
-            alt="Workplace Mental Health"
-            className="w-full h-full object-contain"
-          />
-        </div>
-        <div className="p-8 space-y-6 flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-gray-800 leading-tight">
-            Mental Health in the Workplace: Understanding and Support
-          </h1>
+    <div className=" flex items-center justify-center p-6">
+      <img
+        src="https://img.freepik.com/free-vector/hand-painted-watercolor-nature-background_23-2148941603.jpg?t=st=1738214446~exp=1738218046~hmac=18198897681cec14319e7653577f8232cb534bda98ec75c6f4ce552dc9b94fdc&w=1380"
+        alt="Background"
+        className="absolute w-full h-full object-cover rounded-lg opacity-40"
+      />
+      <div className="relative z-10">
+        <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl">
+          <div className="relative">
+            <img
+              src="https://img.freepik.com/free-vector/good-team-concept-illustration_114360-4225.jpg?t=st=1737958269~exp=1737961869~hmac=9f55dffa1ad3cbe3003fbe6986667390cde22ce60ebf14ec70599896f3d62e8b&w=740"
+              alt="Workplace Mental Health"
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <div className="p-8 space-y-6 flex flex-col justify-center">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-100 to-purple-100 text-gray-800 leading-tight rounded-3xl text-center p-4">
+              Mental Health in the Workplace: Understanding and Support
+            </h1>
 
-          <p className="text-gray-600 leading-relaxed">
-            Mental health is a critical aspect of workplace wellness. Currently,
-            approximately 15% of working professionals are experiencing a mental
-            health condition, highlighting the urgent need for comprehensive
-            support and understanding.
-          </p>
-
-          <div className="bg-gray-100 border-l-4 border-black p-4 rounded-r-lg">
-            <p className="text-gray-800 italic">
-              &quot;A healthy workplace is one that prioritizes the mental
-              well-being of its employees.&quot;
+            <p className="text-gray-600 leading-relaxed">
+              Mental health is a critical aspect of workplace wellness.
+              Currently, approximately 15% of working professionals are
+              experiencing a mental health condition, highlighting the urgent
+              need for comprehensive support and understanding.
             </p>
-          </div>
 
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-gray-700">
-              Key Mental Health Challenges
-            </h2>
-            <ul className="list-disc list-inside text-gray-600 space-y-2">
-              <li>
-                12 billion working days lost annually due to depression and
-                anxiety
-              </li>
-              <li>
-                1 in 6 employees experience mental health problems at work
-              </li>
-              <li>Economic engagement is crucial for mental health recovery</li>
-            </ul>
-          </div>
+            <div className="bg-gray-100 border-l-4 border-black p-4 rounded-r-lg shadow-xl">
+              <p className="text-gray-800 italic">
+                &quot;A healthy workplace is one that prioritizes the mental
+                well-being of its employees.&quot;
+              </p>
+            </div>
 
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-gray-700">
-              Warning Signs to Watch
-            </h2>
-            <ul className="list-disc list-inside text-gray-600 space-y-2">
-              <li>Persistent tardiness and visible stress</li>
-              <li>Emotional volatility and social withdrawal</li>
-              <li>Difficulty accepting feedback</li>
-              <li>Increased alcohol consumption</li>
-              <li>Frequent emotional outbursts</li>
-            </ul>
-          </div>
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold text-gray-700 rounded-full bg-[#77DEFF] p-2 max-w-[320px] text-center">
+                Key Mental Health Challenges
+              </h2>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li>
+                  12 billion working days lost annually due to depression and
+                  anxiety
+                </li>
+                <li>
+                  1 in 6 employees experience mental health problems at work
+                </li>
+                <li>
+                  Economic engagement is crucial for mental health recovery
+                </li>
+              </ul>
+            </div>
 
-          <div className="mt-6">
-            {hasPaid ? (
-              <button
-                onClick={() => router.push("/questionnaires?userType=employee")}
-                className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold text-gray-700 rounded-full bg-[#A1DC6E] p-2 max-w-[260px] text-center">
+                Warning Signs to Watch
+              </h2>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li>Persistent tardiness and visible stress</li>
+                <li>Emotional volatility and social withdrawal</li>
+                <li>Difficulty accepting feedback</li>
+                <li>Increased alcohol consumption</li>
+                <li>Frequent emotional outbursts</li>
+              </ul>
+            </div>
+
+            <div className="mt-6">
+              {hasPaid ? (
+                <button
+                  onClick={() =>
+                    router.push("/questionnaires?userType=employee")
+                  }
+                  className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
                 transition duration-300 ease-in-out 
-                hover:bg-gray-800 hover:shadow-lg 
+                hover:bg-[#FF8458] hover:text-black hover:shadow-lg 
                 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              >
-                Begin Your Journey
-              </button>
-            ) : (
-              <button
-                onClick={handlePayment}
-                className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
+                >
+                  Begin Your Journey
+                </button>
+              ) : (
+                <button
+                  onClick={handlePayment}
+                  className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
                 transition duration-300 ease-in-out 
-                hover:bg-gray-800 hover:shadow-lg 
+                hover:bg-[#FACC15] hover:text-black hover:shadow-lg 
                 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              >
-                Make Payment to Begin
-              </button>
-            )}
+                >
+                  Make Payment to Begin
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

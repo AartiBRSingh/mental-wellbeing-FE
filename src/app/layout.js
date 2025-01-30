@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${font.className} antialiased bg-cream no-select`}
+        className={`${font.className} antialiased bg-[#F9F5F2] no-select`}
         // style={{ backgroundImage: "url('/bg-01.svg')" }}
       >
         <CustomCursor />

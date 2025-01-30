@@ -9,7 +9,7 @@ const BlogCard = ({
   redirectTo,
 }) => {
   return (
-    <div className="bg-cream rounded-3xl p-4 relative size-auto border border-red-100 ">
+    <div className="bg-white rounded-3xl p-4 relative size-auto border border-red-100 ">
       {/* Image container with hover effects */}
       <div className="relative mb-4 group">
         {/* Background effect that only appears on hover */}
