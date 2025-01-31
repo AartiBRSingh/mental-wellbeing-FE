@@ -9,10 +9,10 @@ import Cookies from "js-cookie";
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState({ name: "", email: "" });
-  const [authToken, setAuthToken] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
+  // Check authentication status whenever component mounts or updates
   useEffect(() => {
     const token = Cookies.get("authToken");
     const name = Cookies.get("name");
@@ -20,10 +20,7 @@ const Navbar = () => {
     const userType = Cookies.get("userType");
     const userId = Cookies.get("userId");
 
-    setAuthToken(token);
-    setUserData({ name, email });
-
-    if (authToken) {
+    if (token) {
       setIsAuthenticated(true);
       setUserData({
         name: name || "",
@@ -31,8 +28,37 @@ const Navbar = () => {
         userType: userType || "",
         userId: userId || "",
       });
+    } else {
+      setIsAuthenticated(false);
+      setUserData({ name: "", email: "" });
     }
-  }, [authToken]);
+  }, []); // Empty dependency array means it runs once on mount
+
+  // Add a second useEffect to watch for cookie changes
+  useEffect(() => {
+    const cookieCheck = setInterval(() => {
+      const token = Cookies.get("authToken");
+      const name = Cookies.get("name");
+      const email = Cookies.get("email");
+      const userType = Cookies.get("userType");
+      const userId = Cookies.get("userId");
+
+      if (token) {
+        setIsAuthenticated(true);
+        setUserData({
+          name: name || "",
+          email: email || "",
+          userType: userType || "",
+          userId: userId || "",
+        });
+      } else {
+        setIsAuthenticated(false);
+        setUserData({ name: "", email: "" });
+      }
+    }, 1000); // Check every second
+
+    return () => clearInterval(cookieCheck);
+  }, []);
 
   const navLinks = [
     { label: "Services", redirectTo: "#services" },
@@ -49,12 +75,12 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("name");
-    localStorage.removeItem("email");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("caseStudy");
-    localStorage.removeItem("userType");
+    Cookies.remove("authToken");
+    Cookies.remove("name");
+    Cookies.remove("email");
+    Cookies.remove("userId");
+    Cookies.remove("userType");
+    localStorage.removeItem("caseStudy"); // Keep this if needed
     setIsAuthenticated(false);
     setUserData({ name: "", email: "" });
     setIsMobileMenuOpen(false);
@@ -123,12 +149,10 @@ const Navbar = () => {
           </div>
 
           {/* Desktop User Menu */}
-
           {isAuthenticated ? (
             <div className="relative group hidden md:block">
               <button className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
                 <User size={20} />
-
                 <span className="text-sm font-medium">{userData.name}</span>
               </button>
               <div className="absolute right-0 top-full mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
@@ -178,6 +202,7 @@ const Navbar = () => {
             Get Started
           </Link>
 
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden cursor-pointer"
             onClick={toggleMobileMenu}

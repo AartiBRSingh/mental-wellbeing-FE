@@ -42,7 +42,6 @@ const MultiStepForm = () => {
     { id: "professionalCourse", name: "Certificate Course" },
   ];
 
-  // Questions data structure
   const sections = {
     expertSupport: [
       {
@@ -278,6 +277,25 @@ const MultiStepForm = () => {
         [field]: value,
       },
     }));
+
+    // Auto-advance to next question if it's not a conditional field or multiSelect
+    const currentQuestion = sections[selectedSection][currentStep];
+    if (
+      currentQuestion.field === "therapistSpecialization" ||
+      currentQuestion.field === "preferredDays" ||
+      currentQuestion.field === "culturalExpertise"
+    ) {
+      return;
+    }
+    if (
+      !currentQuestion.conditional &&
+      !currentQuestion.multiSelect &&
+      currentStep < sections[selectedSection].length - 1
+    ) {
+      setTimeout(() => {
+        setCurrentStep((prev) => prev + 1);
+      }, 300); // Small delay for better UX
+    }
   };
 
   const handleNext = () => {
@@ -296,7 +314,19 @@ const MultiStepForm = () => {
 
   const handleSubmit = () => {
     console.log(formData[selectedSection]);
-    // Add your submission logic here
+    // After submitting each section, move to the next section
+    const currentSectionIndex = mainSections.findIndex(
+      (section) => section.id === selectedSection
+    );
+    if (currentSectionIndex < mainSections.length - 1) {
+      // Move to next section
+      setSelectedSection(mainSections[currentSectionIndex + 1].id);
+      setCurrentStep(0);
+    } else {
+      // Final submission logic here
+      console.log("Final submission:", formData);
+      // You can add your final submission logic here
+    }
   };
 
   const renderInitialSelection = () => (
@@ -315,6 +345,11 @@ const MultiStepForm = () => {
 
   const renderQuestion = () => {
     const currentQuestion = sections[selectedSection][currentStep];
+    const isTherapistSpecializationQuestion =
+      currentQuestion.field === "therapistSpecialization";
+    const isPreferredDaysQuestion = currentQuestion.field === "preferredDays";
+    const isCulturalExpertiseQuestion =
+      currentQuestion.field === "culturalExpertise";
 
     return (
       <div className="space-y-6">
@@ -407,6 +442,18 @@ const MultiStepForm = () => {
               }
             />
           )}
+        {(isTherapistSpecializationQuestion ||
+          isPreferredDaysQuestion ||
+          isCulturalExpertiseQuestion) && (
+          <div className="flex justify-end mt-4">
+            <button
+              onClick={handleNext}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     );
   };
@@ -447,14 +494,7 @@ const MultiStepForm = () => {
                 >
                   Previous
                 </button>
-                {currentStep < sections[selectedSection].length - 1 ? (
-                  <button
-                    onClick={handleNext}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                  >
-                    Next
-                  </button>
-                ) : (
+                {currentStep === sections[selectedSection].length - 1 && (
                   <button
                     onClick={handleSubmit}
                     className="px-4 py-2 bg-green-500 text-white rounded-md"
