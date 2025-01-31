@@ -12,6 +12,7 @@ const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [organizationName, setOrganizationName] = useState("");
+  const [organizationCode, setOrganizationCode] = useState("");
   const [webUrl, setWebUrl] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -69,6 +70,7 @@ const SignupPage = () => {
       setEmail("");
       setContactNumber("");
       setOrganizationName("");
+      setOrganizationCode("");
       setWebUrl("");
       setCity("");
       setState("");
@@ -354,35 +356,21 @@ const SignupPage = () => {
                         className={inputClasses}
                       />
                     </div>
-
-                    <div className="relative">
-                      <label htmlFor="password" className={labelClasses}>
-                        Password <span className="text-black">*</span>
+                    <div>
+                      <label
+                        htmlFor="organizationCode"
+                        className={labelClasses}
+                      >
+                        Organization Code
                       </label>
-                      <div className="relative">
-                        <input
-                          type={showPassword ? "text" : "password"}
-                          id="password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          required
-                          className={`${inputClasses} pr-10`}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-full"
-                          aria-label={
-                            showPassword ? "Hide password" : "Show password"
-                          }
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4 text-gray-500" />
-                          ) : (
-                            <Eye className="h-4 w-4 text-gray-500" />
-                          )}
-                        </button>
-                      </div>
+                      <input
+                        type="text"
+                        id="organizationCode"
+                        value={organizationCode}
+                        onChange={(e) => setOrganizationCode(e.target.value)}
+                        required
+                        className={inputClasses}
+                      />
                     </div>
                   </div>
 
@@ -451,7 +439,35 @@ const SignupPage = () => {
                       />
                     </div>
                   </div>
-
+                  <div className="relative">
+                    <label htmlFor="password" className={labelClasses}>
+                      Password <span className="text-black">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className={`${inputClasses} pr-10`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-full"
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-500" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-500" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
                   <button
                     type="submit"
                     className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
@@ -516,7 +532,7 @@ const SignupPage = () => {
                       isUserLogin ? "text-black" : "text-gray-500"
                     }`}
                   >
-                    User Login
+                    User Register
                   </span>
 
                   <div
@@ -536,7 +552,7 @@ const SignupPage = () => {
                       !isUserLogin ? "text-black" : "text-gray-500"
                     }`}
                   >
-                    Admin Login
+                    Expert Register
                   </span>
                 </div>
                 <div className="text-center mb-8">
