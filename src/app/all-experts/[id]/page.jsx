@@ -276,7 +276,17 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     : "text-gray-600"
                 }`}
               >
-                Consultations
+                Consultation Q/A
+              </Link>
+              <Link
+                href={`?tab=journal`}
+                className={`pb-2 cursor-pointer ${
+                  activeTab === "journal"
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-600"
+                }`}
+              >
+                Journal
               </Link>
             </div>
           </div>
@@ -454,10 +464,15 @@ async function ExpertDetailsPage({ params, searchParams }) {
                 <p>No reviews available.</p>
               )}
             </div>
-          ) : (
+          ) : activeTab === "consultations" ? (
             <div>
               <h2 className="text-2xl font-semibold my-4">Consultations</h2>
               <p>No consultations available!</p>
+            </div>
+          ) : (
+            <div>
+              <h2 className="text-2xl font-semibold my-4">Journal</h2>
+              <p>No journals available!</p>
             </div>
           )}
         </div>
