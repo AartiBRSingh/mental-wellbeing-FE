@@ -61,7 +61,14 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { label: "Services", redirectTo: "#services" },
+    {
+      label: "Services",
+      redirectTo: "#services",
+      dropdown: [
+        { label: "Mental well being", href: "/employee" },
+        { label: "Certificate course", href: "/certificate-course" },
+      ],
+    },
     { label: "Clinics", redirectTo: "/clinics" },
     { label: "Treatments", redirectTo: "#" },
   ];
@@ -80,7 +87,7 @@ const Navbar = () => {
     Cookies.remove("email");
     Cookies.remove("userId");
     Cookies.remove("userType");
-    localStorage.removeItem("caseStudy"); // Keep this if needed
+    localStorage.removeItem("caseStudy");
     setIsAuthenticated(false);
     setUserData({ name: "", email: "" });
     setIsMobileMenuOpen(false);
@@ -112,12 +119,31 @@ const Navbar = () => {
         <section className="hidden md:block">
           <ul className="flex justify-between items-center gap-10">
             {navLinks.map((item, index) => (
-              <Link href={item.redirectTo} key={index}>
-                <li className="relative font-semibold text-gray-600 cursor-pointer text-sm group">
-                  {item.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-600 group-hover:w-full transition-all duration-300 ease-in-out" />
-                </li>
-              </Link>
+              <div key={index} className="relative group">
+                <Link href={item.redirectTo}>
+                  <li className="relative font-semibold text-gray-600 cursor-pointer text-sm group">
+                    {item.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-600 group-hover:w-full transition-all duration-300 ease-in-out" />
+                  </li>
+                </Link>
+                {item.dropdown && (
+                  <div className="absolute left-2 top-7 mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
+                    <div className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg">
+                      <CustomCursor />
+                      {item.dropdown.map((option, optionIndex) => (
+                        <Link
+                          key={optionIndex}
+                          href={option.href}
+                          className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
+                        >
+                          {option.label}
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="absolute -top-2 left-3 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
+                  </div>
+                )}
+              </div>
             ))}
           </ul>
         </section>
@@ -216,15 +242,28 @@ const Navbar = () => {
           <div className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden z-50">
             <div className="flex flex-col max-h-[calc(100vh-5rem)] overflow-y-auto">
               {navLinks.map((item, index) => (
-                <Link
-                  href={item.redirectTo}
-                  key={index}
-                  onClick={toggleMobileMenu}
-                >
-                  <div className="px-4 py-3 border-b border-gray-200 hover:bg-gray-50">
-                    {item.label}
-                  </div>
-                </Link>
+                <div key={index}>
+                  <Link href={item.redirectTo} onClick={toggleMobileMenu}>
+                    <div className="px-4 py-3 border-b border-gray-200 hover:bg-gray-50">
+                      {item.label}
+                    </div>
+                  </Link>
+                  {item.dropdown && (
+                    <div className="bg-gray-50">
+                      {item.dropdown.map((option, optionIndex) => (
+                        <Link
+                          key={optionIndex}
+                          href={option.href}
+                          onClick={toggleMobileMenu}
+                        >
+                          <div className="px-8 py-3 border-b border-gray-200 hover:bg-gray-100">
+                            {option.label}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
 
               <div className="border-b border-gray-200">
