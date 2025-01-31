@@ -43,6 +43,7 @@ const CompleteProfile = () => {
     volunteerExperience: [],
     mediaAndPublications: [],
     honorsAndAwards: [],
+    generalQuestions: [],
     languages: [],
   });
   const [isRecomendedOpen, setIsRecomendedOpen] = useState(false);
@@ -50,7 +51,7 @@ const CompleteProfile = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    const storedUserId = Cookies.get("userId");
+    const storedUserId = Cookies.getItem("userId");
     setUserId(storedUserId);
   }, []);
 
@@ -207,7 +208,7 @@ const CompleteProfile = () => {
         }
       );
       router.push("/expert/complete-profile");
-      alert("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
     } catch (error) {
       console.error(error);
       setErrors(error.response?.data?.error || "An error occurred.");
@@ -1030,12 +1031,83 @@ const CompleteProfile = () => {
 
         {isRecomendedOpen && (
           <>
-            {/* Journals Section (New) */}
             <span className="flex text-black text-[17px] border rounded-xl border-orange-500 p-4 w-full italic">
               {" "}
               Completing these sections will increase your visibility and give
               you access to more clients.
             </span>
+            {/* Honors and Awards Section */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-[23px]">General Questions</h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleArrayFieldAdd("generalQuestions", {
+                      question: "",
+                      answer: "",
+                    })
+                  }
+                  className="text-white font-bold px-4 p-2 bg-green-600 rounded-3xl hover:bg-green-700 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Add Question
+                </button>
+              </div>
+
+              {formData.generalQuestions.map((generalQuestion, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-7 border rounded relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = formData.generalQuestions.filter(
+                        (_, index) => index !== idx
+                      );
+                      setFormData((prev) => ({
+                        ...prev,
+                        generalQuestions: updated,
+                      }));
+                    }}
+                    className="absolute top-0 right-2 text-red-500 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={generalQuestion.question}
+                    onChange={(e) => {
+                      const updated = [...formData.generalQuestions];
+                      updated[idx].question = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        generalQuestions: updated,
+                      }));
+                    }}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  />
+                  <textarea
+                    placeholder="Description (max 900 characters)"
+                    value={generalQuestion.answer}
+                    onChange={(e) => {
+                      const updated = [...formData.generalQuestions];
+                      updated[idx].answer = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        generalQuestions: updated,
+                      }));
+                    }}
+                    maxLength={900}
+                    className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300 col-span-2"
+                    rows={3}
+                  />
+                </div>
+              ))}
+            </div>
+            {/* Journals Section (New) */}
+
             <div>
               <div className="flex justify-between items-center mb-2">
                 <h3 className="font-semibold text-[23px]">Featured Journals</h3>
