@@ -15,6 +15,12 @@ import {
   X,
   Check,
   Lock,
+  FileSpreadsheet,
+  BookOpen,
+  Clock,
+  AlertCircle,
+  ChevronRight,
+  PlusCircle,
 } from "lucide-react";
 import { baseURL } from "../baseURL";
 
@@ -28,6 +34,43 @@ const UserProfile = () => {
   const [editError, setEditError] = useState("");
   const searchParams = useSearchParams();
 
+  // Hardcoded consultation data for demonstration
+  const consultations = [
+    {
+      id: 1,
+      expertName: "Dr. Sarah Johnson",
+      date: "2025-01-25T10:00:00",
+      status: "Completed",
+      type: "Video Call",
+      notes: "Follow-up in 2 weeks",
+    },
+    {
+      id: 2,
+      expertName: "Dr. Michael Chen",
+      date: "2025-02-01T15:30:00",
+      status: "Scheduled",
+      type: "Video Call",
+      notes: "Initial consultation",
+    },
+  ];
+
+  // Hardcoded insights data
+  const insights = [
+    {
+      date: "2025-01-28",
+      title: "Weekly Progress Report",
+      description:
+        "Showing improvement in stress management and work-life balance",
+      status: "Positive",
+    },
+    {
+      date: "2025-01-21",
+      title: "Case Study Analysis",
+      description: "Areas of concern identified in work pressure handling",
+      status: "Needs Attention",
+    },
+  ];
+
   const [editForm, setEditForm] = useState({
     name: "",
     email: "",
@@ -35,6 +78,9 @@ const UserProfile = () => {
     city: "",
     state: "",
     password: "",
+    emergencyContact: "",
+    occupation: "",
+    dateOfBirth: "",
   });
 
   useEffect(() => {
@@ -46,6 +92,9 @@ const UserProfile = () => {
         city: user.city || "",
         state: user.state || "",
         password: "",
+        emergencyContact: user.emergencyContact || "",
+        occupation: user.occupation || "",
+        dateOfBirth: user.dateOfBirth || "",
       });
     }
   }, [user]);
@@ -126,10 +175,8 @@ const UserProfile = () => {
     </div>
   );
 
-  console.log(user.caseStudy);
-
   return (
-    <div className=" py-8">
+    <div className="py-8">
       <div className="max-w-4xl mx-auto px-4">
         <div className="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
@@ -148,6 +195,36 @@ const UserProfile = () => {
             }`}
           >
             Profile Details
+          </button>
+          <button
+            onClick={() => setActiveTab("consultations")}
+            className={`flex-1 px-4 py-3 rounded-md font-medium text-sm transition-colors ${
+              activeTab === "consultations"
+                ? "bg-black text-white"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
+          >
+            My Consultations
+          </button>
+          <button
+            onClick={() => setActiveTab("records")}
+            className={`flex-1 px-4 py-3 rounded-md font-medium text-sm transition-colors ${
+              activeTab === "records"
+                ? "bg-black text-white"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
+          >
+            Records & Insights
+          </button>
+          <button
+            onClick={() => setActiveTab("services")}
+            className={`flex-1 px-4 py-3 rounded-md font-medium text-sm transition-colors ${
+              activeTab === "services"
+                ? "bg-black text-white"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
+          >
+            My Services
           </button>
           <button
             onClick={() => setActiveTab("payments")}
@@ -233,6 +310,22 @@ const UserProfile = () => {
                     "New Password",
                     "password"
                   )}
+                  {renderEditableField(
+                    "emergencyContact",
+                    <Phone className="h-5 w-5 text-black" />,
+                    "Emergency Contact"
+                  )}
+                  {renderEditableField(
+                    "occupation",
+                    <FileText className="h-5 w-5 text-black" />,
+                    "Occupation"
+                  )}
+                  {renderEditableField(
+                    "dateOfBirth",
+                    <Calendar className="h-5 w-5 text-black" />,
+                    "Date of Birth",
+                    "date"
+                  )}
 
                   <button
                     type="submit"
@@ -298,40 +391,176 @@ const UserProfile = () => {
                 </div>
               )}
             </div>
-            {user?.caseStudy?.length <= 0 && !isEditing && (
-              <div className="mt-4 border-t border-gray-100 bg-gray-50 p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <FileText className="h-5 w-5 text-black" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">
-                        Let us understand you better!
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        Take your self-understanding case study
-                      </p>
+          </div>
+        )}
+
+        {activeTab === "consultations" && (
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div className="p-6 border-b border-gray-100">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-gray-900">
+                  My Consultations
+                </h2>
+                <Link
+                  href="/book-consultation"
+                  className="flex items-center space-x-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900 transition-colors"
+                >
+                  <PlusCircle className="h-4 w-4" />
+                  <span>Book New</span>
+                </Link>
+              </div>
+              <div className="space-y-4">
+                {consultations.map((consultation) => (
+                  <div
+                    key={consultation.id}
+                    className="p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-medium text-gray-900">
+                          {consultation.expertName}
+                        </h3>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {new Date(consultation.date).toLocaleDateString(
+                            "en-US",
+                            {
+                              weekday: "long",
+                              month: "long",
+                              day: "numeric",
+                              year: "numeric",
+                            }
+                          )}
+                        </p>
+                        <div className="flex items-center mt-2">
+                          <Clock className="h-4 w-4 text-gray-400 mr-1" />
+                          <span className="text-sm text-gray-500">
+                            {consultation.type}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {consultation.notes}
+                        </p>
+                      </div>
+                      <span
+                        className={`px-3 py-1 rounded-full text-sm font-medium ${
+                          consultation.status === "Completed"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-blue-100 text-blue-700"
+                        }`}
+                      >
+                        {consultation.status}
+                      </span>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "records" && (
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div className="p-6 border-b border-gray-100">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Records & Insights
+              </h2>
+              <div className="space-y-4">
+                {insights.map((insight, index) => (
+                  <div
+                    key={index}
+                    className="p-4 border border-gray-100 rounded-lg"
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-medium text-gray-900">
+                          {insight.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {new Date(insight.date).toLocaleDateString()}
+                        </p>
+                        <p className="text-sm text-gray-600 mt-2">
+                          {insight.description}
+                        </p>
+                      </div>
+                      <span
+                        className={`px-3 py-1 rounded-full text-sm font-medium ${
+                          insight.status === "Positive"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-yellow-100 text-yellow-700"
+                        }`}
+                      >
+                        {insight.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "services" && (
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div className="p-6 border-b border-gray-100">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                My Services
+              </h2>
+              <div className="space-y-4">
+                {user?.caseStudy?.map((study, index) => (
+                  <div
+                    key={index}
+                    className="p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-medium text-gray-900">
+                          Case Study #{index + 1}
+                        </h3>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {new Date(study.createdAt).toLocaleDateString()}
+                        </p>
+                        <p className="text-sm text-gray-600 mt-2">
+                          Type: {study.userDetails.userType}
+                        </p>
+                      </div>
+                      <Link
+                        href={`/case-study/${study._id}`}
+                        className="flex items-center text-black hover:text-gray-600"
+                      >
+                        View Details
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {(!user?.caseStudy || user.caseStudy.length === 0) && (
+                <div className="text-center p-6">
+                  <FileSpreadsheet className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-1">
+                    No Case Studies Yet
+                  </h3>
+                  <p className="text-gray-500 mb-4">
+                    Take your first case study to get started
+                  </p>
                   <Link
                     href="/self"
-                    className="px-4 py-2 bg-black text-white rounded-lg hover:bg-black transition-colors text-sm font-medium cursor-pointer"
+                    className="inline-flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900 transition-colors"
                   >
-                    Start Now
+                    Start Case Study
                   </Link>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
 
         {activeTab === "payments" && (
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="divide-y divide-gray-100">
-              {user?.paymentDetails?.map((payment) => (
+              {user?.paymentDetails?.map((payment, index) => (
                 <div
-                  key={payment._id}
+                  key={index}
                   className="p-6 hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between">
@@ -349,6 +578,9 @@ const UserProfile = () => {
                         <p className="text-sm text-gray-500 mt-1">
                           {payment.planType} Plan
                         </p>
+                        <p className="text-sm text-gray-500">
+                          Transaction ID: {payment.paymentTransactionId}
+                        </p>
                       </div>
                     </div>
                     <div className="mt-4 sm:mt-0 text-right">
@@ -362,6 +594,15 @@ const UserProfile = () => {
                           }
                         )}
                       </p>
+                      <span
+                        className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                          payment.hasExpired
+                            ? "bg-red-100 text-red-700"
+                            : "bg-green-100 text-green-700"
+                        }`}
+                      >
+                        {payment.hasExpired ? "Expired" : "Active"}
+                      </span>
                     </div>
                   </div>
                 </div>
