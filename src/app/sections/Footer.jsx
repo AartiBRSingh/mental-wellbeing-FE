@@ -12,7 +12,7 @@ const HealPoint = () => {
   const navLinks = [
     { label: "Insurance & Pricing", redirectTo: "" },
     { label: "Career", redirectTo: "" },
-    { label: "FAQ", redirectTo: "" },
+    { label: "FAQ", redirectTo: "/frequently-asked-questions" },
   ];
   const dropdownOptions = [
     { label: "Disorder", href: "/disorder" },
@@ -38,13 +38,12 @@ const HealPoint = () => {
               <section className="w-full sm:w-auto py-4 sm:py-0">
                 <ul className="flex flex-wrap justify-center sm:justify-between items-center gap-4 sm:gap-6 md:gap-10">
                   {navLinks.map((item, index) => (
-                    <li
-                      key={index}
-                      className="relative font-semibold text-white cursor-pointer text-md group whitespace-nowrap"
-                    >
-                      {item.label}
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300 ease-in-out" />
-                    </li>
+                    <Link href={item.redirectTo} key={index}>
+                      <li className="relative font-semibold text-white cursor-pointer text-md group whitespace-nowrap">
+                        {item.label}
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300 ease-in-out" />
+                      </li>
+                    </Link>
                   ))}
                 </ul>
               </section>
