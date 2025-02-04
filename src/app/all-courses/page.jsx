@@ -27,10 +27,12 @@ const CourseCatalog = () => {
   }, []);
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
-      currency: "USD",
-    }).format(price / 100);
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
   };
 
   const getTotalDuration = (curriculum) => {
@@ -39,80 +41,92 @@ const CourseCatalog = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#FFF4E6]">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#D2691E] opacity-75"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-red-500 text-xl">{error}</div>
+      <div className="min-h-screen flex items-center justify-center bg-[#FFF4E6]">
+        <div className="text-red-800 text-xl font-semibold bg-red-100 px-6 py-4 rounded-lg">
+          {error}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
-        Certificate Courses
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {courses.map((course) => (
-          <div
-            key={course._id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105"
-          >
-            <div className="relative h-48">
-              <img
-                src={course.thumbnailUrl}
-                alt={course.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
-                {course.category}
-              </div>
-            </div>
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2 text-gray-800">
-                {course.title}
-              </h2>
-              <p className="text-gray-600 mb-4 line-clamp-2">
-                {course.description}
-              </p>
-              <div className="flex items-center gap-4 mb-4">
-                <div className="flex items-center text-gray-500">
-                  <Clock className="w-4 h-4 mr-1" />
-                  <span>{getTotalDuration(course.curriculum)} mins</span>
-                </div>
-                <div className="flex items-center text-gray-500">
-                  <Users className="w-4 h-4 mr-1" />
-                  <span>{course.enrollmentCount} enrolled</span>
+    <div className="min-h-screen bg-[#FFF4E6] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-[#4A3427] mb-4">
+            Certificate Courses
+          </h1>
+          <div className="h-1.5 w-24 bg-[#D2691E] mx-auto rounded-full"></div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {courses.map((course) => (
+            <div
+              key={course._id}
+              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-[#F5DEB3]/50"
+            >
+              <div className="relative aspect-video">
+                <img
+                  src={course.thumbnailUrl}
+                  alt={course.title}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                />
+                <div className="absolute top-4 right-4 px-4 py-1.5 bg-[#228B22] text-white rounded-full text-sm font-medium shadow-md">
+                  {course.category}
                 </div>
               </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-2xl font-bold text-blue-600">
-                    {formatPrice(course.discountedPrice)}
-                  </span>
-                  {course.discountedPrice < course.price && (
-                    <span className="ml-2 text-gray-400 line-through">
-                      {formatPrice(course.price)}
+
+              <div className="p-6 space-y-4">
+                <h2 className="text-2xl font-bold text-[#4A3427] leading-tight">
+                  {course.title}
+                </h2>
+
+                <p className="text-[#6B584C] line-clamp-2">
+                  {course.description}
+                </p>
+
+                <div className="flex items-center justify-between text-[#6B584C]">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-[#D2691E]" />
+                    <span>{getTotalDuration(course.curriculum)} mins</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Users className="h-5 w-5 text-[#228B22]" />
+                    <span>{course.enrollmentCount} enrolled</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl font-bold text-[#4A3427]">
+                      {formatPrice(course.discountedPrice)}
                     </span>
-                  )}
+                    {course.discountedPrice < course.price && (
+                      <span className="text-sm text-[#6B584C] line-through opacity-70">
+                        {formatPrice(course.price)}
+                      </span>
+                    )}
+                  </div>
+                  <Link
+                    href={`/all-courses/${course._id}`}
+                    className="px-6 py-2.5 bg-[#D2691E] text-white rounded-lg hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg"
+                  >
+                    Details
+                    <ChevronRight className="h-5 w-5" />
+                  </Link>
                 </div>
-                <Link
-                  href={`/all-courses/${course._id}`}
-                  className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-                >
-                  Details
-                  <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
