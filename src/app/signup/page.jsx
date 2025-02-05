@@ -368,7 +368,6 @@ const SignupPage = () => {
                         id="organizationCode"
                         value={organizationCode}
                         onChange={(e) => setOrganizationCode(e.target.value)}
-                        required
                         className={inputClasses}
                       />
                     </div>
