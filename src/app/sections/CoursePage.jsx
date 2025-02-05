@@ -49,12 +49,6 @@ const CoursePage = () => {
             </h1>
             <div className="h-1.5 w-24 bg-[#D2691E] rounded-full"></div>
           </div>
-          <Link href="/all-courses">
-            <button className="px-6 py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
-              View All Courses
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -88,7 +82,7 @@ const CoursePage = () => {
                   {course.description}
                 </p>
 
-                <div className="flex items-center justify-between text-[#6B584C] mb-4">
+                {/* <div className="flex items-center justify-between text-[#6B584C] mb-4">
                   <div className="flex items-center gap-3">
                     <Clock className="h-5 w-5 text-[#D2691E]" />
                     <span>
@@ -103,7 +97,7 @@ const CoursePage = () => {
                     <Users className="h-5 w-5 text-[#228B22]" />
                     <span>{course.enrollmentCount} enrolled</span>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
                   <div className="flex items-center gap-3">
@@ -116,14 +110,22 @@ const CoursePage = () => {
                       </span>
                     )}
                   </div>
-                  <button className="px-6 py-2.5 bg-[#228B22] text-white rounded-lg hover:bg-[#1E5631] transition-colors duration-300 shadow-md hover:shadow-lg">
-                    Enroll Now
+                  <button className="px-4 py-2.5 bg-[#228B22] text-white rounded-lg hover:bg-[#1E5631] transition-colors duration-300 shadow-md hover:shadow-lg">
+                    View Details
                   </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
+      </div>
+      <div className="flex justify-center mt-8">
+        <Link href="/all-courses">
+          <button className="px-6 py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
+            View All Courses
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </Link>
       </div>
     </div>
   );

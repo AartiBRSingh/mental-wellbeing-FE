@@ -145,11 +145,11 @@ async function ExpertDetailsPage({ params, searchParams }) {
                         <NotebookPen className="w-5 h-5 group-hover:animate-pulse" />
                         <span className="whitespace-nowrap">Book</span>
                       </button>
-                      <button className="cursor-pointer group flex-shrink-0 flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+                      <button className="cursor-pointer group flex-shrink-0 flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
                         <MessageCircle className="w-5 h-5 group-hover:animate-pulse" />
                         <span className="whitespace-nowrap">Live Chat</span>
                       </button>
-                      <button className="cursor-pointer group flex-shrink-0 flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+                      <button className="cursor-pointer group flex-shrink-0 flex items-center gap-2 bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
                         <Video className="w-5 h-5 group-hover:animate-pulse" />
                         <span className="whitespace-nowrap">
                           Video Consultation
@@ -276,7 +276,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     : "text-gray-600"
                 }`}
               >
-                Consultation Q/A
+                Consult Q/A
               </Link>
               <Link
                 href={`?tab=journal`}
