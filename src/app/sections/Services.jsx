@@ -187,7 +187,7 @@ const Services = () => {
               ))}
             </div>
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{
                 scale: 1,
                 opacity: 1,

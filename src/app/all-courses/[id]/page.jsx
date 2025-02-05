@@ -1,228 +1,276 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import {
-  Star,
-  Clock,
-  ChevronDown,
-  ChevronUp,
-  Users,
-  BookOpen,
-  Globe,
-} from "lucide-react";
+import React, { useState } from "react";
+import { Star, Info, ChevronDown } from "lucide-react";
 
 const CourseDetailPage = () => {
-  const [course, setCourse] = useState(null);
-  const [isExpanded, setIsExpanded] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
-  // Sample reviews and success stories since they're empty in the data
-  const sampleReviews = [
-    {
-      id: 1,
-      rating: 5,
-      comment:
-        "This course transformed my understanding of mental wellbeing. The practical exercises were particularly helpful.",
-      date: "2024-12-15",
-      studentName: "John Doe",
+  const courseData = {
+    // ... previous courseData remains the same ...
+    title: "Child Therapy",
+    description:
+      "Child therapy, also known as counseling for kids, helps children understand and manage challenges that affect their mental health. Child therapists are trained to work with children and teens to help them break down problems and find solutions. ",
+    instructor: "Dr Sougata",
+    enrollmentCount: "6,781",
+    rating: 4.1,
+    reviews: 228,
+    duration: "3 months",
+    paceDescription: "at 15 hours a week",
+    level: "Beginner level",
+    schedulePace: "Learn at your own pace",
+    startDate: "Feb 10",
+    numCourses: 8,
+    schedule: "Flexible Schedule",
+    about: {
+      title: "About this Professional Course",
+      content:
+        "Learn the essential skills and techniques for effective child therapy through hands-on practice and expert guidance. This comprehensive course covers fundamental principles of child psychology and practical therapeutic approaches.",
+      skills: [
+        "Child Psychology",
+        "Play Therapy",
+        "Behavioral Assessment",
+        "Family Counseling",
+        "Therapeutic Techniques",
+      ],
     },
-    {
-      id: 2,
-      rating: 4,
-      comment:
-        "Very comprehensive content. Would recommend to anyone starting their mental health journey.",
-      date: "2024-12-20",
-      studentName: "Jane Smith",
+    outcomes: {
+      title: "What you'll learn",
+      items: [
+        "Understand child development and psychology",
+        "Master therapeutic techniques for children",
+        "Develop assessment and intervention skills",
+        "Learn to work with families and caregivers",
+      ],
     },
-  ];
-
-  const sampleSuccessStories = [
-    {
-      studentName: "Sarah Johnson",
-      story:
-        "This course helped me develop better coping mechanisms and improve my daily mental wellness routine.",
-      date: "2024-12-25",
-    },
-    {
-      studentName: "Michael Chen",
-      story:
-        "The practical tools I learned have made a significant difference in how I handle stress and anxiety.",
-      date: "2025-01-10",
-    },
-  ];
-
-  useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const id = "679c9768dd906e1b51331add"; // Replace with actual ID from router/params
-        const response = await axios.get(
-          `https://starfish-app-fko8w.ondigitalocean.app/get-courses/${id}`
-        );
-        setCourse(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchCourse();
-  }, []);
-
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-
-  if (error)
-    return <div className="text-center text-red-600 p-4">Error: {error}</div>;
-
-  if (!course) return null;
-
-  const toggleSection = (index) => {
-    setIsExpanded((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
+    courses: [
+      {
+        title: "Fundamentals of Child Psychology",
+        duration: "2 weeks",
+        description: "Understanding child development and behavior",
+      },
+      {
+        title: "Play Therapy Techniques",
+        duration: "3 weeks",
+        description: "Learn effective therapeutic play methods",
+      },
+      {
+        title: "Family Systems Approach",
+        duration: "3 weeks",
+        description: "Working with families in child therapy",
+      },
+    ],
+    testimonials: [
+      {
+        name: "Dr. Emily Parker",
+        role: "Child Psychologist",
+        content:
+          "This course provided invaluable practical knowledge for working with children.",
+      },
+      {
+        name: "Mark Thompson",
+        role: "Family Therapist",
+        content:
+          "Excellent curriculum that bridges theory and practice in child therapy.",
+      },
+    ],
   };
 
+  const renderContent = (section) => {
+    switch (section) {
+      case "About":
+        return (
+          <div className="py-6">
+            <h2 className="text-xl font-bold mb-4">{courseData.about.title}</h2>
+            <p className="text-gray-700 mb-4">{courseData.about.content}</p>
+            <h3 className="font-bold mb-2">Skills you will gain:</h3>
+            <div className="flex flex-wrap gap-2">
+              {courseData.about.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="bg-gray-100 px-3 py-1 rounded-full text-sm"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      case "Outcomes":
+        return (
+          <div className="py-6">
+            <h2 className="text-xl font-bold mb-4">
+              {courseData.outcomes.title}
+            </h2>
+            <ul className="space-y-3">
+              {courseData.outcomes.items.map((item) => (
+                <li key={item} className="flex items-start">
+                  <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-2"></div>
+                  <span className="text-gray-700">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      case "Courses":
+        return (
+          <div className="py-6">
+            <h2 className="text-xl font-bold mb-4">Courses in this Program</h2>
+            <div className="space-y-4">
+              {courseData.courses.map((course, index) => (
+                <div key={index} className="border rounded-lg p-4">
+                  <h3 className="font-bold mb-2">{course.title}</h3>
+                  <p className="text-sm text-gray-600 mb-2">
+                    {course.duration}
+                  </p>
+                  <p className="text-gray-700">{course.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case "Testimonials":
+        return (
+          <div className="py-6">
+            <h2 className="text-xl font-bold mb-4">What learners are saying</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {courseData.testimonials.map((testimonial, index) => (
+                <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                  <p className="text-gray-700 mb-3">{testimonial.content}</p>
+                  <div>
+                    <p className="font-bold">{testimonial.name}</p>
+                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  // Rest of your component remains the same until the navigation section
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Hero Section */}
-      <div className="grid md:grid-cols-3 gap-8 mb-8">
-        <div className="md:col-span-2">
-          <h1 className="text-3xl font-bold mb-4">{course.title}</h1>
-          <p className="text-gray-600 mb-4">{course.description}</p>
+    <div className="max-w-7xl mx-auto px-4 py-8 bg-white m-10 rounded-2xl shadow-xl">
+      {/* Previous sections remain exactly the same */}
+      <div className="mb-8 pl-6">
+        <div className="flex">
+          <img
+            src="/childhover.jpg"
+            alt="Adobe"
+            className="h-48 w-48 rounded-full mb-6 shadow-xl"
+          />
+          <h1 className="text-3xl font-bold p-16">{courseData.title}</h1>
+        </div>
+        <p className="text-gray-700 mb-6 max-w-3xl">{courseData.description}</p>
 
-          <div className="flex flex-wrap items-center gap-6 mb-4">
-            <div className="flex items-center">
-              <Star className="w-5 h-5 text-yellow-400 fill-current" />
-              <span className="ml-2">4.8 (128 reviews)</span>
-            </div>
-            <div className="flex items-center">
-              <Users className="w-5 h-5 text-gray-600" />
-              <span className="ml-2">{course.enrollmentCount} students</span>
-            </div>
-            <div className="flex items-center">
-              <Globe className="w-5 h-5 text-gray-600" />
-              <span className="ml-2">{course.language}</span>
-            </div>
-            <div className="flex items-center">
-              <BookOpen className="w-5 h-5 text-gray-600" />
-              <span className="ml-2">{course.category}</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 mb-6">
-            <span className="text-3xl font-bold">
-              ₹{course.discountedPrice}
-            </span>
-            <span className="text-xl text-gray-500 line-through">
-              ₹{course.price}
-            </span>
-          </div>
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-gray-600">Instructor: </span>
+          <a href="#" className="text-blue-600 hover:underline">
+            {courseData.instructor}
+          </a>
         </div>
 
-        <div className="md:col-span-1">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img
-              src={course.thumbnailUrl}
-              alt={course.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-6">
-              <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">
-                Enroll Now
-              </button>
+        <div className="max-w-xs">
+          <button className="w-full bg-blue-600 text-white py-3 px-6 rounded font-semibold mb-2 hover:bg-blue-700">
+            Enroll for Free
+          </button>
+          <p className="text-sm text-center text-gray-600">
+            Starts {courseData.startDate}
+          </p>
+        </div>
+
+        <div className="mt-4">
+          <span className="font-bold">{courseData.enrollmentCount}</span>
+          <span className="text-gray-600"> already enrolled</span>
+        </div>
+      </div>
+
+      {/* Course Details Card */}
+      <div className="bg-white rounded-xl shadow-xl border border-spacing-1 border-slate-400 p-6 mb-8">
+        <div className="grid md:grid-cols-5 gap-8">
+          <div className="border-r-2 border-x-slate-400">
+            <h3 className="font-bold text-lg mb-2">
+              {courseData.numCourses} course series
+            </h3>
+            <p className="text-gray-600 text-sm">
+              Earn a career credential that demonstrates your expertise
+            </p>
+          </div>
+
+          <div className="border-r-2 border-x-slate-400">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="font-bold text-lg">{courseData.rating}</span>
+              <Star className="w-5 h-5 text-blue-600 fill-current" />
+              <span className="text-gray-600">
+                ({courseData.reviews} reviews)
+              </span>
             </div>
+          </div>
+
+          <div className="border-r-2 border-x-slate-400">
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="font-bold text-lg">{courseData.level}</h3>
+              <Info className="w-5 h-5 text-gray-400" />
+            </div>
+            <p className="text-gray-600 text-sm">Recommended experience</p>
+          </div>
+
+          <div className="border-r-2 border-x-slate-400">
+            <h3 className="font-bold text-lg mb-2">{courseData.duration}</h3>
+            <p className="text-gray-600 text-sm">
+              {courseData.paceDescription}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-lg mb-2">{courseData.schedule}</h3>
+            <p className="text-gray-600 text-sm">{courseData.schedulePace}</p>
           </div>
         </div>
       </div>
 
-      {/* Curriculum Section */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Course Curriculum</h2>
-        {course.curriculum.map((item, index) => (
-          <div
-            key={index}
-            className="mb-4 bg-white rounded-lg shadow-sm border"
-          >
-            <div
-              className="p-4 cursor-pointer flex justify-between items-center"
-              onClick={() => toggleSection(index)}
+      {/* Navigation */}
+      <div className="border-b mb-6">
+        <nav className="flex gap-8">
+          <button className="pb-4 px-1 text-blue-600 border-b-2 border-blue-600">
+            About
+          </button>
+          {["Outcomes", "Courses", "Testimonials"].map((item) => (
+            <button
+              key={item}
+              onClick={() =>
+                setActiveDropdown(activeDropdown === item ? null : item)
+              }
+              className={`pb-4 px-1 flex items-center gap-1 ${
+                activeDropdown === item
+                  ? "text-blue-600 border-b-2 border-blue-600"
+                  : "text-gray-600"
+              }`}
             >
-              <div>
-                <h3 className="font-semibold">{item.title}</h3>
-                <div className="flex items-center text-gray-600 mt-1">
-                  <Clock className="w-4 h-4" />
-                  <span className="ml-2">
-                    {Math.floor(item.duration / 60)}h {item.duration % 60}m
-                  </span>
-                </div>
-              </div>
-              {isExpanded[index] ? (
-                <ChevronUp className="w-5 h-5 text-gray-600" />
-              ) : (
-                <ChevronDown className="w-5 h-5 text-gray-600" />
-              )}
-            </div>
-            {isExpanded[index] && (
-              <div className="p-4 border-t">
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            )}
-          </div>
-        ))}
-      </section>
-
-      {/* Reviews Section */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Student Reviews</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {sampleReviews.map((review) => (
-            <div
-              key={review.id}
-              className="bg-white rounded-lg shadow-sm border p-6"
-            >
-              <div className="flex items-center mb-2">
-                {[...Array(review.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 text-yellow-400 fill-current"
-                  />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-4">{review.comment}</p>
-              <div className="flex justify-between items-center text-sm text-gray-500">
-                <span>{review.studentName}</span>
-                <span>{new Date(review.date).toLocaleDateString()}</span>
-              </div>
-            </div>
+              {item}
+              <ChevronDown
+                className={`w-4 h-4 transition-transform ${
+                  activeDropdown === item ? "rotate-180" : ""
+                }`}
+              />
+            </button>
           ))}
-        </div>
-      </section>
+        </nav>
+      </div>
 
-      {/* Success Stories Section */}
-      <section>
-        <h2 className="text-2xl font-bold mb-6">Success Stories</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {sampleSuccessStories.map((story, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-sm border p-6"
-            >
-              <h3 className="font-bold mb-2">{story.studentName}</h3>
-              <p className="text-gray-600 mb-4">{story.story}</p>
-              <p className="text-sm text-gray-500">
-                {new Date(story.date).toLocaleDateString()}
-              </p>
-            </div>
-          ))}
+      {/* Always show About section */}
+      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        {renderContent("About")}
+      </div>
+
+      {/* Dropdown content */}
+      {activeDropdown && (
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          {renderContent(activeDropdown)}
         </div>
-      </section>
+      )}
     </div>
   );
 };

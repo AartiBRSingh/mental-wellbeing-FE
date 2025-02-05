@@ -62,7 +62,7 @@ const CourseCatalog = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-[#4A3427] mb-4">
-            Certificate Courses
+            Professional Courses
           </h1>
           <div className="h-1.5 w-24 bg-[#D2691E] mx-auto rounded-full"></div>
         </div>
@@ -96,12 +96,12 @@ const CourseCatalog = () => {
                 <div className="flex items-center justify-between text-[#6B584C]">
                   <div className="flex items-center gap-2">
                     <Clock className="h-5 w-5 text-[#D2691E]" />
-                    <span>{getTotalDuration(course.curriculum)} mins</span>
+                    <span>{getTotalDuration(course.curriculum)} months</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  {/* <div className="flex items-center gap-2">
                     <Users className="h-5 w-5 text-[#228B22]" />
                     <span>{course.enrollmentCount} enrolled</span>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
