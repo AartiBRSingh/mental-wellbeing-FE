@@ -11,7 +11,7 @@ const HealPoint = () => {
   const [email, setEmail] = useState("");
   const navLinks = [
     { label: "Insurance & Pricing", redirectTo: "" },
-    { label: "Career", redirectTo: "" },
+    { label: "Career", redirectTo: "/career" },
     { label: "FAQ", redirectTo: "/frequently-asked-questions" },
   ];
   const dropdownOptions = [
