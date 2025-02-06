@@ -43,11 +43,27 @@ const CoursePage = () => {
     <div className="bg-transparent  py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-12">
-          <div>
-            <h1 className="text-4xl font-bold text-[#4A3427] mb-3 tracking-tight">
-              Featured Courses
-            </h1>
-            <div className="h-1.5 w-24 bg-[#D2691E] rounded-full"></div>
+          <div className="flex gap-2 ml-[480px]">
+            <h2 className="text-5xl font-semibold text-gray-900 mb-6">
+              Featured
+            </h2>
+            <span className="text-[#956144] font-semibold relative text-4xl md:text-6xl lg:text-5xl block">
+              <span className="relative">
+                Courses
+                <svg
+                  className="absolute w-full h-[12px] -bottom-1 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
           </div>
         </div>
 
@@ -121,8 +137,8 @@ const CoursePage = () => {
       </div>
       <div className="flex justify-center mt-8">
         <Link href="/all-courses">
-          <button className="px-6 py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
-            View All Courses
+          <button className="px-6 py-3 mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
+            All Courses
             <ChevronRight className="h-5 w-5" />
           </button>
         </Link>

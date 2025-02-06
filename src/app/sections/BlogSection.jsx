@@ -5,6 +5,7 @@ import axios from "axios";
 import { baseURL } from "../baseURL";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
+import { ChevronRight } from "lucide-react";
 
 const GraffitiDecoration = () => (
   <svg className="absolute inset-0 " xmlns="http://www.w3.org/2000/svg">
@@ -296,10 +297,9 @@ const BlogSection = () => {
             href="/blogs"
             className="group w-full sm:w-auto mx-4 sm:mx-8 md:mx-16 lg:mx-0"
           >
-            <button className="relative flex items-center justify-center w-full sm:w-auto gap-2 px-6 md:px-8 lg:mr-28 py-3 md:py-3.5 bg-[#956144] text-white rounded-full transition-all duration-300 hover:bg-[#7A4F37] overflow-hidden">
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity cursor-pointer" />
-              <span className="font-medium">Read More</span>
-              <MdChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1 text-lime-400" />
+            <button className="px-6 py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
+              All News
+              <ChevronRight className="h-5 w-5" />
             </button>
           </Link>
         </div>

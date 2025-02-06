@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { ChevronRight } from "lucide-react";
 
 const TitleUnderline = ({ stroke }) => (
   <svg
@@ -105,7 +106,7 @@ const WhyUs = () => {
           <div className="flex gap-2 justify-center">
             <h1 className="text-4xl md:text-5xl font-semibold mt-6 mb-10">
               Our{" "}
-              <span className="relative text-[#FDD56A]">
+              <span className="relative text-[#956144]">
                 Experts
                 <TitleUnderline stroke="orange" />
               </span>
@@ -135,9 +136,12 @@ const WhyUs = () => {
         <div className="flex justify-center mt-2">
           <Link
             href={"/all-experts"}
-            className="relative flex items-center justify-center w-full sm:w-auto gap-2 px-6 md:px-8 lg:mr-8 py-3 md:py-3 bg-blue-400 text-white rounded-full transition-all duration-300 hover:bg-blue-600 overflow-hidden"
+            className="relative flex items-center justify-center "
           >
-            View all <FaArrowRightLong />
+            <button className="px-6 py-3 mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
+              All Experts
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </Link>
         </div>
       </div>
