@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { baseURL } from "@/app/baseURL";
 import Link from "next/link";
+import ReviewForm from "@/app/components/ReviewForm";
 
 async function ExpertDetailsPage({ params, searchParams }) {
   let expert = null;
@@ -430,6 +431,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
           ) : activeTab === "reviews" ? (
             <div>
               <h2 className="text-2xl font-semibold my-4">Reviews</h2>
+              <ReviewForm expertId={id} />
               {expert.reviews.length > 0 ? (
                 expert.reviews.map((review, index) => (
                   <div
