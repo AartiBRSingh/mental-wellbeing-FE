@@ -1,4 +1,5 @@
 "use client";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Content } from "next/font/google";
 import React, { useState } from "react";
 
@@ -211,10 +212,26 @@ const AboutPage = () => {
                 </p>
               </div>
             </div>
-            <p className="mt-2">
-              By using ShareYrHeart, you acknowledge that you have read and
-              understood this Privacy Policy and agree to its terms.
-            </p>
+          </div>
+        </section>
+
+        <section className="bg-cream text-black py-16 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-8">Contact Us</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="flex items-center justify-center">
+                <Mail className="w-8 h-8 mr-4 text-red-500" />
+                <span>support@shareyrheart.com</span>
+              </div>
+              <div className="flex items-center justify-center">
+                <Phone className="w-8 h-8 mr-4 text-blue-500" />
+                <span>+91 9874021437</span>
+              </div>
+              <div className="flex items-center justify-center">
+                <MapPin className="w-8 h-8 mr-4 text-green-500" />
+                <span>7B Mysore Road, Kolkata-700026</span>
+              </div>
+            </div>
           </div>
         </section>
 

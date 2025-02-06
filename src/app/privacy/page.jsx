@@ -429,6 +429,15 @@ const PrivacyPolicy = () => {
               protecting your information.
             </p>
           </div>
+
+          <section className="py-16 px-4 bg-gray-50">
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-gray-700">
+                By using the ShareYrHeart platform, you acknowledge that you
+                have read, understood, and agree to these Terms and Conditions.
+              </p>
+            </div>
+          </section>
         </div>
       </div>
     </div>

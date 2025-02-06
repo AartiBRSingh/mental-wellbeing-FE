@@ -9,13 +9,17 @@ const TestimonialsSlider = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const containerRef = useRef(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
         const response = await axios.get(`${baseURL}/get-testimonials`);
         if (response?.data && response?.data?.length > 0) {
+          // Create a longer array for seamless looping
           setTestimonials([
+            ...response.data,
+            ...response.data,
             ...response.data,
             ...response.data,
             ...response.data,
@@ -31,40 +35,55 @@ const TestimonialsSlider = () => {
 
   const handleScroll = useCallback(
     (direction) => {
-      const scrollAmount = 250;
+      if (isTransitioning) return;
+
+      const scrollAmount = 300;
+      const maxScroll = (testimonials.length * scrollAmount) / 5;
+
+      setIsTransitioning(true);
+
       if (direction === "left") {
         setScrollPosition((prev) => {
           const newPosition = prev - scrollAmount;
-          // If at start, jump to end
-          if (newPosition < 0) {
-            return (testimonials.length / 3) * scrollAmount;
+          if (newPosition < scrollAmount) {
+            // When near the start, jump to the fourth set of items
+            setTimeout(() => {
+              setIsTransitioning(false);
+              setScrollPosition(maxScroll - 2 * scrollAmount);
+            }, 500);
+            return 0;
           }
+          setTimeout(() => setIsTransitioning(false), 500);
           return newPosition;
         });
       } else {
         setScrollPosition((prev) => {
           const newPosition = prev + scrollAmount;
-          // If at end, jump to start
-          if (newPosition >= (testimonials.length * scrollAmount) / 2) {
-            return 0;
+          if (newPosition >= maxScroll - scrollAmount) {
+            // When near the end, jump to the second set of items
+            setTimeout(() => {
+              setIsTransitioning(false);
+              setScrollPosition(2 * scrollAmount);
+            }, 500);
+            return maxScroll;
           }
+          setTimeout(() => setIsTransitioning(false), 500);
           return newPosition;
         });
       }
     },
-    [testimonials.length]
+    [testimonials.length, isTransitioning]
   );
 
-  // Auto scroll effect
   useEffect(() => {
     let intervalId;
-    if (!isHovered) {
+    if (!isHovered && testimonials.length > 0) {
       intervalId = setInterval(() => {
         handleScroll("right");
       }, 3000);
     }
     return () => clearInterval(intervalId);
-  }, [isHovered, handleScroll]);
+  }, [isHovered, handleScroll, testimonials.length]);
 
   if (testimonials.length === 0) return null;
 
@@ -91,14 +110,18 @@ const TestimonialsSlider = () => {
           onMouseLeave={() => setIsHovered(false)}
         >
           <div
-            className="flex transition-transform duration-500 ease-in-out"
+            className={`flex ${
+              isTransitioning
+                ? "transition-transform duration-500 ease-in-out"
+                : "transition-none"
+            }`}
             style={{
               transform: `translateX(-${scrollPosition}px)`,
             }}
           >
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="min-w-[250px]  px-2 flex-shrink-0 ">
-                <div className="bg-slate-50 rounded-2xl  p-4 h-full transition-transform ">
+              <div key={index} className="min-w-[250px] px-2 flex-shrink-0">
+                <div className="bg-slate-50 rounded-2xl shadow-xl p-4 h-full transition-transform">
                   <div className="flex flex-col items-center space-y-4">
                     <div className="w-20 h-20 rounded-full overflow-hidden">
                       <img
