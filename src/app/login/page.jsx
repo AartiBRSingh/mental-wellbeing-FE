@@ -80,7 +80,7 @@ const Login = () => {
 
     try {
       await onEmailSubmit(email);
-      toast.success("Succesfully SignedIn");
+      toast.success("OTP Sent!");
     } catch (error) {
       setError("An error occurred while sending OTP");
     } finally {

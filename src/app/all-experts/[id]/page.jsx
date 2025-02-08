@@ -24,6 +24,8 @@ import { baseURL } from "@/app/baseURL";
 import Link from "next/link";
 import ReviewForm from "@/app/components/ReviewForm";
 import ReviewButton from "@/app/components/ReviewButton";
+import ConsultQNA from "@/app/components/ConsultQNA";
+import JournalsExpert from "@/app/components/JournalsExpert";
 
 async function ExpertDetailsPage({ params, searchParams }) {
   let expert = null;
@@ -473,12 +475,12 @@ async function ExpertDetailsPage({ params, searchParams }) {
           ) : activeTab === "consultations" ? (
             <div>
               <h2 className="text-2xl font-semibold my-4">Consultations</h2>
-              <p>No consultations available!</p>
+              <ConsultQNA />
             </div>
           ) : (
             <div>
               <h2 className="text-2xl font-semibold my-4">Journal</h2>
-              <p>No journals available!</p>
+              <JournalsExpert />
             </div>
           )}
         </div>
