@@ -10,7 +10,7 @@ import Link from "next/link";
 const HealPoint = () => {
   const [email, setEmail] = useState("");
   const navLinks = [
-    { label: "Insurance & Pricing", redirectTo: "" },
+    { label: "Insurance & Pricing", redirectTo: "/insurance-and-pricing" },
     { label: "Career", redirectTo: "/career" },
     { label: "FAQ", redirectTo: "/frequently-asked-questions" },
   ];
