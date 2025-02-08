@@ -8,6 +8,11 @@ import {
   ResponsiveContainer,
   Legend,
   Tooltip,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
 } from "recharts";
 import Cookies from "js-cookie";
 
@@ -30,6 +35,15 @@ const WorkplaceMentalHealthPage = () => {
     { name: "Depression", value: 40 },
     { name: "Anxiety", value: 35 },
     { name: "Stress", value: 25 },
+  ];
+
+  const benefitsData = [
+    { name: "Mental Health", value: 85, fill: "#77DEFF" },
+    { name: "Productivity", value: 78, fill: "#A1DC6E" },
+    { name: "Retention", value: 72, fill: "#FF8458" },
+    { name: "Work-Life", value: 80, fill: "#FACC15" },
+    { name: "Healthcare", value: 65, fill: "#9333EA" },
+    { name: "Team Work", value: 75, fill: "#EC4899" },
   ];
 
   useEffect(() => {
@@ -61,10 +75,6 @@ const WorkplaceMentalHealthPage = () => {
     }
   }, []);
 
-  const handlePayment = async () => {
-    // ... (keeping the existing payment handling code)
-  };
-
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -77,16 +87,82 @@ const WorkplaceMentalHealthPage = () => {
     return null;
   };
 
+  const handlePayment = async () => {
+    const amount = 500;
+
+    const response = await fetch(`${baseURL}/api/create-order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, amount }),
+    });
+
+    const data = await response.json();
+    if (!data.success) {
+      return alert("Failed to create Razorpay order");
+    }
+
+    const { order } = data;
+
+    if (!window.Razorpay) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_CR2IahVWmEdcMA",
+      amount: order.amount,
+      currency: "INR",
+      name: "ShareYHeart",
+      description: "Transaction",
+      image: "/logo.png",
+      order_id: order.id,
+      handler: async (response) => {
+        const verifyResponse = await fetch(`${baseURL}/api/verify-payment`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            userId,
+            amount,
+            planType: "student",
+          }),
+        });
+
+        const verifyData = await verifyResponse.json();
+        if (verifyData.success) {
+          alert("Payment Successful!");
+          Cookies.set("paidForEmployee", "true");
+          router.push("/questionnaires?userType=student");
+        } else {
+          alert("Payment verification failed. Please try again.");
+        }
+      },
+      prefill: {
+        name: userName,
+        email: email,
+        contact: phoneNo,
+      },
+      theme: {
+        color: "black",
+      },
+    };
+
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-          <div className="space-y-6">
+          <div className="space-y-4">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-[#FFD255] to-green-500 bg-clip-text text-transparent">
               Mental Health in the Workplace
             </h1>
 
-            <div className="relative h-48 mb-6 rounded-lg overflow-hidden">
+            <div className="relative h-48 rounded-lg overflow-hidden">
               <img
                 src="https://img.freepik.com/free-vector/good-team-concept-illustration_114360-4225.jpg?t=st=1737958269~exp=1737961869~hmac=9f55dffa1ad3cbe3003fbe6986667390cde22ce60ebf14ec70599896f3d62e8b&w=740"
                 alt="Nature scene representing mental wellness"
@@ -106,12 +182,122 @@ const WorkplaceMentalHealthPage = () => {
                 the mental well-being of its employees.
               </p>
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="h-80">
+                <h3 className="text-lg font-semibold text-center">
+                  Current Workplace Statistics
+                </h3>
+                <ResponsiveContainer width="100%" height="80%">
+                  <PieChart>
+                    <Pie
+                      data={workplaceStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={70}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {workplaceStats.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+
+              <div className="h-64">
+                <h3 className="text-lg font-semibold text-center">
+                  Mental Health Impact Distribution
+                </h3>
+                <ResponsiveContainer width="100%" height="80%">
+                  <PieChart>
+                    <Pie
+                      data={impactStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={70}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {impactStats.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+              <p className="text-gray-800 italic">
+                An Employee Well-Being Program is an investment in both
+                individual growth and organizational success. It fosters a
+                healthier, happier, and more engaged workforce, leading to
+                long-term benefits for businesses and employees alike.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-8 mt-6">
+            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
+              <h2 className="text-2xl font-semibold mb-4">
+                Employee Well-Being Benefits
+              </h2>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={benefitsData}
+                    margin={{ top: 10, right: 20, left: 20, bottom: 25 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="name"
+                      angle={-45}
+                      textAnchor="end"
+                      height={50}
+                      interval={0}
+                      tick={{ fontSize: 12 }}
+                    />
+                    <YAxis
+                      domain={[0, 100]}
+                      label={{
+                        value: "Impact (%)",
+                        angle: -90,
+                        position: "insideLeft",
+                        offset: 5,
+                        fontSize: 12,
+                      }}
+                      tick={{ fontSize: 12 }}
+                    />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {benefitsData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
             <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
               <div className="flex gap-2">
                 <h2 className="text-4xl font-semibold text-gray-900 mb-6">
                   Key
                 </h2>
-                <span className="text-green-500 relative text-4xl md:text-6xl lg:text-4xl block">
+                <span className="text-green-500 relative text-4xl block">
                   <span className="relative">
                     Findings
                     <svg
@@ -149,73 +335,13 @@ const WorkplaceMentalHealthPage = () => {
                 </li>
               </ul>
             </div>
-          </div>
 
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="h-80">
-                <h3 className="text-lg font-semibold  text-center">
-                  Current Workplace Statistics
-                </h3>
-                <ResponsiveContainer width="100%" height="80%">
-                  <PieChart>
-                    <Pie
-                      data={workplaceStats}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={50}
-                      outerRadius={70}
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      {workplaceStats.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS[index % COLORS.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-
-              <div className="h-60">
-                <h3 className="text-lg font-semibold text-center">
-                  Mental Health Impact Distribution
-                </h3>
-                <ResponsiveContainer width="100%" height="90%">
-                  <PieChart>
-                    <Pie
-                      data={impactStats}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={50}
-                      outerRadius={70}
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      {impactStats.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS[index % COLORS.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-
-            <div className="bg-gray-50 rounded-xl p-6 shadow-inner ">
+            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
               <div className="flex gap-2">
                 <h2 className="text-4xl font-semibold text-gray-900 mb-6">
                   Warning
                 </h2>
-                <span className="text-green-500 relative text-4xl md:text-6xl lg:text-4xl block">
+                <span className="text-green-500 relative text-4xl block">
                   <span className="relative">
                     signs
                     <svg
@@ -248,31 +374,28 @@ const WorkplaceMentalHealthPage = () => {
                 </li>
               </ul>
             </div>
-
-            <div className="mt-6">
-              {hasPaid ? (
-                <button
-                  onClick={() =>
-                    router.push("/questionnaires?userType=employee")
-                  }
-                  className="w-full mt-8 py-4 px-6 bg-gradient-to-r from-[#EBB509] to-purple-600 text-white font-semibold rounded-xl
-                  transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
-                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                >
-                  Begin Your Mental Health Journey
-                </button>
-              ) : (
-                <button
-                  onClick={handlePayment}
-                  className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl
-                  transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
-                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                >
-                  Make Payment to Begin
-                </button>
-              )}
-            </div>
           </div>
+        </div>
+        <div className="m-2 flex justify-center">
+          {hasPaid ? (
+            <button
+              onClick={() => router.push("/questionnaires?userType=employee")}
+              className="py-4 min-w-[800px] px-10 bg-gradient-to-r from-[#EBB509] to-purple-600 text-white font-semibold rounded-xl
+                  transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Begin Your Mental Health Journey
+            </button>
+          ) : (
+            <button
+              onClick={handlePayment}
+              className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl
+                  transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Make Payment to Begin
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -200,16 +200,84 @@ const InternshipForm = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-3xl mx-auto">
+      <div className="flex justify-center">
+        <section className="bg-gradient-to-r from-blue-100 to-purple-100 p-6 rounded-2xl max-w-5xl ">
+          <h2 className="text-3xl text-center font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+            Career with ShareYrHeart
+          </h2>
+          <div className="space-y-4">
+            <p className="text-gray-700 ml-2">
+              A career with ShareYrHeart is more than just a job—it’s an
+              opportunity to transform lives while growing professionally in the
+              fast-evolving field of mental health. Whether you’re a
+              psychologist, counselor, trainer, or entrepreneur, ShareYrHeart
+              offers a platform to make a meaningful impact.
+            </p>
+            <h2 className="text-3xl text-center font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+              Why Build Your Career with ShareYrHeart?
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Be a Changemaker
+                </h3>
+                <p className="text-gray-700">
+                  {" "}
+                  Help individuals, students, and employees enhance their mental
+                  well-being.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Diverse Career Paths
+                </h3>
+                <p className="text-gray-700">
+                  {" "}
+                  Explore roles in counseling, research, corporate well-being,
+                  and individual mental health
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  On-Field Job Roles
+                </h3>
+                <p className="text-gray-700">
+                  Work directly with schools, corporate organizations, and
+                  community programs, providing hands-on mental health support.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Work with Experts
+                </h3>
+                <p className="text-gray-700">
+                  Collaborate with leading psychologists, therapists, and
+                  educators in a professional and growth-oriented environment.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <h3 className="font-semibold text-xl text-gray-800 mb-2">
+                  Career Growth & Flexibility
+                </h3>
+                <p className="text-gray-700">
+                  Hybrid and remote work opportunities, training programs, and
+                  certificate courses to boost your professional development.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-white p-8 rounded-xl shadow-lg"
+          className=" p-8 rounded-xl shadow-lg bg-gradient-to-r from-blue-100 to-purple-100"
         >
-          <div className="flex gap-2">
+          <div className="flex gap-2 ">
             <h2 className="text-4xl font-semibold text-gray-900 mb-6">Job</h2>
             <span className="text-green-500 relative text-4xl md:text-6xl lg:text-4xl block">
               <span className="relative">
