@@ -23,6 +23,7 @@ import {
 import { baseURL } from "@/app/baseURL";
 import Link from "next/link";
 import ReviewForm from "@/app/components/ReviewForm";
+import ReviewButton from "@/app/components/ReviewButton";
 
 async function ExpertDetailsPage({ params, searchParams }) {
   let expert = null;
@@ -430,13 +431,16 @@ async function ExpertDetailsPage({ params, searchParams }) {
             </div>
           ) : activeTab === "reviews" ? (
             <div>
-              <h2 className="text-2xl font-semibold my-4">Reviews</h2>
-              <ReviewForm expertId={id} />
+              <div className="flex justify-between my-6">
+                <h2 className="text-2xl font-semibold my-4">Reviews</h2>
+                <ReviewButton expertId={id} />
+              </div>
+
               {expert.reviews.length > 0 ? (
                 expert.reviews.map((review, index) => (
                   <div
                     key={index}
-                    className="bg-white shadow-md rounded-lg p-6 mb-4 border border-gray-100 hover:shadow-lg transition-shadow duration-300"
+                    className="bg-white shadow-md rounded-lg p-5 mb-4 border border-gray-100 hover:shadow-lg transition-shadow duration-300 max-w-[500px]"
                   >
                     <div className="flex items-center mb-3">
                       {review.image ? (
