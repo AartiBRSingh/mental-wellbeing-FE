@@ -65,7 +65,7 @@ const Navbar = () => {
       label: "Services",
       redirectTo: "#services",
       dropdown: [
-        { label: "Mental well being", href: "/employee" },
+        { label: "Mental well being", href: "/mental-wellbeing" },
         { label: "Certificate course", href: "/certificate-course" },
       ],
     },
