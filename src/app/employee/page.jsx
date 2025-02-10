@@ -16,7 +16,7 @@ import {
 } from "recharts";
 import Cookies from "js-cookie";
 
-const COLORS = ["#77DEFF", "#A1DC6E", "#FF8458", "#FACC15"];
+const COLORS = ["#77DEFF", "#00FF00", "#FF8458", "#FACC15", "#CCCCFF"];
 
 const WorkplaceMentalHealthPage = () => {
   const [hasPaid, setHasPaid] = useState(false);
@@ -27,23 +27,17 @@ const WorkplaceMentalHealthPage = () => {
   const router = useRouter();
 
   const workplaceStats = [
-    { name: "Mental Health Issues", value: 15 },
-    { name: "Healthy Mental State", value: 85 },
+    { name: "Mental Health Issues", value: 70 },
+    { name: "Healthy Mental State", value: 30 },
   ];
 
   const impactStats = [
-    { name: "Depression", value: 40 },
-    { name: "Anxiety", value: 35 },
-    { name: "Stress", value: 25 },
-  ];
-
-  const benefitsData = [
-    { name: "Mental Health", value: 85, fill: "#77DEFF" },
-    { name: "Productivity", value: 78, fill: "#A1DC6E" },
-    { name: "Retention", value: 72, fill: "#FF8458" },
-    { name: "Work-Life", value: 80, fill: "#FACC15" },
-    { name: "Healthcare", value: 65, fill: "#9333EA" },
-    { name: "Team Work", value: 75, fill: "#EC4899" },
+    { name: "Anxiety Disorders", value: 30 },
+    { name: "PTSD", value: 10 },
+    { name: "Stress-Related Issues", value: 20 },
+    { name: "Depression", value: 25 },
+    { name: "Bipolar Disorder", value: 8 },
+    { name: "Others", value: 7 },
   ];
 
   useEffect(() => {
@@ -212,7 +206,7 @@ const WorkplaceMentalHealthPage = () => {
                 </ResponsiveContainer>
               </div>
 
-              <div className="h-64">
+              <div className="h-80">
                 <h3 className="text-lg font-semibold text-center">
                   Mental Health Impact Distribution
                 </h3>
@@ -240,18 +234,10 @@ const WorkplaceMentalHealthPage = () => {
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-              <p className="text-gray-800 italic">
-                An Employee Well-Being Program is an investment in both
-                individual growth and organizational success. It fosters a
-                healthier, happier, and more engaged workforce, leading to
-                long-term benefits for businesses and employees alike.
-              </p>
-            </div>
           </div>
 
           <div className="space-y-8 mt-6">
-            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
+            {/* <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
               <h2 className="text-2xl font-semibold mb-4">
                 Employee Well-Being Benefits
               </h2>
@@ -290,7 +276,7 @@ const WorkplaceMentalHealthPage = () => {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-            </div>
+            </div> */}
 
             <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
               <div className="flex gap-2">
@@ -373,6 +359,15 @@ const WorkplaceMentalHealthPage = () => {
                   <span>Difficulty with feedback and communication</span>
                 </li>
               </ul>
+            </div>
+
+            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+              <p className="text-gray-800 italic">
+                An Employee Well-Being Program is an investment in both
+                individual growth and organizational success. It fosters a
+                healthier, happier, and more engaged workforce, leading to
+                long-term benefits for businesses and employees alike.
+              </p>
             </div>
           </div>
         </div>

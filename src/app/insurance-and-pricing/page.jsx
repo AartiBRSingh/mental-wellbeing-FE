@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Shield, CreditCard, HelpCircle, ChevronDown } from "lucide-react";
 
 const InsuranceAndPricing = () => {
-  const [activeTab, setActiveTab] = useState("insurance");
   const [openFaq, setOpenFaq] = useState(null);
 
   const toggleFaq = (index) => {
@@ -11,143 +10,230 @@ const InsuranceAndPricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-serif text-stone-800 mb-4">
-            Insurance & Pricing
-          </h1>
-          <p className="text-stone-600 text-lg">
-            Comprehensive mental health support tailored to your needs
+    <div className="min-h-screen bg-white p-8">
+      <div className="max-w-screen-2xl mx-auto mt-16">
+        <div className="mb-12 flex justify-between">
+          <div className="mt-14">
+            <span className=" relative text-8xl font-serif text-stone-800 max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+              <span className="relative">
+                Insurance & Pricing
+                <svg
+                  className="absolute w-full h-[10px] bottom-0 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
+
+            <p className="text-stone-600 text-xl mt-16 max-w-[1000px] ml-6">
+              Comprehensive mental health support tailored to your needs
+            </p>
+            <p className="text-stone-600 text-xl mt-10 max-w-[800px] ml-6">
+              In India, the Mental Healthcare Act of 2017 mandates that health
+              insurance providers cover mental health treatments on par with
+              physical ailments. This legislation ensures that mental health
+              services, including consultations, therapy sessions,
+              hospitalization, and medications, are included in standard health
+              insurance policies.
+            </p>
+          </div>
+          <img
+            src="https://img.freepik.com/free-vector/father-shaking-hands-with-insurance-agent_74855-4412.jpg?t=st=1739079197~exp=1739082797~hmac=3ce7eecc2c59d3358dbe561e259fa608234df7471b4fdec3d81c34e525275a31&w=740"
+            alt="Insurance consultation"
+            className="w-[450px] h-[450px]"
+          />
+        </div>
+
+        <div className="m-16">
+          <p className="text-lg font-semibold border-l-4 border-blue-700 pl-4 py-6 bg-green-100  mt-10 max-w-full ml-6 rounded-r-xl">
+            At ShareYrHeart, we are committed to providing comprehensive mental
+            health support to our users. Our services encompass a range of
+            treatments and therapies designed to address various mental health
+            concerns. To assist our users in navigating their insurance
+            coverage, we offer the following support:
           </p>
         </div>
 
-        {/* Custom Tabs */}
-        <div className="w-full max-w-md mx-auto mb-8">
-          <div className="grid grid-cols-2 bg-amber-100 rounded-lg p-1">
-            <button
-              onClick={() => setActiveTab("insurance")}
-              className={`py-3 px-4 rounded-md flex items-center justify-center transition-all ${
-                activeTab === "insurance"
-                  ? "bg-green-700 text-white"
-                  : "text-stone-600 hover:text-stone-800"
-              }`}
-            >
-              <Shield className="mr-2 h-4 w-4" />
-              Insurance Coverage
-            </button>
-            <button
-              onClick={() => setActiveTab("self-pay")}
-              className={`py-3 px-4 rounded-md flex items-center justify-center transition-all ${
-                activeTab === "self-pay"
-                  ? "bg-green-700 text-white"
-                  : "text-stone-600 hover:text-stone-800"
-              }`}
-            >
-              <CreditCard className="mr-2 h-4 w-4" />
-              Self-Pay Options
+        <div className="flex justify-center">
+          <img
+            src="https://img.freepik.com/free-vector/insurance-concept-illustration_114360-2223.jpg?t=st=1739087384~exp=1739090984~hmac=0eee77cb450ea2b8a6d5c6d70f652160a7f3f0beaaa64100e4b3ad58b622c78c&w=740"
+            alt="Insurance consultation"
+            className="w-[600px] h-[600px]"
+          />
+        </div>
+
+        <p className="text-lg font-semibold border-r-4 border-blue-700 pl-4 py-6 bg-green-100 mt-16 rounded-l-xl max-w-full ml-6">
+          By aligning our offerings with India mental health insurance policies,
+          ShareYrHeart ensures that users receive the necessary support without
+          financial constraints, promoting overall well-being and mental health.
+        </p>
+
+        {/* Insurance Section */}
+        <div className=" p-6 mb-8 mt-8">
+          <h2 className="text-2xl font-serif font-semibold text-stone-800 mb-6 border border-blue-700 max-w-max p-4 rounded-full">
+            Insurance Coverage at ShareYrHeart
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl text-stone-700 mb-4">Our Commitment</h3>
+              <p className="text-stone-600 mb-4">
+                In accordance with India&apos;s Mental Healthcare Act of 2017,
+                we ensure comprehensive coverage for mental health treatments,
+                including consultations, therapy sessions, and medications.
+              </p>
+              <ul className="space-y-6">
+                {[
+                  {
+                    title: "Insurance Guidance",
+                    description:
+                      "We help users understand their insurance policies and the extent of coverage for mental health treatments.",
+                  },
+                  {
+                    title: "Collaboration with Insurers",
+                    description:
+                      "We work closely with insurance providers to ensure that our services are recognized and covered under standard health insurance plans.",
+                  },
+                  {
+                    title: "Transparent Billing",
+                    description:
+                      "Our billing process is transparent, providing detailed invoices that can be submitted to insurance companies for reimbursement.",
+                  },
+                  {
+                    title: "Affordable Services",
+                    description:
+                      "For users without insurance coverage, we offer services at competitive rates to ensure accessibility.",
+                  },
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <div className="h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-1">
+                      <span className="text-green-700">✓</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-stone-800 font-medium">
+                        {item.title}
+                      </span>
+                      <span className="text-stone-600 text-sm mt-1">
+                        {item.description}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <img
+              src="https://img.freepik.com/free-vector/women-walking-umbrella-using-smartphones_1262-21309.jpg?t=st=1739090877~exp=1739094477~hmac=34e076208686579e6ce76c38749fc4994906a85b1fe8f8724adb89e559455c5b&w=740"
+              alt="Insurance consultation"
+              className="w-[450px] h-[450px] absolute right-72"
+            />
+          </div>
+
+          <div className="bg-green-100 p-8 max-w-max rounded-xl mt-10">
+            <h3 className="text-xl font-semibold text-stone-700 mb-4">
+              Understanding Your Coverage
+            </h3>
+            <p className="text-stone-600 mb-4">
+              Our team helps you navigate insurance policies to maximize your
+              benefits and ensure seamless access to mental health services.
+            </p>
+            <button className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors">
+              Verify Coverage
             </button>
           </div>
         </div>
 
-        {/* Tab Content */}
-        <div className="mt-8">
-          {activeTab === "insurance" && (
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-serif text-stone-800 mb-6">
-                Insurance Coverage at ShareYrHeart
-              </h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-xl text-stone-700 mb-4">
-                    Our Commitment
-                  </h3>
-                  <p className="text-stone-600 mb-4">
-                    In accordance with India&apos;s Mental Healthcare Act of
-                    2017, we ensure comprehensive coverage for mental health
-                    treatments, including consultations, therapy sessions, and
-                    medications.
-                  </p>
-                  <ul className="space-y-4">
-                    {[
-                      "Insurance Guidance",
-                      "Collaboration with Insurers",
-                      "Transparent Billing",
-                      "Affordable Services",
-                    ].map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <div className="h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-1">
-                          <span className="text-green-700">✓</span>
-                        </div>
-                        <span className="text-stone-600">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="bg-amber-50 p-6 rounded-lg">
-                  <h3 className="text-xl text-stone-700 mb-4">
-                    Understanding Your Coverage
-                  </h3>
-                  <p className="text-stone-600 mb-4">
-                    Our team helps you navigate insurance policies to maximize
-                    your benefits and ensure seamless access to mental health
-                    services.
-                  </p>
-                  <button className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors">
-                    Verify Coverage
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+        <div className="mt-24 flex justify-center max-w-6xl ml-48">
+          <p className="text-3xl ">
+            While many users may opt for insurance coverage, we also offer a
+            self-pay option for those who prefer to pay directly for their
+            mental health services.
+          </p>
+        </div>
 
-          {activeTab === "self-pay" && (
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-serif text-stone-800 mb-6">
-                Self-Pay Benefits
-              </h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <ul className="space-y-4">
-                    {[
-                      "Immediate Access",
-                      "Complete Privacy",
-                      "Flexible Payment Options",
-                      "No Hidden Costs",
-                      "Customized Care",
-                    ].map((benefit, index) => (
-                      <li key={index} className="flex items-start">
-                        <div className="h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-1">
-                          <span className="text-green-700">✓</span>
-                        </div>
-                        <span className="text-stone-600">{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="bg-amber-50 p-6 rounded-lg">
-                  <h3 className="text-xl text-stone-700 mb-4">
-                    Payment Methods
-                  </h3>
-                  <p className="text-stone-600 mb-4">
-                    We accept various payment methods including credit/debit
-                    cards, UPI, net banking, and digital wallets.
-                  </p>
-                  <button className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors">
-                    View Pricing
-                  </button>
-                </div>
-              </div>
+        {/* Self-Pay Section */}
+        <div className=" p-6 mb-8 mt-16">
+          <h2 className="text-2xl font-serif font-semibold text-stone-800 mb-6 border border-blue-700 max-w-max p-4 rounded-full">
+            Self-Pay Benefits
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <ul className="space-y-6">
+                {[
+                  {
+                    title: "Immediate Access",
+                    description:
+                      "No need to go through insurance approvals—get the help you need right away.",
+                  },
+                  {
+                    title: "Complete Privacy",
+                    description:
+                      "Your mental health records remain confidential, with no reports sent to insurance providers.",
+                  },
+                  {
+                    title: "Flexible Payment Options",
+                    description:
+                      "Pay per session or choose from our affordable therapy packages.",
+                  },
+                  {
+                    title: "No Hidden Costs",
+                    description:
+                      "Transparent pricing with no additional or unexpected fees.",
+                  },
+                  {
+                    title: "Customized Care",
+                    description:
+                      "Choose the expert and service that best fits your needs without insurance restrictions.",
+                  },
+                ].map((benefit, index) => (
+                  <li key={index} className="flex items-start">
+                    <div className="h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-1">
+                      <span className="text-green-700">✓</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-stone-800 font-medium">
+                        {benefit.title}
+                      </span>
+                      <span className="text-stone-600 text-sm mt-1">
+                        {benefit.description}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
+            <img
+              src="https://img.freepik.com/free-vector/concept-credit-card-payment-landing-page_52683-24923.jpg?t=st=1739091288~exp=1739094888~hmac=ff9349774dab8f8a44c970b6230500c8af27c7a7e13b6b9a470941334cb41285&w=740"
+              alt="Insurance consultation"
+              className="w-[450px] h-[450px] absolute right-72"
+            />
+          </div>
+
+          <div className="bg-green-100 p-8 max-w-max rounded-xl mt-10">
+            <h3 className="text-xl font-semibold text-stone-700 mb-4">
+              Payment Methods
+            </h3>
+            <p className="text-stone-600 mb-4">
+              We accept various payment methods including credit/debit cards,
+              UPI, net banking, and digital wallets.
+            </p>
+            <button className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors">
+              View Pricing
+            </button>
+          </div>
         </div>
 
         {/* FAQ Section */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-serif text-stone-800 mb-6 text-center">
+        <div className="mt-20">
+          <h2 className="text-4xl font-serif text-stone-800 mb-6 text-center">
             Frequently Asked Questions
           </h2>
-          <div className="bg-white/80 rounded-lg divide-y divide-stone-200">
+          <div className="bg-white/80 rounded-lg divide-y divide-stone-200 mt-16">
             {[
               {
                 question:
@@ -157,22 +243,61 @@ const InsuranceAndPricing = () => {
               },
               {
                 question:
+                  "How do I know if my insurance covers my therapy or treatment?",
+                answer:
+                  "You can check with your insurance provider or contact our support team for assistance in understanding whether your policy covers consultations, therapy sessions, or psychiatric treatments.",
+              },
+              {
+                question: " Do I need pre-approval from my insurance provider?",
+                answer:
+                  "Some insurance providers may require pre-approval for mental health services. We recommend reaching out to your insurer to confirm their process.",
+              },
+              {
+                question:
                   "What if my insurance does not cover mental health treatments?",
                 answer:
                   "If your insurance does not cover mental health treatments, you can opt for our self-pay option, which allows you to pay directly for services with flexible payment plans.",
               },
               {
+                question:
+                  "What is self-pay at ShareYrHeart, and how does it work?",
+                answer:
+                  "Self-pay at ShareYrHeart means you pay directly for your mental health services without involving an insurance provider. This allows you to access treatment immediately, maintain privacy, and choose services without insurance limitations.",
+              },
+              {
+                question: "What payment methods does ShareYrHeart accept?",
+                answer:
+                  "We accept various payment methods, including credit/debit cards, UPI, net banking, and digital wallets for self-pay users.",
+              },
+              {
+                question:
+                  " Are there any hidden charges in self-pay at ShareYrHeart?",
+                answer:
+                  "No, we maintain complete transparency in pricing. The cost of each session or service at ShareYrHeart will be clearly mentioned before you proceed with payment.",
+              },
+              {
                 question: "What is the cancellation policy at ShareYrHeart?",
                 answer:
-                  "Cancellations must be made at least 24 hours in advance to avoid penalties. For therapy sessions or programs, specific terms apply and are provided at the time of booking.",
+                  "If your insurance does not cover mental health treatments, you can opt for our self-pay option, which allows you to pay directly for services with flexible payment plans.",
+              },
+              {
+                question:
+                  "Can I reschedule my appointment instead of canceling?",
+                answer:
+                  "Yes, appointments can be rescheduled up to 24 hours before the session without any additional charges.",
+              },
+              {
+                question: "Will I get a refund if I cancel my appointment?",
+                answer:
+                  "Refund policies depend on the type of service booked. If eligible, refunds will be processed as per our terms and conditions.",
               },
             ].map((faq, index) => (
-              <div key={index} className="p-4">
+              <div key={index} className="p-6">
                 <button
                   onClick={() => toggleFaq(index)}
                   className="w-full flex justify-between items-center text-left text-stone-800 hover:text-stone-900"
                 >
-                  <span className="font-medium">{faq.question}</span>
+                  <span className="font-semibold text-lg ">{faq.question}</span>
                   <ChevronDown
                     className={`h-5 w-5 transition-transform ${
                       openFaq === index ? "transform rotate-180" : ""
@@ -180,7 +305,7 @@ const InsuranceAndPricing = () => {
                   />
                 </button>
                 <div
-                  className={`mt-2 text-stone-600 transition-all duration-200 ${
+                  className={`mt-4 text-stone-600 transition-all duration-200 ${
                     openFaq === index ? "block" : "hidden"
                   }`}
                 >
