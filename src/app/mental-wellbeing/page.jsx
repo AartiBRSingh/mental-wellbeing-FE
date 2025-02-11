@@ -1,169 +1,270 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import SignupModal from "../components/SignupForm";
 
-const page = () => {
+const Page = () => {
   return (
-    <div className="min-h-screen  mx-auto p-4">
-      <div className="">
-        <span className=" relative text-8xl font-serif text-stone-800 max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block ml-[550px] mt-12 mb-12">
-          <span className="relative">
-            Mental Wellbeing
-            <svg
-              className="absolute w-full h-[10px] bottom-0 left-0"
-              viewBox="0 0 100 10"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0 5 Q 50 -5, 100 5"
-                stroke="orange"
-                strokeWidth="4"
-                fill="transparent"
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-1/2 mb-10 md:mb-0">
+              <h1 className="text-6xl font-serif font-bold text-gray-800 leading-tight">
+                Transform Your
+                <span className="block mt-2 text-indigo-600">
+                  Mental Wellbeing
+                </span>
+              </h1>
+              <p className="mt-6 text-xl text-gray-600">
+                Mental well-being is essential for leading a balanced,
+                productive, and fulfilling life. Start your journey towards
+                better mental health today.
+              </p>
+              <div className="mt-8">
+                <SignupModal />
+              </div>
+            </div>
+            <div className="md:w-1/2">
+              <img
+                src="https://img.freepik.com/free-vector/tiny-people-beautiful-flower-garden-inside-female-head-isolated-flat-illustration_74855-11098.jpg?t=st=1739256097~exp=1739259697~hmac=debf0a2b9e9f3410764236f0d671509c55b8956c33b82c3ead28fa69d54286ca&w=1380"
+                alt="Mental wellness illustration"
+                className="rounded-lg shadow-xl ml-6"
               />
-            </svg>
-          </span>
-        </span>
-        <div className="flex justify-center bg-white my-10">
-          <p className="max-w-4xl text-xl ml-44 pt-48">
-            Mental well-being is essential for leading a balanced, productive,
-            and fulfilling life. It impacts our thoughts, emotions, and
-            behaviors, shaping how we handle stress, interact with others, and
-            make decisions. Prioritizing mental well-being benefits individuals,
-            students, and employees, creating a healthier society and workplace.
-          </p>
-          <img
-            src="https://img.freepik.com/free-vector/user-practicing-mindfulness-meditation-lotus-pose-mindful-meditating-mental-calmness-self-consciousness-focusing-releasing-stress-concept-vector-isolated-illustration_335657-2250.jpg?t=st=1739160572~exp=1739164172~hmac=32c8d345af3b299c2b7b36bf0225a2a466e0c7dfc17ac20e60cc3bb2b128fb1f&w=1380"
-            alt="Insurance consultation"
-            className="w-[650px] h-[450px] mr-32 rounded-full mb-14 mt-10"
-          />
-        </div>
-      </div>
-
-      <div className="space-y-8">
-        <div className=" p-6 rounded-r-full bg-green-400 max-w-[1700px] flex justify-between shadow-lg">
-          <div className="ml-24 mt-14">
-            <h2 className="text-3xl font-semibold mb-4">
-              Employee Well-Being: Enhancing Productivity & Workplace Harmony
-            </h2>
-            <ul className="list-disc pl-6 space-y-2 mb-4">
-              <li>
-                Reduces <strong>stress, burnout, and absenteeism</strong>,
-                leading to a more engaged workforce.
-              </li>
-              <li>
-                Improves{" "}
-                <strong>
-                  team collaboration, communication, and job satisfaction
-                </strong>
-                .
-              </li>
-              <li>
-                Increases{" "}
-                <strong>
-                  focus, creativity, and problem-solving abilities
-                </strong>
-                , boosting overall performance.
-              </li>
-              <li>
-                Creates a <strong>supportive work environment</strong>,
-                improving <strong>mental resilience and motivation</strong>.
-              </li>
-            </ul>
-            <Link
-              href="/employee"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 inline-block  mt-5 ml-20"
-            >
-              View Details
-            </Link>
-          </div>
-
-          <img
-            src="https://img.freepik.com/free-vector/good-team-concept-illustration_114360-4225.jpg?t=st=1737958269~exp=1737961869~hmac=9f55dffa1ad3cbe3003fbe6986667390cde22ce60ebf14ec70599896f3d62e8b&w=740"
-            alt="Nature scene representing mental wellness"
-            className="w-80 h-80 object-contain rounded-full"
-          />
-        </div>
-
-        <div className="ml-44">
-          <div className="p-6 rounded-l-full bg-yellow-400 flex justify-between">
-            <img
-              src="https://img.freepik.com/free-vector/happy-students-jumping-with-flat-design_23-2147907627.jpg?t=st=1737958353~exp=1737961953~hmac=b35ff6009000582dff7710c6c86c923f98fb82aa915ccc17fbbd564321b15760&w=740"
-              alt="Nature scene representing mental wellness"
-              className="w-80 h-80 object-contain rounded-full"
-            />
-            <div className="max-w-max mr-24 mt-14">
-              <h2 className="text-2xl font-bold mb-4">
-                Student Well-Being: Building Resilience & Academic Success
-              </h2>
-              <ul className="list-disc pl-6 space-y-2 mb-4">
-                <li>
-                  Helps students manage{" "}
-                  <strong>
-                    exam anxiety, academic stress, and peer pressure
-                  </strong>
-                  .
-                </li>
-                <li>
-                  Enhances{" "}
-                  <strong>concentration, memory, and learning abilities</strong>{" "}
-                  for better performance.
-                </li>
-                <li>
-                  Develops{" "}
-                  <strong>emotional intelligence and coping skills</strong> for
-                  handling lifes challenges.
-                </li>
-                <li>
-                  Promotes a{" "}
-                  <strong>positive mindset and self-confidence</strong>,
-                  fostering personal growth.
-                </li>
-              </ul>
-              <Link
-                href="/student"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block"
-              >
-                View Details
-              </Link>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className=" p-6 rounded-lg bg-blue-400 max-w-[1700px]">
-          <h2 className="text-2xl font-bold mb-4">
-            Self-Understanding: The Key to Personal Growth & Emotional Strength
-          </h2>
-          <ul className="list-disc pl-6 space-y-2 mb-4">
-            <li>
-              Encourages self-awareness, helping individuals{" "}
-              <strong>
-                understand their thoughts, emotions, and behaviors
-              </strong>
-              .
-            </li>
-            <li>
-              Improves <strong>decision-making and problem-solving</strong>,
-              leading to better life choices.
-            </li>
-            <li>
-              Strengthens <strong>emotional resilience</strong> to handle
-              setbacks and challenges effectively.
-            </li>
-            <li>
-              Promotes{" "}
-              <strong>mental clarity, inner peace, and fulfillment</strong> in
-              personal and professional life.
-            </li>
-          </ul>
-          <Link
-            href="/self"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block"
-          >
-            View Details
-          </Link>
+      {/* Employee Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="md:w-1/2">
+              <h2 className="text-4xl font-bold text-gray-800 mb-6">
+                Enhance Employee Well-Being
+              </h2>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 bg-green-50 p-4 rounded-lg">
+                  <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
+                    ✓
+                  </span>
+                  <p className="text-gray-700">
+                    Reduces stress, burnout, and absenteeism
+                  </p>
+                </div>
+                <div className="flex items-start gap-4 bg-green-50 p-4 rounded-lg">
+                  <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
+                    ✓
+                  </span>
+                  <p className="text-gray-700">
+                    Improves team collaboration and communication
+                  </p>
+                </div>
+                <div className="flex items-start gap-4 bg-green-50 p-4 rounded-lg">
+                  <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
+                    ✓
+                  </span>
+                  <p className="text-gray-700">
+                    Increases focus and problem-solving abilities
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/employee"
+                className="inline-block mt-8 px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Learn More
+              </Link>
+            </div>
+            <div className="md:w-1/2">
+              <div className="relative">
+                <div className="absolute inset-0 bg-green-200 rounded-lg transform rotate-3"></div>
+                <img
+                  src="https://img.freepik.com/free-vector/good-team-concept-illustration_114360-4225.jpg?t=st=1737958269~exp=1737961869~hmac=9f55dffa1ad3cbe3003fbe6986667390cde22ce60ebf14ec70599896f3d62e8b&w=740"
+                  alt="Employee wellness"
+                  className="relative rounded-lg shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Student Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row-reverse items-center gap-12">
+            <div className="md:w-1/2">
+              <h2 className="text-4xl font-bold text-gray-800 mb-6">
+                Student Success & Wellbeing
+              </h2>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 bg-yellow-50 p-4 rounded-lg">
+                  <span className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white">
+                    ✓
+                  </span>
+                  <p className="text-gray-700">
+                    Manage exam anxiety and academic stress effectively
+                  </p>
+                </div>
+                <div className="flex items-start gap-4 bg-yellow-50 p-4 rounded-lg">
+                  <span className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white">
+                    ✓
+                  </span>
+                  <p className="text-gray-700">
+                    Enhance concentration and learning abilities
+                  </p>
+                </div>
+                <div className="flex items-start gap-4 bg-yellow-50 p-4 rounded-lg">
+                  <span className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white">
+                    ✓
+                  </span>
+                  <p className="text-gray-700">
+                    Develop emotional intelligence and coping skills
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/student"
+                className="inline-block mt-8 px-8 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+              >
+                Learn More
+              </Link>
+            </div>
+            <div className="md:w-1/2">
+              <div className="relative">
+                <div className="absolute inset-0 bg-yellow-200 rounded-lg transform -rotate-3"></div>
+                <img
+                  src="https://img.freepik.com/free-vector/happy-students-jumping-with-flat-design_23-2147907627.jpg?t=st=1737958353~exp=1737961953~hmac=b35ff6009000582dff7710c6c86c923f98fb82aa915ccc17fbbd564321b15760&w=740"
+                  alt="Student wellness"
+                  className="relative rounded-lg shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Self Understanding Section - Redesigned */}
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-gray-800 mb-4">
+              Self-Understanding
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Embark on a journey of self-discovery and personal growth.
+              Understanding yourself is the first step towards better mental
+              health.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Left Column - Features */}
+            <div className="space-y-8">
+              <div className="flex items-start gap-6 bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-3xl">🧠</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Mental Clarity
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Develop a deeper understanding of your thought patterns and
+                    emotional responses. Learn techniques to maintain clarity
+                    under pressure.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-6 bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-3xl">⚡</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Emotional Resilience
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Build the strength to bounce back from challenges. Transform
+                    obstacles into opportunities for personal growth.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-6 bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-16 h-16 bg-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-3xl">🎯</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Better Decision Making
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Enhance your ability to make confident, well-informed
+                    choices aligned with your values and goals.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Image Grid */}
+            <div className="grid grid-cols-1 gap-6">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <h4 className="font-semibold">Mindful Practice</h4>
+                  </div>
+                </div>
+                <img
+                  src="https://img.freepik.com/free-vector/high-self-esteem-illustration_23-2148766834.jpg?t=st=1737958010~exp=1737961610~hmac=d9a5dae22d9564405a029e95ac231f84cde03a92482ba9557231c5ecd9498571&w=740"
+                  alt="Mindful practice"
+                  className="w-full h-full object-cover rounded-xl shadow-lg"
+                />
+              </div>
+              {/* <div className="relative group mt-12">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <h4 className="font-semibold">Personal Growth</h4>
+                  </div>
+                </div>
+                <img
+                  src="/api/placeholder/300/400"
+                  alt="Personal growth"
+                  className="w-full h-full object-cover rounded-xl shadow-lg"
+                />
+              </div> */}
+            </div>
+          </div>
+
+          <div className="text-center mt-16">
+            <Link
+              href="/self"
+              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold text-lg"
+            >
+              Begin Your Journey
+              <svg
+                className="w-5 h-5 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 };
 
-export default page;
+export default Page;

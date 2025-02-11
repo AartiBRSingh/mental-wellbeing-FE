@@ -41,7 +41,7 @@ const CourseCatalog = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FFF4E6]">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#D2691E] opacity-75"></div>
       </div>
     );
@@ -58,7 +58,7 @@ const CourseCatalog = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFF4E6] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-[#4A3427] mb-4">
