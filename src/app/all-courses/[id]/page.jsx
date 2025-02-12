@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { Star, Info, ChevronDown } from "lucide-react";
 
 const CourseDetailPage = () => {
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeSection, setActiveSection] = useState("about");
 
   const courseData = {
-    // ... previous courseData remains the same ...
     title: "Child Therapy",
     description:
       "Child therapy, also known as counseling for kids, helps children understand and manage challenges that affect their mental health. Child therapists are trained to work with children and teens to help them break down problems and find solutions. ",
@@ -75,85 +74,24 @@ const CourseDetailPage = () => {
     ],
   };
 
-  const renderContent = (section) => {
-    switch (section) {
-      case "About":
-        return (
-          <div className="py-6">
-            <h2 className="text-xl font-bold mb-4">{courseData.about.title}</h2>
-            <p className="text-gray-700 mb-4">{courseData.about.content}</p>
-            <h3 className="font-bold mb-2">Skills you will gain:</h3>
-            <div className="flex flex-wrap gap-2">
-              {courseData.about.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="bg-gray-100 px-3 py-1 rounded-full text-sm"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        );
-      case "Outcomes":
-        return (
-          <div className="py-6">
-            <h2 className="text-xl font-bold mb-4">
-              {courseData.outcomes.title}
-            </h2>
-            <ul className="space-y-3">
-              {courseData.outcomes.items.map((item) => (
-                <li key={item} className="flex items-start">
-                  <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-2"></div>
-                  <span className="text-gray-700">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        );
-      case "Courses":
-        return (
-          <div className="py-6">
-            <h2 className="text-xl font-bold mb-4">Courses in this Program</h2>
-            <div className="space-y-4">
-              {courseData.courses.map((course, index) => (
-                <div key={index} className="border rounded-lg p-4">
-                  <h3 className="font-bold mb-2">{course.title}</h3>
-                  <p className="text-sm text-gray-600 mb-2">
-                    {course.duration}
-                  </p>
-                  <p className="text-gray-700">{course.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      case "Testimonials":
-        return (
-          <div className="py-6">
-            <h2 className="text-xl font-bold mb-4">What learners are saying</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {courseData.testimonials.map((testimonial, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-gray-700 mb-3">{testimonial.content}</p>
-                  <div>
-                    <p className="font-bold">{testimonial.name}</p>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      default:
-        return null;
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
+    setActiveSection(sectionId);
   };
 
-  // Rest of your component remains the same until the navigation section
+  const sections = [
+    { id: "about", label: "About" },
+    { id: "outcomes", label: "Outcomes" },
+    { id: "courses", label: "Courses" },
+    { id: "testimonials", label: "Testimonials" },
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 bg-white m-10 rounded-2xl shadow-xl">
-      {/* Previous sections remain exactly the same */}
+      {/* Header Section */}
       <div className="mb-8 pl-6">
         <div className="flex">
           <img
@@ -232,45 +170,84 @@ const CourseDetailPage = () => {
       </div>
 
       {/* Navigation */}
-      <div className="border-b mb-6">
+      <div className="sticky top-0 bg-white border-b mb-6 z-10">
         <nav className="flex gap-8">
-          <button className="pb-4 px-1 text-blue-600 border-b-2 border-blue-600">
-            About
-          </button>
-          {["Outcomes", "Courses", "Testimonials"].map((item) => (
+          {sections.map(({ id, label }) => (
             <button
-              key={item}
-              onClick={() =>
-                setActiveDropdown(activeDropdown === item ? null : item)
-              }
+              key={id}
+              onClick={() => scrollToSection(id)}
               className={`pb-4 px-1 flex items-center gap-1 ${
-                activeDropdown === item
+                activeSection === id
                   ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600"
+                  : "text-gray-600 hover:text-blue-600"
               }`}
             >
-              {item}
-              <ChevronDown
-                className={`w-4 h-4 transition-transform ${
-                  activeDropdown === item ? "rotate-180" : ""
-                }`}
-              />
+              {label}
             </button>
           ))}
         </nav>
       </div>
 
-      {/* Always show About section */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-        {renderContent("About")}
+      {/* Content Sections */}
+      {/* About Section */}
+      <div id="about" className="bg-white rounded-lg shadow-sm p-6 mb-8">
+        <h2 className="text-xl font-bold mb-4">{courseData.about.title}</h2>
+        <p className="text-gray-700 mb-4">{courseData.about.content}</p>
+        <h3 className="font-bold mb-2">Skills you will gain:</h3>
+        <div className="flex flex-wrap gap-2">
+          {courseData.about.skills.map((skill) => (
+            <span
+              key={skill}
+              className="bg-gray-100 px-3 py-1 rounded-full text-sm"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* Dropdown content */}
-      {activeDropdown && (
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          {renderContent(activeDropdown)}
+      {/* Outcomes Section */}
+      <div id="outcomes" className="bg-white rounded-lg shadow-sm p-6 mb-8">
+        <h2 className="text-xl font-bold mb-4">{courseData.outcomes.title}</h2>
+        <ul className="space-y-3">
+          {courseData.outcomes.items.map((item) => (
+            <li key={item} className="flex items-start">
+              <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-2"></div>
+              <span className="text-gray-700">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Courses Section */}
+      <div id="courses" className="bg-white rounded-lg shadow-sm p-6 mb-8">
+        <h2 className="text-xl font-bold mb-4">Courses in this Program</h2>
+        <div className="space-y-4">
+          {courseData.courses.map((course, index) => (
+            <div key={index} className="border rounded-lg p-4">
+              <h3 className="font-bold mb-2">{course.title}</h3>
+              <p className="text-sm text-gray-600 mb-2">{course.duration}</p>
+              <p className="text-gray-700">{course.description}</p>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
+
+      {/* Testimonials Section */}
+      <div id="testimonials" className="bg-white rounded-lg shadow-sm p-6">
+        <h2 className="text-xl font-bold mb-4">What learners are saying</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {courseData.testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-gray-50 p-4 rounded-lg">
+              <p className="text-gray-700 mb-3">{testimonial.content}</p>
+              <div>
+                <p className="font-bold">{testimonial.name}</p>
+                <p className="text-sm text-gray-600">{testimonial.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

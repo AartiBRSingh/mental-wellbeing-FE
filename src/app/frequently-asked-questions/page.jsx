@@ -117,7 +117,7 @@ const Page = () => {
                           onClick={() => toggleCategory(category)}
                           className="w-full text-left"
                         >
-                          <h3 className="text-2xl font-semibold hover:shadow-xl shadow-lg max-w-xl text-black mb-4 bg-transparent p-4 rounded-2xl flex items-center">
+                          <h3 className="text-2xl font-semibold hover:shadow-xl shadow-lg max-w-xl text-black mb-4 bg-white p-4 rounded-2xl flex items-center">
                             {category}
                             <svg
                               className={`h-6 w-6 ml-2 transform transition-transform duration-200 ${

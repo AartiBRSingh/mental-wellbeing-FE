@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import {
   Loader2,
   TrendingUp,
@@ -12,10 +13,12 @@ import {
   Rocket,
   Laptop,
   X,
+  ChevronDown,
 } from "lucide-react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import CustomCursor from "../components/CustomCursor";
+import CareerOpportunities from "../components/CareerOpportunities";
 
 const ApplicationModal = ({ isOpen, onClose, ...props }) => {
   if (!isOpen) return null;
@@ -45,6 +48,7 @@ const ApplicationModal = ({ isOpen, onClose, ...props }) => {
 };
 
 const CareerPage = () => {
+  const [openFaq, setOpenFaq] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -61,6 +65,9 @@ const CareerPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [isOpen, setOpen] = useState(false);
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
 
   const IndianStates = {
     "Andhra Pradesh": [
@@ -341,6 +348,9 @@ const CareerPage = () => {
         </div>
       </section>
 
+      {/* Career Opportunities Section */}
+      <CareerOpportunities />
+
       {/* Why Join Us Section */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
@@ -394,6 +404,85 @@ const CareerPage = () => {
           >
             Apply Now
           </motion.button>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mt-20">
+          <h2 className="text-4xl font-serif text-stone-800 mb-6 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="bg-white/80 mx-20 rounded-2xl divide-y divide-stone-200 mt-16">
+            {[
+              {
+                question: "What career opportunities does ShareYrHeart offer?",
+                answer:
+                  "ShareYrHeart provides a wide range of career opportunities in the mental health and well-being sector, including Mental Health Experts (Psychologists, Counselors, Therapists), Corporate Well-being Consultants (Employee Assistance Programs), School & Student Counselors (Student Well-being Programs), Self-Understanding Coaches (Personal Growth & Mental Well-being), Clinic Setup & On-Field Mental Health Professionals, Online Mental Health Experts (Live Chat & Forum Support), and Trainers & Educators (Professional Courses & Certification Programs).",
+              },
+              {
+                question:
+                  "How can I work as a mental health expert with ShareYrHeart?",
+                answer:
+                  "Qualified psychologists, counselors, and mental health professionals can apply to join our expert directory, offer services through our platform, conduct online/offline sessions, and participate in wellness programs.",
+              },
+              {
+                question:
+                  "Does ShareYrHeart provide opportunities for setting up a clinic?",
+                answer:
+                  "Yes! We support clinic setups for mental health professionals by offering business guidance, branding, patient referrals, and collaboration opportunities to establish a successful practice.",
+              },
+              {
+                question:
+                  "Can I work with ShareYrHeart while maintaining another job?",
+                answer:
+                  "Yes! We offer flexible working models, including full-time, part-time, and freelance opportunities, allowing professionals to contribute based on their availability.",
+              },
+              {
+                question:
+                  "What is the future growth projection in mental health with ShareYrHeart?",
+                answer:
+                  "The mental health industry is rapidly expanding, with increasing awareness and demand for services. ShareYrHeart is at the forefront of this transformation, offering corporate partnerships for workplace mental well-being, educational collaborations to enhance student mental health, expanding teletherapy & online consultation services, and opportunities for entrepreneurs to establish clinics and mental health ventures.",
+              },
+              {
+                question:
+                  "What kind of professional growth can I expect at ShareYrHeart?",
+                answer:
+                  "Working with ShareYrHeart provides a strong professional network with leading mental health experts, opportunities to deliver workshops, training, and online courses, access to continuous learning and certification programs, and a recognized platform to build your personal brand and reach more clients.",
+              },
+              {
+                question: "How do I apply for a career with ShareYrHeart?",
+                answer:
+                  "You can explore open positions and submit your application through our Careers page or contact us at support@shareyrheart.com for collaboration opportunities.",
+              },
+              {
+                question: "Do I need prior experience to join ShareYrHeart?",
+                answer:
+                  "While experience is preferred for expert roles, we also provide training programs and certifications to help aspiring professionals enter the mental health field.",
+              },
+            ].map((faq, index) => (
+              <div key={index} className="p-6">
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full flex justify-between items-center text-left text-stone-800 hover:text-stone-900"
+                >
+                  <span className="font-semibold text-lg ml-20">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={`h-5 w-5 transition-transform ${
+                      openFaq === index ? "transform rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <div
+                  className={`mt-4 text-stone-600 transition-all ml-20 duration-200 ${
+                    openFaq === index ? "block" : "hidden"
+                  }`}
+                >
+                  {faq.answer}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
