@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Clock, Users, ChevronRight } from "lucide-react";
+import { Clock, Users, ChevronRight, Star, Calendar } from "lucide-react";
 import Link from "next/link";
 
 const CourseCatalog = () => {
@@ -39,6 +39,25 @@ const CourseCatalog = () => {
     return curriculum.reduce((total, item) => total + item.duration, 0);
   };
 
+  // New function to render stars
+  const renderStars = (rating) => {
+    return (
+      <div className="flex items-center gap-1">
+        {[...Array(5)].map((_, index) => (
+          <Star
+            key={index}
+            className={`h-4 w-4 ${
+              index < Math.floor(rating)
+                ? "text-yellow-400 fill-yellow-400"
+                : "text-gray-300"
+            }`}
+          />
+        ))}
+        <span className="ml-1 text-sm text-[#6B584C]">{rating.toFixed(1)}</span>
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -73,57 +92,54 @@ const CourseCatalog = () => {
               key={course._id}
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-[#F5DEB3]/50"
             >
-              <div className="relative aspect-video">
-                <img
-                  src={course.thumbnailUrl}
-                  alt={course.title}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                />
-                <div className="absolute top-4 right-4 px-4 py-1.5 bg-[#228B22] text-white rounded-full text-sm font-medium shadow-md">
-                  {course.category}
-                </div>
-              </div>
-
-              <div className="p-6 space-y-4">
-                <h2 className="text-2xl font-bold text-[#4A3427] leading-tight">
-                  {course.title}
-                </h2>
-
-                <p className="text-[#6B584C] line-clamp-2">
-                  {course.description}
-                </p>
-
-                <div className="flex items-center justify-between text-[#6B584C]">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-[#D2691E]" />
-                    <span>{getTotalDuration(course.curriculum)} months</span>
+              <Link href={`/all-courses/${course._id}`}>
+                <div>
+                  <div className="relative aspect-video">
+                    <img
+                      src={course.thumbnailUrl}
+                      alt={course.title}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                    />
+                    <div className="absolute top-4 right-4 px-4 py-1.5 bg-[#228B22] text-white rounded-full text-sm font-medium shadow-md">
+                      {course.category}
+                    </div>
                   </div>
-                  {/* <div className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-[#228B22]" />
-                    <span>{course.enrollmentCount} enrolled</span>
-                  </div> */}
-                </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl font-bold text-[#4A3427]">
-                      {formatPrice(course.discountedPrice)}
-                    </span>
-                    {course.discountedPrice < course.price && (
-                      <span className="text-sm text-[#6B584C] line-through opacity-70">
-                        {formatPrice(course.price)}
-                      </span>
-                    )}
+                  <div className="p-6 space-y-4">
+                    <h2 className="text-2xl font-bold text-[#4A3427] leading-tight line-clamp-1">
+                      {course.title}
+                    </h2>
+
+                    <p className="text-[#6B584C] line-clamp-2">
+                      {course.description}
+                    </p>
+
+                    {/* Added rating display */}
+                    <div className="flex items-center">
+                      {renderStars(course.rating || 5)}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
+                      <div className="flex gap-3 items-center">
+                        <Calendar />
+                        <span>
+                          {getTotalDuration(course.curriculum)} months
+                        </span>
+                      </div>
+                      <div className="flex gap-3 items-center">
+                        <span className="text-2xl font-bold text-[#4A3427]">
+                          {formatPrice(course.discountedPrice)}
+                        </span>
+                        {course.discountedPrice < course.price && (
+                          <span className="text-sm text-[#6B584C] line-through opacity-70 gap-1">
+                            {formatPrice(course.price)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <Link
-                    href={`/all-courses/${course._id}`}
-                    className="px-6 py-2.5 bg-[#D2691E] text-white rounded-lg hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg"
-                  >
-                    Details
-                    <ChevronRight className="h-5 w-5" />
-                  </Link>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
