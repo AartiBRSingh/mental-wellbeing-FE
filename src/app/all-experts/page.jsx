@@ -8,15 +8,26 @@ import { useSearchParams } from "next/navigation";
 
 const ExpertPage = () => {
   const searchParams = useSearchParams();
-  const userType = searchParams.get("userType");
+  const urlUserType = searchParams.get("userType");
+
   const [experts, setExperts] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedUserType, setSelectedUserType] = useState("");
+
+  // Example city and userType options - replace with your actual options
+  const cities = ["New York", "London", "Tokyo", "Paris", "Sydney"];
+  const userTypes = ["Doctor", "Therapist", "Nutritionist", "Trainer"];
 
   useEffect(() => {
     const fetchExperts = async () => {
       try {
         const response = await axios.get(`${baseURL}/get-experts`, {
-          params: { search, userType },
+          params: {
+            search,
+            userType: selectedUserType || urlUserType, // Use dropdown selection if available, otherwise use URL param
+            city: selectedCity,
+          },
         });
         setExperts(response.data);
       } catch (error) {
@@ -25,7 +36,7 @@ const ExpertPage = () => {
     };
 
     fetchExperts();
-  }, [search, userType]);
+  }, [search, selectedCity, selectedUserType, urlUserType]);
 
   return (
     <section className="py-16 bg-cream">
@@ -52,15 +63,41 @@ const ExpertPage = () => {
           journey.
         </p>
 
-        {/* Search Input */}
-        <div className="mb-6 flex justify-center">
+        {/* Search and Filter Section */}
+        <div className="mb-6 flex justify-center gap-4 flex-wrap">
           <input
             type="text"
             placeholder="Search experts..."
-            className="px-4 py-2 border border-gray-300 rounded-lg w-96 focus:ring focus:ring-orange-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg w-64 focus:ring focus:ring-orange-500"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+
+          <select
+            value={selectedCity}
+            onChange={(e) => setSelectedCity(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg w-48 focus:ring focus:ring-orange-500"
+          >
+            <option value="">All Cities</option>
+            {cities.map((city) => (
+              <option key={city} value={city}>
+                {city}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={selectedUserType}
+            onChange={(e) => setSelectedUserType(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg w-48 focus:ring focus:ring-orange-500"
+          >
+            <option value="">All Types</option>
+            {userTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="space-y-6">
