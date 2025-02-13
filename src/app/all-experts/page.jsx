@@ -14,10 +14,15 @@ const ExpertPage = () => {
   const [search, setSearch] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedUserType, setSelectedUserType] = useState("");
+  const [cities, setCities] = useState([]);
 
-  // Example city and userType options - replace with your actual options
-  const cities = ["New York", "London", "Tokyo", "Paris", "Sydney"];
-  const userTypes = ["Doctor", "Therapist", "Nutritionist", "Trainer"];
+  const userTypes = [
+    "Individual Therapy",
+    "Couples / Marriage Counseling",
+    "Child & Teen Therapy",
+    "Family Therapy",
+    "Psychiatry & Medication",
+  ];
 
   useEffect(() => {
     const fetchExperts = async () => {
@@ -25,7 +30,7 @@ const ExpertPage = () => {
         const response = await axios.get(`${baseURL}/get-experts`, {
           params: {
             search,
-            userType: selectedUserType || urlUserType, // Use dropdown selection if available, otherwise use URL param
+            userType: selectedUserType || urlUserType,
             city: selectedCity,
           },
         });
@@ -36,6 +41,19 @@ const ExpertPage = () => {
     };
 
     fetchExperts();
+  }, [search, selectedCity, selectedUserType, urlUserType]);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get(`${baseURL}/get-unique-cities`);
+        setCities(response.data);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    };
+
+    fetchCities();
   }, [search, selectedCity, selectedUserType, urlUserType]);
 
   return (
@@ -62,8 +80,6 @@ const ExpertPage = () => {
           Connect with our verified experts who are here to help you on your
           journey.
         </p>
-
-        {/* Search and Filter Section */}
         <div className="mb-6 flex justify-center gap-4 flex-wrap">
           <input
             type="text"
@@ -85,7 +101,6 @@ const ExpertPage = () => {
               </option>
             ))}
           </select>
-
           <select
             value={selectedUserType}
             onChange={(e) => setSelectedUserType(e.target.value)}
@@ -99,7 +114,6 @@ const ExpertPage = () => {
             ))}
           </select>
         </div>
-
         <div className="space-y-6">
           {experts?.map((expert) => (
             <div
@@ -107,7 +121,6 @@ const ExpertPage = () => {
               className="bg-slate-50 rounded-3xl p-8 relative border shadow-xl border-red-100"
             >
               <div className="flex gap-6">
-                {/* Left side - Profile Image */}
                 <div className="flex flex-col items-center gap-4">
                   <div className="relative">
                     <img
@@ -126,8 +139,6 @@ const ExpertPage = () => {
                     </span>
                   </Link>
                 </div>
-
-                {/* Right side - Details */}
                 <div className="flex-1 mt-4">
                   <h3 className="flex text-3xl font-medium mb-4">
                     {expert.name}{" "}
@@ -168,7 +179,6 @@ const ExpertPage = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="p-2 mr-4">
                   <div className="bg-blue-100 rounded-xl p-2 text-center">
                     <h4 className="text-black text-lg font-semibold mb-2">
@@ -179,7 +189,6 @@ const ExpertPage = () => {
                       9:00 AM - 5:00 PM
                     </p>
                   </div>
-
                   <button className="w-40 absolute right-16 bottom-10 bg-green-700 text-white p-2 rounded-xl hover:bg-green-800 transition-colors font-semibold">
                     Book Appointment
                   </button>
