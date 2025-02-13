@@ -1,32 +1,32 @@
-import React from "react";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Award,
-  Book,
-  Languages,
-  Briefcase,
-  GraduationCap,
-  Medal,
-  FileText,
-  Heart,
-  MessageCircle,
-  Video,
-  XCircle,
-  Check,
-  Star,
-  User,
-  NotebookPen,
-  CheckCircle,
-} from "lucide-react";
+"use client";
+import React, { useState, useEffect, Suspense } from "react";
+import { Mail, Phone, Star, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { baseURL } from "../baseURL";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 
-const ExpertPage = async () => {
-  const response = await axios.get(`${baseURL}/get-experts`);
-  const experts = await response.data;
+const ExpertPage = () => {
+  const searchParams = useSearchParams();
+  const userType = searchParams.get("userType");
+  const [experts, setExperts] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const fetchExperts = async () => {
+      try {
+        const response = await axios.get(`${baseURL}/get-experts`, {
+          params: { search, userType },
+        });
+        setExperts(response.data);
+      } catch (error) {
+        console.error("Error fetching experts:", error);
+      }
+    };
+
+    fetchExperts();
+  }, [search, userType]);
+
   return (
     <section className="py-16 bg-cream">
       <div className="max-w-6xl mx-auto px-4">
@@ -47,10 +47,22 @@ const ExpertPage = async () => {
             </svg>
           </span>
         </h2>
-        <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        <p className="text-gray-600 text-center mb-6 max-w-2xl mx-auto">
           Connect with our verified experts who are here to help you on your
-          journey
+          journey.
         </p>
+
+        {/* Search Input */}
+        <div className="mb-6 flex justify-center">
+          <input
+            type="text"
+            placeholder="Search experts..."
+            className="px-4 py-2 border border-gray-300 rounded-lg w-96 focus:ring focus:ring-orange-500"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
         <div className="space-y-6">
           {experts?.map((expert) => (
             <div
@@ -80,7 +92,7 @@ const ExpertPage = async () => {
 
                 {/* Right side - Details */}
                 <div className="flex-1 mt-4">
-                  <h3 className=" flex text-3xl font-medium mb-4">
+                  <h3 className="flex text-3xl font-medium mb-4">
                     {expert.name}{" "}
                     {expert.isProfileVerified && (
                       <div className="ml-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm flex items-center shadow-sm">
@@ -144,4 +156,12 @@ const ExpertPage = async () => {
   );
 };
 
-export default ExpertPage;
+const page = () => {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <ExpertPage />
+    </Suspense>
+  );
+};
+
+export default page;

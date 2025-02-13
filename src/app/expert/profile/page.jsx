@@ -219,7 +219,6 @@ const ProfileDashboard = () => {
       return () => clearTimeout(timer);
     }
   }, [profile?.experience?.length, router]);
-  console.log(profile?.experience?.length, "raju");
 
   const handleClosePopup = () => {
     setShowPopup(false);

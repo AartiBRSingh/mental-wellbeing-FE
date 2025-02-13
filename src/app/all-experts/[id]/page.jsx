@@ -56,7 +56,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
     <div className="min-h-screen bg-gray-50">
       <div className="w-full h-96 relative">
         <img
-          src={expert.coverPhoto || "/api/placeholder/1200/400"}
+          src={expert?.coverPhoto || "/api/placeholder/1200/400"}
           alt="Cover"
           className="w-full h-full object-cover"
         />
@@ -69,8 +69,8 @@ async function ExpertDetailsPage({ params, searchParams }) {
               <div className="relative flex flex-col items-center">
                 <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-lg">
                   <img
-                    src={expert.image}
-                    alt={expert.name}
+                    src={expert?.image}
+                    alt={expert?.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -79,7 +79,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     <Star
                       key={index}
                       className={`w-4 h-4 ${
-                        index < expert.rating
+                        index < expert?.rating
                           ? "text-yellow-500 fill-current"
                           : "text-yellow-500 fill-current"
                       }`}
@@ -90,36 +90,36 @@ async function ExpertDetailsPage({ params, searchParams }) {
 
               <div className="flex-1">
                 <div className="flex items-center gap-3">
-                  <h1 className="text-3xl font-bold">{expert.name}</h1>
+                  <h1 className="text-3xl font-bold">{expert?.name}</h1>
                 </div>
-                <p className="text-xl text-gray-600 mt-2">{expert.userType}</p>
+                <p className="text-xl text-gray-600 mt-2">{expert?.userType}</p>
                 {/* <div className="flex flex-wrap gap-4 mt-4">
                 <div className="flex items-center gap-2">
                   <Mail className="w-5 h-5 text-gray-600" />
-                  <span>{expert.email}</span>
+                  <span>{expert?.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-5 h-5 text-gray-600" />
-                  <span>{expert.contactNumber}</span>
+                  <span>{expert?.contactNumber}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-5 h-5 text-gray-600" />
-                  <span>{`${expert.city}, ${expert.state}`}</span>
+                  <span>{`${expert?.city}, ${expert?.state}`}</span>
                 </div>
               </div> */}
 
                 <p className="text-sm text-gray-500 mt-2">
                   Experience:{" "}
                   <span className="font-semibold">
-                    {new Date(expert.experience[0].endDate).getFullYear() -
+                    {new Date(expert?.experience[0]?.endDate).getFullYear() -
                       new Date(
-                        expert.experience[0].startDate
+                        expert?.experience[0]?.startDate
                       ).getFullYear()}{" "}
                     years
                   </span>
                 </p>
 
-                {expert.paymentDetails.hasPaid === true && (
+                {expert?.paymentDetails.hasPaid === true && (
                   <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium space-x-2 shadow-sm mt-3">
                     <span>SYH Assured</span>
                     <Check className="w-4 h-4 text-green-600" strokeWidth={3} />
@@ -127,7 +127,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                 )}
 
                 <div>
-                  {expert.paymentDetails.hasPaid === true && (
+                  {expert?.paymentDetails.hasPaid === true && (
                     <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium space-x-2 shadow-sm mt-3">
                       <span>Medical Registration Verified</span>
                       <Check
@@ -139,7 +139,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                 </div>
 
                 <div className="mt-6">
-                  {expert.paymentDetails.hasPaid === true ? (
+                  {expert?.paymentDetails.hasPaid === true ? (
                     <div className="flex gap-4 w-full overflow-x-auto pb-2 flex-wrap">
                       <button className="cursor-pointer group flex-shrink-0 flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                         <Phone className="w-5 h-5 group-hover:animate-pulse" />
@@ -213,7 +213,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                       d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
-                  <p className="text-brown-800">{expert.clinicAddress}</p>
+                  <p className="text-brown-800">{expert?.clinicAddress}</p>
                 </div>
 
                 <div className="flex items-start space-x-3">
@@ -232,7 +232,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     />
                   </svg>
                   <p className="text-brown-800">
-                    Consultation Fee: ₹{expert.fees}
+                    Consultation Fee: ₹{expert?.fees}
                   </p>
                 </div>
 
@@ -244,7 +244,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   <p className="text-brown-700">9:00 AM - 5:00 PM</p>
                 </div>
 
-                <button className="w-full bg-green-700 text-cream-50 py-3 rounded-xl hover:bg-green-800 transition-colors font-semibold tracking-wider">
+                <button className="w-full bg-green-700 text-cream-50 py-3 rounded-xl hover:bg-green-800 transition-colors font-semibold tracking-wider text-white">
                   Book Appointment
                 </button>
               </div>
@@ -297,10 +297,10 @@ async function ExpertDetailsPage({ params, searchParams }) {
           {activeTab === "info" ? (
             <div>
               {" "}
-              {expert.about && (
+              {expert?.about && (
                 <div className="mt-8">
                   <h2 className="text-2xl font-semibold mb-4">About</h2>
-                  <p className="text-gray-700">{expert.about}</p>
+                  <p className="text-gray-700">{expert?.about}</p>
                 </div>
               )}
               <div className="grid md:grid-cols-2 gap-8 mt-8">
@@ -310,7 +310,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     Specializations
                   </h2>
                   <div className="flex flex-wrap gap-2">
-                    {expert.specialization.map((spec, index) => (
+                    {expert?.specialization.map((spec, index) => (
                       <span
                         key={index}
                         className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
@@ -327,7 +327,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     Services
                   </h2>
                   <div className="flex flex-wrap gap-2">
-                    {expert.services.map((service, index) => (
+                    {expert?.services.map((service, index) => (
                       <span
                         key={index}
                         className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm"
@@ -344,15 +344,15 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     <GraduationCap className="w-6 h-6" />
                     Education
                   </h2>
-                  {expert.education.map((edu, index) => (
+                  {expert?.education?.map((edu, index) => (
                     <div key={index} className="mb-4">
-                      <h3 className="font-semibold">{edu.school}</h3>
+                      <h3 className="font-semibold">{edu?.school}</h3>
                       <p className="text-gray-600">
-                        {edu.degree} in {edu.fieldOfStudy}
+                        {edu?.degree} in {edu?.fieldOfStudy}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {new Date(edu.startDate).getFullYear()} -{" "}
-                        {new Date(edu.endDate).getFullYear()}
+                        {new Date(edu?.startDate).getFullYear()} -{" "}
+                        {new Date(edu?.endDate).getFullYear()}
                       </p>
                     </div>
                   ))}
@@ -363,7 +363,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     <Briefcase className="w-6 h-6" />
                     Experience
                   </h2>
-                  {expert.experience.map((exp, index) => (
+                  {expert?.experience.map((exp, index) => (
                     <div key={index} className="mb-4">
                       <h3 className="font-semibold">{exp.title}</h3>
                       <p className="text-gray-600">{exp.location}</p>
@@ -383,7 +383,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     Languages
                   </h2>
                   <div className="flex flex-wrap gap-2">
-                    {expert.languages.map((language, index) => (
+                    {expert?.languages.map((language, index) => (
                       <span
                         key={index}
                         className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm"
@@ -399,7 +399,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                     <Medal className="w-6 h-6" />
                     Licenses & Certificates
                   </h2>
-                  {expert.licensesAndCertificates.map((cert, index) => (
+                  {expert?.licensesAndCertificates.map((cert, index) => (
                     <div key={index} className="mb-4">
                       <h3 className="font-semibold">{cert.name}</h3>
                       <p className="text-gray-600">
@@ -415,14 +415,14 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   ))}
                 </div>
               </div>
-              {expert.recommendations.length > 0 && (
+              {expert?.recommendations.length > 0 && (
                 <div className="mt-8">
                   <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
                     <FileText className="w-6 h-6" />
                     Recommendations
                   </h2>
                   <div className="grid md:grid-cols-2 gap-4">
-                    {expert.recommendations.map((rec, index) => (
+                    {expert?.recommendations.map((rec, index) => (
                       <div key={index} className="bg-gray-50 p-4 rounded-lg">
                         <p className="text-gray-700">{rec.content}</p>
                       </div>
@@ -438,8 +438,8 @@ async function ExpertDetailsPage({ params, searchParams }) {
                 <ReviewButton expertId={id} />
               </div>
 
-              {expert.reviews.length > 0 ? (
-                expert.reviews.map((review, index) => (
+              {expert?.reviews.length > 0 ? (
+                expert?.reviews.map((review, index) => (
                   <div
                     key={index}
                     className="bg-white shadow-md rounded-lg p-5 mb-4 border border-gray-100 hover:shadow-lg transition-shadow duration-300 max-w-[500px]"

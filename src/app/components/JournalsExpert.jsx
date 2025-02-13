@@ -154,12 +154,7 @@ const JournalsExpert = () => {
                 New Journal Entry
               </h2>
               <form onSubmit={handlePostSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    placeholder="Patient Code"
-                    className="p-2 border border-gray-200 rounded-lg"
-                  />
+                <div className="grid grid-cols-1 gap-4">
                   <select className="p-2 border border-gray-200 rounded-lg">
                     <option value="">Entry Category</option>
                     <option value="session-notes">Session Notes</option>
@@ -182,11 +177,11 @@ const JournalsExpert = () => {
                   placeholder="Tags (comma separated)"
                   className="w-full p-2 border border-gray-200 rounded-lg"
                 />
-                <textarea
+                {/* <textarea
                   placeholder="Private Notes"
                   rows={3}
                   className="w-full p-2 border border-gray-200 rounded-lg"
-                />
+                /> */}
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
@@ -259,18 +254,18 @@ const JournalsExpert = () => {
                     </span>
                   ))}
                 </div>
-                <div className="bg-gray-50 p-4 rounded-lg mt-4">
+                {/* <div className="bg-gray-50 p-4 rounded-lg mt-4">
                   <h3 className="text-sm font-medium text-gray-700 mb-2">
                     Follow-up Notes
                   </h3>
                   <p className="text-gray-600">{journal.followUp}</p>
-                </div>
-                <div className="bg-yellow-50 p-4 rounded-lg mt-4">
+                </div> */}
+                {/* <div className="bg-yellow-50 p-4 rounded-lg mt-4">
                   <h3 className="text-sm font-medium text-gray-700 mb-2">
                     Private Notes
                   </h3>
                   <p className="text-gray-600">{journal.privateNotes}</p>
-                </div>
+                </div> */}
                 <div className="flex items-center gap-2 text-sm text-gray-500 mt-4">
                   <Clock className="w-4 h-4" />
                   Last edited: {new Date(journal.lastEdited).toLocaleString()}
