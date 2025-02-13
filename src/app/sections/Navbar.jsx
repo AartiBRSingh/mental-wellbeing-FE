@@ -12,7 +12,6 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
-  // Check authentication status whenever component mounts or updates
   useEffect(() => {
     const token = Cookies.get("authToken");
     const name = Cookies.get("name");
@@ -32,9 +31,8 @@ const Navbar = () => {
       setIsAuthenticated(false);
       setUserData({ name: "", email: "" });
     }
-  }, []); // Empty dependency array means it runs once on mount
+  }, []);
 
-  // Add a second useEffect to watch for cookie changes
   useEffect(() => {
     const cookieCheck = setInterval(() => {
       const token = Cookies.get("authToken");
@@ -55,7 +53,7 @@ const Navbar = () => {
         setIsAuthenticated(false);
         setUserData({ name: "", email: "" });
       }
-    }, 1000); // Check every second
+    }, 1000);
 
     return () => clearInterval(cookieCheck);
   }, []);
@@ -106,7 +104,6 @@ const Navbar = () => {
     <div className="w-full flex justify-center relative">
       <CustomCursor />
       <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center bg-white px-4 md:px-10 w-full md:w-[80vw]">
-        {/* Logo */}
         <Link href={"/"}>
           <img
             src="/logo.png"
@@ -114,8 +111,6 @@ const Navbar = () => {
             className="w-full h-16 cursor-pointer"
           />
         </Link>
-
-        {/* Desktop Navigation */}
         <section className="hidden md:block">
           <ul className="flex justify-between items-center gap-10">
             {navLinks.map((item, index) => (
@@ -147,9 +142,7 @@ const Navbar = () => {
             ))}
           </ul>
         </section>
-
         <section className="flex items-center gap-4 md:gap-6">
-          {/* Desktop Dropdown */}
           <div className="relative group hidden md:block">
             <button className="relative w-8 h-8 cursor-pointer">
               <div className="relative flex flex-col justify-center w-full h-full">
@@ -173,8 +166,6 @@ const Navbar = () => {
               <div className="absolute -top-2 right-3 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
             </div>
           </div>
-
-          {/* Desktop User Menu */}
           {isAuthenticated ? (
             <div className="relative group hidden md:block">
               <button className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
@@ -220,15 +211,12 @@ const Navbar = () => {
               </button>
             </Link>
           )}
-
           <Link
             href={"/get-started"}
             className="cursor-pointer font-semibold px-4 bg-yellow-700 text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
           >
             Get Started
           </Link>
-
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden cursor-pointer"
             onClick={toggleMobileMenu}
@@ -236,8 +224,6 @@ const Navbar = () => {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </section>
-
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden z-50">
             <div className="flex flex-col max-h-[calc(100vh-5rem)] overflow-y-auto">
@@ -265,7 +251,6 @@ const Navbar = () => {
                   )}
                 </div>
               ))}
-
               <div className="border-b border-gray-200">
                 {dropdownOptions.map((option, index) => (
                   <a
@@ -278,7 +263,6 @@ const Navbar = () => {
                   </a>
                 ))}
               </div>
-
               {isAuthenticated ? (
                 <div>
                   <div className="px-4 py-3 border-b border-gray-200">
