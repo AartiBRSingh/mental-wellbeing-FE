@@ -55,7 +55,9 @@ const CareerOpportunities = () => {
                     {card.title}
                   </h3>
                 </div>
-                <p className="text-gray-600 mb-6">{card.description}</p>
+                <p className="text-gray-600 mb-6 line-clamp-4">
+                  {card.description}
+                </p>
                 <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 transition-colors duration-200">
                   Apply Now
                 </button>

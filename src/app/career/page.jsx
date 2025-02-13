@@ -266,19 +266,21 @@ const CareerPage = () => {
             <strong className="text-orange-500">ShareYrHeart</strong> is more
             than just a job
           </h1>
-          <p className="max-w-[650px] text-2xl absolute left-[400px] top-[310px] p-2 border-black border-t-2 border-l-2">
+          <p className="max-w-[650px] text-2xl absolute left-[400px] top-[310px] p-2">
+            <span className="text-red-500 text-4xl mr-3">♥</span>
             it’s an opportunity to transform lives while growing professionally
             in the fast-evolving field of mental health.
           </p>
-          <p className="max-w-[600px] text-2xl  absolute top-[450px] left-[220px] p-2 border-black border-b-2 border-r-2 ">
+          <p className="max-w-[600px] text-2xl  absolute top-[450px] left-[220px] p-2">
             Whether you’re a psychologist, counselor, trainer, or entrepreneur,
             ShareYrHeart offers a platform to make a meaningful impact.
+            <span className="text-green-400 text-2xl ml-2">♦</span>
           </p>
         </div>
         <img
-          src="https://img.freepik.com/free-vector/recruit-agent-analyzing-candidates_74855-4565.jpg?t=st=1739287341~exp=1739290941~hmac=8eb33e5135953f30e9e7d1c9416b03834185f57f2257b7a1316cc1f2b08b083a&w=1380"
+          src="https://img.freepik.com/free-vector/hand-drawn-life-coaching-illustration_23-2150279254.jpg?t=st=1739423710~exp=1739427310~hmac=504397953875b3553cb03a43ea9e6b031bfaa1dc0fb6212c40ded1d2dfd88522&w=1380"
           alt="Mental wellness illustration"
-          className="h-[500px] w-auto"
+          className="h-[500px] w-auto mr-10"
         />
       </div>
       {/* Hero Section */}
@@ -311,6 +313,28 @@ const CareerPage = () => {
             Apply Now
           </motion.button>
         </div>
+
+        <div className="bg-white">
+          <div className="flex justify-between items-center mt-5 mx-72 bg-white">
+            <div>
+              <img
+                src="https://img.freepik.com/free-vector/autumn-tree-concept-illustration_114360-22762.jpg?t=st=1739424712~exp=1739428312~hmac=19f833c75266af2ae4628e5d2243b2dbe5538d5effe4f1f3eb6aa35dae6cf429&w=740"
+                alt="Mental wellness illustration"
+                className="h-[500px] w-auto"
+              />
+            </div>
+            <div className="flex justify-center mt-5">
+              <span className="bg-green-300 absolute px-3 py-1 rounded-md text-sm font-semibold mt-4">
+                Calm
+              </span>
+              <img
+                src="https://img.freepik.com/free-vector/interview-concept-illustration_114360-1501.jpg?t=st=1739424391~exp=1739427991~hmac=c94a261ffed8efd6f9de4b439058eded8fa1c6213ea87126629655b704cb9557&w=1380"
+                alt="Mental wellness illustration"
+                className="h-[500px] w-auto "
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Future Growth Section */}
@@ -319,11 +343,11 @@ const CareerPage = () => {
           <motion.h2
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="text-4xl font-bold p-2 max-w-max  text-gray-900 mb-32 border-black border-t-2 border-l-2"
+            className="text-4xl font-bold p-2 max-w-max  text-gray-900 mb-32 "
           >
             Future Growth &{" "}
             <strong className="text-blue-500">Opportunities</strong>
-            <p className="absolute left-[700px] mt-4 max-w-max p-2 border-black border-b-2 border-r-2">
+            <p className="absolute left-[700px] mt-4 max-w-max p-2 ">
               in Mental Health with{" "}
               <strong className="text-5xl text-orange-500">ShareYrHeart</strong>
             </p>
