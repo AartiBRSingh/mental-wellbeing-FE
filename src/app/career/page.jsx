@@ -14,6 +14,9 @@ import {
   Laptop,
   X,
   ChevronDown,
+  Star,
+  Target,
+  ArrowRight,
 } from "lucide-react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
@@ -49,6 +52,7 @@ const ApplicationModal = ({ isOpen, onClose, ...props }) => {
 
 const CareerPage = () => {
   const [openFaq, setOpenFaq] = useState(null);
+  const [activeCard, setActiveCard] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -156,34 +160,44 @@ const CareerPage = () => {
         "Help individuals, students, and employees enhance their mental well-being.",
       image:
         "https://img.freepik.com/free-vector/impossible-concept-illustration_114360-19864.jpg?t=st=1739289104~exp=1739292704~hmac=213df4e518bdeb5a3c42cd038e74af23a1867b0cc6c54899ea02683cb32f758d&w=1380",
+      icon: <Star className="w-6 h-6" />,
+      color: "from-pink-500 to-rose-500",
     },
     {
       title: "Diverse Career Paths",
       description:
         "Explore roles in counseling, research, corporate well-being, and individual mental health.",
       image:
-        "https://img.freepik.com/free-vector/people-going-back-work_52683-48223.jpg?t=st=1739289159~exp=1739292759~hmac=74addc557307bc9cbd2a8bcd7b20e16ecc716002df7d3b260ae8e50b7e618cb2&w=1380",
+        "https://img.freepik.com/free-vector/girls-playing-ludo-game_23-2148705741.jpg?t=st=1739458415~exp=1739462015~hmac=1dde848caf7135d0bb8b4ca5f32bca50994bf240bdac5c9d2862ea885316daa0&w=1380",
+      icon: <Users className="w-6 h-6" />,
+      color: "from-purple-500 to-indigo-500",
     },
     {
       title: "Work with Experts",
       description:
         "Collaborate with leading psychologists, therapists, and educators in a professional environment.",
       image:
-        "https://img.freepik.com/free-vector/video-conferencing-concept-landing-page_52683-18368.jpg?t=st=1739289209~exp=1739292809~hmac=a383e6cd3977f036e6703f22c1e253ed50be53123add4cf3b139c067592b0492&w=1380",
+        "https://img.freepik.com/free-vector/group-therapy-concept-illustration_114360-3488.jpg?t=st=1739458602~exp=1739462202~hmac=2b9c7970601e7ef74a7ab1f15ad3365772c1c4f5be75234432ccc9435324d072&w=1380",
+      icon: <Brain className="w-6 h-6" />,
+      color: "from-blue-500 to-cyan-500",
     },
     {
       title: "Career Growth & Flexibility",
       description:
         "Hybrid and remote work opportunities with continuous professional development.",
       image:
-        "https://img.freepik.com/free-vector/flat-leadership-background_23-2147938562.jpg?t=st=1739289263~exp=1739292863~hmac=3eee9c80afad906f8b3b439f1093676c45e1523bbb5b70037cae895ceac8d951&w=740",
+        "https://img.freepik.com/free-vector/flat-hand-drawn-remote-working-scenes_23-2148852454.jpg?t=st=1739458559~exp=1739462159~hmac=e80b48d84a5fb3ffb2b9d724593c54cc149a20d43fbbdc6f592274819d90e5ee&w=1380",
+      icon: <Rocket className="w-6 h-6" />,
+      color: "from-green-500 to-emerald-500",
     },
     {
       title: "On-Field Job Roles",
       description:
-        " Work directly with schools, corporate organizations, and community programs, providing hands-on mental health support.",
+        "Work directly with schools, corporate organizations, and community programs, providing hands-on mental health support.",
       image:
-        "https://img.freepik.com/free-vector/family-phisician-with-husband-pregnant-wife-playing-children-family-doctor-medical-family-practice-primary-healthcare-care-concept-bright-vibrant-violet-isolated-illustration_335657-539.jpg?t=st=1739289576~exp=1739293176~hmac=bea02118150af178059ea1a096e5278dca34bcc9ea7d1c88fe47c988f2cf6db3&w=1380",
+        "https://img.freepik.com/free-vector/hand-drawn-young-people-using-technological-devices-background_23-2148125447.jpg?t=st=1739458503~exp=1739462103~hmac=5902fe7fcd7245dc78f6bb432ce2183c7d491dc8d9137876a7c946a2685445f7&w=740",
+      icon: <Target className="w-6 h-6" />,
+      color: "from-orange-500 to-amber-500",
     },
   ];
 
@@ -263,10 +277,12 @@ const CareerPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50">
       <div className="flex justify-between bg-white">
         <div>
-          <h1 className="text-6xl max-w-[900px] p-4 ml-32 mt-12">
+          <h1 className="text-6xl max-w-[1000px] p-4 ml-32 mt-12">
             A career with{" "}
-            <strong className="text-orange-500">ShareYrHeart</strong> is more
-            than just a job
+            <strong className="text-[#956144] font-semibold text-7xl">
+              ShareYrHeart
+            </strong>{" "}
+            is more than just a job
           </h1>
           <p className="max-w-[650px] text-2xl absolute left-[400px] top-[310px] p-2">
             <span className="text-red-500 text-4xl mr-3">♥</span>
@@ -293,7 +309,10 @@ const CareerPage = () => {
             animate={{ y: 0, opacity: 1 }}
             className="text-5xl font-bold text-gray-900 mb-6"
           >
-            Shape the Future of Mental Health
+            Shape the Future of{" "}
+            <strong className="text-[#956144] font-semibold text-7xl">
+              Mental Health
+            </strong>
           </motion.h1>
           <motion.p
             initial={{ y: -20, opacity: 0 }}
@@ -347,11 +366,13 @@ const CareerPage = () => {
             animate={{ y: 0, opacity: 1 }}
             className="text-4xl font-bold p-2 max-w-max  text-gray-900 mb-32 "
           >
-            Future Growth &{" "}
+            Future <strong className="text-orange-500">Growth</strong> &{" "}
             <strong className="text-blue-500">Opportunities</strong>
             <p className="absolute left-[700px] mt-4 max-w-max p-2 ">
               in Mental Health with{" "}
-              <strong className="text-5xl text-orange-500">ShareYrHeart</strong>
+              <strong className="text-[#956144] font-semibold text-5xl">
+                ShareYrHeart
+              </strong>
             </p>
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
@@ -378,137 +399,94 @@ const CareerPage = () => {
       <CareerOpportunities />
 
       {/* Why Join Us Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="text-4xl font-bold text-center text-gray-900 mb-12"
+      <section className="relative py-24 bg-white overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
+          style={{
+            backgroundImage:
+              "url('https://img.freepik.com/free-vector/flat-background-world-mental-health-day_23-2149624111.jpg?t=st=1739456953~exp=1739460553~hmac=914d1ee5a708b350480a17d68952121ac2e64716b87e5ed8e0c03287b27e81e0&w=1380')",
+            backgroundBlendMode: "overlay",
+          }}
+        />
+
+        <div className="relative max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-20"
           >
-            Why Build Your Career with ShareYrHeart?
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <h2 className="text-6xl font-semibold text-black p-3 mb-10">
+              Why Choose{" "}
+              <strong className="text-[#956144] font-semibold">
+                ShareYrHeart
+              </strong>{" "}
+              ?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Join a community of passionate professionals dedicated to
+              transforming mental health care
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {whyJoinUsCards.map((card, index) => (
               <motion.div
                 key={index}
-                initial={{ x: index % 2 === 0 ? -20 : 20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                onMouseEnter={() => setActiveCard(index)}
+                onMouseLeave={() => setActiveCard(null)}
+                className="relative group"
               >
-                <div className="relative h-52 w-full">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-8">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                    {card.title}
-                  </h3>
-                  <p className="text-gray-700">{card.description}</p>
+                <div className="relative overflow-hidden rounded-3xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl">
+                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,rgba(0,0,0,0.4)_1px,transparent_1px)] bg-[length:12px_12px]"></div>
+
+                  <div className="relative p-8">
+                    <div
+                      className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-r ${card.color} text-white mb-6`}
+                    >
+                      {card.icon}
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                      {card.title}
+                    </h3>
+
+                    <p className="text-gray-600 leading-relaxed mb-6 line-clamp-2">
+                      {card.description}
+                    </p>
+
+                    <div className="relative h-48 rounded-xl overflow-hidden">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
-        <div className="flex justify-center bg-white mt-16 p-8">
-          <p className="text-3xl text-gray-700 max-w-[1200px]">
-            By joining <strong>ShareYrHeart</strong>, you’re not just securing a
-            job—you’re becoming part of a revolution in mental health, shaping
-            the future of well-being, one life at a time.{" "}
-          </p>
-        </div>
-        <div className="flex justify-center bg-white pb-4">
-          <motion.button
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            onClick={() => setOpen(true)}
-            className="bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-          >
-            Apply Now
-          </motion.button>
-        </div>
 
-        {/* FAQ Section */}
-        <div className="mt-20">
-          <h2 className="text-4xl font-serif text-stone-800 mb-6 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="bg-white/80 mx-20 rounded-2xl divide-y divide-stone-200 mt-16">
-            {[
-              {
-                question: "What career opportunities does ShareYrHeart offer?",
-                answer:
-                  "ShareYrHeart provides a wide range of career opportunities in the mental health and well-being sector, including Mental Health Experts (Psychologists, Counselors, Therapists), Corporate Well-being Consultants (Employee Assistance Programs), School & Student Counselors (Student Well-being Programs), Self-Understanding Coaches (Personal Growth & Mental Well-being), Clinic Setup & On-Field Mental Health Professionals, Online Mental Health Experts (Live Chat & Forum Support), and Trainers & Educators (Professional Courses & Certification Programs).",
-              },
-              {
-                question:
-                  "How can I work as a mental health expert with ShareYrHeart?",
-                answer:
-                  "Qualified psychologists, counselors, and mental health professionals can apply to join our expert directory, offer services through our platform, conduct online/offline sessions, and participate in wellness programs.",
-              },
-              {
-                question:
-                  "Does ShareYrHeart provide opportunities for setting up a clinic?",
-                answer:
-                  "Yes! We support clinic setups for mental health professionals by offering business guidance, branding, patient referrals, and collaboration opportunities to establish a successful practice.",
-              },
-              {
-                question:
-                  "Can I work with ShareYrHeart while maintaining another job?",
-                answer:
-                  "Yes! We offer flexible working models, including full-time, part-time, and freelance opportunities, allowing professionals to contribute based on their availability.",
-              },
-              {
-                question:
-                  "What is the future growth projection in mental health with ShareYrHeart?",
-                answer:
-                  "The mental health industry is rapidly expanding, with increasing awareness and demand for services. ShareYrHeart is at the forefront of this transformation, offering corporate partnerships for workplace mental well-being, educational collaborations to enhance student mental health, expanding teletherapy & online consultation services, and opportunities for entrepreneurs to establish clinics and mental health ventures.",
-              },
-              {
-                question:
-                  "What kind of professional growth can I expect at ShareYrHeart?",
-                answer:
-                  "Working with ShareYrHeart provides a strong professional network with leading mental health experts, opportunities to deliver workshops, training, and online courses, access to continuous learning and certification programs, and a recognized platform to build your personal brand and reach more clients.",
-              },
-              {
-                question: "How do I apply for a career with ShareYrHeart?",
-                answer:
-                  "You can explore open positions and submit your application through our Careers page or contact us at support@shareyrheart.com for collaboration opportunities.",
-              },
-              {
-                question: "Do I need prior experience to join ShareYrHeart?",
-                answer:
-                  "While experience is preferred for expert roles, we also provide training programs and certifications to help aspiring professionals enter the mental health field.",
-              },
-            ].map((faq, index) => (
-              <div key={index} className="p-6">
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full flex justify-between items-center text-left text-stone-800 hover:text-stone-900"
-                >
-                  <span className="font-semibold text-lg ml-20">
-                    {faq.question}
-                  </span>
-                  <ChevronDown
-                    className={`h-5 w-5 transition-transform ${
-                      openFaq === index ? "transform rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                <div
-                  className={`mt-4 text-stone-600 transition-all ml-20 duration-200 ${
-                    openFaq === index ? "block" : "hidden"
-                  }`}
-                >
-                  {faq.answer}
-                </div>
-              </div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="mt-20 text-center"
+          >
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 blur-xl opacity-20 rounded-full"></div>
+              <button
+                onClick={() => setOpen(true)}
+                className="relative px-12 py-5 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-2xl hover:scale-105 transform transition-all duration-300"
+              >
+                Start Your Journey With Us
+              </button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
