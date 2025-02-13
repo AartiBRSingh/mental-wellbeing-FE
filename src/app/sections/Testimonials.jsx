@@ -88,7 +88,7 @@ const TestimonialsSlider = () => {
   if (testimonials.length === 0) return null;
 
   return (
-    <div className="bg-white py-10 overflow-hidden relative">
+    <div className="bg-transparent py-10 overflow-hidden relative">
       <button
         onClick={() => handleScroll("left")}
         className="absolute left-[350px] top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
@@ -121,7 +121,7 @@ const TestimonialsSlider = () => {
           >
             {testimonials.map((testimonial, index) => (
               <div key={index} className="min-w-[250px] px-2 flex-shrink-0">
-                <div className="bg-slate-50 rounded-2xl shadow-xl p-4 h-full transition-transform">
+                <div className="bg-slate-50 rounded-2xl p-4 h-full transition-transform">
                   <div className="flex flex-col items-center space-y-4">
                     <div className="w-20 h-20 rounded-full overflow-hidden">
                       <img

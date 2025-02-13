@@ -58,6 +58,7 @@ const CareerPage = () => {
     city: "",
     postalCode: "",
     coverLetter: "",
+    designation: "",
     cv: null,
   });
 
@@ -246,6 +247,7 @@ const CareerPage = () => {
         city: "",
         postalCode: "",
         coverLetter: "",
+        designation: "",
         cv: null,
       });
     } catch (err) {
@@ -812,19 +814,26 @@ const CareerPage = () => {
                     required
                   />
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Postal Code
+                    Designation
                   </label>
-                  <input
-                    type="text"
-                    name="postalCode"
-                    value={formData.postalCode}
+                  <select
+                    name="designation"
+                    value={formData.designation}
                     onChange={handleInputChange}
                     className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-blue-500 focus:outline-none transition-colors duration-200 hover:border-blue-400"
                     required
-                  />
+                  >
+                    <option value="">Select Designation</option>
+                    <option value="Mental Health Expert">
+                      Mental Health Expert
+                    </option>
+                    <option value="Psychiatry Services">
+                      Psychiatry Services
+                    </option>
+                    <option value="Corporate Roles">Corporate Roles</option>
+                  </select>
                 </div>
               </div>
 
@@ -886,7 +895,59 @@ const CareerPage = () => {
                   </select>
                 </div>
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Postal Code
+                  </label>
+                  <input
+                    type="text"
+                    name="postalCode"
+                    value={formData.postalCode}
+                    onChange={handleInputChange}
+                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-blue-500 focus:outline-none transition-colors duration-200 hover:border-blue-400"
+                    required
+                  />
+                </div>
 
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    CV (PDF only)
+                  </label>
+                  <div className="flex items-center space-x-4">
+                    <input
+                      type="file"
+                      name="cv"
+                      onChange={handleFileChange}
+                      accept=".pdf"
+                      className="block w-full text-sm text-gray-500 
+                      file:mr-4 file:py-2 file:px-4 
+                      file:rounded-full file:border-0 
+                      file:text-sm file:font-semibold
+                      file:bg-blue-50 file:text-blue-700 
+                      hover:file:bg-blue-100 
+                      transition-colors duration-200"
+                      required
+                    />
+                    {formData.cv && (
+                      <span className="text-sm text-green-600 flex items-center">
+                        <svg
+                          className="w-4 h-4 mr-1"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        File selected
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Cover Letter
@@ -900,44 +961,6 @@ const CareerPage = () => {
                   className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-blue-500 focus:outline-none transition-colors duration-200 hover:border-blue-400"
                   required
                 />
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  CV (PDF only)
-                </label>
-                <div className="flex items-center space-x-4">
-                  <input
-                    type="file"
-                    name="cv"
-                    onChange={handleFileChange}
-                    accept=".pdf"
-                    className="block w-full text-sm text-gray-500 
-                      file:mr-4 file:py-2 file:px-4 
-                      file:rounded-full file:border-0 
-                      file:text-sm file:font-semibold
-                      file:bg-blue-50 file:text-blue-700 
-                      hover:file:bg-blue-100 
-                      transition-colors duration-200"
-                    required
-                  />
-                  {formData.cv && (
-                    <span className="text-sm text-green-600 flex items-center">
-                      <svg
-                        className="w-4 h-4 mr-1"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      File selected
-                    </span>
-                  )}
-                </div>
               </div>
 
               <div className="pt-4">
