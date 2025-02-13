@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import SignupModal from "../components/SignupForm";
+import OrganizationModal from "../components/SignupForm";
 
 const Page = () => {
+  const [isOpen, setOpen] = useState(false);
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -23,7 +24,18 @@ const Page = () => {
                 better mental health today.
               </p>
               <div className="mt-8">
-                <SignupModal />
+                <button
+                  onClick={() => setOpen(true)}
+                  className="cursor-pointer inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold text-lg"
+                >
+                  Enroll Your Organization
+                </button>
+                <OrganizationModal
+                  isOpen={isOpen}
+                  onClose={() => {
+                    setOpen(false);
+                  }}
+                />
               </div>
             </div>
             <div className="md:w-1/2">

@@ -11,10 +11,12 @@ import toast, { Toaster } from "react-hot-toast";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+  const [organizationCode, setOrganizationCode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(true);
+  const [isLoginWIthOrgCode, setLoginWIthOrgCode] = useState(false);
 
   const router = useRouter();
 
@@ -32,7 +34,7 @@ const Login = () => {
     }
   };
 
-  const onOtpSubmit = async ({ identifier, otp }) => {
+  const onOtpSubmit = async ({ identifier, otp, organizationCode }) => {
     const url = isUserLogin
       ? `${baseURL}/users/login`
       : `${baseURL}/expert/login`;
@@ -40,6 +42,7 @@ const Login = () => {
       const response = await axios.post(url, {
         identifier,
         otp,
+        organizationCode,
       });
       const { token, profile } = response?.data;
 
@@ -69,7 +72,9 @@ const Login = () => {
         router.push(`/expert/profile`);
       }
     } catch (error) {
-      throw new Error(error.response?.data || "Invalid OTP. Please try again.");
+      throw new Error(
+        error.response?.data || "Invalid credentials. Please try again."
+      );
     }
   };
 
@@ -77,6 +82,21 @@ const Login = () => {
     event.preventDefault();
     setLoading(true);
     setError("");
+
+    if (isLoginWIthOrgCode) {
+      try {
+        await onOtpSubmit({
+          identifier: email,
+          otp: "",
+          organizationCode,
+        });
+      } catch (error) {
+        setError("Invalid credentials");
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
 
     try {
       await onEmailSubmit(email);
@@ -94,9 +114,9 @@ const Login = () => {
     setError("");
 
     try {
-      await onOtpSubmit({ identifier: email, otp });
+      await onOtpSubmit({ identifier: email, otp, organizationCode });
     } catch (error) {
-      setError("Invalid OTP");
+      setError("Invalid credentials");
     } finally {
       setLoading(false);
     }
@@ -158,7 +178,6 @@ const Login = () => {
               >
                 User Login
               </span>
-
               <div
                 className="w-14 h-7 bg-gray-300 rounded-full cursor-pointer relative"
                 onClick={() => setIsUserLogin(!isUserLogin)}
@@ -199,7 +218,26 @@ const Login = () => {
                 required
               />
             </div>
-            {isOtpSent && (
+            {isLoginWIthOrgCode && (
+              <div className="mb-4">
+                <label
+                  htmlFor="organizationCode"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Enter Organization Code{" "}
+                  <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="organizationCode"
+                  value={organizationCode}
+                  onChange={(e) => setOrganizationCode(e.target.value)}
+                  className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                  required
+                />
+              </div>
+            )}
+            {isOtpSent && !isLoginWIthOrgCode && (
               <div className="mb-4">
                 <label
                   htmlFor="otp"
@@ -222,8 +260,26 @@ const Login = () => {
               className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={loading}
             >
-              {loading ? "Loading..." : isOtpSent ? "Verify OTP" : "Send OTP"}
+              {loading
+                ? "Loading..."
+                : isLoginWIthOrgCode
+                ? "Login"
+                : isOtpSent
+                ? "Verify OTP"
+                : "Send OTP"}
             </button>
+            {!isLoginWIthOrgCode && (
+              <>
+                <p className="text-center my-2">- or -</p>
+                <button
+                  type="button"
+                  onClick={() => setLoginWIthOrgCode(true)}
+                  className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200"
+                >
+                  Login with organization code
+                </button>
+              </>
+            )}
             <p className="mt-4 text-center">
               Do not have an account yet?{" "}
               <Link href={"/signup"} className="cursor-pointer">

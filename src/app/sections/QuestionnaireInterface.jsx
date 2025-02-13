@@ -78,7 +78,6 @@ const QuestionnaireInterface = ({ onSubmit }) => {
 
   const searchParams = useSearchParams();
   const expectedUserType = searchParams.get("userType");
-  console.log(expectedUserType, "raju");
 
   const router = useRouter();
   const userType = Cookies.get("userType");

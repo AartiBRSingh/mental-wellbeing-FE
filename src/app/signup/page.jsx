@@ -7,7 +7,7 @@ import { DecorativeShapes } from "../sections/Services";
 import { Eye, EyeOff } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
-const SignupPage = () => {
+export const SignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -60,6 +60,7 @@ const SignupPage = () => {
       city,
       state,
       password,
+      organizationCode,
       userType: finalUserType,
       ...(finalUserType === "employee" && { organizationName, webUrl }),
     };
@@ -500,7 +501,6 @@ const SignupPage = () => {
                       "Create Account"
                     )}
                   </button>
-
                   <div className="text-center mt-6">
                     <button
                       type="button"
@@ -514,6 +514,19 @@ const SignupPage = () => {
                       className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer"
                     >
                       Already have an account? Log in
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        router.push(
+                          `/login?userType=${
+                            userType || selectedUserType.toLowerCase()
+                          }`
+                        )
+                      }
+                      className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer"
+                    >
+                      Are you running an organization? Please sign up here
                     </button>
                   </div>
                 </form>

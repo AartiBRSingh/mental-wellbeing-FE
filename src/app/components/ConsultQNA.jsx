@@ -176,17 +176,12 @@ const ConsultQNA = () => {
                 }}
                 className="space-y-4"
               >
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <select className="p-2 border border-gray-200 rounded-lg">
                     <option value="">Category</option>
                     <option value="treatment">Treatment</option>
                     <option value="techniques">Techniques</option>
                     <option value="emergency">Emergency</option>
-                  </select>
-                  <select className="p-2 border border-gray-200 rounded-lg">
-                    <option value="low">Low Urgency</option>
-                    <option value="medium">Medium Urgency</option>
-                    <option value="high">High Urgency</option>
                   </select>
                 </div>
                 <input
