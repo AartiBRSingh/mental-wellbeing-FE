@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Clock, Users, ChevronRight, Star, Calendar } from "lucide-react";
+import { Star, Calendar } from "lucide-react";
 import Link from "next/link";
 
 const CourseCatalog = () => {
@@ -39,7 +39,6 @@ const CourseCatalog = () => {
     return curriculum.reduce((total, item) => total + item.duration, 0);
   };
 
-  // New function to render stars
   const renderStars = (rating) => {
     return (
       <div className="flex items-center gap-1">
@@ -57,6 +56,13 @@ const CourseCatalog = () => {
       </div>
     );
   };
+
+  function generateSlug(title, id) {
+    return `${title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "")}?id=${id}`;
+  }
 
   if (loading) {
     return (
@@ -85,14 +91,15 @@ const CourseCatalog = () => {
           </h1>
           <div className="h-1.5 w-24 bg-[#D2691E] mx-auto rounded-full"></div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course) => (
             <div
               key={course._id}
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-[#F5DEB3]/50"
             >
-              <Link href={`/all-courses/${course._id}`}>
+              <Link
+                href={`/all-courses/${generateSlug(course.title, course._id)}`}
+              >
                 <div>
                   <div className="relative aspect-video">
                     <img
@@ -104,21 +111,16 @@ const CourseCatalog = () => {
                       {course.category}
                     </div>
                   </div>
-
                   <div className="p-6 space-y-4">
                     <h2 className="text-2xl font-bold text-[#4A3427] leading-tight line-clamp-1">
                       {course.title}
                     </h2>
-
                     <p className="text-[#6B584C] line-clamp-2">
                       {course.description}
                     </p>
-
-                    {/* Added rating display */}
                     <div className="flex items-center">
                       {renderStars(course.rating || 5)}
                     </div>
-
                     <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
                       <div className="flex gap-3 items-center">
                         <Calendar />
