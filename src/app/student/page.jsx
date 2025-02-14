@@ -1,10 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { baseURL } from "../baseURL";
 import Cookies from "js-cookie";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+  Tooltip,
+} from "recharts";
+
+const COLORS = ["#77DEFF", "#00FF00", "#FF8458", "#FACC15", "#CCCCFF"];
 
 const StudentWellbeingPage = () => {
   const [hasPaid, setHasPaid] = useState(false);
@@ -13,6 +22,32 @@ const StudentWellbeingPage = () => {
   const [email, setEmail] = useState(null);
   const [phoneNo, setPhoneNo] = useState(null);
   const router = useRouter();
+
+  const StudentStats = [
+    { name: "Mental Health Issues", value: 70 },
+    { name: "Healthy Mental State", value: 30 },
+  ];
+
+  const impactStats = [
+    { name: "Anxiety Disorders", value: 30 },
+    { name: "PTSD", value: 10 },
+    { name: "Stress-Related Issues", value: 20 },
+    { name: "Depression", value: 25 },
+    { name: "Bipolar Disorder", value: 8 },
+    { name: "Others", value: 7 },
+  ];
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+          <p className="font-semibold">{payload[0].name}</p>
+          <p className="text-gray-600">{`${payload[0].value}%`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   useEffect(() => {
     const loadRazorpayScript = () => {
@@ -109,82 +144,208 @@ const StudentWellbeingPage = () => {
     razorpay.open();
   };
   return (
-    <div className="flex items-center justify-center p-6">
-      <img
-        src="https://img.freepik.com/free-vector/hand-painted-watercolor-nature-background_23-2148941603.jpg?t=st=1738214446~exp=1738218046~hmac=18198897681cec14319e7653577f8232cb534bda98ec75c6f4ce552dc9b94fdc&w=1380"
-        alt="Background"
-        className="absolute w-full h-[720px] object-cover rounded-lg opacity-40"
-      />
-      <div className="relative z-10">
-        <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl">
-          {/* Image Section */}
-          <div className="relative">
-            <img
-              src="https://img.freepik.com/free-vector/happy-students-jumping-with-flat-design_23-2147907627.jpg?t=st=1737958353~exp=1737961953~hmac=b35ff6009000582dff7710c6c86c923f98fb82aa915ccc17fbbd564321b15760&w=740"
-              alt="Student Well-being"
-              className="w-full h-full object-contain object-center"
-            />
-          </div>
-
-          {/* Content Section */}
-          <div className="p-8 space-y-6 flex flex-col justify-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-100 to-purple-100 text-gray-800 leading-tight rounded-3xl text-center p-4">
-              Student Well-being: Nurturing Holistic Growth
+    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-purple-50">
+      <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+          <div className="space-y-4">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-[#FFD255] to-green-500 bg-clip-text text-transparent">
+              Student Mental Health & Well-being
             </h1>
 
+            <div className="relative h-48 rounded-lg overflow-hidden">
+              <img
+                src="https://img.freepik.com/free-vector/study-abroad-concept-illustration_114360-7493.jpg?t=st=1739522288~exp=1739525888~hmac=8af47051fc984e533984a827d78638bbf99fd772deff4ea0b5d2d52a34e05257&w=740"
+                alt="Students representing mental wellness"
+                className="w-full h-full object-contain rounded-lg"
+              />
+            </div>
+
             <p className="text-gray-600 leading-relaxed">
-              Student well-being is described as the manifestation of good
-              emotion in life as a result of the harmonious interaction of
-              unique environmental factors and individual expectations.
+              Student well-being manifests through positive emotions and
+              harmonious interactions between environmental factors and
+              individual expectations. It&apos;s a holistic system supporting
+              spiritual, physical, and social development.
             </p>
 
-            <div className="bg-gray-100 border-l-4 border-black p-4 rounded-r-lg shadow-xl">
+            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
               <p className="text-gray-800 italic">
-                &quot;Well-being is a state where individuals realize their
-                potential, cope with life&apos;s stresses, work productively,
-                and contribute to their community.&quot; - World Health
-                Organisation (WHO)
+                According to WHO, well-being is a state where individuals
+                realize their potential, cope with life&apos;s normal stresses,
+                work productively, and contribute to their community.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-gray-700 rounded-full bg-[#77DEFF] p-2 max-w-[380px] text-center">
-                Key Aspects of Student Well-being
-              </h2>
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
-                <li>Spiritual Development</li>
-                <li>Physical Health</li>
-                <li>Social Interaction</li>
-                <li>Mental Resilience</li>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="h-80">
+                <h3 className="text-lg font-semibold text-center">
+                  Student Well-being Statistics
+                </h3>
+                <ResponsiveContainer width="100%" height="80%">
+                  <PieChart>
+                    <Pie
+                      data={StudentStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={70}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {StudentStats.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+
+              <div className="h-80">
+                <h3 className="text-lg font-semibold text-center">
+                  Impact Distribution
+                </h3>
+                <ResponsiveContainer width="100%" height="80%">
+                  <PieChart>
+                    <Pie
+                      data={impactStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={70}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {impactStats.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-8 mt-6">
+            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
+              <div className="flex gap-2">
+                <h2 className="text-4xl font-semibold text-gray-900 mb-6">
+                  Key
+                </h2>
+                <span className="text-green-500 relative text-4xl block">
+                  <span className="relative">
+                    Findings
+                    <svg
+                      className="absolute w-full h-[6px] bottom-0 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-blue-500 rounded-full"></span>
+                  <span>
+                    Poor mental health persists throughout life stages
+                  </span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-green-500 rounded-full"></span>
+                  <span>Significant impact on academic performance</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-orange-500 rounded-full"></span>
+                  <span>Strong correlation with future success</span>
+                </li>
               </ul>
             </div>
 
-            <div className="mt-6">
-              {hasPaid ? (
-                <button
-                  onClick={() =>
-                    router.push("/questionnaires?userType=student")
-                  }
-                  className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
-                transition duration-300 ease-in-out 
-                hover:bg-[#FACC15] hover:text-black hover:shadow-lg 
-                focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-                >
-                  Begin Your Journey
-                </button>
-              ) : (
-                <button
-                  onClick={handlePayment}
-                  className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
-                transition duration-300 ease-in-out 
-                hover:bg-gray-800 hover:shadow-lg 
-                focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-                >
-                  Make Payment to Begin
-                </button>
-              )}
+            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
+              <div className="flex gap-2">
+                <h2 className="text-4xl font-semibold text-gray-900 mb-6">
+                  Warning
+                </h2>
+                <span className="text-green-500 relative text-4xl block">
+                  <span className="relative">
+                    signs
+                    <svg
+                      className="absolute w-full h-[6px] bottom-0 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-red-500 rounded-full"></span>
+                  <span>Aggressive behavior and internalization</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-purple-500 rounded-full"></span>
+                  <span>Unsafe decision-making and substance use</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-yellow-500 rounded-full"></span>
+                  <span>Physical and relational victimization</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+              <p className="text-gray-800 italic">
+                A Student Well-Being Program is vital for fostering emotional
+                resilience, academic success, and personal growth. It equips
+                students with essential skills for managing stress, enhancing
+                focus, and building confidence, preparing them for future
+                challenges while ensuring a balanced academic journey.
+              </p>
             </div>
           </div>
+        </div>
+        <div className="m-2 flex justify-center">
+          {hasPaid ? (
+            <button
+              onClick={() => router.push("/questionnaires?userType=student")}
+              className="py-4 min-w-[800px] px-10 bg-gradient-to-r from-[#EBB509] to-purple-600 text-white font-semibold rounded-xl
+                      transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
+                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Begin Your Well-being Journey
+            </button>
+          ) : (
+            <button
+              onClick={handlePayment}
+              className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl
+                      transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
+                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Make Payment to Begin
+            </button>
+          )}
         </div>
       </div>
     </div>
