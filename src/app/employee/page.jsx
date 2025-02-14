@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { baseURL } from "../baseURL";
 import {
   PieChart,
   Pie,
@@ -8,13 +10,7 @@ import {
   ResponsiveContainer,
   Legend,
   Tooltip,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
 } from "recharts";
-import Cookies from "js-cookie";
 
 const COLORS = ["#77DEFF", "#00FF00", "#FF8458", "#FACC15", "#CCCCFF"];
 
@@ -120,7 +116,7 @@ const WorkplaceMentalHealthPage = () => {
             razorpay_signature: response.razorpay_signature,
             userId,
             amount,
-            planType: "student",
+            planType: "employee",
           }),
         });
 
@@ -128,7 +124,7 @@ const WorkplaceMentalHealthPage = () => {
         if (verifyData.success) {
           alert("Payment Successful!");
           Cookies.set("paidForEmployee", "true");
-          router.push("/questionnaires?userType=student");
+          router.push("/questionnaires?userType=employee");
         } else {
           alert("Payment verification failed. Please try again.");
         }
