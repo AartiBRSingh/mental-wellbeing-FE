@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   ArrowRight,
 } from "lucide-react";
+import CustomCursor from "@/app/components/CustomCursor";
 
 const ClinicDetailPage = () => {
   const [clinic, setClinic] = useState(null);
@@ -95,7 +96,7 @@ const ClinicDetailPage = () => {
   const tabContent = {
     about: (
       <div className="space-y-6">
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
+        <div className="bg-white rounded-b-2xl p-6 shadow-lg">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             About Our Clinic
           </h2>
@@ -134,7 +135,7 @@ const ClinicDetailPage = () => {
     ),
     experts: (
       <div className="space-y-6">
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
+        <div className="bg-white rounded-2xl p-6 shadow-lg">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">
             Our Medical Experts
           </h2>
@@ -184,7 +185,7 @@ const ClinicDetailPage = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white">
+      <div className="bg-gradient-to-br from-green-600 via-green-500 to-green-400 text-white">
         <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="flex items-center space-x-2 bg-white/10 w-fit rounded-full px-4 py-1 text-sm backdrop-blur-sm mb-6">
@@ -194,7 +195,24 @@ const ClinicDetailPage = () => {
               <span className="font-medium">{clinic.timings.monday}</span>
             </div>
 
-            <h1 className="text-5xl font-bold mb-4">{clinic.name}</h1>
+            {/* <h1 className="text-5xl font-bold mb-4">{clinic.name}</h1> */}
+            <span className="text-white relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
+              <span className="relative">
+                {clinic.name}
+                <svg
+                  className="absolute w-full h-[6px] bottom-0 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
 
             <div className="flex items-center space-x-3 mb-6">
               <div className="flex items-center space-x-1">
@@ -235,7 +253,7 @@ const ClinicDetailPage = () => {
           {/* Left Column - Main Content */}
           <div className="md:col-span-2">
             {/* Navigation Tabs */}
-            <div className="bg-white rounded-t-2xl shadow-sm p-4 mb-6">
+            <div className="bg-white rounded-t-2xl shadow-sm p-4">
               <div className="flex space-x-6">
                 {["about", "experts"].map((tab) => (
                   <button
@@ -260,7 +278,7 @@ const ClinicDetailPage = () => {
           {/* Right Column - Info Cards */}
           <div className="space-y-6">
             {/* Contact Card */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm">
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
               <h2 className="text-xl font-bold text-gray-800 mb-4">
                 Contact Information
               </h2>
@@ -287,7 +305,7 @@ const ClinicDetailPage = () => {
             </div>
 
             {/* Opening Hours Card */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm">
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
               <h2 className="text-xl font-bold text-gray-800 mb-4">
                 Opening Hours
               </h2>
@@ -313,6 +331,7 @@ const ClinicDetailPage = () => {
       {/* Appointment Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+          <CustomCursor />
           <div className="bg-white rounded-2xl max-w-md w-full p-6 relative">
             <button
               onClick={() => setShowModal(false)}
