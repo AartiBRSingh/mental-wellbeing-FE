@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -26,7 +27,7 @@ const Hero = () => {
             className="inline-block"
           >
             <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#956144] text-xs font-semibold">
-              MENTAL HEALTH AT 30&apos;S
+              MENTAL HEALTH AT ANY AGE
             </span>
           </motion.div>
 
@@ -54,7 +55,7 @@ const Hero = () => {
             </motion.span>
           </motion.h1>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 1.2 }}
@@ -84,7 +85,23 @@ const Hero = () => {
               To live your life to the fullest, we&apos;re continuing to find
               ways to prevent mental health problems.
             </motion.p>
-          </motion.div>
+          </motion.div> */}
+
+          <div className="flex gap-5">
+            <Link
+              href={"/employee"}
+              className="cursor-pointer font-semibold px-4 shadow-lg bg-[#FACC15] text-black p-2 rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
+            >
+              Workplace
+            </Link>
+
+            <Link
+              href={"/student"}
+              className="cursor-pointer shadow-lg font-semibold px-4 bg-[#E9D5FF] text-black p-2 rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
+            >
+              Campus
+            </Link>
+          </div>
         </motion.section>
 
         {/* Image Section */}

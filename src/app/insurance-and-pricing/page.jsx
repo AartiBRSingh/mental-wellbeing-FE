@@ -10,11 +10,11 @@ const InsuranceAndPricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-8">
-      <div className="max-w-screen-2xl mx-auto mt-16">
-        <div className="mb-12 flex justify-between">
-          <div className="mt-14">
-            <span className=" relative text-8xl font-serif text-stone-800 max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+    <div className="min-h-screen bg-white p-8 ">
+      <div className="max-w-screen-xl mx-auto mt-16">
+        <div className="mb-12 flex justify-between p-10">
+          <div className="mt-14 ml-20">
+            <span className=" relative text-7xl font-serif text-stone-800 max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
               <span className="relative">
                 Insurance & Pricing
                 <svg
@@ -32,10 +32,10 @@ const InsuranceAndPricing = () => {
               </span>
             </span>
 
-            <p className="text-stone-600 text-xl mt-16 max-w-[1000px] ml-6">
+            <p className="text-stone-600 text-xl mt-16 max-w-[1000px] ">
               Comprehensive mental health support tailored to your needs
             </p>
-            <p className="text-stone-600 text-xl mt-10 max-w-[800px] ml-6">
+            <p className="text-stone-600 text-xl mt-10 max-w-[800px] ">
               In India, the Mental Healthcare Act of 2017 mandates that health
               insurance providers cover mental health treatments on par with
               physical ailments. This legislation ensures that mental health
@@ -148,7 +148,7 @@ const InsuranceAndPricing = () => {
           </div>
         </div>
 
-        <div className="mt-24 flex justify-center max-w-6xl ml-48">
+        <div className="mt-24 max-w-4xl ml-32">
           <p className="text-3xl ">
             While many users may opt for insurance coverage, we also offer a
             self-pay option for those who prefer to pay directly for their

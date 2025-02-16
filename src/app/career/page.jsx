@@ -274,22 +274,22 @@ const CareerPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50">
-      <div className="flex justify-between bg-white">
+    <div className="min-h-screen bg-slate-50 ">
+      <div className="flex ml-48 bg-white rounded-3xl mr-48 shadow-sm p-4">
         <div>
-          <h1 className="text-6xl max-w-[1000px] p-4 ml-32 mt-12">
+          <h1 className="text-4xl max-w-[800px] p-4 ml-32 mt-12">
             A career with{" "}
-            <strong className="text-[#956144] font-semibold text-7xl">
+            <strong className="text-[#956144] font-semibold text-5xl">
               ShareYrHeart
             </strong>{" "}
             is more than just a job
           </h1>
-          <p className="max-w-[650px] text-2xl absolute left-[400px] top-[310px] p-2">
+          <p className="max-w-[650px] text-2xl absolute left-[400px] top-[270px] p-2">
             <span className="text-red-500 text-4xl mr-3">♥</span>
             it’s an opportunity to transform lives while growing professionally
             in the fast-evolving field of mental health.
           </p>
-          <p className="max-w-[600px] text-2xl  absolute top-[450px] left-[220px] p-2">
+          <p className="max-w-[600px] text-xl  absolute top-[370px] left-[250px] p-2">
             Whether you’re a psychologist, counselor, trainer, or entrepreneur,
             ShareYrHeart offers a platform to make a meaningful impact.
             <span className="text-green-400 text-2xl ml-2">♦</span>
@@ -298,11 +298,19 @@ const CareerPage = () => {
         <img
           src="https://img.freepik.com/free-vector/hand-drawn-life-coaching-illustration_23-2150279254.jpg?t=st=1739423710~exp=1739427310~hmac=504397953875b3553cb03a43ea9e6b031bfaa1dc0fb6212c40ded1d2dfd88522&w=1380"
           alt="Mental wellness illustration"
-          className="h-[500px] w-auto mr-10"
+          className="h-[400px] w-auto mr-10"
         />
       </div>
       {/* Hero Section */}
       <section className="py-20 px-4">
+        <div className="flex justify-center mb-6">
+          <div className="relative inline-block">
+            <div className="absolute inset-0 bg-[#956144] opacity-10 rotate-2 rounded-lg" />
+            <div className="relative px-3 md:px-4 py-1.5 bg-white rounded-lg text-xs md:text-sm text-[#956144] font-medium border border-[#956144]/20">
+              MENTAL HEALTH AT ANY AGE
+            </div>
+          </div>
+        </div>
         <div className="max-w-6xl mx-auto text-center">
           <motion.h1
             initial={{ y: -20, opacity: 0 }}
@@ -329,19 +337,19 @@ const CareerPage = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
             onClick={() => setOpen(true)}
-            className="bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="bg-blue-600 text-white px-8 py-2 mt-2 rounded-xl text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Apply Now
           </motion.button>
         </div>
 
-        <div className="bg-white">
-          <div className="flex justify-between items-center mt-5 mx-72 bg-white">
+        <div className="bg-white ml-40 mr-40">
+          <div className="flex justify-between items-center mt-5 mx-60 bg-white">
             <div>
               <img
                 src="https://img.freepik.com/free-vector/autumn-tree-concept-illustration_114360-22762.jpg?t=st=1739424712~exp=1739428312~hmac=19f833c75266af2ae4628e5d2243b2dbe5538d5effe4f1f3eb6aa35dae6cf429&w=740"
                 alt="Mental wellness illustration"
-                className="h-[500px] w-auto"
+                className="h-[400px] w-auto"
               />
             </div>
             <div className="flex justify-center mt-5">
@@ -351,7 +359,7 @@ const CareerPage = () => {
               <img
                 src="https://img.freepik.com/free-vector/interview-concept-illustration_114360-1501.jpg?t=st=1739424391~exp=1739427991~hmac=c94a261ffed8efd6f9de4b439058eded8fa1c6213ea87126629655b704cb9557&w=1380"
                 alt="Mental wellness illustration"
-                className="h-[500px] w-auto "
+                className="h-[400px] w-auto "
               />
             </div>
           </div>
@@ -399,7 +407,7 @@ const CareerPage = () => {
       <CareerOpportunities />
 
       {/* Why Join Us Section */}
-      <section className="relative py-24 bg-white overflow-hidden">
+      <section className="relative py-24  overflow-hidden">
         {/* Background Image with Overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"

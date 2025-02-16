@@ -148,7 +148,7 @@ const StudentWellbeingPage = () => {
       <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-[#FFD255] to-green-500 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-[#FFD255] to-green-500 bg-clip-text text-transparent">
               Student Mental Health & Well-being
             </h1>
 

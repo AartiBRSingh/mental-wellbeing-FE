@@ -12,6 +12,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
+  // Authentication effects remain the same...
   useEffect(() => {
     const token = Cookies.get("authToken");
     const name = Cookies.get("name");
@@ -60,21 +61,23 @@ const Navbar = () => {
 
   const navLinks = [
     {
-      label: "Services",
-      redirectTo: "#services",
-      dropdown: [
-        { label: "Mental well being", href: "/mental-wellbeing" },
-        { label: "Professional course", href: "/all-courses" },
-      ],
+      label: "Courses",
+      redirectTo: "/all-courses",
+      // dropdown: [
+      //   { label: "Mental well being", href: "/mental-wellbeing" },
+      //   { label: "Professional course", href: "/all-courses" },
+      // ],
     },
     { label: "Clinics", redirectTo: "/clinics" },
-    { label: "Treatments", redirectTo: "#" },
-  ];
-
-  const dropdownOptions = [
-    { label: "Employee", href: "/employee" },
-    { label: "Student", href: "/student" },
-    { label: "Self", href: "/self" },
+    {
+      label: "Mental Wellbeing",
+      redirectTo: "mental-wellbeing",
+      dropdown: [
+        { label: "Employee", href: "/employee" },
+        { label: "Student", href: "/student" },
+        { label: "Self", href: "/self" },
+      ],
+    },
   ];
 
   const pathname = usePathname();
@@ -112,7 +115,7 @@ const Navbar = () => {
           />
         </Link>
         <section className="hidden md:block">
-          <ul className="flex justify-between items-center gap-10">
+          <ul className="flex justify-between items-center gap-10 p-2">
             {navLinks.map((item, index) => (
               <div key={index} className="relative group">
                 <Link href={item.redirectTo}>
@@ -143,29 +146,6 @@ const Navbar = () => {
           </ul>
         </section>
         <section className="flex items-center gap-4 md:gap-6">
-          <div className="relative group hidden md:block">
-            <button className="relative w-8 h-8 cursor-pointer">
-              <div className="relative flex flex-col justify-center w-full h-full">
-                <div className="w-full h-[2px] bg-black transition-all duration-300 ease-in-out group-hover:rotate-45 group-hover:translate-y-[6px]" />
-                <div className="w-full h-[2px] bg-black mt-[10px] transition-all duration-300 ease-in-out group-hover:-rotate-45 group-hover:-translate-y-[6px]" />
-              </div>
-            </button>
-            <div className="absolute right-0 top-full mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
-              <div className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg">
-                <CustomCursor />
-                {dropdownOptions.map((option, index) => (
-                  <a
-                    key={index}
-                    href={option.href}
-                    className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
-                  >
-                    {option.label}
-                  </a>
-                ))}
-              </div>
-              <div className="absolute -top-2 right-3 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
-            </div>
-          </div>
           {isAuthenticated ? (
             <div className="relative group hidden md:block">
               <button className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300">
@@ -206,14 +186,14 @@ const Navbar = () => {
             </div>
           ) : (
             <Link href="/login" className="hidden md:block">
-              <button className="cursor-pointer px-4 bg-black text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+              <button className="cursor-pointer px-4 bg-black text-white p-2 rounded-xl shadow-lg transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
                 Sign In
               </button>
             </Link>
           )}
           <Link
             href={"/get-started"}
-            className="cursor-pointer font-semibold px-4 bg-yellow-700 text-white p-2 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
+            className="cursor-pointer font-semibold px-4 bg-[#7CE7FF] text-black p-2 shadow-lg rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
           >
             Get Started
           </Link>
@@ -251,18 +231,6 @@ const Navbar = () => {
                   )}
                 </div>
               ))}
-              <div className="border-b border-gray-200">
-                {dropdownOptions.map((option, index) => (
-                  <a
-                    key={index}
-                    href={option.href}
-                    className="block px-4 py-3 hover:bg-gray-50"
-                    onClick={toggleMobileMenu}
-                  >
-                    {option.label}
-                  </a>
-                ))}
-              </div>
               {isAuthenticated ? (
                 <div>
                   <div className="px-4 py-3 border-b border-gray-200">
