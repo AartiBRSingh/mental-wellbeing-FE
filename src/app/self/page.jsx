@@ -1,18 +1,52 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { baseURL } from "../baseURL";
 import Cookies from "js-cookie";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+  Tooltip,
+} from "recharts";
 
-const Page = () => {
+const COLORS = ["#77DEFF", "#00FF00", "#FF8458", "#FACC15", "#CCCCFF"];
+
+const SelfAssessmentPage = () => {
   const [hasPaid, setHasPaid] = useState(false);
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
   const [phoneNo, setPhoneNo] = useState(null);
   const router = useRouter();
+
+  const mentalHealthStats = [
+    { name: "Mental Health Concerns", value: 65 },
+    { name: "Healthy Mental State", value: 35 },
+  ];
+
+  const wellbeingDistribution = [
+    { name: "Anxiety", value: 25 },
+    { name: "Depression", value: 20 },
+    { name: "Work-Life Balance", value: 30 },
+    { name: "Relationship Issues", value: 15 },
+    { name: "Others", value: 10 },
+  ];
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+          <p className="font-semibold">{payload[0].name}</p>
+          <p className="text-gray-600">{`${payload[0].value}%`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   useEffect(() => {
     const loadRazorpayScript = () => {
@@ -110,72 +144,213 @@ const Page = () => {
   };
 
   return (
-    <div className="bg-transparent flex items-center justify-center p-6">
-      <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl">
-        <div className="relative">
-          <img
-            src="https://img.freepik.com/free-vector/high-self-esteem-illustration_23-2148766834.jpg?t=st=1737958010~exp=1737961610~hmac=d9a5dae22d9564405a029e95ac231f84cde03a92482ba9557231c5ecd9498571&w=740"
-            alt="Student Well-being"
-            className="w-full h-full object-contain object-center"
-          />
-        </div>
-        <div className="p-8 space-y-6 flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-gray-800 leading-tight">
-            Discover Your Potential: A Journey of Self-Understanding
-          </h1>
-
-          <p className="text-gray-600 leading-relaxed">
-            Self-understanding is the key to unlocking your personal growth and
-            potential. It&apos;s about recognizing your unique strengths,
-            embracing your vulnerabilities, and charting a path of continuous
-            self-improvement.
-          </p>
-
-          <div className="bg-gray-100 border-l-4 border-black p-4 rounded-r-lg">
-            <p className="text-gray-800 italic">
-              &quot;Know yourself. Your greatest asset is your understanding of
-              who you are and who you can become.&quot;
-            </p>
-          </div>
-
+    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-purple-50">
+      <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-gray-700">
-              Why Self-Understanding Matters
-            </h2>
-            <ul className="list-disc list-inside text-gray-600 space-y-2">
-              <li>Enhances decision-making and personal clarity</li>
-              <li>Builds authentic self-confidence</li>
-              <li>Improves relationship dynamics</li>
-              <li>Helps identify personal goals and passions</li>
-            </ul>
+            <h1 className="text-3xl font-semibold text-black bg-clip-text">
+              <strong className="text-[#956144] font-semibold text-4xl">
+                Self
+              </strong>{" "}
+              Mental Health & Well-being
+            </h1>
+
+            <div className="relative h-48 rounded-lg overflow-hidden">
+              <img
+                src="https://img.freepik.com/free-vector/high-self-esteem-illustration_23-2148766834.jpg?w=740"
+                alt="Personal well-being illustration"
+                className="w-full h-full object-contain rounded-lg"
+              />
+            </div>
+
+            <p className="text-gray-600 leading-relaxed">
+              Personal well-being is about achieving harmony between your
+              mental, emotional, and physical health. Its a journey of
+              self-discovery and growth that enables you to live a more
+              fulfilling life.
+            </p>
+
+            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+              <p className="text-gray-800 italic">
+                Understanding and maintaining your mental health is crucial for
+                personal growth, relationships, and overall life satisfaction.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="h-80">
+                <h3 className="text-lg font-semibold text-center">
+                  Mental Health Overview
+                </h3>
+                <ResponsiveContainer width="100%" height="80%">
+                  <PieChart>
+                    <Pie
+                      data={mentalHealthStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={70}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {mentalHealthStats.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+
+              <div className="h-80">
+                <h3 className="text-lg font-semibold text-center">
+                  Well-being Distribution
+                </h3>
+                <ResponsiveContainer width="100%" height="80%">
+                  <PieChart>
+                    <Pie
+                      data={wellbeingDistribution}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={70}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {wellbeingDistribution.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           </div>
-          <div className="mt-6">
-            {hasPaid ? (
-              <button
-                onClick={() => router.push("/questionnaires?userType=self")}
-                className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
-                transition duration-300 ease-in-out 
-                hover:bg-gray-800 hover:shadow-lg 
-                focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              >
-                Begin Your Self-Discovery
-              </button>
-            ) : (
-              <button
-                onClick={handlePayment}
-                className="w-full py-3 px-6 bg-black text-white font-semibold rounded-full 
-                transition duration-300 ease-in-out 
-                hover:bg-gray-800 hover:shadow-lg 
-                focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              >
-                Make Payment to Begin
-              </button>
-            )}
+
+          <div className="space-y-8 mt-6">
+            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
+              <div className="flex gap-2">
+                <h2 className="text-4xl font-semibold text-gray-900 mb-6">
+                  Key
+                </h2>
+                <span className="text-green-500 relative text-4xl block">
+                  <span className="relative">
+                    Benefits
+                    <svg
+                      className="absolute w-full h-[6px] bottom-0 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-blue-500 rounded-full"></span>
+                  <span>
+                    Enhanced self-awareness and emotional intelligence
+                  </span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-green-500 rounded-full"></span>
+                  <span>Improved relationships and communication</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-orange-500 rounded-full"></span>
+                  <span>Better work-life balance and stress management</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
+              <div className="flex gap-2">
+                <h2 className="text-4xl font-semibold text-gray-900 mb-6">
+                  Warning
+                </h2>
+                <span className="text-green-500 relative text-4xl block">
+                  <span className="relative">
+                    Signs
+                    <svg
+                      className="absolute w-full h-[6px] bottom-0 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-red-500 rounded-full"></span>
+                  <span>Persistent feelings of anxiety or depression</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-purple-500 rounded-full"></span>
+                  <span>Difficulty maintaining relationships</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="h-2 w-2 bg-yellow-500 rounded-full"></span>
+                  <span>Changes in sleep or eating patterns</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+              <p className="text-gray-800 italic">
+                Taking care of your mental health is just as important as
+                physical health. Our self-assessment program helps you
+                understand your emotional well-being and provides tools for
+                personal growth and resilience.
+              </p>
+            </div>
           </div>
+        </div>
+        <div className="m-2 flex justify-center">
+          {hasPaid ? (
+            <button
+              onClick={() => router.push("/questionnaires?userType=self")}
+              className="py-4 min-w-[800px] px-10 bg-gradient-to-r from-[#EBB509] to-purple-600 text-white font-semibold rounded-xl
+                      transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
+                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Begin Your Well-being Journey
+            </button>
+          ) : (
+            <button
+              onClick={handlePayment}
+              className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl
+                      transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
+                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Make Payment to Begin
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default Page;
+export default SelfAssessmentPage;

@@ -52,7 +52,10 @@ const GetHelp = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <span>How </span>
-            <span className="text-[#956144]">can we </span>
+            <span className="">can the </span>
+            <br className="hidden sm:block" />
+            <span className="text-[#956144]">Forum </span>
+            <span className="text-red-500 text-4xl">♥</span>
             <br className="hidden sm:block" />
             <span>help you?</span>
           </motion.h1>
@@ -86,10 +89,10 @@ const GetHelp = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <Link
-              href={"#"}
+              href={"/community"}
               className="cursor-pointer flex items-center gap-2 w-fit px-6 sm:px-8 bg-black text-white font-bold py-2.5 sm:py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner text-sm sm:text-base"
             >
-              Get help
+              Forum
               <MdChevronRight className="text-[#FF7F4B]" size={24} />
             </Link>
           </motion.div>

@@ -233,7 +233,7 @@ const BlogSection = () => {
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-[#956144] opacity-10 rotate-2 rounded-lg" />
               <div className="relative px-3 md:px-4 py-1.5 bg-white rounded-lg text-xs md:text-sm text-[#956144] font-medium border border-[#956144]/20">
-                MENTAL HEALTH AT 30&apos;S
+                MENTAL HEALTH AT ANY AGE
               </div>
             </div>
 
