@@ -4,6 +4,7 @@ import { Star, Info, ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { baseURL } from "@/app/baseURL";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const CourseDetailPage = () => {
   const searchParams = useSearchParams();
@@ -51,6 +52,18 @@ const CourseDetailPage = () => {
     },
   };
 
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    const userId = Cookies.get("userId");
+
+    if (userId) {
+      setUserId(userId);
+    } else {
+      setUserId("");
+    }
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -66,18 +79,14 @@ const CourseDetailPage = () => {
     fetchData();
   }, [id]);
 
-  // Combine API data with fallback data, prioritizing API data
   const displayData = course
     ? {
         ...courseData,
         ...course,
-        // Format duration from minutes to readable format
         duration: course.duration
           ? `${Math.floor(course.duration / 60)}h ${course.duration % 60}m`
           : courseData.duration,
-        // Use reviewsCount from API
         reviews: course.reviewsCount,
-        // Keep fallback content if API data is empty
         about: {
           ...courseData.about,
           skills:
@@ -92,7 +101,6 @@ const CourseDetailPage = () => {
               ? course.outcomes.items
               : courseData.outcomes.items,
         },
-        // Use curriculum as courses if courses array is empty
         courses:
           course.courses.length > 0
             ? course.courses
@@ -124,6 +132,29 @@ const CourseDetailPage = () => {
     { id: "courses", label: "Courses" },
     { id: "testimonials", label: "Testimonials" },
   ];
+
+  const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  console.log(userId, "raju");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await axios.post(`${baseURL}/courses/${id}/reviews`, {
+        studentId: userId,
+        rating,
+        comment,
+      });
+      setReviews([...reviews, response.data.review]);
+      setRating(0);
+      setComment("");
+    } catch (error) {
+      console.error("Error submitting review", error);
+    }
+    setLoading(false);
+  };
 
   if (loading) {
     return (
@@ -254,6 +285,43 @@ const CourseDetailPage = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="p-4 border rounded-lg">
+        <h2 className="text-xl font-bold mb-4">Reviews</h2>
+        <form onSubmit={handleSubmit} className="mb-4">
+          <input
+            type="number"
+            min="1"
+            max="5"
+            value={rating}
+            onChange={(e) => setRating(Number(e.target.value))}
+            className="block w-full p-2 border rounded mb-2"
+            placeholder="Rating (1-5)"
+            required
+          />
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className="block w-full p-2 border rounded mb-2"
+            placeholder="Write a review..."
+            required
+          ></textarea>
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+          >
+            {loading ? "Submitting..." : "Submit Review"}
+          </button>
+        </form>
+        <ul>
+          {reviews.map((review, index) => (
+            <li key={index} className="p-2 border-b">
+              <strong>Rating: {review.rating}</strong>
+              <p>{review.comment}</p>
+            </li>
+          ))}
+        </ul>
       </div>
       {displayData?.testimonials?.length > 0 && (
         <div id="testimonials" className="bg-white rounded-lg shadow-sm p-6">
