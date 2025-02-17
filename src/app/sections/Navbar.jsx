@@ -12,7 +12,6 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
-  // Authentication effects remain the same...
   useEffect(() => {
     const token = Cookies.get("authToken");
     const name = Cookies.get("name");

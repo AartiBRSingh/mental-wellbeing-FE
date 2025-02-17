@@ -13,8 +13,14 @@ import {
   ArrowRight,
 } from "lucide-react";
 import CustomCursor from "@/app/components/CustomCursor";
+import RateClinic from "@/app/sections/RateClinic";
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
+import { baseURL } from "@/app/baseURL";
 
 const ClinicDetailPage = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [clinic, setClinic] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,44 +36,19 @@ const ClinicDetailPage = () => {
   });
 
   useEffect(() => {
-    // Simulating API call
-    setClinic({
-      name: "ShareyrHeart",
-      state: "West Bengal",
-      city: "Kolkata",
-      pincode: "700026",
-      line1: "7B, Mysore Road, Rash Behari Ave",
-      line2: "",
-      phoneNumber: "09874021437",
-      email: "aartibrsingh@gmail.com",
-      about: "adefc",
-      timings: {
-        monday: "10am - 8pm",
-        tuesday: "10am - 8pm",
-        wednesday: "10am - 8pm",
-        thursday: "10am - 8pm",
-        friday: "10am - 8pm",
-        saturday: "10am - 8pm",
-        sunday: "Closed",
-      },
-      experts: [
-        {
-          _id: "67876407b7ca8ddb431fb248",
-          name: "few",
-          image:
-            "https://res.cloudinary.com/dnqzw3bj9/image/upload/v1736926215/posts/knbjbxrxf3mwzhwr3ngw.jpg",
-          specialization: "few",
-        },
-      ],
-      testimonials: [
-        {
-          name: "few",
-          review: "efw",
-        },
-      ],
-    });
-    setLoading(false);
-  }, []);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(`${baseURL}/clinics/${id}`);
+        setClinic(res.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -490,6 +471,7 @@ const ClinicDetailPage = () => {
           </div>
         </div>
       </footer>
+      <RateClinic clinicId={id} />
     </div>
   );
 };
