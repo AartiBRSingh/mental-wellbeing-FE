@@ -333,9 +333,9 @@ const ProfileDashboard = () => {
 
   return (
     <div className="min-h-screen bg-transparent">
-      <div className="max-w-[1400px] mx-auto px-4 py-12">
+      <div className="max-w-[1400px] mx-auto px-4 py-6">
         {/* Hero Section - Modernized */}
-        <header className="relative bg-gradient-to-r from-white to-gray-50 rounded-2xl p-10 shadow-md mb-10">
+        <header className="relative bg-gradient-to-r from-white to-gray-50 rounded-2xl p-10 shadow-md mb-4">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10">
             {/* Profile Image */}
             <div className="relative w-40 h-40 lg:w-56 lg:h-56 rounded-full overflow-hidden shadow-lg border-4 border-gray-200 hover:border-gray-300 transition-all">
@@ -347,12 +347,29 @@ const ProfileDashboard = () => {
             </div>
 
             {/* Profile Details */}
-            <div className="flex-1 space-y-6">
+            <div className="flex-1 space-y-4">
               {/* Name & Verification Badges */}
               <div className="flex flex-col md:flex-row md:items-center gap-4">
-                <h2 className="text-4xl lg:text-5xl font-semibold text-gray-900">
+                <span className="text-black relative text-4xl md:text-6xl lg:text-5xl block">
+                  <span className="relative">
+                    {profile.name}
+                    <svg
+                      className="absolute w-full h-[6px] bottom-0 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                {/* <h2 className="text-4xl lg:text-5xl font-semibold text-gray-900">
                   {profile.name}
-                </h2>
+                </h2> */}
                 <div className="flex flex-wrap gap-2">
                   {profile.verifyEmail && (
                     <span className="px-3 py-1 bg-green-50 text-green-700 text-sm rounded-full flex items-center shadow-sm">
@@ -407,177 +424,196 @@ const ProfileDashboard = () => {
         </header>
 
         {/* Main Content */}
-        <main className="space-y-8">
-          {/* Experience Section - Enhanced */}
-          <section className="bg-white rounded-2xl p-8 shadow-sm">
-            <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b">
+        <main className="space-y-4">
+          {/* Experience Section */}
+          <section className="bg-white rounded-2xl p-8 shadow-lg flex-1 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b border-gray-200 flex items-center gap-3">
+              <span className="bg-blue-50 p-2 rounded-lg">💼</span>
               Experience
             </h3>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-3 gap-4">
               {profile.experience.map((exp, index) => (
                 <div
                   key={index}
-                  className="group p-6 rounded-xl hover:bg-gray-50 transition-all duration-300 "
+                  className="group p-6 rounded-xl shadow-lg border-2 border-black hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent transition-all duration-300 relative overflow-hidden"
                 >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -translate-y-16 translate-x-16 group-hover:translate-y-[-4rem] group-hover:translate-x-12 transition-transform duration-300 opacity-20" />
                   <div className="mb-4">
-                    <div className="text-5xl font-light text-gray-500 group-hover:text-gray-800 transition-colors duration-300">
+                    <div className="text-6xl font-light text-blue-200 group-hover:text-blue-300 transition-colors duration-300">
                       {String(index + 1).padStart(2, "0")}
                     </div>
                   </div>
-                  <h4 className="text-xl font-semibold text-gray-800 mb-2">
+                  <h4 className="text-xl font-semibold text-gray-800 mb-3">
                     {exp.title}
                   </h4>
-                  <p className="text-gray-600 mb-2 flex items-center gap-2">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                    </svg>
-                    {exp.location}
-                  </p>
-                  <p className="text-sm text-gray-500 mb-4 flex items-center gap-2">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    {new Date(exp.startDate).toLocaleDateString()} -{" "}
-                    {new Date(exp.endDate).toLocaleDateString()}
-                  </p>
-                  <p className="text-gray-600">{exp.description}</p>
+                  <div className="space-y-3">
+                    <p className="text-gray-600 flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg w-fit">
+                      <svg
+                        className="w-4 h-4 text-blue-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        />
+                      </svg>
+                      {exp.location}
+                    </p>
+                    <p className="text-sm text-gray-500 flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg w-fit">
+                      <svg
+                        className="w-4 h-4 text-blue-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      {new Date(exp.startDate).toLocaleDateString()} -{" "}
+                      {new Date(exp.endDate).toLocaleDateString()}
+                    </p>
+                    <p className="text-gray-600 mt-4 leading-relaxed bg-white p-4 rounded-lg shadow-sm">
+                      {exp.description}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
           </section>
+          <div className="flex flex-col lg:flex-row gap-6 w-full">
+            {/* Services & Expertise Section */}
+            <div className="grid grid-cols-2 gap-6 lg:w-[800px]">
+              <section className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b border-gray-200 flex items-center gap-3">
+                  <span className="bg-indigo-50 p-2 rounded-lg">⚡</span>
+                  Services
+                </h3>
+                <div className="space-y-4">
+                  {profile.services.map((service, index) => (
+                    <div
+                      key={index}
+                      className="group p-4 rounded-xl hover:bg-indigo-50 transition-all duration-300 flex items-center gap-4"
+                    >
+                      <div className="w-2 h-2 bg-indigo-500 rounded-full group-hover:scale-150 transition-transform" />
+                      <span className="text-lg text-gray-700 group-hover:text-indigo-700 transition-colors">
+                        {service}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-          {/* Services & Expertise Section - Modernized */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <section className="bg-white rounded-2xl p-8 shadow-sm">
-              <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b">
-                Services
-              </h3>
-              <div className="space-y-4">
-                {profile.services.map((service, index) => (
-                  <div
-                    key={index}
-                    className="group flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 transition-all duration-300"
-                  >
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-lg text-gray-700">{service}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
+              <section className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b border-gray-200 flex items-center gap-3">
+                  <span className="bg-emerald-50 p-2 rounded-lg">🌿</span>
+                  Therapies
+                </h3>
+                <div className="space-y-4">
+                  {profile.therapies.map((therapy, index) => (
+                    <div
+                      key={index}
+                      className="group p-4 rounded-xl hover:bg-emerald-50 transition-all duration-300 flex items-center gap-4"
+                    >
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full group-hover:scale-150 transition-transform" />
+                      <span className="text-lg text-gray-700 group-hover:text-emerald-700 transition-colors">
+                        {therapy}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
 
-            <section className="bg-white rounded-2xl p-8 shadow-sm">
-              <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b">
-                Therapies
-              </h3>
-              <div className="space-y-4">
-                {profile.therapies.map((therapy, index) => (
-                  <div
-                    key={index}
-                    className="group flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 transition-all duration-300"
-                  >
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-lg text-gray-700">{therapy}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
+            {/* Education & Awards Section */}
+            <div className="grid grid-cols-1 gap-6 lg:w-[600px]">
+              <section className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b border-gray-200 flex items-center gap-3">
+                  <span className="bg-violet-50 p-2 rounded-lg">🎓</span>
+                  Education
+                </h3>
+                <div className="space-y-6">
+                  {profile.education.map((edu, index) => (
+                    <div
+                      key={index}
+                      className="group p-6 rounded-xl hover:bg-violet-50 transition-all duration-300"
+                    >
+                      <h4 className="text-xl font-semibold text-gray-800 mb-3">
+                        {edu.school}
+                      </h4>
+                      <p className="text-gray-600 mb-3 bg-white px-4 py-2 rounded-lg shadow-sm">
+                        {edu.degree} in {edu.fieldOfStudy}
+                      </p>
+                      <p className="text-sm text-gray-500 flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
+                        <svg
+                          className="w-4 h-4 text-violet-500"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                        {new Date(edu.startDate).toLocaleDateString()} -{" "}
+                        {new Date(edu.endDate).toLocaleDateString()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-          {/* Education & Awards Section - Enhanced */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <section className="bg-white rounded-2xl p-8 shadow-sm">
-              <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b">
-                Education
-              </h3>
-              <div className="space-y-8">
-                {profile.education.map((edu, index) => (
-                  <div
-                    key={index}
-                    className="group p-6 rounded-lg hover:bg-gray-50 transition-all duration-300"
-                  >
-                    <h4 className="text-xl font-semibold text-gray-800 mb-2">
-                      {edu.school}
-                    </h4>
-                    <p className="text-gray-600 mb-2">
-                      {edu.degree} in {edu.fieldOfStudy}
-                    </p>
-                    <p className="text-sm text-gray-500 flex items-center gap-2">
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                      {new Date(edu.startDate).toLocaleDateString()} -{" "}
-                      {new Date(edu.endDate).toLocaleDateString()}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="bg-white rounded-2xl p-8 shadow-sm">
-              <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b">
-                Awards
-              </h3>
-              <div className="space-y-8">
-                {profile.honorsAndAwards.map((award, index) => (
-                  <div
-                    key={index}
-                    className="group p-6 rounded-lg hover:bg-gray-50 transition-all duration-300"
-                  >
-                    <h4 className="text-xl font-semibold text-gray-800 mb-2">
-                      {award.title}
-                    </h4>
-                    <p className="text-gray-600 mb-2">{award.issuer}</p>
-                    <p className="text-sm text-gray-500 mb-2 flex items-center gap-2">
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                      {new Date(award.issueDate).toLocaleDateString()}
-                    </p>
-                    <p className="text-gray-600">{award.description}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+              <section className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <h3 className="text-3xl font-light text-gray-800 mb-8 pb-4 border-b border-gray-200 flex items-center gap-3">
+                  <span className="bg-amber-50 p-2 rounded-lg">🏆</span>
+                  Awards
+                </h3>
+                <div className="space-y-6">
+                  {profile.honorsAndAwards.map((award, index) => (
+                    <div
+                      key={index}
+                      className="group p-6 rounded-xl hover:bg-amber-50 transition-all duration-300"
+                    >
+                      <h4 className="text-xl font-semibold text-gray-800 mb-3">
+                        {award.title}
+                      </h4>
+                      <p className="text-gray-600 mb-3 bg-white px-4 py-2 rounded-lg shadow-sm">
+                        {award.issuer}
+                      </p>
+                      <p className="text-sm text-gray-500 mb-3 flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
+                        <svg
+                          className="w-4 h-4 text-amber-500"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                        {new Date(award.issueDate).toLocaleDateString()}
+                      </p>
+                      <p className="text-gray-600 bg-white px-4 py-2 rounded-lg shadow-sm">
+                        {award.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
           </div>
 
           {/* Contact Section - Modernized */}
