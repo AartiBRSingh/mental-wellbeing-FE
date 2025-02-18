@@ -204,7 +204,7 @@ const ClinicDetailPage = () => {
                   />
                 ))}
               </div>
-              <span className="text-blue-100">120+ Patient Reviews</span>
+              <span className="text-blue-100">2 Patient Reviews</span>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
@@ -254,6 +254,9 @@ const ClinicDetailPage = () => {
 
             {/* Tab Content */}
             {tabContent[selectedTab]}
+            <div className="flex">
+              <RateClinic clinicId={id} />
+            </div>
           </div>
 
           {/* Right Column - Info Cards */}
@@ -471,7 +474,6 @@ const ClinicDetailPage = () => {
           </div>
         </div>
       </footer>
-      <RateClinic clinicId={id} />
     </div>
   );
 };

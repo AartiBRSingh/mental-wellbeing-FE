@@ -24,8 +24,8 @@ export default function RateClinic({ clinicId }) {
   };
 
   return (
-    <div className="p-4 border rounded shadow-md">
-      <h2 className="text-lg font-semibold">Leave a Review</h2>
+    <div className="p-4 border bg-white rounded-2xl shadow-md mt-3 max-w-max">
+      <h2 className="text-xl font-semibold">Leave a Review</h2>
       <input
         type="text"
         placeholder="Your Name"

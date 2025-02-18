@@ -150,7 +150,6 @@ const Hero = () => {
                 </motion.span>
               </motion.div>
             </motion.div>
-
             {/* Middle Image */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -234,7 +233,6 @@ const Hero = () => {
                 </motion.span>
               </motion.div>
             </motion.div>
-
             <motion.div
               animate={{ x: [-5, 5, -5] }}
               transition={{ duration: 2, repeat: Infinity }}

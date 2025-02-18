@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { baseURL } from "@/app/baseURL";
 import axios from "axios";
 import Cookies from "js-cookie";
+import CourseReviews from "@/app/components/CourseReviews";
 
 const CourseDetailPage = () => {
   const searchParams = useSearchParams();
@@ -286,43 +287,12 @@ const CourseDetailPage = () => {
           ))}
         </div>
       </div>
-      <div className="p-4 border rounded-lg">
-        <h2 className="text-xl font-bold mb-4">Reviews</h2>
-        <form onSubmit={handleSubmit} className="mb-4">
-          <input
-            type="number"
-            min="1"
-            max="5"
-            value={rating}
-            onChange={(e) => setRating(Number(e.target.value))}
-            className="block w-full p-2 border rounded mb-2"
-            placeholder="Rating (1-5)"
-            required
-          />
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            className="block w-full p-2 border rounded mb-2"
-            placeholder="Write a review..."
-            required
-          ></textarea>
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
-          >
-            {loading ? "Submitting..." : "Submit Review"}
-          </button>
-        </form>
-        <ul>
-          {reviews.map((review, index) => (
-            <li key={index} className="p-2 border-b">
-              <strong>Rating: {review.rating}</strong>
-              <p>{review.comment}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <CourseReviews
+        courseReviews={displayData?.reviews || []}
+        onSubmitReview={handleSubmit}
+        userId={userId}
+        loading={loading}
+      />
       {displayData?.testimonials?.length > 0 && (
         <div id="testimonials" className="bg-white rounded-lg shadow-sm p-6">
           <h2 className="text-xl font-bold mb-4">What learners are saying</h2>
