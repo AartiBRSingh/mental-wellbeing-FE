@@ -227,7 +227,9 @@ const UserTypeModal = ({ expectedUserType, userType, onClose }) => {
           <span>
             <button
               type="button"
-              onClick={() => router.push(`/login?userType=${expectedUserType}`)}
+              onClick={() =>
+                router.push(`/sign-in?userType=${expectedUserType}`)
+              }
               className="text-black hover:text-gray-600 font-medium transition-colors underline cursor-pointer"
             >
               login methods.
