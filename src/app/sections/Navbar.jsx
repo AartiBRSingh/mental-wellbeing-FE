@@ -184,7 +184,7 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link href="/login" className="hidden md:block">
+            <Link href="/sign-in" className="hidden md:block">
               <button className="cursor-pointer px-4 bg-black text-white p-2 rounded-xl shadow-lg transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
                 Sign In
               </button>
@@ -261,7 +261,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <Link
-                  href="/login"
+                  href="/sign-in"
                   className="block px-4 py-3"
                   onClick={toggleMobileMenu}
                 >

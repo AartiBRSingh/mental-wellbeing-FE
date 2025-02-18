@@ -77,7 +77,7 @@ export const SignupPage = () => {
       setState("");
       setPassword("");
       setLoading(false);
-      router.push(`/login?userType=${finalUserType}`);
+      router.push(`/sign-in?userType=${finalUserType}`);
       toast.success("Succesfully SignedUp");
     } catch (error) {
       toast.error("Error in SignUp:", error);
@@ -150,7 +150,7 @@ export const SignupPage = () => {
         state: "",
         image: null,
       });
-      router.push(`/login`);
+      router.push(`/sign-in`);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -506,7 +506,7 @@ export const SignupPage = () => {
                       type="button"
                       onClick={() =>
                         router.push(
-                          `/login?userType=${
+                          `/sign-in?userType=${
                             userType || selectedUserType.toLowerCase()
                           }`
                         )
@@ -519,7 +519,7 @@ export const SignupPage = () => {
                       type="button"
                       onClick={() =>
                         router.push(
-                          `/login?userType=${
+                          `/sign-in?userType=${
                             userType || selectedUserType.toLowerCase()
                           }`
                         )
@@ -794,7 +794,7 @@ export const SignupPage = () => {
                     type="button"
                     onClick={() =>
                       router.push(
-                        `/login?userType=${
+                        `/sign-in?userType=${
                           userType || selectedUserType.toLowerCase()
                         }`
                       )
