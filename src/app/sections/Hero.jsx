@@ -87,17 +87,17 @@ const Hero = () => {
             </motion.p>
           </motion.div> */}
 
-          <div className="flex gap-5">
+          <div className="flex gap-5 max-w-max p-4 rounded-xl mt-6">
             <Link
               href={"/employee"}
-              className="cursor-pointer font-semibold px-4 shadow-lg bg-[#FACC15] text-black p-2 rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
+              className="cursor-pointer font-semibold px-10 text-2xl shadow-lg bg-[#FACC15] text-black p-2 rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
             >
               Workplace
             </Link>
 
             <Link
               href={"/student"}
-              className="cursor-pointer shadow-lg font-semibold px-4 bg-[#E9D5FF] text-black p-2 rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
+              className="cursor-pointer shadow-lg text-2xl font-semibold px-10 bg-[#E9D5FF] text-black p-2 rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
             >
               Campus
             </Link>
