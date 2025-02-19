@@ -54,16 +54,16 @@ const ExpertPage = () => {
     };
 
     fetchCities();
-  }, [search, selectedCity, selectedUserType, urlUserType]);
+  }, []);
 
   return (
-    <section className="py-16 bg-cream">
+    <section className="py-8 md:py-16 bg-cream">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-6xl font-bold text-center mb-4 text-gray-800">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center mb-4 text-gray-800">
           <span className="relative">
             Our Experts
             <svg
-              className="absolute w-full h-[10px] -bottom-1 left-0"
+              className="absolute w-full h-[6px] md:h-[8px] lg:h-[10px] -bottom-1 left-0"
               viewBox="0 0 100 10"
               preserveAspectRatio="none"
             >
@@ -76,15 +76,16 @@ const ExpertPage = () => {
             </svg>
           </span>
         </h2>
-        <p className="text-gray-600 text-center mb-6 max-w-2xl mx-auto">
+        <p className="text-sm md:text-base text-gray-600 text-center mb-6 max-w-2xl mx-auto px-4">
           Connect with our verified experts who are here to help you on your
           journey.
         </p>
-        <div className="mb-6 flex justify-center gap-4 flex-wrap">
+
+        <div className="mb-6 flex flex-col md:flex-row justify-center gap-4 px-4">
           <input
             type="text"
             placeholder="Search experts..."
-            className="px-4 py-2 border border-gray-300 rounded-lg w-64 focus:ring focus:ring-orange-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-64 focus:ring focus:ring-orange-500"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -92,7 +93,7 @@ const ExpertPage = () => {
           <select
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg w-48 focus:ring focus:ring-orange-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-48 focus:ring focus:ring-orange-500"
           >
             <option value="">All Cities</option>
             {cities.map((city) => (
@@ -101,10 +102,11 @@ const ExpertPage = () => {
               </option>
             ))}
           </select>
+
           <select
             value={selectedUserType}
             onChange={(e) => setSelectedUserType(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg w-48 focus:ring focus:ring-orange-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-48 focus:ring focus:ring-orange-500"
           >
             <option value="">All Types</option>
             {userTypes.map((type) => (
@@ -114,24 +116,25 @@ const ExpertPage = () => {
             ))}
           </select>
         </div>
-        <div className="space-y-6">
+
+        <div className="space-y-4 md:space-y-6">
           {experts?.map((expert) => (
             <div
               key={expert._id}
-              className="bg-slate-50 rounded-3xl p-8 relative border shadow-xl border-red-100"
+              className="bg-slate-50 rounded-xl md:rounded-3xl p-4 md:p-8 relative border shadow-xl border-red-100"
             >
-              <div className="flex gap-6">
+              <div className="flex flex-col md:flex-row gap-4 md:gap-6">
                 <div className="flex flex-col items-center gap-4">
                   <div className="relative">
                     <img
                       src={expert.image || "/api/placeholder/300/200"}
                       alt={expert.name}
-                      className="w-44 h-44 object-cover rounded-full shadow-md"
+                      className="w-32 h-32 md:w-44 md:h-44 object-cover rounded-full shadow-md"
                     />
                   </div>
                   <Link
                     href={`/all-experts/${expert._id}?tab=info`}
-                    className="cursor-pointer flex items-center justify-center gap-2 py-2 w-full bg-amber-500 text-white font-semibold rounded-full hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg"
+                    className="cursor-pointer flex items-center justify-center gap-2 py-2 w-full max-w-[200px] bg-amber-500 text-white font-semibold rounded-full hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg text-sm md:text-base"
                   >
                     <span className="text-center">View profile</span>
                     <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
@@ -139,37 +142,39 @@ const ExpertPage = () => {
                     </span>
                   </Link>
                 </div>
-                <div className="flex-1 mt-4">
-                  <h3 className="flex text-3xl font-medium mb-4">
-                    {expert.name}{" "}
+
+                <div className="flex-1">
+                  <h3 className="flex flex-col md:flex-row items-start md:items-center text-xl md:text-3xl font-medium mb-2 md:mb-4">
+                    {expert.name}
                     {expert.isProfileVerified && (
-                      <div className="ml-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm flex items-center shadow-sm">
-                        <CheckCircle className="w-4 h-4 mr-1.5" />
+                      <div className="mt-2 md:mt-0 md:ml-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs md:text-sm flex items-center shadow-sm w-fit">
+                        <CheckCircle className="w-3 h-3 md:w-4 md:h-4 mr-1.5" />
                         SYH Approved
                       </div>
                     )}
                   </h3>
-                  <div className="space-y-3">
-                    <p className="text-xl font-medium text-gray-600">
+
+                  <div className="space-y-2 md:space-y-3">
+                    <p className="text-base md:text-xl font-medium text-gray-600">
                       {expert.userType}
                     </p>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 md:gap-3">
                       <Mail className="w-4 h-4 text-black" />
-                      <span className="text-xl truncate text-gray-600">
+                      <span className="text-sm md:text-xl truncate text-gray-600">
                         {expert.email}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 md:gap-3">
                       <Phone className="w-4 h-4 text-black" />
-                      <span className="text-xl text-gray-600">
+                      <span className="text-sm md:text-xl text-gray-600">
                         {expert.contactNumber}
                       </span>
                     </div>
-                    <div className="flex items-center bg-white shadow-md rounded-full px-3 mt-4 max-w-24">
+                    <div className="flex items-center bg-white shadow-md rounded-full px-2 md:px-3 mt-2 md:mt-4 max-w-24">
                       {[...Array(5)].map((_, index) => (
                         <Star
                           key={index}
-                          className={`w-8 h-8 ${
+                          className={`w-4 h-4 md:w-8 md:h-8 ${
                             index < expert.rating
                               ? "text-yellow-500 fill-current"
                               : "text-yellow-500 fill-current"
@@ -179,17 +184,20 @@ const ExpertPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="p-2 mr-4">
-                  <div className="bg-blue-100 rounded-xl p-2 text-center">
-                    <h4 className="text-black text-lg font-semibold mb-2">
+
+                <div className="w-full md:w-auto">
+                  <div className="bg-blue-100 rounded-xl p-2 md:p-4 text-center mb-4 md:mb-0">
+                    <h4 className="text-black text-base md:text-lg font-semibold mb-2">
                       Clinic Timings
                     </h4>
-                    <p className="text-slate-500 text-lg">Monday - Friday</p>
-                    <p className="text-slate-500 text-lg mt-3">
+                    <p className="text-slate-500 text-sm md:text-lg">
+                      Monday - Friday
+                    </p>
+                    <p className="text-slate-500 text-sm md:text-lg mt-1 md:mt-3">
                       9:00 AM - 5:00 PM
                     </p>
                   </div>
-                  <button className="w-40 absolute right-16 bottom-10 bg-green-700 text-white p-2 rounded-xl hover:bg-green-800 transition-colors font-semibold">
+                  <button className="w-full md:w-40 mt-4 md:mt-0 md:absolute md:right-16 md:bottom-10 bg-green-700 text-white p-2 rounded-xl hover:bg-green-800 transition-colors font-semibold text-sm md:text-base">
                     Book Appointment
                   </button>
                 </div>
