@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import {
   Loader2,
   TrendingUp,
@@ -274,35 +273,37 @@ const CareerPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 ">
-      <div className="flex ml-48 bg-white rounded-3xl mr-48 shadow-sm p-4">
-        <div>
-          <h1 className="text-4xl max-w-[800px] p-4 ml-32 mt-12">
+    <div className="min-h-screen bg-slate-50">
+      {/* Hero Section */}
+      <div className="flex flex-col lg:flex-row bg-white rounded-lg md:rounded-3xl mx-4 md:mx-12 lg:mx-48 shadow-sm p-4">
+        <div className="w-full lg:w-2/3">
+          <h1 className="text-2xl md:text-4xl p-2 md:p-4 mt-4 md:mt-12 mx-auto lg:ml-32">
             A career with{" "}
-            <strong className="text-[#956144] font-semibold text-5xl">
+            <strong className="text-[#956144] font-semibold text-3xl md:text-5xl">
               ShareYrHeart
             </strong>{" "}
             is more than just a job
           </h1>
-          <p className="max-w-[650px] text-2xl absolute left-[400px] top-[270px] p-2">
-            <span className="text-red-500 text-4xl mr-3">♥</span>
-            it’s an opportunity to transform lives while growing professionally
+          <p className="text-lg md:text-2xl p-2 md:p-4 mx-auto lg:ml-32">
+            <span className="text-red-500 text-2xl md:text-4xl mr-3">♥</span>
+            its an opportunity to transform lives while growing professionally
             in the fast-evolving field of mental health.
           </p>
-          <p className="max-w-[600px] text-xl  absolute top-[370px] left-[250px] p-2">
-            Whether you’re a psychologist, counselor, trainer, or entrepreneur,
+          <p className="text-base md:text-xl p-2 md:p-4 mx-auto lg:ml-32">
+            Whether youre a psychologist, counselor, trainer, or entrepreneur,
             ShareYrHeart offers a platform to make a meaningful impact.
-            <span className="text-green-400 text-2xl ml-2">♦</span>
+            <span className="text-green-400 text-xl md:text-2xl ml-2">♦</span>
           </p>
         </div>
         <img
-          src="https://img.freepik.com/free-vector/hand-drawn-life-coaching-illustration_23-2150279254.jpg?t=st=1739423710~exp=1739427310~hmac=504397953875b3553cb03a43ea9e6b031bfaa1dc0fb6212c40ded1d2dfd88522&w=1380"
+          src="https://img.freepik.com/free-vector/hand-drawn-life-coaching-illustration_23-2150279254.jpg"
           alt="Mental wellness illustration"
-          className="h-[400px] w-auto mr-10"
+          className="w-full lg:w-auto h-auto lg:h-[400px] mt-4 lg:mt-0 mx-auto lg:mr-10"
         />
       </div>
-      {/* Hero Section */}
-      <section className="py-20 px-4">
+
+      {/* Main Content Section */}
+      <section className="py-12 md:py-20 px-4">
         <div className="flex justify-center mb-6">
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-[#956144] opacity-10 rotate-2 rounded-lg" />
@@ -311,55 +312,45 @@ const CareerPage = () => {
             </div>
           </div>
         </div>
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.h1
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="text-5xl font-bold text-gray-900 mb-6"
-          >
+
+        <div className="max-w-6xl mx-auto text-center px-4">
+          <motion.h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
             Shape the Future of{" "}
-            <strong className="text-[#956144] font-semibold text-7xl">
+            <strong className="text-[#956144] font-semibold text-4xl md:text-7xl">
               Mental Health
             </strong>
           </motion.h1>
-          <motion.p
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto"
-          >
+          <motion.p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
             Join ShareYrHeart and be part of a revolution in mental health care,
-            making a real difference in people lives while building an
+            making a real difference in peoples lives while building an
             exceptional career.
           </motion.p>
           <motion.button
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
             onClick={() => setOpen(true)}
-            className="bg-blue-600 text-white px-8 py-2 mt-2 rounded-xl text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="bg-blue-600 text-white px-6 md:px-8 py-2 rounded-xl text-base md:text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Apply Now
           </motion.button>
         </div>
 
-        <div className="bg-white ml-40 mr-40">
-          <div className="flex justify-between items-center mt-5 mx-60 bg-white">
-            <div>
+        {/* Image Section */}
+        <div className="bg-white mx-4 md:mx-12 lg:mx-40 mt-8">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-8 p-4 md:p-8">
+            <div className="w-full md:w-1/2">
               <img
-                src="https://img.freepik.com/free-vector/autumn-tree-concept-illustration_114360-22762.jpg?t=st=1739424712~exp=1739428312~hmac=19f833c75266af2ae4628e5d2243b2dbe5538d5effe4f1f3eb6aa35dae6cf429&w=740"
+                src="https://img.freepik.com/free-vector/autumn-tree-concept-illustration_114360-22762.jpg"
                 alt="Mental wellness illustration"
-                className="h-[400px] w-auto"
+                className="h-auto w-full max-w-[400px] mx-auto"
               />
             </div>
-            <div className="flex justify-center mt-5">
-              <span className="bg-green-300 absolute px-3 py-1 rounded-md text-sm font-semibold mt-4">
+            <div className="w-full md:w-1/2 relative">
+              <span className="bg-green-300 px-3 py-1 rounded-md text-sm font-semibold absolute top-0 left-1/2 transform -translate-x-1/2 md:left-0 md:translate-x-0">
                 Calm
               </span>
               <img
-                src="https://img.freepik.com/free-vector/interview-concept-illustration_114360-1501.jpg?t=st=1739424391~exp=1739427991~hmac=c94a261ffed8efd6f9de4b439058eded8fa1c6213ea87126629655b704cb9557&w=1380"
+                src="https://img.freepik.com/free-vector/interview-concept-illustration_114360-1501.jpg"
                 alt="Mental wellness illustration"
-                className="h-[400px] w-auto "
+                className="h-auto w-full max-w-[400px] mx-auto mt-8"
               />
             </div>
           </div>
@@ -367,23 +358,19 @@ const CareerPage = () => {
       </section>
 
       {/* Future Growth Section */}
-      <section className="py-16 px-4 bg-white/50 ">
+      <section className="py-16 px-4 bg-white/50">
         <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="text-4xl font-bold p-2 max-w-max  text-gray-900 mb-32 "
-          >
+          <motion.h2 className="text-2xl md:text-4xl font-bold p-2 text-center md:text-left text-gray-900 mb-8 md:mb-32">
             Future <strong className="text-orange-500">Growth</strong> &{" "}
             <strong className="text-blue-500">Opportunities</strong>
-            <p className="absolute left-[700px] mt-4 max-w-max p-2 ">
+            <p className="md:absolute md:left-[700px] mt-4 text-center md:text-left">
               in Mental Health with{" "}
-              <strong className="text-[#956144] font-semibold text-5xl">
+              <strong className="text-[#956144] font-semibold text-3xl md:text-5xl">
                 ShareYrHeart
               </strong>
             </p>
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-20">
             {futureGrowthCards.map((card, index) => (
               <motion.div
                 key={index}
@@ -407,37 +394,23 @@ const CareerPage = () => {
       <CareerOpportunities />
 
       {/* Why Join Us Section */}
-      <section className="relative py-24  overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
-          style={{
-            backgroundImage:
-              "url('https://img.freepik.com/free-vector/flat-background-world-mental-health-day_23-2149624111.jpg?t=st=1739456953~exp=1739460553~hmac=914d1ee5a708b350480a17d68952121ac2e64716b87e5ed8e0c03287b27e81e0&w=1380')",
-            backgroundBlendMode: "overlay",
-          }}
-        />
-
+      <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-6xl font-semibold text-black p-3 mb-10">
+          <motion.div className="text-center mb-12 md:mb-20">
+            <h2 className="text-4xl md:text-6xl font-semibold text-black p-3 mb-6 md:mb-10">
               Why Choose{" "}
               <strong className="text-[#956144] font-semibold">
                 ShareYrHeart
-              </strong>{" "}
+              </strong>
               ?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               Join a community of passionate professionals dedicated to
               transforming mental health care
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {whyJoinUsCards.map((card, index) => (
               <motion.div
                 key={index}
@@ -449,24 +422,19 @@ const CareerPage = () => {
                 className="relative group"
               >
                 <div className="relative overflow-hidden rounded-3xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl">
-                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,rgba(0,0,0,0.4)_1px,transparent_1px)] bg-[length:12px_12px]"></div>
-
-                  <div className="relative p-8">
+                  <div className="p-6 md:p-8">
                     <div
                       className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-r ${card.color} text-white mb-6`}
                     >
                       {card.icon}
                     </div>
-
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
                       {card.title}
                     </h3>
-
                     <p className="text-gray-600 leading-relaxed mb-6 line-clamp-2">
                       {card.description}
                     </p>
-
-                    <div className="relative h-48 rounded-xl overflow-hidden">
+                    <div className="relative h-40 md:h-48 rounded-xl overflow-hidden">
                       <img
                         src={card.image}
                         alt={card.title}
@@ -479,21 +447,13 @@ const CareerPage = () => {
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="mt-20 text-center"
-          >
-            <div className="relative inline-block">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 blur-xl opacity-20 rounded-full"></div>
-              <button
-                onClick={() => setOpen(true)}
-                className="relative px-12 py-5 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-2xl hover:scale-105 transform transition-all duration-300"
-              >
-                Start Your Journey With Us
-              </button>
-            </div>
+          <motion.div className="mt-12 md:mt-20 text-center">
+            <button
+              onClick={() => setOpen(true)}
+              className="px-8 md:px-12 py-4 md:py-5 text-base md:text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-2xl hover:scale-105 transform transition-all duration-300"
+            >
+              Start Your Journey With Us
+            </button>
           </motion.div>
         </div>
       </section>
