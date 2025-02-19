@@ -60,22 +60,22 @@ const Navbar = () => {
 
   const navLinks = [
     {
+      label: "Mental Wellbeing",
+      redirectTo: "mental-wellbeing",
+      dropdown: [
+        { label: "Workplace", href: "/employee" },
+        { label: "Campus", href: "/student" },
+        { label: "Self", href: "/self" },
+      ],
+    },
+    { label: "Clinics", redirectTo: "/clinics" },
+    {
       label: "Courses",
       redirectTo: "/all-courses",
       // dropdown: [
       //   { label: "Mental well being", href: "/mental-wellbeing" },
       //   { label: "Professional course", href: "/all-courses" },
       // ],
-    },
-    { label: "Clinics", redirectTo: "/clinics" },
-    {
-      label: "Mental Wellbeing",
-      redirectTo: "mental-wellbeing",
-      dropdown: [
-        { label: "Employee", href: "/employee" },
-        { label: "Student", href: "/student" },
-        { label: "Self", href: "/self" },
-      ],
     },
   ];
 
@@ -98,7 +98,7 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  if (pathname.includes("signup") || pathname.includes("login")) {
+  if (pathname.includes("signup") || pathname.includes("sign-in")) {
     return null;
   }
 

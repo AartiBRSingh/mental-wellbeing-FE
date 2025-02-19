@@ -21,7 +21,7 @@ const HealPoint = () => {
   ];
   const pathname = usePathname();
 
-  if (pathname.includes("signup") || pathname.includes("login")) {
+  if (pathname.includes("signup") || pathname.includes("sign-in")) {
     {
       return null;
     }

@@ -15,7 +15,7 @@ export default function Home() {
       <GetHelp />
       <Services />
       <WhyUs />
-      <CoursePage />
+
       <BlogSection />
       <Testimonials />
       {/* <NewsSection /> */}
