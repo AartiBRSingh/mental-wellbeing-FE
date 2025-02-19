@@ -1,449 +1,302 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {
-  MessageCircle,
-  Heart,
-  Share2,
-  BookmarkPlus,
-  Search,
-  X,
-  Send,
-  TrendingUp,
-  Users,
-} from "lucide-react";
-import CustomCursor from "../components/CustomCursor";
+import { User, ThumbsUp, MessageCircle, Share2, Bookmark } from "lucide-react";
+import axios from "axios";
+import { baseURL } from "../baseURL";
 
-const Modal = ({ isOpen, onClose, title, children }) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-lg shadow-xl transform transition-all duration-300 scale-100 opacity-100">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition-colors p-2 hover:bg-gray-100 rounded-full"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const CommunityPage = () => {
+const Forum = () => {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [newPostModal, setNewPostModal] = useState(false);
-  const [commentsModal, setCommentsModal] = useState(false);
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [newPostTitle, setNewPostTitle] = useState("");
-  const [newPostContent, setNewPostContent] = useState("");
-  const [newPostTags, setNewPostTags] = useState("");
-  const [replyContent, setReplyContent] = useState("");
+  const [newPost, setNewPost] = useState({
+    title: "",
+    content: "",
+    tags: "",
+    image: null,
+  });
+  const [comment, setComment] = useState("");
+  const [reply, setReply] = useState({});
+  const [tags, setTags] = useState([]);
+  const [selectedTag, setSelectedTag] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showNewPostForm, setShowNewPostForm] = useState(false);
+  const [showCommentForm, setShowCommentForm] = useState({});
 
-  // Fallback data with comments array added
-  const fallbackPosts = [
-    {
-      id: 1,
-      author: "Sarah Mitchell",
-      avatar: "/api/placeholder/32/32",
-      title: "The Art of Sustainable Gardening",
-      content:
-        "I've been experimenting with companion planting and natural pest control methods. Would love to hear others' experiences!",
-      likes: 124,
-      comments: [
-        {
-          id: 1,
-          author: "John Doe",
-          avatar: "/api/placeholder/32/32",
-          content:
-            "Great tips! I've had success with marigolds as natural pest control.",
-          likes: 12,
-          timeAgo: "1h ago",
-        },
-      ],
-      timeAgo: "2h ago",
-      tags: ["gardening", "sustainability", "nature"],
-      isLiked: false,
-      isBookmarked: false,
-    },
-    {
-      id: 2,
-      author: "James Wilson",
-      avatar: "/api/placeholder/32/32",
-      title: "Traditional Pottery Techniques",
-      content:
-        "Recently started learning about ancient pottery methods. The connection to earth and tradition is fascinating.",
-      likes: 89,
-      comments: [],
-      timeAgo: "4h ago",
-      tags: ["crafts", "pottery", "traditional"],
-      isLiked: false,
-      isBookmarked: false,
-    },
-  ];
+  const fetchPosts = async (tags = "", search = "") => {
+    try {
+      const res = await axios.get(
+        `${baseURL}/get-posts${tags ? `?tags=${tags}` : ""}${
+          search ? `?search=${search}` : ""
+        }`
+      );
+      setPosts(res.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  const fetchTags = async () => {
+    try {
+      const res = await axios.get(`${baseURL}/tags`);
+      setTags(res.data);
+    } catch (error) {
+      console.error("Error fetching tags:", error);
+    }
+  };
+
+  const createPost = async () => {
+    try {
+      await axios.post(`${baseURL}/add-post`, newPost);
+      setNewPost({ title: "", content: "", tags: "" });
+      setShowNewPostForm(false);
+      fetchPosts();
+      fetchTags();
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
+  };
+
+  const addComment = async (postId) => {
+    try {
+      await axios.post(`${baseURL}/post/${postId}/comment`, { text: comment });
+      setComment("");
+      setShowCommentForm({ ...showCommentForm, [postId]: false });
+      fetchPosts();
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };
+
+  const addReply = async (postId, commentId) => {
+    try {
+      await axios.post(`${baseURL}/post/${postId}/comment/${commentId}/reply`, {
+        text: reply[commentId],
+      });
+      setReply({ ...reply, [commentId]: "" });
+      fetchPosts();
+    } catch (error) {
+      console.error("Error adding reply:", error);
+    }
+  };
+
+  const toggleLike = async (postId) => {
+    await axios.post(`${baseURL}/post/${postId}/like`);
+    fetchPosts();
+  };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("YOUR_API_ENDPOINT/posts");
-        if (!response.ok) throw new Error("Failed to fetch posts");
-        const data = await response.json();
-        setPosts(data);
-      } catch (err) {
-        setError(err.message);
-        setPosts(fallbackPosts);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchPosts();
+    fetchTags();
   }, []);
 
-  const handleNewPost = () => {
-    const newPost = {
-      id: posts.length + 1,
-      author: "Current User",
-      avatar: "/api/placeholder/32/32",
-      title: newPostTitle,
-      content: newPostContent,
-      likes: 0,
-      comments: [],
-      timeAgo: "Just now",
-      tags: newPostTags.split(",").map((tag) => tag.trim()),
-      isLiked: false,
-      isBookmarked: false,
-    };
-    setPosts([newPost, ...posts]);
-    setNewPostTitle("");
-    setNewPostContent("");
-    setNewPostTags("");
-    setNewPostModal(false);
-  };
-
-  const handleReply = (postId) => {
-    const updatedPosts = posts.map((post) => {
-      if (post.id === postId) {
-        return {
-          ...post,
-          comments: [
-            ...post.comments,
-            {
-              id: post.comments.length + 1,
-              author: "Current User",
-              avatar: "/api/placeholder/32/32",
-              content: replyContent,
-              likes: 0,
-              timeAgo: "Just now",
-            },
-          ],
-        };
-      }
-      return post;
-    });
-    setPosts(updatedPosts);
-    setReplyContent("");
-  };
-
-  const toggleLike = (postId) => {
-    setPosts(
-      posts.map((post) => {
-        if (post.id === postId) {
-          return {
-            ...post,
-            likes: post.isLiked ? post.likes - 1 : post.likes + 1,
-            isLiked: !post.isLiked,
-          };
-        }
-        return post;
-      })
-    );
-  };
-
-  const toggleBookmark = (postId) => {
-    setPosts(
-      posts.map((post) => {
-        if (post.id === postId) {
-          return {
-            ...post,
-            isBookmarked: !post.isBookmarked,
-          };
-        }
-        return post;
-      })
-    );
-  };
-
-  const Card = ({ children, className = "" }) => (
-    <div
-      className={`bg-white border border-gray-100 rounded-2xl shadow-xl hover:shadow-md transition-shadow duration-300 ${className}`}
-    >
-      {children}
-    </div>
-  );
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-50">
-        <div className="animate-pulse text-lg text-green-500">Loading...</div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Modern Navigation */}
-      <nav className="bg-blue-500 shadow-lg sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="relative group flex-1 max-w-md">
-              <input
-                type="text"
-                placeholder="Search discussions..."
-                className="px-5 py-2.5 rounded-full bg-white/90 text-gray-700 w-full focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white transition-all duration-300 pl-12"
-              />
-              <Search className="absolute left-4 top-3 text-gray-400 h-5 w-5" />
-            </div>
+    <div className="min-h-screen bg-[#FAF9F6]">
+      <nav className="bg-white border-b border-[#E2DED9] shadow-sm">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <h1 className="text-2xl font-serif text-[#2E7D32] font-bold">
+            Quorum
+          </h1>
+          <div className="flex items-center space-x-6">
+            <input
+              className="w-64 px-4 py-2 rounded-full bg-[#F5F5F0] border border-[#E2DED9] focus:outline-none focus:border-[#2E7D32] placeholder-[#8B8178]"
+              placeholder="Search discussions..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                fetchPosts(selectedTag, e.target.value);
+              }}
+            />
             <button
-              onClick={() => setNewPostModal(true)}
-              className="ml-6 px-6 py-2.5 bg-yellow-400 text-gray-800 rounded-xl hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 shadow-md font-medium"
+              onClick={() => setShowNewPostForm(true)}
+              className="px-4 py-2 bg-[#2E7D32] text-white rounded-full hover:bg-[#1B5E20] transition-colors"
             >
-              New Post
+              Start a Discussion
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-12 gap-8">
-          {/* Left Sidebar */}
-          <div className="col-span-3">
-            <Card className="p-6 sticky top-24">
-              <div className="flex items-center space-x-3 mb-6">
-                <Users className="h-6 w-6 text-green-500" />
-                <h2 className="text-xl font-bold text-gray-800">Communities</h2>
-              </div>
-              <ul className="space-y-4">
-                {[
-                  "Sustainable Living",
-                  "Traditional Crafts",
-                  "Nature Photography",
-                  "Organic Cooking",
-                ].map((item) => (
-                  <li
-                    key={item}
-                    className="text-gray-600 hover:text-green-500 cursor-pointer transition-colors duration-300 hover:bg-green-50 p-2 rounded-lg"
+      <main className="max-w-5xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-8">
+            {showNewPostForm && (
+              <div className="bg-white rounded-lg shadow-sm border border-[#E2DED9] p-6 mb-6">
+                <input
+                  className="w-full px-4 py-2 text-lg font-medium border-b border-[#E2DED9] focus:outline-none focus:border-[#2E7D32] placeholder-[#8B8178]"
+                  placeholder="What do you want to ask or share?"
+                  value={newPost.title}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, title: e.target.value })
+                  }
+                />
+                <textarea
+                  className="w-full px-4 py-3 mt-4 h-32 bg-[#F5F5F0] rounded-lg border border-[#E2DED9] focus:outline-none focus:border-[#2E7D32] placeholder-[#8B8178]"
+                  placeholder="Provide more details..."
+                  value={newPost.content}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, content: e.target.value })
+                  }
+                />
+                <input
+                  className="w-full px-4 py-2 mt-4 bg-[#F5F5F0] rounded-lg border border-[#E2DED9] focus:outline-none focus:border-[#2E7D32] placeholder-[#8B8178]"
+                  placeholder="Add topics (comma separated)"
+                  value={newPost.tags}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, tags: e.target.value })
+                  }
+                />
+                <div className="flex justify-end mt-4 space-x-3">
+                  <button
+                    onClick={() => setShowNewPostForm(false)}
+                    className="px-4 py-2 text-[#8B8178] hover:text-[#2E7D32]"
                   >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </div>
-
-          {/* Main Feed */}
-          <div className="col-span-6 space-y-8">
-            {error && (
-              <div className="text-red-500 mb-4 p-4 bg-red-50 rounded-lg">
-                Error: {error}
+                    Cancel
+                  </button>
+                  <button
+                    className="px-6 py-2 bg-[#2E7D32] text-white rounded-full hover:bg-[#1B5E20] transition-colors"
+                    onClick={createPost}
+                  >
+                    Post
+                  </button>
+                </div>
               </div>
             )}
+
             {posts.map((post) => (
-              <Card
-                key={post.id}
-                className="p-6 hover:transform hover:scale-[1.01] transition-all duration-300"
+              <article
+                key={post._id}
+                className="bg-white rounded-lg shadow-sm border border-[#E2DED9] p-6 mb-6"
               >
-                <div className="flex items-center space-x-3 mb-6">
-                  <img
-                    src={post.avatar}
-                    alt={post.author}
-                    className="rounded-full ring-2 ring-green-500/20"
-                  />
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-10 h-10 bg-[#E8F5E9] rounded-full flex items-center justify-center">
+                    <User className="w-6 h-6 text-[#2E7D32]" />
+                  </div>
                   <div>
-                    <p className="font-semibold text-gray-800">{post.author}</p>
-                    <p className="text-sm text-gray-500">{post.timeAgo}</p>
+                    <h3 className="font-medium text-[#2D2D2D]">
+                      Anonymous User
+                    </h3>
+                    <p className="text-sm text-[#8B8178]">
+                      Posted in {post.tags?.join(", ")}
+                    </p>
                   </div>
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 mb-3">
+
+                <h2 className="text-xl font-medium text-[#2D2D2D] mb-3">
                   {post.title}
                 </h2>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {post.content}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-4 py-1.5 bg-green-100 text-green-600 rounded-full text-sm font-medium hover:bg-green-200 transition-colors cursor-pointer"
+                <p className="text-[#4A4A4A] mb-4">{post.content}</p>
+
+                <div className="flex items-center justify-between pt-4 border-t border-[#E2DED9]">
+                  <div className="flex items-center space-x-6">
+                    <button
+                      className="flex items-center space-x-2 text-[#8B8178] hover:text-[#2E7D32]"
+                      onClick={() => toggleLike(post._id)}
                     >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex items-center space-x-8 text-gray-500">
-                  <button
-                    onClick={() => toggleLike(post.id)}
-                    className="flex items-center space-x-2 hover:text-green-500 transition-colors group"
-                  >
-                    <Heart
-                      className={`h-5 w-5 transition-transform duration-300 group-hover:scale-110 ${
-                        post.isLiked ? "fill-current text-red-500" : ""
-                      }`}
-                    />
-                    <span>{post.likes}</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedPost(post);
-                      setCommentsModal(true);
-                    }}
-                    className="flex items-center space-x-2 hover:text-green-500 transition-colors group"
-                  >
-                    <MessageCircle className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                    <span>{post.comments.length}</span>
-                  </button>
-                  <button className="flex items-center space-x-2 hover:text-green-500 transition-colors group">
-                    <Share2 className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                  </button>
-                  <button
-                    onClick={() => toggleBookmark(post.id)}
-                    className="flex items-center space-x-2 hover:text-green-500 transition-colors group"
-                  >
-                    <BookmarkPlus
-                      className={`h-5 w-5 transition-transform duration-300 group-hover:scale-110 ${
-                        post.isBookmarked ? "fill-current text-green-500" : ""
-                      }`}
-                    />
-                  </button>
-                </div>
-              </Card>
-            ))}
-          </div>
-
-          {/* Right Sidebar */}
-          <div className="col-span-3">
-            <Card className="p-6 sticky top-24">
-              <div className="flex items-center space-x-3 mb-6">
-                <TrendingUp className="h-6 w-6 text-green-500" />
-                <h2 className="text-xl font-bold text-gray-800">
-                  Trending Topics
-                </h2>
-              </div>
-              <ul className="space-y-6">
-                {[
-                  "#sustainableliving",
-                  "#traditionalcrafts",
-                  "#naturephotography",
-                ].map((topic) => (
-                  <li key={topic} className="group cursor-pointer">
-                    <p className="font-medium text-green-600 group-hover:text-green-700 transition-colors">
-                      {topic}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {Math.floor(Math.random() * 1000)} discussions
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </div>
-        </div>
-      </div>
-
-      {/* Modern New Post Modal */}
-      <Modal
-        isOpen={newPostModal}
-        onClose={() => setNewPostModal(false)}
-        title="Create New Post"
-      >
-        <div className="space-y-6">
-          <input
-            type="text"
-            placeholder="Title"
-            value={newPostTitle}
-            onChange={(e) => setNewPostTitle(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
-          />
-          <textarea
-            placeholder="Share your thoughts..."
-            value={newPostContent}
-            onChange={(e) => setNewPostContent(e.target.value)}
-            rows={4}
-            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 resize-none"
-          />
-          <input
-            type="text"
-            placeholder="Tags (comma-separated)"
-            value={newPostTags}
-            onChange={(e) => setNewPostTags(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
-          />
-          <button
-            onClick={handleNewPost}
-            className="w-full px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-400 transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-md font-medium"
-          >
-            Post
-          </button>
-        </div>
-      </Modal>
-
-      {/* Modern Comments Modal */}
-
-      <Modal
-        isOpen={commentsModal}
-        onClose={() => {
-          setCommentsModal(false);
-          setSelectedPost(null);
-        }}
-        title="Comments"
-      >
-        {selectedPost && (
-          <div className="space-y-6">
-            {selectedPost.comments.map((comment) => (
-              <div key={comment.id} className="border-b border-gray-200 pb-6">
-                <div className="flex items-center space-x-3 mb-3">
-                  <img
-                    src={comment.avatar}
-                    alt={comment.author}
-                    className="w-8 h-8 rounded-full ring-2 ring-green-500/20"
-                  />
-                  <div>
-                    <p className="font-semibold text-gray-800">
-                      {comment.author}
-                    </p>
-                    <p className="text-sm text-gray-500">{comment.timeAgo}</p>
+                      <ThumbsUp className="w-5 h-5" />
+                      <span>Upvote</span>
+                    </button>
+                    <button
+                      className="flex items-center space-x-2 text-[#8B8178] hover:text-[#2E7D32]"
+                      onClick={() =>
+                        setShowCommentForm({
+                          ...showCommentForm,
+                          [post._id]: !showCommentForm[post._id],
+                        })
+                      }
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      <span>Comment</span>
+                    </button>
+                    <button className="flex items-center space-x-2 text-[#8B8178] hover:text-[#2E7D32]">
+                      <Share2 className="w-5 h-5" />
+                      <span>Share</span>
+                    </button>
                   </div>
+                  <button className="text-[#8B8178] hover:text-[#2E7D32]">
+                    <Bookmark className="w-5 h-5" />
+                  </button>
                 </div>
-                <p className="text-gray-600 pl-11">{comment.content}</p>
-              </div>
+
+                {showCommentForm[post._id] && (
+                  <div className="mt-4 pt-4 border-t border-[#E2DED9]">
+                    <input
+                      className="w-full px-4 py-2 bg-[#F5F5F0] rounded-lg border border-[#E2DED9] focus:outline-none focus:border-[#2E7D32] placeholder-[#8B8178]"
+                      placeholder="Add a comment..."
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    />
+                    <button
+                      className="mt-2 px-4 py-2 bg-[#2E7D32] text-white rounded-full hover:bg-[#1B5E20] transition-colors"
+                      onClick={() => addComment(post._id)}
+                    >
+                      Add Comment
+                    </button>
+                  </div>
+                )}
+
+                {post.comments?.map((c) => (
+                  <div
+                    key={c._id}
+                    className="mt-4 pl-4 border-l-2 border-[#E2DED9]"
+                  >
+                    <p className="text-[#4A4A4A]">{c.text}</p>
+                    <div className="mt-2">
+                      <input
+                        className="w-full px-4 py-2 bg-[#F5F5F0] rounded-lg border border-[#E2DED9] focus:outline-none focus:border-[#2E7D32] placeholder-[#8B8178]"
+                        placeholder="Reply to this comment..."
+                        value={reply[c._id] || ""}
+                        onChange={(e) =>
+                          setReply({ ...reply, [c._id]: e.target.value })
+                        }
+                      />
+                      <button
+                        className="mt-2 px-4 py-1 text-sm bg-[#2E7D32] text-white rounded-full hover:bg-[#1B5E20] transition-colors"
+                        onClick={() => addReply(post._id, c._id)}
+                      >
+                        Reply
+                      </button>
+                    </div>
+                    {c.replies?.map((r) => (
+                      <div
+                        key={r._id}
+                        className="ml-4 mt-2 pl-4 border-l border-[#E2DED9]"
+                      >
+                        <p className="text-[#666666]">{r.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </article>
             ))}
-            <div className="flex space-x-3">
-              <textarea
-                placeholder="Write a comment..."
-                value={replyContent}
-                onChange={(e) => setReplyContent(e.target.value)}
-                className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 resize-none"
-                rows={3}
-              />
-              <button
-                onClick={() => handleReply(selectedPost.id)}
-                className="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-md self-end"
-              >
-                <Send className="h-5 w-5" />
-              </button>
+          </div>
+
+          <div className="col-span-4">
+            <div className="bg-white rounded-lg shadow-sm border border-[#E2DED9] p-6">
+              <h2 className="text-lg font-medium text-[#2D2D2D] mb-4">
+                Popular Topics
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <button
+                    key={tag}
+                    className={`px-3 py-1 rounded-full text-sm ${
+                      selectedTag === tag
+                        ? "bg-[#2E7D32] text-white"
+                        : "bg-[#F5F5F0] text-[#8B8178] hover:bg-[#E8F5E9] hover:text-[#2E7D32]"
+                    }`}
+                    onClick={() => {
+                      setSelectedTag(tag);
+                      fetchPosts(tag, searchQuery);
+                    }}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-        )}
-      </Modal>
+        </div>
+      </main>
     </div>
   );
 };
 
-export default CommunityPage;
+export default Forum;
