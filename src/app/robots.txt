@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+Disallow: /private/
+Sitemap: https://mental-wellbeing-fe.vercel.app/sitemap.xml
