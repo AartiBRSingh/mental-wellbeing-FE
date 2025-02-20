@@ -118,7 +118,7 @@ const BlogPage = () => {
     const fetchRecommendedPosts = async () => {
       try {
         const response = await axios.post(`${baseURL}/recommended-posts`, {
-          categories: ["Stress", "Anxiety", "Body and Soul"],
+          categories: recommendedCategories,
         });
         setRecommendedPosts(response.data.recommendedPosts);
         setShowModal(true);
