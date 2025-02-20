@@ -32,7 +32,6 @@ const PricingPlans = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <CustomCursor />
       <div className="bg-white rounded-xl w-full max-w-4xl animate-in fade-in duration-300">
         <div className="p-6">
           <div className="text-center mb-8">
