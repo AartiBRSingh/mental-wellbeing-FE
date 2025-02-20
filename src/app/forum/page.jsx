@@ -9,6 +9,8 @@ import {
   Search,
   Send,
   Plus,
+  Hash,
+  X,
 } from "lucide-react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
@@ -24,18 +26,24 @@ const Forum = () => {
   const [comment, setComment] = useState("");
   const [reply, setReply] = useState({});
   const [tags, setTags] = useState([]);
-  const [selectedTag, setSelectedTag] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showNewPostForm, setShowNewPostForm] = useState(false);
   const [showCommentForm, setShowCommentForm] = useState({});
 
-  const fetchPosts = async (tags = "", search = "") => {
+  const fetchPosts = async (tagList = [], search = "") => {
     try {
-      const res = await axios.get(
-        `${baseURL}/get-posts${tags ? `?tags=${tags}` : ""}${
-          search ? `?search=${search}` : ""
-        }`
-      );
+      let queryParams = "";
+
+      if (tagList.length > 0) {
+        queryParams += `?tags=${tagList.join(",")}`;
+      }
+
+      if (search) {
+        queryParams += queryParams ? `&search=${search}` : `?search=${search}`;
+      }
+
+      const res = await axios.get(`${baseURL}/get-posts${queryParams}`);
       setPosts(res.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -56,7 +64,7 @@ const Forum = () => {
       await axios.post(`${baseURL}/add-post`, newPost);
       setNewPost({ title: "", content: "", tags: "" });
       setShowNewPostForm(false);
-      fetchPosts();
+      fetchPosts(selectedTags);
       fetchTags();
     } catch (error) {
       console.error("Error creating post:", error);
@@ -68,7 +76,7 @@ const Forum = () => {
       await axios.post(`${baseURL}/post/${postId}/comment`, { text: comment });
       setComment("");
       setShowCommentForm({ ...showCommentForm, [postId]: false });
-      fetchPosts();
+      fetchPosts(selectedTags);
     } catch (error) {
       console.error("Error adding comment:", error);
     }
@@ -80,7 +88,7 @@ const Forum = () => {
         text: reply[commentId],
       });
       setReply({ ...reply, [commentId]: "" });
-      fetchPosts();
+      fetchPosts(selectedTags);
     } catch (error) {
       console.error("Error adding reply:", error);
     }
@@ -88,40 +96,43 @@ const Forum = () => {
 
   const toggleLike = async (postId) => {
     await axios.post(`${baseURL}/post/${postId}/like`);
-    fetchPosts();
+    fetchPosts(selectedTags);
   };
+
+  const handleTagClick = (tag) => {
+    // If tag is already selected, remove it, otherwise add it
+    setSelectedTags((prev) => {
+      if (prev.includes(tag)) {
+        return prev.filter((t) => t !== tag);
+      } else {
+        return [...prev, tag];
+      }
+    });
+  };
+
+  // Effect to refetch posts when selected tags change
+  useEffect(() => {
+    fetchPosts(selectedTags, searchQuery);
+  }, [selectedTags]);
 
   useEffect(() => {
     fetchPosts();
     fetchTags();
   }, []);
 
+  // Clear all selected tags
+  const clearSelectedTags = () => {
+    setSelectedTags([]);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 mt-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 mt-5">
       {/* Modern Nav Bar with Glass Effect */}
-      <nav className="sticky max-w-6xl mx-auto top-0 z-10 backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-md rounded-xl">
+      <nav className="sticky top-0 z-10 backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* <h1 className="text-2xl font-serif text-emerald-700 font-bold tracking-tight">
+          <h1 className="text-3xl font-serif text-emerald-700 font-bold tracking-tight">
             Forum
-          </h1> */}
-          <span className="text-black relative text-3xl font-serif font-bold tracking-tight">
-            F
-            <span className="relative">
-              orum
-              <svg
-                className="absolute w-full h-[8px] sm:h-[8px] -bottom-1 left-0"
-                viewBox="0 0 100 10"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0 5 Q 50 -5, 100 5"
-                  stroke="orange"
-                  strokeWidth="4"
-                  fill="transparent"
-                />
-              </svg>
-            </span>
-          </span>
+          </h1>
           <div className="flex items-center space-x-6">
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -131,7 +142,7 @@ const Forum = () => {
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  fetchPosts(selectedTag, e.target.value);
+                  fetchPosts(selectedTags, e.target.value);
                 }}
               />
             </div>
@@ -231,15 +242,8 @@ const Forum = () => {
                       <h3 className="font-medium text-gray-800">
                         Anonymous User
                       </h3>
-                      <div className="flex items-center text-sm text-gray-500 mt-0.5">
-                        {post.tags?.length > 0 && (
-                          <p>
-                            Posted in{" "}
-                            <span className="text-emerald-600 font-medium">
-                              {post.tags?.join(", ")}
-                            </span>
-                          </p>
-                        )}
+                      <div className="text-xs text-gray-500 mt-0.5">
+                        Posted recently
                       </div>
                     </div>
                   </div>
@@ -247,9 +251,24 @@ const Forum = () => {
                   <h2 className="text-xl font-semibold text-gray-800 mb-3">
                     {post.title}
                   </h2>
-                  <p className="text-gray-700 leading-relaxed mb-5">
+                  <p className="text-gray-700 leading-relaxed mb-4">
                     {post.content}
                   </p>
+
+                  {/* Instagram-style hashtags */}
+                  {post.tags?.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {post.tags.map((tag) => (
+                        <button
+                          key={tag}
+                          onClick={() => handleTagClick(tag)}
+                          className="text-emerald-600 hover:text-emerald-700 hover:underline text-sm font-medium transition-colors"
+                        >
+                          #{tag}
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                     <div className="flex items-center space-x-6">
@@ -384,7 +403,7 @@ const Forum = () => {
             )}
           </div>
 
-          {/* Sidebar with Enhanced Design */}
+          {/* Sidebar with Enhanced Design and Multi-Select Topics */}
           <div className="col-span-12 lg:col-span-4 space-y-6">
             <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 sticky top-24">
               <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
@@ -392,20 +411,50 @@ const Forum = () => {
                 Popular Topics
               </h2>
 
+              {/* Selected topics badges */}
+              {selectedTags.length > 0 && (
+                <div className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-sm font-medium text-gray-500">
+                      Selected Topics
+                    </h3>
+                    <button
+                      onClick={clearSelectedTags}
+                      className="text-xs text-emerald-600 hover:text-emerald-700"
+                    >
+                      Clear all
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedTags.map((tag) => (
+                      <div
+                        key={`selected-${tag}`}
+                        className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm flex items-center gap-1 group"
+                      >
+                        {tag}
+                        <button
+                          onClick={() => handleTagClick(tag)}
+                          className="p-0.5 rounded-full hover:bg-emerald-200 transition-colors"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {tags.length === 0 ? (
                 <p className="text-gray-500 text-sm">No topics available yet</p>
               ) : (
                 <div className="flex flex-wrap gap-2">
                   <button
                     className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
-                      selectedTag === ""
+                      selectedTags.length === 0
                         ? "bg-emerald-600 text-white shadow-sm"
                         : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
                     }`}
-                    onClick={() => {
-                      setSelectedTag("");
-                      fetchPosts("", searchQuery);
-                    }}
+                    onClick={clearSelectedTags}
                   >
                     All Topics
                   </button>
@@ -413,14 +462,11 @@ const Forum = () => {
                     <button
                       key={tag}
                       className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
-                        selectedTag === tag
+                        selectedTags.includes(tag)
                           ? "bg-emerald-600 text-white shadow-sm"
                           : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
                       }`}
-                      onClick={() => {
-                        setSelectedTag(tag);
-                        fetchPosts(tag, searchQuery);
-                      }}
+                      onClick={() => handleTagClick(tag)}
                     >
                       {tag}
                     </button>
