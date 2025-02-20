@@ -36,8 +36,8 @@ const Login = () => {
 
   const onOtpSubmit = async ({ identifier, otp, organizationCode }) => {
     const url = isUserLogin
-      ? `${baseURL}/users/sign-in`
-      : `${baseURL}/expert/sign-in`;
+      ? `${baseURL}/users/login`
+      : `${baseURL}/expert/login`;
     try {
       const response = await axios.post(url, {
         identifier,
