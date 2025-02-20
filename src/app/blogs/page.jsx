@@ -1,10 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Search, Filter, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { baseURL } from "../baseURL";
 import toast, { Toaster } from "react-hot-toast";
+import Modal from "../components/Modal";
+import useUserInteraction from "../hooks/useUserInteraction";
 
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
@@ -89,6 +91,47 @@ const BlogPage = () => {
       : strippedContent;
   };
 
+  const { viewedPosts, trackPostView } = useUserInteraction();
+  const [showModal, setShowModal] = useState(false);
+  const [recommendedCategories, setRecommendedCategories] = useState([]);
+  const [recommendedPosts, setRecommendedPosts] = useState([]);
+
+  const fetchRecommendedPosts = useCallback(() => {
+    if (!viewedPosts.length || !posts.length) {
+      console.log("No viewed posts or no posts available");
+      return;
+    }
+
+    const viewedCategories = new Set(
+      posts
+        .filter((post) => viewedPosts.includes(post._id))
+        .map((post) => post.category)
+    );
+    setRecommendedCategories(() => Array.from(viewedCategories));
+  }, [viewedPosts, posts]);
+
+  useEffect(() => {
+    fetchRecommendedPosts();
+  }, [fetchRecommendedPosts]);
+
+  useEffect(() => {
+    const fetchRecommendedPosts = async () => {
+      try {
+        const response = await axios.post(`${baseURL}/recommended-posts`, {
+          categories: ["Stress", "Anxiety", "Body and Soul"],
+        });
+        setRecommendedPosts(response.data.recommendedPosts);
+        setShowModal(true);
+        console.log("Recommended Posts:", response.data);
+      } catch (error) {
+        console.error("Error fetching recommended posts:", error);
+      }
+    };
+    fetchRecommendedPosts();
+  }, []);
+
+  console.log(showModal, "raju");
+
   return (
     <div className="bg-transparent font-sans">
       <Toaster position="bottom-left" reverseOrder={false} />
@@ -145,52 +188,88 @@ const BlogPage = () => {
               </div>
             ) : (
               posts.map((post) => (
-                <div
-                  key={post._id}
-                  className="group bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div className="overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover aspect-square md:aspect-auto group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <div className="md:col-span-2 p-6">
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="px-4 py-1.5 rounded-full text-sm bg-green-100 text-green-600 font-medium">
-                          {post.category}
-                        </span>
-                        <span className="text-gray-400 text-sm">
-                          {new Date(post.createdAt).toLocaleDateString()}
-                        </span>
+                <>
+                  {" "}
+                  <div
+                    key={post._id}
+                    className="group bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <div className="overflow-hidden">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover aspect-square md:aspect-auto group-hover:scale-105 transition-transform duration-300"
+                        />
                       </div>
-                      <Link
-                        href={`/blogs/${generateSlug(post.title, post._id)}`}
-                        className="block text-2xl font-bold text-gray-800 mb-3 hover:text-green-600 transition-colors"
-                        target="_blank"
-                      >
-                        {post.title}
-                      </Link>
-                      <div className="flex gap-2 items-center text-gray-400 text-sm mb-4">
-                        <Eye className="w-4 h-4 text-green-400" />
-                        {post.totalViews.toLocaleString()} Views
+                      <div className="md:col-span-2 p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <span className="px-4 py-1.5 rounded-full text-sm bg-green-100 text-green-600 font-medium">
+                            {post.category}
+                          </span>
+                          <span className="text-gray-400 text-sm">
+                            {new Date(post.createdAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <Link
+                          href={`/blogs/${generateSlug(post.title, post._id)}`}
+                          className="block text-2xl font-bold text-gray-800 mb-3 hover:text-green-600 transition-colors"
+                          target="_blank"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            trackPostView(post._id);
+                            window.open(
+                              `/blogs/${generateSlug(post.title, post._id)}`,
+                              "_blank"
+                            );
+                          }}
+                        >
+                          {post.title}
+                        </Link>
+                        <div className="flex gap-2 items-center text-gray-400 text-sm mb-4">
+                          <Eye className="w-4 h-4 text-green-400" />
+                          {post.totalViews.toLocaleString()} Views
+                        </div>
+                        <p className="text-gray-600 mb-4 line-clamp-3">
+                          {truncateContent(post.content)}
+                        </p>
+                        <Link
+                          href={`/blogs/${generateSlug(post.title, post._id)}`}
+                          className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
+                          target="_blank"
+                        >
+                          Read More
+                          <ChevronRight className="w-4 h-4 ml-1" />
+                        </Link>
                       </div>
-                      <p className="text-gray-600 mb-4 line-clamp-3">
-                        {truncateContent(post.content)}
-                      </p>
-                      <Link
-                        href={`/blogs/${generateSlug(post.title, post._id)}`}
-                        className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
-                        target="_blank"
-                      >
-                        Read More
-                        <ChevronRight className="w-4 h-4 ml-1" />
-                      </Link>
                     </div>
                   </div>
-                </div>
+                  {showModal && recommendedPosts.length > 0 && (
+                    <Modal onClose={() => setShowModal(false)}>
+                      <h2 className="text-xl font-bold mb-4">
+                        Recommended for You
+                      </h2>
+                      <ul className="space-y-3">
+                        {recommendedPosts.map((post) => (
+                          <li
+                            key={post.post._id}
+                            className="border-b pb-2 last:border-b-0"
+                          >
+                            <Link
+                              href={`/blogs/${generateSlug(
+                                post.post.title,
+                                post.post._id
+                              )}`}
+                              className="text-green-600 hover:underline"
+                            >
+                              {post.post.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </Modal>
+                  )}
+                </>
               ))
             )}
             <div className="flex justify-center items-center space-x-6 mt-12">
