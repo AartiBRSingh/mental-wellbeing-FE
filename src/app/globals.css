@@ -5,11 +5,6 @@
 html {
   scroll-behavior: smooth;
 }
-body,
-button,
-.cursor-pointer {
-  cursor: none !important;
-}
 
 .no-select {
   user-select: none; /* Prevent text selection */

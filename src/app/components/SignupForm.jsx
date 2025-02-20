@@ -88,7 +88,6 @@ const OrganizationModal = ({ isOpen, onClose }) => {
         className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
-      <CustomCursor />
       <div className="flex min-h-full items-center justify-center p-4">
         <div
           className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left shadow-xl transition-all"

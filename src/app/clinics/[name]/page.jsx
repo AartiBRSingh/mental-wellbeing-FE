@@ -315,7 +315,6 @@ const ClinicDetailPage = () => {
       {/* Appointment Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-          <CustomCursor />
           <div className="bg-white rounded-2xl max-w-md w-full p-6 relative">
             <button
               onClick={() => setShowModal(false)}

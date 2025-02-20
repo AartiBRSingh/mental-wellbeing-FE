@@ -21,7 +21,6 @@ const ShareModal = ({ onClose, copyToClipboard, src }) => {
 
   return (
     <div className="w-72 relative p-2 rounded-md flex shadow-lg bg-white">
-      <CustomCursor />
       <div className="w-full">
         <div className="absolute right-2 top-2">
           <button
