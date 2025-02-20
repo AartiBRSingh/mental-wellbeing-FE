@@ -128,9 +128,9 @@ const BlogPage = () => {
       }
     };
     fetchRecommendedPosts();
-  }, []);
+  }, [recommendedCategories]);
 
-  console.log(showModal, "raju");
+  console.log(recommendedCategories, "raju");
 
   return (
     <div className="bg-transparent font-sans">
