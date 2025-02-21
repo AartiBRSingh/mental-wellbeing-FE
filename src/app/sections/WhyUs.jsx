@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { ChevronRight } from "lucide-react";
 
 const TitleUnderline = ({ stroke }) => (
@@ -19,31 +18,27 @@ const TitleUnderline = ({ stroke }) => (
   </svg>
 );
 
-const CircleImage = ({ index, defaultImage, hoverImage }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
+const CircleImage = ({ imageUrl }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 480 480"
       className="w-full h-full transition-all duration-300 hover:scale-105"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <defs>
-        <clipPath id={`circleClip-${index}`}>
+        <clipPath id="circleClip">
           <circle cx="240" cy="240" r="240" />
         </clipPath>
       </defs>
       <circle cx="240" cy="240" r="240" fill="#CAFA90" />
       <image
-        href={isHovered ? hoverImage : defaultImage}
+        href={imageUrl}
         width="480"
         height="480"
         x="0"
         y="30"
         preserveAspectRatio="xMidYMid slice"
-        clipPath={`url(#circleClip-${index})`}
+        clipPath="url(#circleClip)"
       />
     </svg>
   );
@@ -55,45 +50,37 @@ const WhyUs = () => {
       id: 1,
       title: "Individual Therapy",
       slug: "Individual+Therapy",
-      defaultImage: "/indvtherapy.png",
-      hoverImage: "/indvtherapyhover.png",
+      imageUrl:
+        "https://img.freepik.com/free-vector/psychologist-concept-illustration_114360-2141.jpg?t=st=1740113485~exp=1740117085~hmac=ce63dc367188a3ba0d748db26e8beaa9b4fe9e07bb449701a2dc735d44e4b4a3&w=740",
     },
     {
       id: 2,
       title: "Couples / Marriage Counseling",
       slug: "Couples+%2F+Marriage+Counseling",
-      defaultImage: "/coupletherapy.png",
-      hoverImage: "/coupletherapyhover.png",
+      imageUrl:
+        "https://img.freepik.com/free-vector/marriage-counseling-concept-illustration_114360-3095.jpg?t=st=1740113562~exp=1740117162~hmac=94defde0854fc5e98443a587d384d3388a5692407505cc5e155123f37a83b036&w=740",
     },
     {
       id: 3,
       title: "Child & Teen Therapy",
       slug: "Child+%26+Teen+Therapy",
-      defaultImage: "/child.png",
-      hoverImage: "/childhover.jpg",
+      imageUrl:
+        "https://img.freepik.com/free-vector/child-therapy-concept-illustration_114360-20002.jpg?t=st=1740113593~exp=1740117193~hmac=376bb5fa33214756a7e7a912c4e8a0054046b2a4151242d52d4cde955b06c941&w=740",
     },
     {
       id: 4,
       title: "Family Therapy",
       slug: "Family+Therapy",
-      defaultImage: "/familytherapy.png",
-      hoverImage: "/familytherapyhover.jpg",
+      imageUrl:
+        "https://img.freepik.com/free-vector/family-therapy-concept-illustration_114360-20005.jpg?t=st=1740113625~exp=1740117225~hmac=6a5634dd1da93dc57534c156a696667587c38031e34393e2915cc0950ee255c3&w=740",
     },
     {
       id: 5,
       title: "Psychiatry & Medication",
       slug: "Psychiatry+%26+Medication",
-      defaultImage: "/medication.png",
-      hoverImage: "/medicationhover.jpg",
+      imageUrl:
+        "https://img.freepik.com/free-vector/coffee-break-concept-illustration_114360-3884.jpg?t=st=1740113686~exp=1740117286~hmac=d798c51dc7750419800db800128171aad673ec21ddd757f04af73612a271e41f&w=740",
     },
-  ];
-
-  const underlineColors = [
-    "#CAFA90",
-    "#FF844C",
-    "#CAFA90",
-    "#FAD77B",
-    "#CAFA90",
   ];
 
   return (
@@ -118,16 +105,11 @@ const WhyUs = () => {
           {expertTypes.map((expert, index) => (
             <Link href={`/all-experts?userType=${expert.slug}`} key={index}>
               <div className="text-center flex flex-col items-center">
-                <div className="w-36 h-36 mb-6 object-contain">
-                  <CircleImage
-                    index={index}
-                    defaultImage={expert.defaultImage}
-                    hoverImage={expert.hoverImage}
-                  />
+                <div className="w-44 h-44 mb-6 object-cover">
+                  <CircleImage imageUrl={expert.imageUrl} />
                 </div>
                 <div className="relative inline-block pb-4 mb-2">
                   <h3 className="text-lg font-semibold">{expert.title}</h3>
-                  {/* <TitleUnderline stroke={underlineColors[index]} /> */}
                 </div>
               </div>
             </Link>

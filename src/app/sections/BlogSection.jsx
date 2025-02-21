@@ -292,7 +292,7 @@ const BlogSection = () => {
             </div>
           ))}
         </div>
-        <div className="flex justify-center mt-6 ml-20">
+        <div className="flex justify-center mt-10 ml-20">
           <Link
             href="/blogs"
             className="group w-full sm:w-auto mx-4 sm:mx-8 md:mx-16 lg:mx-0"

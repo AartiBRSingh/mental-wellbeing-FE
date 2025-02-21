@@ -130,7 +130,7 @@ const Forum = () => {
       {/* Modern Nav Bar with Glass Effect */}
       <nav className="sticky top-0 z-10 backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="text-3xl font-serif text-emerald-700 font-bold tracking-tight">
+          <h1 className="text-3xl font-serif text-emerald-700 font-bold tracking-tight ml-10">
             Forum
           </h1>
           <div className="flex items-center space-x-6">
