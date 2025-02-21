@@ -6,6 +6,7 @@ import { baseURL } from "../baseURL";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const GraffitiDecoration = () => (
   <svg className="absolute inset-0 " xmlns="http://www.w3.org/2000/svg">
@@ -236,6 +237,13 @@ const BlogSection = () => {
                 MENTAL HEALTH AT ANY AGE
               </div>
             </div>
+            <Image
+              src="/hearttext.png" // Replace with your image path from the public folder
+              alt="Decorative image"
+              width={50} // Adjust size as needed
+              height={50} // Adjust size as needed
+              className="absolute -rotate-12 -top-[20px] right-8 sm:right-[1040px] z-0 opacity-100" // Adjust positioning and opacity as needed
+            />
 
             <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#2D2D2D]">
               <span className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-8 h-8 md:w-12 md:h-12 bg-[#F5E6E0] rounded-full -z-10" />

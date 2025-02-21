@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -9,6 +10,13 @@ const Hero = () => {
         {/* Text Section */}
         <section className="flex-1 flex flex-col gap-6 md:gap-8 text-center md:text-left">
           <div className="inline-block">
+            <Image
+              src="/hearttext.png" // Replace with your image path from the public folder
+              alt="Decorative image"
+              width={70} // Adjust size as needed
+              height={70} // Adjust size as needed
+              className="absolute rotate-12 top-[135px] right-8 sm:right-[1080px] z-0 opacity-100" // Adjust positioning and opacity as needed
+            />
             <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#956144] text-xs font-semibold">
               MENTAL HEALTH AT ANY AGE
             </span>
