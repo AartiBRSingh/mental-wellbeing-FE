@@ -90,7 +90,7 @@ const GetHelp = () => {
           >
             <Link
               href={"/forum"}
-              className="cursor-pointer flex items-center gap-2 w-fit px-6 sm:px-8 bg-black text-white font-bold py-2.5 sm:py-3 rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner text-sm sm:text-base"
+              className="cursor-pointer flex shadow-sm items-center gap-2 w-fit px-6 sm:px-8 bg-yellow-700 text-white font-bold py-2.5 sm:py-3 rounded-xl transition duration-300 ease-in-out hover:bg-yellow-800 hover:text-white  hover:shadow-inner text-sm sm:text-lg"
             >
               Forum
               <MdChevronRight className="text-[#FF7F4B]" size={24} />

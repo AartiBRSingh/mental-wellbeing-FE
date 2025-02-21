@@ -1,9 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ChevronRight, Star } from "lucide-react";
-import axios from "axios";
 import Link from "next/link";
-import { baseURL } from "../baseURL";
 
 export const DecorativeShapes = () => (
   <div>
@@ -22,30 +20,48 @@ export const DecorativeShapes = () => (
 );
 
 const Services = () => {
-  const [courses, setCourses] = useState([]);
+  // Hardcoded courses data
+  const hardcodedCourses = [
+    {
+      _id: "course1",
+      title: "Anxiety Management for Children",
+      category: "Mental Health",
+      language: "English",
+      thumbnailUrl:
+        "https://img.freepik.com/free-vector/hand-drawn-child-custody-illustration_23-2150790640.jpg?t=st=1740114026~exp=1740117626~hmac=d08936976f033e7c6452999b0b702d121b10c8379726414233ded5bea1789ae2&w=740",
+      rating: 4.8,
+      price: 2999,
+      discountedPrice: 1499,
+    },
+    {
+      _id: "course2",
+      title: "Building Self-Esteem in Teenagers",
+      category: "Personal Growth",
+      language: "Hindi",
+      thumbnailUrl:
+        "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2000",
+      rating: 4.6,
+      price: 3499,
+      discountedPrice: 1999,
+    },
+    {
+      _id: "course3",
+      title: "Mindfulness for School Success",
+      category: "Education",
+      language: "English",
+      thumbnailUrl:
+        "https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=2000",
+      rating: 4.9,
+      price: 2799,
+      discountedPrice: 1299,
+    },
+  ];
+
+  const [courses] = useState(hardcodedCourses);
   const [currentCourse, setCurrentCourse] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/get-courses`);
-        setCourses(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to fetch courses");
-        setLoading(false);
-      }
-    };
-
-    fetchCourses();
-  }, []);
 
   // Auto-scroll effect
   useEffect(() => {
-    if (courses.length === 0) return;
-
     const timer = setTimeout(() => {
       setCurrentCourse((prev) => (prev + 1) % courses.length);
     }, 5000);
@@ -73,9 +89,6 @@ const Services = () => {
       </div>
     );
   };
-
-  if (loading) return null;
-  if (error) return <div className="text-white">{error}</div>;
 
   return (
     <div
@@ -121,7 +134,7 @@ const Services = () => {
             to prevent mental health problems.
           </p>
 
-          <div className="relative w-full flex justify-center md:justify-start md:absolute md:left-[305px] md:bottom-6">
+          <div className="relative w-full flex justify-center md:justify-start md:absolute md:left-[870px] md:bottom-6">
             <Link href="/all-courses">
               <button className="px-4 sm:px-6 py-2 sm:py-3 mt-2 sm:mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
                 All Courses
