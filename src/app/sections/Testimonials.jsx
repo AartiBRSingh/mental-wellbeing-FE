@@ -139,14 +139,14 @@ const TestimonialsSlider = () => {
     <div className="bg-transparent py-6 md:py-10 overflow-hidden relative">
       <button
         onClick={() => handleScroll("left")}
-        className="absolute left-2 sm:left-4 lg:left-8 xl:left-16 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
+        className="absolute left-2 sm:left-4 lg:left-8 xl:left-96 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
         aria-label="Previous testimonial"
       >
         <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
       </button>
       <button
         onClick={() => handleScroll("right")}
-        className="absolute right-2 sm:right-4 lg:right-8 xl:right-16 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
+        className="absolute right-2 sm:right-4 lg:right-8 xl:right-96 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
         aria-label="Next testimonial"
       >
         <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
