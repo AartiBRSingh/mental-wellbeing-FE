@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronRight, Star } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export const DecorativeShapes = () => (
   <div>
@@ -16,6 +17,21 @@ export const DecorativeShapes = () => (
         opacity="0.2"
       />
     </svg>
+    {/* Add your PNG image here */}
+    <Image
+      src="/sunflower21.png" // Replace with your image path from the public folder
+      alt="Decorative image"
+      width={200} // Adjust size as needed
+      height={200} // Adjust size as needed
+      className="absolute top-[210px] right-8 sm:right-20 z-0 opacity-100" // Adjust positioning and opacity as needed
+    />
+    <Image
+      src="/hearttext.png" // Replace with your image path from the public folder
+      alt="Decorative image"
+      width={70} // Adjust size as needed
+      height={70} // Adjust size as needed
+      className="absolute rotate-12 top-[135px] right-8 sm:right-[1080px] z-0 opacity-100" // Adjust positioning and opacity as needed
+    />
   </div>
 );
 
