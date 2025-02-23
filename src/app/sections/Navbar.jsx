@@ -63,9 +63,9 @@ const Navbar = () => {
       label: "Mental Wellbeing",
       redirectTo: "mental-wellbeing",
       dropdown: [
-        { label: "Workplace", href: "/employee" },
-        { label: "Campus", href: "/student" },
         { label: "Self", href: "/self" },
+        { label: "Campus", href: "/student" },
+        { label: "Workplace", href: "/employee" },
       ],
     },
     { label: "Clinics", redirectTo: "/clinics" },
@@ -269,7 +269,7 @@ const Navbar = () => {
           )}
         </nav>
       </div>
-      <div className="h-20 mb-8" />{" "}
+      <div className="h-20 mb-4" />{" "}
       {/* This creates space below the fixed navbar */}
     </>
   );

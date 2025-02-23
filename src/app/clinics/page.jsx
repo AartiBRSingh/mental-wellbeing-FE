@@ -103,10 +103,11 @@ const ClinicDisplay = () => {
   }
 
   const SearchSection = () => (
-    <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg mb-4 md:mb-8">
-      <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 md:items-end">
-        <div className="flex-1">
-          <label className="block text-base md:text-lg font-bold text-gray-700 mb-2">
+    <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg mb-4 md:mb-8">
+      <div className="flex flex-wrap items-end gap-2 sm:gap-3">
+        {/* State Selection */}
+        <div className="flex-1 min-w-[130px]">
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
             State
           </label>
           <select
@@ -115,7 +116,7 @@ const ClinicDisplay = () => {
               setSelectedState(e.target.value);
               setSelectedCity("");
             }}
-            className="w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+            className="w-full p-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
             <option value="">Select State</option>
             {states.map((state) => (
@@ -126,14 +127,15 @@ const ClinicDisplay = () => {
           </select>
         </div>
 
-        <div className="flex-1">
-          <label className="block text-base md:text-lg font-bold text-gray-700 mb-2">
+        {/* City Selection */}
+        <div className="flex-1 min-w-[130px]">
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
             City
           </label>
           <select
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
-            className="w-full p-2 md:p-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+            className="w-full p-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
             disabled={!selectedState}
           >
             <option value="">Select City</option>
@@ -145,12 +147,13 @@ const ClinicDisplay = () => {
           </select>
         </div>
 
+        {/* Reset Button */}
         <button
           onClick={() => {
             setSelectedState("");
             setSelectedCity("");
           }}
-          className="w-full md:w-auto px-4 md:px-6 py-2 md:py-3 text-sm md:text-base font-bold bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+          className="px-4 py-2 text-sm font-semibold bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 whitespace-nowrap"
         >
           Reset
         </button>
@@ -359,7 +362,7 @@ const ClinicDisplay = () => {
       ))}
       {/* FAQ Section */}
       <div className="mt-20">
-        <h2 className="text-4xl font-serif text-stone-800 mb-6 text-center">
+        <h2 className="xl:text-4xl text-3xl font-serif text-stone-800 mb-6 text-center">
           Frequently Asked Questions
         </h2>
         <div className="bg-white/80  rounded-2xl divide-y divide-stone-200 mt-12 mb-8">
