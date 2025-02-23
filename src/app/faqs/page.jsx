@@ -66,10 +66,10 @@ const Page = () => {
           <div className="w-full p-6">
             <div className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-r from-blue-100/80 to-purple-100/80 backdrop-blur-sm rounded-3xl">
               <div className="flex justify-center">
-                <h1 className="text-4xl font-bold text-[#956144] mb-4">
+                <h1 className="text-2xl xl:text-4xl font-bold text-black mb-4">
                   Frequently Asked Questions
                 </h1>
-                <MessageCircleQuestion className="w-10 h-10 ml-4" />
+                <MessageCircleQuestion className="w-10 h-10 xl:ml-4" />
               </div>
 
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -83,14 +83,14 @@ const Page = () => {
           <div className="max-w-4xl mx-auto px-4 py-6">
             <div>
               <div className="flex gap-2 mb-8 justify-center">
-                <h2 className="text-5xl font-semibold text-gray-900">
+                <h2 className="xl:text-4xl text-3xl font-semibold text-gray-900">
                   Detailed
                 </h2>
-                <span className="text-green-500 relative text-4xl md:text-6xl lg:text-4xl block">
+                <span className="text-green-600 relative text-3xl md:text-5xl lg:text-4xl block">
                   <span className="relative">
                     FAQ
                     <svg
-                      className="absolute w-full h-[6px] bottom-0 left-0"
+                      className="absolute w-full h-[10px] -bottom-1 left-0"
                       viewBox="0 0 100 10"
                       preserveAspectRatio="none"
                     >
@@ -110,14 +110,14 @@ const Page = () => {
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
                 </div>
               ) : (
-                <div className="space-y-8">
+                <div className="space-y-4">
                   {sortedCategories.map(([category, categoryFaqs]) => (
                     <div key={category} className="space-y-4">
                       <button
                         onClick={() => toggleCategory(category)}
                         className="w-full"
                       >
-                        <h3 className="text-2xl font-semibold hover:shadow-xl shadow-lg mx-auto max-w-xl text-black mb-4 bg-white p-4 rounded-2xl flex items-center justify-center">
+                        <h3 className="xl:text-2xl text-lg font-semibold hover:shadow-xl shadow-lg mx-auto max-w-xl text-black xl:mb-4  bg-white p-4 rounded-2xl flex items-center justify-center">
                           {category}
                           <svg
                             className={`h-6 w-6 ml-2 transform transition-transform duration-200 ${

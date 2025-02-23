@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 
 const TitleUnderline = ({ stroke }) => (
   <svg
-    className="absolute w-full h-[10px] bottom-0 left-0"
+    className="absolute w-full h-[10px] -bottom-1 left-0"
     viewBox="0 0 100 10"
     preserveAspectRatio="none"
   >
@@ -45,6 +45,11 @@ const CircleImage = ({ imageUrl }) => {
 };
 
 const WhyUs = () => {
+  const carouselRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
   const expertTypes = [
     {
       id: 1,
@@ -83,11 +88,56 @@ const WhyUs = () => {
     },
   ];
 
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - carouselRef.current.offsetLeft);
+    setScrollLeft(carouselRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - carouselRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    carouselRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const scrollCarousel = (direction) => {
+    if (carouselRef.current) {
+      const scrollAmount = 200;
+      carouselRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const ExpertCard = ({ expert, isMobile }) => (
+    <Link href={`/all-experts?userType=${expert.slug}`}>
+      <div
+        className={`text-center flex flex-col items-center ${
+          isMobile ? "min-w-[200px] px-2" : ""
+        }`}
+      >
+        <div className="w-32 h-32 md:w-44 md:h-44 mb-4 md:mb-6 object-cover">
+          <CircleImage imageUrl={expert.imageUrl} />
+        </div>
+        <div className="relative inline-block pb-4 mb-2">
+          <h3 className="text-sm md:text-lg font-semibold">{expert.title}</h3>
+        </div>
+      </div>
+    </Link>
+  );
+
   return (
     <section className="py-16 bg-white relative">
       <div className="w-full mx-auto px-4">
         <div className="text-center relative">
-          <span className="inline-flex items-center px-4 py-2 rounded-full border border-[#956144] text-sm font-semibold">
+          <span className="inline-flex items-center xl:px-4 xl:py-2 rounded-full border border-[#956144] xl:text-sm text-xs px-2 py-1 font-semibold">
             PEACEFUL BEGINNING
           </span>
           <div className="flex gap-2 justify-center">
@@ -101,26 +151,56 @@ const WhyUs = () => {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-10">
-          {expertTypes.map((expert, index) => (
-            <Link href={`/all-experts?userType=${expert.slug}`} key={index}>
-              <div className="text-center flex flex-col items-center">
-                <div className="w-44 h-44 mb-6 object-cover">
-                  <CircleImage imageUrl={expert.imageUrl} />
-                </div>
-                <div className="relative inline-block pb-4 mb-2">
-                  <h3 className="text-lg font-semibold">{expert.title}</h3>
-                </div>
+        {/* Mobile Carousel View */}
+        <div className="md:hidden relative">
+          <div
+            ref={carouselRef}
+            className="flex overflow-x-auto gap-4 scroll-smooth no-scrollbar touch-pan-x"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            style={{
+              scrollSnapType: "x mandatory",
+              WebkitOverflowScrolling: "touch",
+              cursor: isDragging ? "grabbing" : "grab",
+            }}
+          >
+            {expertTypes.map((expert, index) => (
+              <div key={index} style={{ scrollSnapAlign: "start" }}>
+                <ExpertCard expert={expert} isMobile={true} />
               </div>
-            </Link>
+            ))}
+          </div>
+          {/* <div className="flex justify-center mt-4 gap-4">
+            <button
+              onClick={() => scrollCarousel("left")}
+              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => scrollCarousel("right")}
+              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div> */}
+        </div>
+
+        {/* Desktop Grid View */}
+        <div className="hidden md:flex flex-wrap justify-center items-center gap-10">
+          {expertTypes.map((expert, index) => (
+            <ExpertCard key={index} expert={expert} isMobile={false} />
           ))}
         </div>
+
         <div className="flex justify-center mt-2">
           <Link
             href={"/all-experts"}
-            className="relative flex items-center justify-center "
+            className="relative flex items-center justify-center"
           >
-            <button className="px-6 py-3 mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
+            <button className="xl:px-6 xl:py-3 px-2 py-2 mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
               All Experts
               <ChevronRight className="h-5 w-5" />
             </button>

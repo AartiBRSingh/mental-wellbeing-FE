@@ -15,11 +15,11 @@ const InsuranceAndPricing = () => {
         {/* Hero Section */}
         <div className="mb-8 md:mb-12 flex flex-col md:flex-row justify-between p-4 md:p-10">
           <div className="mt-4 md:mt-14 md:ml-4 lg:ml-20">
-            <span className="relative text-4xl md:text-6xl lg:text-7xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+            <span className="relative text-4xl md:text-4xl xl:text-6xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
               <span className="relative">
                 Insurance & Pricing
                 <svg
-                  className="absolute w-full h-[10px] bottom-0 left-0"
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
                   viewBox="0 0 100 10"
                   preserveAspectRatio="none"
                 >
@@ -65,11 +65,11 @@ const InsuranceAndPricing = () => {
 
         {/* Center Image */}
         <div className="flex justify-center px-4 md:px-0">
-          <img
+          {/* <img
             src="https://img.freepik.com/free-vector/insurance-concept-illustration_114360-2223.jpg?t=st=1739087384~exp=1739090984~hmac=0eee77cb450ea2b8a6d5c6d70f652160a7f3f0beaaa64100e4b3ad58b622c78c&w=740"
             alt="Insurance consultation"
             className="w-full max-w-[600px] h-auto"
-          />
+          /> */}
         </div>
 
         {/* Right Border Info */}
