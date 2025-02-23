@@ -9,20 +9,20 @@ const GetHelp = () => {
       <main className="flex flex-col-reverse xl:flex-row justify-center md:gap-12 lg:gap-24 items-center w-full max-w-7xl">
         {/* Image Section - Now on left for desktop */}
         <section className="flex-1 flex justify-center xl:justify-start bg-transparent mt-8 xl:mt-0">
-          <div className="relative w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[350px] md:h-96 xl:mt-0 mt-16">
+          <div className="relative w-[300px] sm:w-[400px] md:w-[500px] h-[30s0px] sm:h-[350px] md:h-96 xl:mt-0 mt-16">
             {/* Top Image */}
-            <div className="absolute lg:top-4 lg:left-1/4 right-10 xl:right-auto -top-14 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100">
+            <div className="absolute lg:-top-16 lg:left-[290px] right-12 xl:right-auto top-12 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
-                <div className="absolute -top-8 left-0">
+                <div className="absolute -top-8 -left-8">
                   <span className="bg-yellow-400 px-3 py-1 rounded-lg text-sm font-semibold z-10">
                     Happier
                   </span>
                 </div>
-                <div className="w-36 h-36 bg-yellow-100 rounded-2xl overflow-hidden p-1 shadow-sm">
+                <div className="w-44 h-44 bg-yellow-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="/api/placeholder/400/400"
+                    src="/happy3.png"
                     alt="Profile 1"
-                    className="w-full h-full object-cover rounded-xl"
+                    className="w-40 h-60 -top-16 -right-0 absolute object-cover rounded-xl"
                   />
                 </div>
                 <span className="absolute -right-4 top-1/2 transform -translate-y-1/2 text-orange-400 text-2xl">
@@ -32,18 +32,18 @@ const GetHelp = () => {
             </div>
 
             {/* Middle Image */}
-            <div className="absolute lg:top-1/4 top-2 lg:left-0 xl:left-10 -right-6 xl:right-auto scale-75 sm:scale-90 md:scale-100">
+            <div className="absolute lg:top-10 top-36 lg:left-0 xl:left-10 -right-6 xl:right-auto scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
-                <div className="absolute -top-8 right-14">
+                <div className="absolute -top-8 right-36">
                   <span className="bg-green-300 px-3 py-1 rounded-md text-sm font-semibold">
                     Calm
                   </span>
                 </div>
                 <div className="w-48 h-48 bg-green-300 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="/api/placeholder/400/400"
+                    src="/happy1.png"
                     alt="Profile 2"
-                    className="w-full h-full object-cover rounded-xl"
+                    className="w-full absolute h-64 -top-16 object-cover rounded-xl"
                   />
                 </div>
                 <div className="absolute -right-8 top-1/2 rounded-lg px-2 py-1">
@@ -56,13 +56,13 @@ const GetHelp = () => {
             </div>
 
             {/* Bottom Image */}
-            <div className="absolute -bottom-2 lg:left-1/4 -left-4 scale-75 md:scale-100">
+            <div className="absolute -bottom-32 lg:left-44 left-32 scale-75 md:scale-100">
               <div className="relative">
                 <div className="w-56 h-56 bg-purple-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="/api/placeholder/400/400"
+                    src="/happy2.png"
                     alt="Profile 3"
-                    className="w-full h-full object-cover rounded-xl"
+                    className="absolute w-full h-72 -top-16 right-1 object-cover rounded-xl"
                   />
                 </div>
                 <div className="absolute -left-10 top-1/2 bg-transparent rounded-lg p-1">
@@ -82,7 +82,7 @@ const GetHelp = () => {
         </section>
 
         {/* Content Section - Now on right for desktop */}
-        <section className="w-full xl:w-1/2 flex flex-col gap-6 md:gap-8 max-xl:text-center">
+        <section className="w-full xl:w-1/2 flex flex-col gap-6 md:gap-8 max-xl:text-center ml-8">
           <h1 className="text-3xl sm:text-4xl lg:text-6xl">
             <span>How </span>
             <span className="">can the </span>
