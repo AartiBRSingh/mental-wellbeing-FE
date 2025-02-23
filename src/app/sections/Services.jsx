@@ -23,7 +23,7 @@ export const DecorativeShapes = () => (
       alt="Decorative image"
       width={200}
       height={200}
-      className="absolute top-[145px] rotate-12 right-7 sm:top-[210px] sm:right-20 z-0 opacity-100 w-[150px] sm:w-[200px] h-auto"
+      className="absolute top-[145px] rotate-12 right-6 sm:top-[210px] sm:right-20 z-0 opacity-100 w-[130px] sm:w-[200px] h-auto"
     />
     {/* <Image
       src="/hearttext.png" // Replace with your image path from the public folder
@@ -108,7 +108,7 @@ const Services = () => {
 
   return (
     <div
-      className="w-full flex justify-center bg-[#003B29] relative px-4 sm:px-6 py-8 sm:py-12 md:py-0"
+      className="w-full flex justify-center bg-[#003B29] relative px-4 sm:px-6 py-8 sm:py-12 md:py-0 xl:mt-0 mt-80"
       id="services"
     >
       <DecorativeShapes />
@@ -145,7 +145,7 @@ const Services = () => {
             <span> at any age</span>
           </h1>
 
-          <p className="text-white max-w-60 mr-20 text-xs mb-10 sm:text-sm md:text-base xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
+          <p className="text-white max-w-60 mr-32 text-xs mb-10 sm:text-sm md:text-base xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
             Enhance skills, boost career opportunities, and get
             industry-specific knowledge.
           </p>
