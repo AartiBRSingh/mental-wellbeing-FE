@@ -56,7 +56,7 @@ const GetHelp = () => {
             </div>
 
             {/* Bottom Image */}
-            <div className="absolute -bottom-32 lg:left-44 left-32 scale-75 md:scale-100">
+            <div className="absolute xl:-bottom-8 -bottom-32 lg:left-44 left-32 scale-75 md:scale-100">
               <div className="relative">
                 <div className="w-56 h-56 bg-purple-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
@@ -82,7 +82,7 @@ const GetHelp = () => {
         </section>
 
         {/* Content Section - Now on right for desktop */}
-        <section className="w-full xl:w-1/2 flex flex-col gap-6 md:gap-8 max-xl:text-center ml-8">
+        <section className="w-full xl:w-1/2 flex flex-col gap-6 md:gap-8 max-xl:text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-6xl">
             <span>How </span>
             <span className="">can the </span>
