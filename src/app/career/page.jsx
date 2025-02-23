@@ -283,8 +283,8 @@ const CareerPage = () => {
             </strong>{" "}
             is more than just a job
           </h1>
-          <p className="text-lg md:text-2xl p-2 md:p-4 mx-auto lg:ml-32">
-            <span className="text-red-500 text-2xl md:text-4xl mr-3">♥</span>
+          <p className="text-md md:text-2xl p-2 md:p-4 mx-auto lg:ml-32">
+            <span className="text-red-500  mr-3">♥</span>
             its an opportunity to transform lives while growing professionally
             in the fast-evolving field of mental health.
           </p>

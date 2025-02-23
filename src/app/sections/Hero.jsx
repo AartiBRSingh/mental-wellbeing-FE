@@ -6,7 +6,7 @@ import React from "react";
 const Hero = () => {
   return (
     <div className="w-full flex justify-center my-6 md:my-10">
-      <main className="flex flex-col md:flex-row justify-center items-center w-[90vw] md:w-[80vw] lg:w-[60vw] gap-8 md:gap-0">
+      <main className="flex max-md:flex-col-reverse flex-col md:flex-row justify-center items-center w-[90vw] md:w-[80vw] lg:w-[60vw] gap-8 md:gap-0">
         {/* Text Section */}
         <section className="flex-1 flex flex-col gap-6 md:gap-8 text-center md:text-left">
           <div className="inline-block">
@@ -28,7 +28,7 @@ const Hero = () => {
             <span>is Wealth</span>
           </h1>
 
-          <div className="flex flex-col sm:flex-row gap-5 max-w-max p-4 rounded-xl mt-6 sm:mb-0 mb-5 ">
+          <div className="flex xl:flex-col sm:flex-row gap-5 max-w-max p-4 rounded-xl mt-6 sm:mb-0 mb-5 ">
             <Link
               href={"/employee"}
               className="cursor-pointer font-semibold px-6 sm:px-10 text-xl lg:text-2xl shadow-lg bg-[#FACC15] text-black p-2 rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
