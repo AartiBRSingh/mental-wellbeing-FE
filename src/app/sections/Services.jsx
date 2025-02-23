@@ -19,19 +19,19 @@ export const DecorativeShapes = () => (
     </svg>
     {/* Add your PNG image here */}
     <Image
-      src="/sunflower21.png" // Replace with your image path from the public folder
+      src="/sunflower21.png"
       alt="Decorative image"
-      width={200} // Adjust size as needed
-      height={200} // Adjust size as needed
-      className="absolute top-[210px] right-8 sm:right-20 z-0 opacity-100" // Adjust positioning and opacity as needed
+      width={200}
+      height={200}
+      className="absolute top-[145px] rotate-12 right-7 sm:top-[210px] sm:right-20 z-0 opacity-100 w-[150px] sm:w-[200px] h-auto"
     />
-    <Image
+    {/* <Image
       src="/hearttext.png" // Replace with your image path from the public folder
       alt="Decorative image"
       width={70} // Adjust size as needed
       height={70} // Adjust size as needed
       className="absolute rotate-12 top-[135px] right-8 sm:right-[1080px] z-0 opacity-100" // Adjust positioning and opacity as needed
-    />
+    /> */}
   </div>
 );
 
@@ -115,8 +115,8 @@ const Services = () => {
       <main className="flex flex-col md:flex-row md:h-[500px] justify-center items-center w-full max-w-7xl gap-6 sm:gap-8 md:gap-0">
         <section className="flex-1 flex flex-col gap-4 sm:gap-6 md:gap-8 text-center md:text-left">
           <div className="inline-block">
-            <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-green-700 text-white text-xs font-semibold">
-              CARING IS ALWAYS FREE
+            <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-green-700 text-white text-lg font-semibold">
+              Professional Courses
             </span>
           </div>
 
@@ -145,19 +145,10 @@ const Services = () => {
             <span> at any age</span>
           </h1>
 
-          <p className="text-white text-xs mb-10 sm:text-sm md:text-base max-w-md mx-auto md:mx-0 px-4 sm:px-0">
-            To live your life to the fullest, we&apos;re continuing to find ways
-            to prevent mental health problems.
+          <p className="text-white max-w-60 mr-20 text-xs mb-10 sm:text-sm md:text-base xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
+            Enhance skills, boost career opportunities, and get
+            industry-specific knowledge.
           </p>
-
-          <div className="relative w-full flex justify-center md:justify-start md:absolute md:left-[870px] md:bottom-6">
-            <Link href="/all-courses">
-              <button className="px-4 sm:px-6 py-2 sm:py-3 mt-2 sm:mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
-                All Courses
-                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
-              </button>
-            </Link>
-          </div>
         </section>
 
         <section className="flex-1 flex justify-center md:justify-end z-10 relative w-full md:w-auto mt-6 sm:mt-8 md:mt-0">
@@ -166,7 +157,7 @@ const Services = () => {
               <div className="flex flex-col justify-between my-2">
                 {courses.map((_, index) => (
                   <div
-                    className={`w-1 sm:w-1.5 h-16 sm:h-20 md:h-28 rounded-md cursor-pointer transition-colors duration-300 ${
+                    className={`w-1.5 sm:w-1.5 h-24 sm:h-20 md:h-28 rounded-md cursor-pointer transition-colors duration-300 ${
                       index === currentCourse ? "bg-white" : "bg-[#336661]"
                     }`}
                     key={index}
@@ -181,13 +172,13 @@ const Services = () => {
                     <img
                       src={courses[currentCourse]?.thumbnailUrl}
                       alt={courses[currentCourse]?.title}
-                      className="rounded-t-lg w-full h-36 sm:h-48 object-cover"
+                      className="rounded-t-lg w-full h-48 sm:h-48 object-cover"
                     />
                     <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 sm:px-3 py-1 bg-[#228B22] text-white rounded-full text-xs sm:text-sm font-medium">
                       {courses[currentCourse]?.language}
                     </div>
                   </div>
-                  <div className="p-3 sm:p-4">
+                  <div className="p-4 sm:p-4">
                     <div className="mb-3 sm:mb-4">
                       <span className="px-3 sm:px-4 py-1 sm:py-1.5 bg-[#F0E68C] text-[#8B4513] rounded-full text-xs sm:text-sm font-semibold">
                         {courses[currentCourse]?.category}
@@ -216,6 +207,14 @@ const Services = () => {
             </div>
           )}
         </section>
+        <div className="relative flex justify-center md:justify-start md:absolute md:left-[870px] md:bottom-6">
+          <Link href="/all-courses">
+            <button className="px-4 sm:px-6 py-2 sm:py-3 mt-2 sm:mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
+              All Courses
+              <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+            </button>
+          </Link>
+        </div>
       </main>
     </div>
   );

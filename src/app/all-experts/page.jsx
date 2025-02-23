@@ -206,11 +206,11 @@ const ExpertPage = () => {
           journey.
         </p>
 
-        <div className="mb-6 flex flex-col md:flex-row justify-center gap-4 px-4">
+        <div className="mb-6 grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 px-4">
           <input
             type="text"
             placeholder="Search experts..."
-            className="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-64 focus:ring focus:ring-orange-500"
+            className="px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg col-span-2 sm:col-span-1 focus:ring focus:ring-orange-500"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -218,7 +218,7 @@ const ExpertPage = () => {
           <select
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-48 focus:ring focus:ring-orange-500"
+            className="px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring focus:ring-orange-500"
           >
             <option value="">All Cities</option>
             {cities.map((city) => (
@@ -231,7 +231,7 @@ const ExpertPage = () => {
           <select
             value={selectedUserType}
             onChange={(e) => setSelectedUserType(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-48 focus:ring focus:ring-orange-500"
+            className="px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring focus:ring-orange-500"
           >
             <option value="">All Types</option>
             {userTypes.map((type) => (
@@ -262,20 +262,6 @@ const ExpertPage = () => {
                 <ExpertCard expert={expert} isMobile={true} />
               </div>
             ))}
-          </div>
-          <div className="flex justify-center mt-4 gap-4">
-            <button
-              onClick={() => scrollCarousel("left")}
-              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              onClick={() => scrollCarousel("right")}
-              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
           </div>
         </div>
 
