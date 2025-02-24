@@ -288,6 +288,8 @@ const BlogSection = () => {
                     />
                   }
                   redirectTo={`/blogs/${generateSlug(item.title, item._id)}`}
+                  index={index}
+                  createdAt={item.createdAt}
                 />
               </div>
             ))}
@@ -315,6 +317,8 @@ const BlogSection = () => {
                   />
                 }
                 redirectTo={`/blogs/${generateSlug(item.title, item._id)}`}
+                index={index}
+                createdAt={item.createdAt}
               />
             </div>
           ))}
