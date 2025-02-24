@@ -41,7 +41,7 @@ const ReviewForm = ({ expertId, isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`/api/experts/${expertId}/reviews`, {
+      const response = await fetch(`/experts/${expertId}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

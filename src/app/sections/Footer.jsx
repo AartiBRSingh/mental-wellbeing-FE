@@ -1,14 +1,42 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Send } from "lucide-react";
 import { FaXTwitter, FaFacebookF } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { baseURL } from "../baseURL";
+import axios from "axios";
 
 const HealPoint = () => {
   const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
+  console.log(userId, "raju");
+
+  useEffect(() => {
+    const userId = Cookies.get("userId");
+
+    if (userId) {
+      setUserId(userId);
+    } else {
+      setUserId("");
+    }
+  }, []);
+  const subscribeUser = async () => {
+    if (!userId) {
+      alert("User not found");
+      return;
+    }
+    try {
+      await axios.put(`${baseURL}/users/${userId}/subscribe`);
+      alert("Subscription successful!");
+    } catch (error) {
+      console.error("Subscription error:", error);
+      alert("Subscription failed. Try again later.");
+    }
+  };
   const navLinks = [
     { label: "Insurance & Pricing", redirectTo: "/insurance-&-pricing" },
     { label: "Career", redirectTo: "/career" },
@@ -157,6 +185,7 @@ const HealPoint = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <button
+                  onClick={subscribeUser}
                   className="cursor-pointer absolute right-0.5 bg-yellow-500 p-2 rounded-full hover:bg-yellow-600 transition-colors"
                   aria-label="Send email"
                 >

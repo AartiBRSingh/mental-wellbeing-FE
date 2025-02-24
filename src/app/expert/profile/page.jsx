@@ -5,6 +5,7 @@ import CustomCursor from "../../components/CustomCursor";
 import { baseURL } from "../../baseURL";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import WalletBalance from "@/app/components/WalletBalance";
 
 const PricingPlans = ({
   plans,
@@ -382,11 +383,13 @@ const ProfileDashboard = () => {
                   )}
                 </div>
               </div>
-
               {/* User Type & Contact Info */}
               <h3 className="text-2xl font-medium text-gray-700">
                 {profile.userType}
               </h3>
+              <div>
+                <WalletBalance balance={profile.walletBalance} />
+              </div>
               <div className="flex flex-wrap gap-6 text-gray-600">
                 <div className="flex items-center gap-2">
                   ✉️ <span>{profile.email}</span>
