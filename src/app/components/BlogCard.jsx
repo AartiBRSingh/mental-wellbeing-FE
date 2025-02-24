@@ -91,10 +91,11 @@ const BlogCard = ({
   return (
     <div
       className={`
-      rounded-3xl p-6 relative border shadow-lg 
+      rounded-3xl p-6 md:p-8 relative border shadow-lg 
       bg-gradient-to-r ${getBackgroundStyle(index)}
       transform transition-all duration-300 hover:scale-[1.02]
       hover:shadow-xl overflow-hidden
+      w-full max-w-md md:max-w-xl lg:max-w-2xl mx-auto
     `}
     >
       <DecorativeCircles />
@@ -105,7 +106,7 @@ const BlogCard = ({
         <span className="text-sm">{formatDate(createdAt)}</span>
       </div>
 
-      <h2 className="font-semibold text-xl mb-4 text-gray-800 line-clamp-2 relative z-10">
+      <h2 className="font-semibold text-xl md:text-2xl mb-4 text-gray-800 line-clamp-2 relative z-10">
         {title}
       </h2>
 

@@ -146,7 +146,7 @@ const HealPoint = () => {
 
               <div>
                 <span className="px-4 py-2 rounded-full border border-[#956144] text-xs font-semibold">
-                  MENTAL HEALTH AT 30&apos;S
+                  MENTAL HEALTH AT ANY AGE
                 </span>
               </div>
 
@@ -201,6 +201,11 @@ const HealPoint = () => {
       <div className="w-full flex justify-center mt-8 lg:mt-0">
         <footer className="min-h-[80px] rounded-t-3xl shadow-sm flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 md:px-10 py-4 w-[95vw] lg:w-[90vw] xl:w-[80vw] border-t border-r border-l border-gray-700 gap-4 sm:gap-0">
           <div className="flex space-x-4 items-center">
+            <Link href={"https://www.linkedin.com/company/shareyrheart/"}>
+              <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
+                <FaLinkedinIn size={20} />
+              </span>
+            </Link>
             <Link href={"https://x.com/shareyrheart"}>
               <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
                 <FaXTwitter />
@@ -216,16 +221,11 @@ const HealPoint = () => {
                 <AiFillInstagram size={20} />
               </span>
             </Link>
-            <Link href={"https://www.linkedin.com/company/shareyrheart/"}>
-              <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
-                <FaLinkedinIn size={20} />
-              </span>
-            </Link>
           </div>
 
           <div className="text-gray-400 text-center text-sm sm:text-base">
             <span className="font-semibold text-white">
-              © 2021 Shareyrheart{" "}
+              © 2021 ShareYrHeart{" "}
             </span>
             | All Rights Reserved
           </div>

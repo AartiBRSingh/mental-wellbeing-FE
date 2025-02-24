@@ -243,9 +243,9 @@ const BlogSection = () => {
               <span className="text-[#956144] relative">
                 S
                 <span className="relative">
-                  hareyrheart
+                  hareYrHeart
                   <svg
-                    className="absolute w-full h-[10px] bottom-0 left-0"
+                    className="absolute w-full h-[10px] -bottom-2 left-0"
                     viewBox="0 0 100 10"
                     preserveAspectRatio="none"
                   >
@@ -260,10 +260,10 @@ const BlogSection = () => {
               </span>
             </h2>
 
-            <p className="text-gray-600 max-w-xl text-base md:text-lg">
+            {/* <p className="text-gray-600 max-w-xl text-base md:text-lg">
               To live your life to the fullest, we&apos;re continuing to find
               ways to prevent mental health problems.
-            </p>
+            </p> */}
           </div>
         </div>
 
