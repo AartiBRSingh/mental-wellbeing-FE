@@ -89,21 +89,32 @@ const ExpertPage = () => {
             )}
           </h3>
 
-          <div className="space-y-2 md:space-y-3">
+          <div className="space-y-3 md:space-y-3">
             <p className="text-sm md:text-xl font-medium text-gray-600">
               {expert.userType}
             </p>
-            <div className="flex items-center gap-2 md:gap-3">
+            {/* <div className="flex items-center gap-2 md:gap-3">
               <Mail className="w-4 h-4 text-black" />
               <span className="text-xs md:text-xl truncate text-gray-600">
                 {expert.email}
               </span>
-            </div>
-            <div className="flex items-center gap-2 md:gap-3">
+            </div> */}
+            {/* <div className="flex items-center gap-2 md:gap-3">
               <Phone className="w-4 h-4 text-black" />
               <span className="text-xs md:text-xl text-gray-600">
                 {expert.contactNumber}
               </span>
+            </div> */}
+            <div className="flex gap-2">
+              <button className="flex items-center gap-2 bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                <Phone className="w-5 h-5" />
+                <span>Call</span>
+              </button>
+
+              <button className="flex items-center gap-2 bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                <Mail className="w-5 h-5" />
+                <span>mail</span>
+              </button>
             </div>
             <div className="flex items-center bg-white shadow-md rounded-full px-2 md:px-3 mt-2 md:mt-4 max-w-24">
               {[...Array(5)].map((_, index) => (

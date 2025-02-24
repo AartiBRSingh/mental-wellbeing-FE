@@ -23,7 +23,7 @@ export const DecorativeShapes = () => (
       alt="Decorative image"
       width={200}
       height={200}
-      className="absolute top-[145px] rotate-12 right-6 sm:top-[210px] sm:right-20 z-0 opacity-100 w-[130px] sm:w-[200px] h-auto"
+      className="absolute top-[590px] rotate-12 right-6 sm:top-[210px] sm:right-20 z-0 opacity-100 w-[130px] sm:w-[200px] h-auto"
     />
     {/* <Image
       src="/hearttext.png" // Replace with your image path from the public folder
@@ -145,13 +145,13 @@ const Services = () => {
             <span> at any age</span>
           </h1>
 
-          <p className="text-white max-w-60 mr-32 text-xs mb-10 sm:text-sm md:text-base xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
+          <p className="text-white max-w-60  text-xs mb-10 sm:text-sm md:text-base xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
             Enhance skills, boost career opportunities, and get
             industry-specific knowledge.
           </p>
         </section>
 
-        <section className="flex-1 flex justify-center md:justify-end z-10 relative w-full md:w-auto mt-6 sm:mt-8 md:mt-0">
+        <section className="flex-1 flex justify-center md:justify-end z-10 relative w-full md:w-auto  sm:mt-8 md:mt-0">
           {courses.length > 0 && (
             <div className="w-full max-w-[320px] h-[360px] sm:h-96 flex justify-center gap-3 sm:gap-4">
               <div className="flex flex-col justify-between my-2">

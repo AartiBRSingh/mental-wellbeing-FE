@@ -125,6 +125,82 @@ const Forum = () => {
     setSelectedTags([]);
   };
 
+  // Render the topics section for both mobile and desktop
+  const renderTopicsSection = () => {
+    return (
+      <>
+        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+          <span className="w-1.5 h-6 bg-emerald-500 rounded-full mr-2 inline-block"></span>
+          Trending Topics
+        </h2>
+
+        {/* Selected topics badges */}
+        {selectedTags.length > 0 && (
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-sm font-medium text-gray-500">
+                Selected Topics
+              </h3>
+              <button
+                onClick={clearSelectedTags}
+                className="text-xs text-emerald-600 hover:text-emerald-700"
+              >
+                Clear all
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {selectedTags.map((tag) => (
+                <div
+                  key={`selected-${tag}`}
+                  className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm flex items-center gap-1 group"
+                >
+                  {tag}
+                  <button
+                    onClick={() => handleTagClick(tag)}
+                    className="p-0.5 rounded-full hover:bg-emerald-200 transition-colors"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Topics List */}
+        {tags.length === 0 ? (
+          <p className="text-gray-500 text-sm">No topics available yet</p>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            <button
+              className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
+                selectedTags.length === 0
+                  ? "bg-emerald-600 text-white shadow-sm"
+                  : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
+              }`}
+              onClick={clearSelectedTags}
+            >
+              All Topics
+            </button>
+            {tags.map((tag) => (
+              <button
+                key={tag}
+                className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
+                  selectedTags.includes(tag)
+                    ? "bg-emerald-600 text-white shadow-sm"
+                    : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
+                }`}
+                onClick={() => handleTagClick(tag)}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        )}
+      </>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Responsive Nav Bar */}
@@ -157,6 +233,11 @@ const Forum = () => {
           </div>
         </div>
       </nav>
+
+      {/* Mobile Popular Topics - Only visible on mobile screens */}
+      <div className="lg:hidden px-4 sm:px-6 py-5 bg-white border-b border-gray-200 shadow-sm">
+        {renderTopicsSection()}
+      </div>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
@@ -408,77 +489,11 @@ const Forum = () => {
             ))}
           </div>
 
-          {/* Sidebar - Now Responsive */}
-          <div className="lg:col-span-4 space-y-6">
+          {/* Sidebar - Only visible on desktop */}
+          <div className="hidden lg:block lg:col-span-4 space-y-6">
             <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-24">
-              <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                <span className="w-1.5 h-6 bg-emerald-500 rounded-full mr-2 inline-block"></span>
-                Popular Topics
-              </h2>
-
-              {/* Selected topics badges */}
-              {selectedTags.length > 0 && (
-                <div className="mb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-medium text-gray-500">
-                      Selected Topics
-                    </h3>
-                    <button
-                      onClick={clearSelectedTags}
-                      className="text-xs text-emerald-600 hover:text-emerald-700"
-                    >
-                      Clear all
-                    </button>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedTags.map((tag) => (
-                      <div
-                        key={`selected-${tag}`}
-                        className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm flex items-center gap-1 group"
-                      >
-                        {tag}
-                        <button
-                          onClick={() => handleTagClick(tag)}
-                          className="p-0.5 rounded-full hover:bg-emerald-200 transition-colors"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Topics List */}
-              {tags.length === 0 ? (
-                <p className="text-gray-500 text-sm">No topics available yet</p>
-              ) : (
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
-                      selectedTags.length === 0
-                        ? "bg-emerald-600 text-white shadow-sm"
-                        : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
-                    }`}
-                    onClick={clearSelectedTags}
-                  >
-                    All Topics
-                  </button>
-                  {tags.map((tag) => (
-                    <button
-                      key={tag}
-                      className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
-                        selectedTags.includes(tag)
-                          ? "bg-emerald-600 text-white shadow-sm"
-                          : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
-                      }`}
-                      onClick={() => handleTagClick(tag)}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              )}
+              {/* Desktop Popular Topics */}
+              {renderTopicsSection()}
 
               {/* Forum Statistics */}
               <div className="mt-6 pt-6 border-t border-gray-100">
@@ -503,7 +518,7 @@ const Forum = () => {
                 </div>
               </div>
 
-              {/* Mobile-friendly New Discussion Button */}
+              {/* Desktop New Discussion Button */}
               <div className="mt-6 pt-4 border-t border-gray-100">
                 <button
                   onClick={() => setShowNewPostForm(true)}
