@@ -172,18 +172,26 @@ const HealPoint = () => {
       <div className="w-full flex justify-center mt-8 lg:mt-0">
         <footer className="min-h-[80px] rounded-t-3xl shadow-sm flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 md:px-10 py-4 w-[95vw] lg:w-[90vw] xl:w-[80vw] border-t border-r border-l border-gray-700 gap-4 sm:gap-0">
           <div className="flex space-x-4 items-center">
-            <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
-              <FaXTwitter />
-            </span>
-            <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
-              <FaFacebookF />
-            </span>
-            <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
-              <AiFillInstagram size={20} />
-            </span>
-            <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
-              <FaLinkedinIn size={20} />
-            </span>
+            <Link href={"https://x.com/shareyrheart"}>
+              <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
+                <FaXTwitter />
+              </span>
+            </Link>
+            <Link href={"https://www.facebook.com/shareyrheart3"}>
+              <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
+                <FaFacebookF />
+              </span>
+            </Link>
+            <Link href={"https://www.instagram.com/shareyrheart/"}>
+              <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
+                <AiFillInstagram size={20} />
+              </span>
+            </Link>
+            <Link href={"https://www.linkedin.com/company/shareyrheart/"}>
+              <span className="cursor-pointer hover:scale-125 delay-75 duration-300">
+                <FaLinkedinIn size={20} />
+              </span>
+            </Link>
           </div>
 
           <div className="text-gray-400 text-center text-sm sm:text-base">

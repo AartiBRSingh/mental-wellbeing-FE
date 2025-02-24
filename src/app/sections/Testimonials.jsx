@@ -13,6 +13,7 @@ const TestimonialsSlider = () => {
   const [visibleItems, setVisibleItems] = useState(4);
   const [cardWidth, setCardWidth] = useState(300);
 
+  // Keeping existing useEffects and handlers...
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
@@ -114,11 +115,11 @@ const TestimonialsSlider = () => {
         <img
           src={testimonial.image}
           alt={testimonial.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-full"
           onError={(e) => {
             e.target.onerror = null;
             e.target.style.display = "none";
-            e.target.parentNode.classList.add("bg-gray-800");
+            e.target.parentNode.classList.add("bg-orange-400");
             e.target.parentNode.innerHTML =
               '<div class="flex items-center justify-center w-full h-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>';
           }}
@@ -126,7 +127,7 @@ const TestimonialsSlider = () => {
       );
     } else {
       return (
-        <div className="flex items-center justify-center w-full h-full bg-gray-800">
+        <div className="flex items-center justify-center w-full h-full bg-orange-400 rounded-full">
           <User className="w-8 h-8 text-white" />
         </div>
       );
@@ -136,7 +137,7 @@ const TestimonialsSlider = () => {
   if (testimonials.length === 0) return null;
 
   return (
-    <div className="bg-transparent py-6 md:py-10 overflow-hidden relative">
+    <div className="bg-[#FDF8F3] py-6 md:py-10 overflow-hidden relative">
       <button
         onClick={() => handleScroll("left")}
         className="absolute left-2 sm:left-4 lg:left-8 xl:left-96 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
@@ -176,42 +177,32 @@ const TestimonialsSlider = () => {
                 style={{ width: `${cardWidth}px` }}
               >
                 <div className="mx-1 sm:mx-2 md:mx-3 p-2 h-full">
-                  <div
-                    className="bg-white border border-black shadow-lg rounded-2xl p-4 sm:p-6 md:p-8 h-full 
-                    transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl 
-                    hover:bg-gray-50 group"
-                  >
-                    <div className="flex flex-col items-center space-y-3 sm:space-y-4 md:space-y-5">
-                      <div
-                        className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden 
-                        transition-transform duration-300 ease-in-out 
-                        group-hover:scale-110 group-hover:shadow-md"
+                  <div className="bg-slate-100 rounded-3xl p-10 h-full relative transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer">
+                    <div className="flex flex-col space-y-8">
+                      <h3
+                        className="text-sm sm:text-md font-semibold text-gray-800 
+                          transition-all duration-300 hover:text-black mb-3 line-clamp-2"
                       >
-                        {renderProfileImage(testimonial)}
-                      </div>
+                        {testimonial.title}
+                      </h3>
 
-                      <div className="text-center space-y-3 sm:space-y-4 md:space-y-5">
-                        <h3
-                          className="text-sm sm:text-md font-semibold text-gray-800 
-                          transition-all duration-300 group-hover:text-black"
-                        >
-                          &quot;{testimonial.title}&quot;
-                        </h3>
-                        <p
-                          className="text-gray-600 text-xs italic line-clamp-2 max-w-full mx-auto
-                          transition-all duration-300 group-hover:text-gray-700"
-                        >
-                          &quot;{testimonial.review}&quot;
-                        </p>
-                        <div className="text-xs transition-all duration-300">
-                          <span className="font-bold text-gray-900 group-hover:text-black">
-                            {testimonial.name}
-                          </span>
-                          <span className="text-gray-500 ml-1 group-hover:text-gray-600">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-orange-400 rounded-full overflow-hidden">
+                          {renderProfileImage(testimonial)}
+                        </div>
+                        <div>
+                          <p className="font-semibold">
+                            &quot;{testimonial.name}&quot;
+                          </p>
+                          <p className="text-sm text-gray-600">
                             {testimonial.productType}
-                          </span>
+                          </p>
                         </div>
                       </div>
+
+                      <p className="text-gray-700 text-sm line-clamp-4">
+                        {testimonial.review}
+                      </p>
                     </div>
                   </div>
                 </div>
