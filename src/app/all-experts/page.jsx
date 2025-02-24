@@ -1,13 +1,6 @@
 "use client";
-import React, { useState, useEffect, Suspense, useRef } from "react";
-import {
-  Mail,
-  Phone,
-  Star,
-  CheckCircle,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import React, { useState, useEffect, Suspense } from "react";
+import { Mail, Phone, Star, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { baseURL } from "../baseURL";
 import axios from "axios";
@@ -16,16 +9,12 @@ import { useSearchParams } from "next/navigation";
 const ExpertPage = () => {
   const searchParams = useSearchParams();
   const urlUserType = searchParams.get("userType");
-  const carouselRef = useRef(null);
 
   const [experts, setExperts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedUserType, setSelectedUserType] = useState("");
   const [cities, setCities] = useState([]);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
 
   const userTypes = [
     "Individual Therapy",
@@ -67,40 +56,8 @@ const ExpertPage = () => {
     fetchCities();
   }, []);
 
-  const scrollCarousel = (direction) => {
-    if (carouselRef.current) {
-      const scrollAmount = 300; // Adjust this value based on your card width
-      carouselRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.pageX - carouselRef.current.offsetLeft);
-    setScrollLeft(carouselRef.current.scrollLeft);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - carouselRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    carouselRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const ExpertCard = ({ expert, isMobile }) => (
-    <div
-      className={`bg-slate-50 rounded-xl md:rounded-3xl p-4 md:p-8 relative border shadow-xl border-red-100 ${
-        isMobile ? "min-w-[300px] max-w-[300px] mx-2" : "w-full"
-      }`}
-    >
+  const ExpertCard = ({ expert }) => (
+    <div className="bg-slate-50 rounded-xl md:rounded-3xl p-4 md:p-8 relative border shadow-xl border-red-100 w-full">
       <div className="flex flex-col md:flex-row gap-4 md:gap-6">
         <div className="flex flex-col items-center gap-4">
           <div className="relative">
@@ -242,33 +199,10 @@ const ExpertPage = () => {
           </select>
         </div>
 
-        {/* Mobile Carousel View */}
-        <div className="md:hidden relative">
-          <div
-            ref={carouselRef}
-            className="flex overflow-x-auto gap-4 scroll-smooth no-scrollbar touch-pan-x"
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            style={{
-              scrollSnapType: "x mandatory",
-              WebkitOverflowScrolling: "touch",
-              cursor: isDragging ? "grabbing" : "grab",
-            }}
-          >
-            {experts.map((expert) => (
-              <div key={expert._id} style={{ scrollSnapAlign: "start" }}>
-                <ExpertCard expert={expert} isMobile={true} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Desktop Static View */}
-        <div className="hidden md:block space-y-4 md:space-y-6">
+        {/* Unified View for both Mobile and Desktop */}
+        <div className="space-y-4 md:space-y-6">
           {experts?.map((expert) => (
-            <ExpertCard key={expert._id} expert={expert} isMobile={false} />
+            <ExpertCard key={expert._id} expert={expert} />
           ))}
         </div>
       </div>

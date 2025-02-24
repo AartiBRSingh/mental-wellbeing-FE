@@ -8,10 +8,10 @@ const GetHelp = () => {
     <div className="w-full flex justify-center px-4 sm:px-6 my-10 lg:my-20">
       <main className="flex flex-col-reverse xl:flex-row justify-center md:gap-12 lg:gap-24 items-center w-full max-w-7xl">
         {/* Image Section - Now on left for desktop */}
-        <section className="flex-1 flex justify-center xl:justify-start bg-transparent mt-8 xl:mt-0">
-          <div className="relative w-[300px] sm:w-[400px] md:w-[500px] h-[30s0px] sm:h-[350px] md:h-96 xl:mt-0 mt-16">
+        <section className="flex-1 flex flex-col justify-center xl:justify-start bg-transparent mt-8 xl:mt-0">
+          <div className="relative w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[350px] md:h-96 xl:mt-0 mt-16">
             {/* Top Image */}
-            <div className="absolute lg:-top-16 lg:left-[290px] right-12 xl:right-auto top-12 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100">
+            <div className="absolute lg:-top-16 lg:left-[290px] right-16 xl:right-auto top-12 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
                 <div className="absolute -top-8 -left-8">
                   <span className="bg-yellow-400 px-3 py-1 rounded-lg text-sm font-semibold z-10">
@@ -32,7 +32,7 @@ const GetHelp = () => {
             </div>
 
             {/* Middle Image */}
-            <div className="absolute lg:top-10 top-36 lg:left-0 xl:left-10 -right-6 xl:right-auto scale-75 sm:scale-90 md:scale-100">
+            <div className="absolute lg:top-10 -top-10 lg:left-0 xl:left-10 -right-6 xl:right-auto scale-75 sm:scale-90 md:scale-100">
               <div className="relative">
                 <div className="absolute -top-8 right-36">
                   <span className="bg-green-300 px-3 py-1 rounded-md text-sm font-semibold">
@@ -56,7 +56,7 @@ const GetHelp = () => {
             </div>
 
             {/* Bottom Image */}
-            <div className="absolute xl:-bottom-8 -bottom-32 lg:left-44 left-32 scale-75 md:scale-100">
+            <div className="absolute xl:-bottom-8 -bottom-20 lg:left-44 left-32 scale-75 md:scale-100">
               <div className="relative">
                 <div className="w-56 h-56 bg-purple-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
@@ -78,6 +78,17 @@ const GetHelp = () => {
                 </span>
               </div>
             </div>
+          </div>
+
+          {/* Mobile Forum Button */}
+          <div className="flex xl:hidden items-center justify-center mt-40 sm:mt-44">
+            <Link
+              href={"/forum"}
+              className="cursor-pointer flex shadow-sm items-center gap-2 w-fit px-8 sm:px-8 bg-yellow-700 text-white font-semibold py-3 sm:py-3 rounded-xl transition duration-300 ease-in-out hover:bg-yellow-800 hover:text-white hover:shadow-inner text-lg sm:text-lg"
+            >
+              Forum
+              <MdChevronRight className="text-[#FF7F4B]" size={24} />
+            </Link>
           </div>
         </section>
 
@@ -102,7 +113,8 @@ const GetHelp = () => {
             </p>
           </div>
 
-          <div className="flex items-center max-xl:justify-center">
+          {/* Desktop Forum Button */}
+          <div className="hidden xl:flex items-center">
             <Link
               href={"/forum"}
               className="cursor-pointer flex shadow-sm items-center gap-2 w-fit px-8 sm:px-8 bg-yellow-700 text-white font-semibold py-3 sm:py-3 rounded-xl transition duration-300 ease-in-out hover:bg-yellow-800 hover:text-white hover:shadow-inner text-lg sm:text-lg"
