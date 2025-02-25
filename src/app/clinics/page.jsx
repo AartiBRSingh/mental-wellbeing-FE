@@ -283,7 +283,7 @@ const ClinicDisplay = () => {
                     className="inline-flex text-lg pt-4 pl-2 items-center text-green-600 font-semibold hover:text-green-700 transition-colors"
                     target="_blank"
                   >
-                    Read More
+                    View More
                     <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>

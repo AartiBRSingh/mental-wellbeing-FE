@@ -308,6 +308,16 @@ const ClinicDetailPage = () => {
                 ))}
               </div>
             </div>
+            <div className="mt-2">
+              <iframe
+                src={clinic.googleAddressUrl}
+                width="70%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>
