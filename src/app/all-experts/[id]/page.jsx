@@ -492,7 +492,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   Consultations
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm">
-                  <ConsultQNA />
+                  {/* <ConsultQNA /> */}
                 </div>
               </div>
             )}
@@ -504,7 +504,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   Journal
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm">
-                  <JournalsExpert />
+                  {/* <JournalsExpert /> */}
                 </div>
               </div>
             )}
