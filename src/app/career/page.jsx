@@ -335,13 +335,13 @@ const CareerPage = () => {
         {/* Image Section */}
         <div className="bg-white mx-4 md:mx-12 lg:mx-40 mt-8">
           <div className="flex flex-col md:flex-row justify-center items-center gap-8 p-4 md:p-8">
-            <div className="w-full md:w-1/2">
+            {/* <div className="w-full md:w-1/2">
               <img
                 src="https://img.freepik.com/free-vector/autumn-tree-concept-illustration_114360-22762.jpg"
                 alt="Mental wellness illustration"
                 className="h-auto w-full max-w-[400px] mx-auto"
               />
-            </div>
+            </div> */}
             <div className="w-full md:w-1/2 relative">
               <span className="bg-green-300 px-3 py-1 rounded-md text-sm font-semibold absolute top-0 left-1/2 transform -translate-x-1/2 md:left-0 md:translate-x-0">
                 Calm
@@ -390,7 +390,7 @@ const CareerPage = () => {
       </section>
 
       {/* Career Opportunities Section */}
-      <CareerOpportunities />
+      {/* <CareerOpportunities /> */}
 
       {/* Why Join Us Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
