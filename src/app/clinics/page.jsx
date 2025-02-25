@@ -362,7 +362,7 @@ const ClinicDisplay = () => {
       ))}
       {/* FAQ Section */}
       <div className="mt-20">
-        <h2 className="xl:text-4xl text-3xl font-serif text-stone-800 mb-6 text-center">
+        <h2 className="xl:text-4xl text-2xl font-serif text-stone-800 mb-6 text-center">
           Frequently Asked Questions
         </h2>
         <div className="bg-white/80  rounded-2xl divide-y divide-stone-200 mt-12 mb-8">
@@ -414,7 +414,7 @@ const ClinicDisplay = () => {
                 onClick={() => toggleFaq(index)}
                 className="w-full flex justify-between  text-left text-stone-800 hover:text-stone-900"
               >
-                <span className="font-semibold text-lg ml-10">
+                <span className="font-semibold text-md ml-10">
                   {faq.question}
                 </span>
                 <ChevronDown
@@ -424,7 +424,7 @@ const ClinicDisplay = () => {
                 />
               </button>
               <div
-                className={`mt-4 text-stone-600 transition-all ml-10 duration-200 ${
+                className={`mt-4 text-stone-600 text-sm transition-all ml-10 duration-200 ${
                   openFaq === index ? "block" : "hidden"
                 }`}
               >

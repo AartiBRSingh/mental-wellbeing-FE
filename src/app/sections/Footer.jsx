@@ -114,8 +114,8 @@ const HealPoint = () => {
             </header>
 
             {/* Stats Section */}
-            <div className="flex flex-col sm:flex-row justify-center sm:space-x-8 md:space-x-16 items-center px-4 sm:px-8 md:px-12 lg:px-20 py-8 min-h-[270px]">
-              <div className="mb-8 sm:mb-0 text-center sm:text-left">
+            <div className="flex sm:flex-row justify-between sm:justify-center sm:space-x-8 md:space-x-16 items-center px-4 sm:px-8 md:px-12 lg:px-20 py-8 min-h-[270px]">
+              <div className=" sm:mb-0 text-center sm:text-left">
                 <div className="text-4xl md:text-5xl lg:text-6xl font-bold">
                   48<span className="text-2xl md:text-3xl">k</span>
                 </div>

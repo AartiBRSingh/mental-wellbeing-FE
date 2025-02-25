@@ -45,12 +45,14 @@ const TestimonialsSlider = () => {
       } else if (width >= 768) {
         setVisibleItems(2);
         setCardWidth(260);
-      } else if (width >= 640) {
-        setVisibleItems(1);
-        setCardWidth(280);
       } else {
+        // Mobile view - ensure entire card is visible
         setVisibleItems(1);
-        setCardWidth(240);
+        // Account for container padding, card padding and margins
+        // 320px is the max-w-[320px] from the container
+        const containerWidth = Math.min(width, 320);
+        // Subtract padding (px-2 = 16px total) and card margins/padding
+        setCardWidth(containerWidth - 24); // Adjusted to ensure full visibility
       }
     };
 
@@ -177,16 +179,9 @@ const TestimonialsSlider = () => {
                 style={{ width: `${cardWidth}px` }}
               >
                 <div className="mx-1 sm:mx-2 md:mx-3 p-2 h-full">
-                  <div className="bg-slate-100 rounded-3xl p-10 h-full relative transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer">
-                    <div className="flex flex-col space-y-8">
-                      <h3
-                        className="text-sm sm:text-md font-semibold text-gray-800 
-                          transition-all duration-300 hover:text-black mb-3 line-clamp-2"
-                      >
-                        {testimonial.title}
-                      </h3>
-
-                      <div className="flex items-center space-x-4">
+                  <div className="bg-slate-100 rounded-3xl p-4 sm:p-10 h-full relative transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer">
+                    <div className="flex flex-col space-y-4 sm:space-y-8">
+                      <div className="flex items-center space-x-4 bg-white rounded-full">
                         <div className="w-12 h-12 bg-orange-400 rounded-full overflow-hidden">
                           {renderProfileImage(testimonial)}
                         </div>
@@ -199,6 +194,12 @@ const TestimonialsSlider = () => {
                           </p>
                         </div>
                       </div>
+                      <h3
+                        className="text-sm sm:text-md font-semibold text-gray-800 
+                          transition-all duration-300 hover:text-black mb-3 line-clamp-2"
+                      >
+                        {testimonial.title}
+                      </h3>
 
                       <p className="text-gray-700 text-sm line-clamp-4">
                         {testimonial.review}
