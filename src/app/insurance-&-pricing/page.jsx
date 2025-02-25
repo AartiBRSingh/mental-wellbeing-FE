@@ -237,7 +237,7 @@ const InsuranceAndPricing = () => {
 
         {/* FAQ Section */}
         <div className="mt-12 md:mt-20 px-4 md:px-0">
-          <h2 className="text-3xl md:text-4xl font-serif text-stone-800 mb-6 text-center">
+          <h2 className="text-2xl md:text-4xl font-serif text-stone-800 mb-6 text-center">
             Frequently Asked Questions
           </h2>
           <div className="bg-white/80 rounded-lg divide-y divide-stone-200 mt-8 md:mt-16">
@@ -304,7 +304,7 @@ const InsuranceAndPricing = () => {
                   onClick={() => toggleFaq(index)}
                   className="w-full flex justify-between items-center text-left text-stone-800 hover:text-stone-900"
                 >
-                  <span className="font-semibold text-base md:text-lg pr-4">
+                  <span className="font-semibold text-sm md:text-lg pr-4">
                     {faq.question}
                   </span>
                   <ChevronDown
@@ -314,7 +314,7 @@ const InsuranceAndPricing = () => {
                   />
                 </button>
                 <div
-                  className={`mt-4 text-stone-600 transition-all duration-200 ${
+                  className={`mt-4 text-xs text-stone-600 transition-all duration-200 ${
                     openFaq === index ? "block" : "hidden"
                   }`}
                 >
