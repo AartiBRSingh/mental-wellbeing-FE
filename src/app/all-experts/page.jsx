@@ -5,10 +5,22 @@ import Link from "next/link";
 import { baseURL } from "../baseURL";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import Cookies from "js-cookie";
 
 const ExpertPage = () => {
   const searchParams = useSearchParams();
   const urlUserType = searchParams.get("userType");
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    const userId = Cookies.get("userId");
+
+    if (userId) {
+      setUserId(userId);
+    } else {
+      setUserId("");
+    }
+  }, []);
 
   const [experts, setExperts] = useState([]);
   const [search, setSearch] = useState("");
@@ -106,15 +118,28 @@ const ExpertPage = () => {
               </span>
             </div> */}
             <div className="flex gap-2">
-              <button className="flex items-center gap-2 bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                <Phone className="w-5 h-5" />
-                <span>Call</span>
-              </button>
+              {expert._id !== userId ? (
+                <>
+                  <button className="flex items-center gap-2 bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                    <Phone className="w-5 h-5" />
+                    <a href={`tel:03346013886`}>
+                      <span>Call</span>
+                    </a>
+                  </button>
 
-              <button className="flex items-center gap-2 bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                <Mail className="w-5 h-5" />
-                <span>mail</span>
-              </button>
+                  <button className="flex items-center gap-2 bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                    <Mail className="w-5 h-5" />
+                    <a href={`mailto:info@shareyrheart.com`}>
+                      <span>Mail</span>
+                    </a>
+                  </button>
+                </>
+              ) : (
+                <div>
+                  <p>{expert.contactNumber}</p>
+                  <p>{expert.email}</p>
+                </div>
+              )}
             </div>
             <div className="flex items-center bg-white shadow-md rounded-full px-2 md:px-3 mt-2 md:mt-4 max-w-24">
               {[...Array(5)].map((_, index) => (
