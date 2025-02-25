@@ -14,8 +14,22 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const Forum = () => {
+  const router = useRouter();
+  const [userId, setUserId] = useState("");
+  useEffect(() => {
+    const userId = Cookies.get("userId");
+
+    if (userId) {
+      setUserId(userId);
+    } else {
+      setUserId("");
+    }
+  }, []);
+
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({
     title: "",
@@ -30,6 +44,8 @@ const Forum = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showNewPostForm, setShowNewPostForm] = useState(false);
   const [showCommentForm, setShowCommentForm] = useState({});
+
+  console.log(newPost, "raju");
 
   const fetchPosts = async (tagList = [], search = "") => {
     try {
@@ -61,8 +77,23 @@ const Forum = () => {
 
   const createPost = async () => {
     try {
-      await axios.post(`${baseURL}/add-post`, newPost);
-      setNewPost({ title: "", content: "", tags: "" });
+      const formData = new FormData();
+      formData.append("title", newPost.title);
+      formData.append("content", newPost.content);
+      formData.append("tags", newPost.tags);
+
+      if (newPost.image) {
+        formData.append("image", newPost.image);
+      }
+
+      await axios.post(`${baseURL}/add-post`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      // Reset the form state after a successful post
+      setNewPost({ title: "", content: "", tags: "", image: null });
       setShowNewPostForm(false);
       fetchPosts(selectedTags);
       fetchTags();
@@ -224,7 +255,9 @@ const Forum = () => {
                 />
               </div>
               <button
-                onClick={() => setShowNewPostForm(true)}
+                onClick={() =>
+                  userId ? setShowNewPostForm(true) : router.push("/sign-in")
+                }
                 className="w-2/3 xl:w-auto xl:px-5 py-2.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors duration-200 flex items-center justify-center gap-2 font-medium text-sm shadow-sm hover:shadow"
               >
                 <span className="whitespace-nowrap">Start Discussion</span>
@@ -249,6 +282,17 @@ const Forum = () => {
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">
                   Create New Discussion
                 </h3>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="block w-full border rounded p-2 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md hover:shadow-green-300"
+                  onChange={(e) =>
+                    setNewPost((prev) => ({
+                      ...prev,
+                      image: e.target.files[0],
+                    }))
+                  }
+                />
                 <input
                   className="w-full px-4 py-3 text-base sm:text-lg font-medium border-b border-gray-200 focus:outline-none focus:border-emerald-500 placeholder-gray-400 mb-4"
                   placeholder="What do you want to ask or share?"
@@ -303,7 +347,9 @@ const Forum = () => {
                   Be the first to start a conversation!
                 </p>
                 <button
-                  onClick={() => setShowNewPostForm(true)}
+                  onClick={() =>
+                    userId ? setShowNewPostForm(true) : router.push("/sign-in")
+                  }
                   className="px-5 py-2.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors duration-200 inline-flex items-center gap-2 font-medium text-sm"
                 >
                   <Plus className="w-4 h-4" />
@@ -331,6 +377,13 @@ const Forum = () => {
                     </div>
                   </div>
                 </div>
+                {post.image && (
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-auto rounded-lg mt-2"
+                  />
+                )}
 
                 <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
                   {post.title}
@@ -521,7 +574,9 @@ const Forum = () => {
               {/* Desktop New Discussion Button */}
               <div className="mt-6 pt-4 border-t border-gray-100">
                 <button
-                  onClick={() => setShowNewPostForm(true)}
+                  onClick={() =>
+                    userId ? setShowNewPostForm(true) : router.push("/sign-in")
+                  }
                   className="w-full py-3 bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition-colors duration-200 flex items-center justify-center gap-2 font-medium"
                 >
                   <Plus className="w-4 h-4" />
