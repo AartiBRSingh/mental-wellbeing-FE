@@ -140,7 +140,7 @@ const ClinicDetailPage = () => {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-800">
-                    Dr. {expert.name}
+                    {expert.name}
                   </h3>
                   <p className="text-blue-600 font-medium mb-4">
                     {expert.specialization}
