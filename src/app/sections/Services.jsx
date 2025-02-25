@@ -128,7 +128,7 @@ const Services = () => {
               <span className="relative">
                 row confidence
                 <svg
-                  className="absolute w-full h-[8px] sm:h-[10px] bottom-0 left-0"
+                  className="absolute w-full h-[10px] sm:h-[10px] sm:bottom-0 -bottom-2 left-0"
                   viewBox="0 0 100 10"
                   preserveAspectRatio="none"
                 >
