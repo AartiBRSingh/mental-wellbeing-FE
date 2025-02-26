@@ -11,6 +11,7 @@ import {
   ChevronRight,
   CheckCircle2,
   ArrowRight,
+  Quote,
 } from "lucide-react";
 import CustomCursor from "@/app/components/CustomCursor";
 import RateClinic from "@/app/sections/RateClinic";
@@ -161,6 +162,63 @@ const ClinicDetailPage = () => {
         </div>
       </div>
     ),
+    testimonials: (
+      <div className="space-y-6">
+        <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+            Patient Testimonials
+          </h2>
+          <div className="space-y-6">
+            {clinic.testimonials && clinic.testimonials.length > 0 ? (
+              clinic.testimonials.map((testimonial, index) => (
+                <div
+                  key={testimonial._id || index}
+                  className="bg-blue-50 p-6 rounded-xl relative"
+                >
+                  <div className="absolute top-4 right-4 text-blue-300">
+                    <Quote className="w-8 h-8" />
+                  </div>
+                  <p className="text-gray-700 italic mb-4 leading-relaxed">
+                    {testimonial.review}
+                  </p>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                      {testimonial.name.charAt(0)}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">
+                        {testimonial.name}
+                      </h4>
+                      <div className="flex items-center space-x-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star
+                            key={star}
+                            className="w-4 h-4 text-yellow-400 fill-current"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <p>No testimonials available yet.</p>
+              </div>
+            )}
+          </div>
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
+            >
+              <span>Share Your Experience</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    ),
   };
 
   return (
@@ -204,7 +262,9 @@ const ClinicDetailPage = () => {
                   />
                 ))}
               </div>
-              <span className="text-blue-100">2 Patient Reviews</span>
+              <span className="text-blue-100">
+                {clinic.testimonials?.length || 0} Patient Reviews
+              </span>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
@@ -236,7 +296,7 @@ const ClinicDetailPage = () => {
             {/* Navigation Tabs */}
             <div className="bg-white rounded-t-2xl shadow-sm p-4">
               <div className="flex space-x-6">
-                {["about", "experts"].map((tab) => (
+                {["about", "experts", "testimonials"].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setSelectedTab(tab)}
@@ -254,9 +314,11 @@ const ClinicDetailPage = () => {
 
             {/* Tab Content */}
             {tabContent[selectedTab]}
-            <div className="flex">
-              <RateClinic clinicId={id} />
-            </div>
+            {selectedTab !== "testimonials" && (
+              <div className="flex">
+                <RateClinic clinicId={id} />
+              </div>
+            )}
           </div>
 
           {/* Right Column - Info Cards */}
@@ -311,11 +373,12 @@ const ClinicDetailPage = () => {
             <div className="mt-2">
               <iframe
                 src={clinic.googleAddressUrl}
-                width="70%"
+                width="100%"
                 height="300"
                 style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
+                className="rounded-2xl"
               ></iframe>
             </div>
           </div>

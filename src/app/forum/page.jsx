@@ -156,8 +156,41 @@ const Forum = () => {
     setSelectedTags([]);
   };
 
-  // Render the topics section for both mobile and desktop
-  const renderTopicsSection = () => {
+  // Render the mobile scrollable topics
+  const renderMobileTopics = () => {
+    return (
+      <div className="overflow-x-auto pb-2 hide-scrollbar">
+        <div className="flex space-x-2 min-w-max">
+          <button
+            className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
+              selectedTags.length === 0
+                ? "bg-emerald-600 text-white shadow-sm"
+                : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
+            }`}
+            onClick={clearSelectedTags}
+          >
+            All Topics
+          </button>
+          {tags.map((tag) => (
+            <button
+              key={tag}
+              className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
+                selectedTags.includes(tag)
+                  ? "bg-emerald-600 text-white shadow-sm"
+                  : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
+              }`}
+              onClick={() => handleTagClick(tag)}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Render the desktop topics section
+  const renderDesktopTopicsSection = () => {
     return (
       <>
         <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
@@ -267,9 +300,9 @@ const Forum = () => {
         </div>
       </nav>
 
-      {/* Mobile Popular Topics - Only visible on mobile screens */}
-      <div className="lg:hidden px-4 sm:px-6 py-5 bg-white border-b border-gray-200 shadow-sm">
-        {renderTopicsSection()}
+      {/* Mobile Horizontal Scrollable Topics - Only visible on mobile screens */}
+      <div className="lg:hidden px-4 sm:px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
+        {renderMobileTopics()}
       </div>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
@@ -546,7 +579,7 @@ const Forum = () => {
           <div className="hidden lg:block lg:col-span-4 space-y-6">
             <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-24">
               {/* Desktop Popular Topics */}
-              {renderTopicsSection()}
+              {renderDesktopTopicsSection()}
 
               {/* Forum Statistics */}
               <div className="mt-6 pt-6 border-t border-gray-100">
@@ -587,6 +620,17 @@ const Forum = () => {
           </div>
         </div>
       </main>
+
+      {/* CSS for hiding scrollbars but allowing scrolling */}
+      <style jsx global>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none; /* Chrome, Safari and Opera */
+        }
+      `}</style>
     </div>
   );
 };
