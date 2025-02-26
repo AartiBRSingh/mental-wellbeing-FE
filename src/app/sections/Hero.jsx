@@ -9,13 +9,13 @@ const Hero = () => {
       <main className="flex flex-col md:flex-row justify-center items-center w-[90vw] md:w-[80vw] lg:w-[60vw] gap-8 md:gap-0">
         {/* Text Section */}
         <section className="flex-1 flex flex-col gap-6 md:gap-8 text-center md:text-left order-1 md:order-none">
-          <div className="inline-block">
+          <div className="inline-block relative">
             <Image
               src="/hearttext.png"
               alt="Decorative image"
               width={70}
               height={70}
-              className="absolute rotate-12 top-[135px] right-8 sm:right-[1080px] z-0 opacity-100"
+              className="hidden sm:block absolute rotate-12 -top-6 -right-16 sm:right-auto sm:-top-8 sm:-left-16 md:-left-20 z-0 opacity-100"
             />
             <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#956144] text-xs font-semibold">
               MENTAL HEALTH AT ANY AGE
@@ -46,11 +46,11 @@ const Hero = () => {
           </div>
         </section>
 
-        <section className="w-full md:w-1/2 bg-transparent z-10 mb-4 md:mb-0 order-2 md:order-none">
+        <section className="w-full md:w-1/2 bg-transparent z-10 mb-4 md:mb-0 order-2 md:order-none flex justify-center md:block">
           <img
             src="/dummyimg.png"
             alt="Help illustration"
-            className="max-md:w-full max-md:h-auto object-cover"
+            className="max-w-full h-auto md:max-w-none md:w-full md:h-auto object-cover"
           />
         </section>
 
