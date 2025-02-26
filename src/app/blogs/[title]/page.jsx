@@ -1,11 +1,23 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Clock, Eye, ArrowRight, Share } from "lucide-react";
+import { BsTwitterX, BsQuora } from "react-icons/bs";
+
+import {
+  Clock,
+  Eye,
+  ArrowRight,
+  Share,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Mails,
+} from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { baseURL } from "../../baseURL";
 import ShareModal from "@/app/components/ShareModal";
+import { FaWhatsapp } from "react-icons/fa";
 
 const BlogDetailPage = () => {
   const [post, setPost] = useState(null);
@@ -62,6 +74,9 @@ const BlogDetailPage = () => {
       : strippedContent;
   };
 
+  const buttonStyle =
+    "w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer hover:opacity-80";
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -98,17 +113,68 @@ const BlogDetailPage = () => {
                 <Clock className="mr-2 h-5 w-5" />
                 <span>{new Date(post.createdAt).toLocaleDateString()}</span>
               </div>
+
+              <button
+                className={`${buttonStyle} bg-green-500 hover:bg-green-600`}
+                onClick={() =>
+                  window.open(`https://wa.me/?text=${url}`, "_blank")
+                }
+              >
+                <FaWhatsapp size={20} className="text-white" />
+              </button>
+
+              <button
+                className={`${buttonStyle} bg-red-500 hover:bg-red-600`}
+                onClick={() => window.open(`mailto:?body=${url}`, "_blank")}
+              >
+                <Mails size={20} className="text-white" />
+              </button>
+              <button
+                className={`${buttonStyle} bg-red-500 hover:bg-[#006396]`}
+                onClick={() => window.open(`https://www.quora.com/`, "_blank")}
+              >
+                <BsQuora size={20} className="text-white" />
+              </button>
+              <button
+                className={`${buttonStyle} bg-[#0077b5] hover:bg-[#006396]`}
+                onClick={() =>
+                  window.open(
+                    `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+                    "_blank"
+                  )
+                }
+              >
+                <Linkedin size={20} className="text-white" />
+              </button>
+              <button
+                className={`${buttonStyle} bg-black hover:bg-sky-600`}
+                onClick={() => window.open(`https://twitter.com/`, "_blank")}
+              >
+                <BsTwitterX size={20} className="text-white" />
+              </button>
+              <button
+                className={`${buttonStyle} bg-blue-600 hover:bg-blue-700`}
+                onClick={() =>
+                  window.open(
+                    `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                    "_blank"
+                  )
+                }
+              >
+                <Facebook size={20} className="text-white" />
+              </button>
               <div className="flex items-center">
                 <Eye className="mr-2 h-5 w-5" />
                 <span>{post.totalViews} Views</span>
               </div>
-              <button
+
+              {/* <button
                 onClick={() => setShowShareModal(true)}
                 className="px-4 py-2 bg-slate-400 text-white rounded-md hover:bg-blue-500 transition-colors cursor-pointer flex items-center gap-2"
               >
                 Share
                 <Share size={20} />
-              </button>
+              </button> */}
             </div>
             <div
               className="prose max-w-none"
