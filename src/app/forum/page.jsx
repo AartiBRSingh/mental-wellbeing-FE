@@ -69,7 +69,9 @@ const Forum = () => {
   const fetchTags = async () => {
     try {
       const res = await axios.get(`${baseURL}/tags`);
-      setTags(res.data);
+      // Filter out any empty tags
+      const filteredTags = res.data.filter((tag) => tag && tag.trim() !== "");
+      setTags(filteredTags);
     } catch (error) {
       console.error("Error fetching tags:", error);
     }
@@ -80,7 +82,11 @@ const Forum = () => {
       const formData = new FormData();
       formData.append("title", newPost.title);
       formData.append("content", newPost.content);
-      formData.append("tags", newPost.tags);
+
+      // Only append tags if they're not empty
+      if (newPost.tags && newPost.tags.trim() !== "") {
+        formData.append("tags", newPost.tags);
+      }
 
       if (newPost.image) {
         formData.append("image", newPost.image);
@@ -169,16 +175,6 @@ const Forum = () => {
     return (
       <div className="overflow-x-auto pb-2 hide-scrollbar">
         <div className="flex space-x-2 min-w-max">
-          <button
-            className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
-              selectedTags.length === 0
-                ? "bg-emerald-600 text-white shadow-sm"
-                : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
-            }`}
-            onClick={clearSelectedTags}
-          >
-            All Topics
-          </button>
           {tags.map((tag) => (
             <button
               key={tag}
@@ -416,19 +412,26 @@ const Forum = () => {
                 <p className="text-gray-700 leading-relaxed mb-4 xl:text-md text-sm">
                   {post.content}
                 </p>
-                {post.tags?.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {post.tags.map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() => handleTagClick(tag)}
-                        className="text-emerald-600 hover:text-emerald-700 hover:underline text-sm font-medium transition-colors"
-                      >
-                        #{tag}
-                      </button>
-                    ))}
-                  </div>
-                )}
+
+                {/* Tags - Only show if post has non-empty tags */}
+                {post.tags?.length > 0 &&
+                  post.tags.some((tag) => tag && tag.trim() !== "") && (
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {post.tags
+                        .filter((tag) => tag && tag.trim() !== "")
+                        .map((tag) => (
+                          <button
+                            key={tag}
+                            onClick={() => handleTagClick(tag)}
+                            className="text-emerald-600 hover:text-emerald-700 hover:underline text-sm font-medium transition-colors"
+                          >
+                            #{tag}
+                          </button>
+                        ))}
+                    </div>
+                  )}
+
+                {/* Action Buttons */}
                 <div className="flex xl:flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-100">
                   <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                     <button
