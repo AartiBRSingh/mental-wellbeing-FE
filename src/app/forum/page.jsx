@@ -91,8 +91,6 @@ const Forum = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      // Reset the form state after a successful post
       setNewPost({ title: "", content: "", tags: "", image: null });
       setShowNewPostForm(false);
       fetchPosts(selectedTags);
@@ -103,8 +101,14 @@ const Forum = () => {
   };
 
   const addComment = async (postId) => {
+    if (!userId) {
+      router.push("/sign-in");
+      return;
+    }
     try {
-      await axios.post(`${baseURL}/post/${postId}/comment`, { text: comment });
+      await axios.post(`${baseURL}/post/${postId}/comment`, {
+        text: comment,
+      });
       setComment("");
       setShowCommentForm({ ...showCommentForm, [postId]: false });
       fetchPosts(selectedTags);
@@ -114,6 +118,10 @@ const Forum = () => {
   };
 
   const addReply = async (postId, commentId) => {
+    if (!userId) {
+      router.push("/sign-in");
+      return;
+    }
     try {
       await axios.post(`${baseURL}/post/${postId}/comment/${commentId}/reply`, {
         text: reply[commentId],
@@ -126,12 +134,15 @@ const Forum = () => {
   };
 
   const toggleLike = async (postId) => {
-    await axios.post(`${baseURL}/post/${postId}/like`);
+    if (!userId) {
+      router.push("/sign-in");
+      return;
+    }
+    await axios.post(`${baseURL}/post/${postId}/like`, { userId });
     fetchPosts(selectedTags);
   };
 
   const handleTagClick = (tag) => {
-    // If tag is already selected, remove it, otherwise add it
     setSelectedTags((prev) => {
       if (prev.includes(tag)) {
         return prev.filter((t) => t !== tag);
@@ -141,7 +152,6 @@ const Forum = () => {
     });
   };
 
-  // Effect to refetch posts when selected tags change
   useEffect(() => {
     fetchPosts(selectedTags, searchQuery);
   }, [selectedTags]);
@@ -151,12 +161,10 @@ const Forum = () => {
     fetchTags();
   }, []);
 
-  // Clear all selected tags
   const clearSelectedTags = () => {
     setSelectedTags([]);
   };
 
-  // Render the mobile scrollable topics
   const renderMobileTopics = () => {
     return (
       <div className="overflow-x-auto pb-2 hide-scrollbar">
@@ -189,7 +197,6 @@ const Forum = () => {
     );
   };
 
-  // Render the desktop topics section
   const renderDesktopTopicsSection = () => {
     return (
       <>
@@ -198,7 +205,6 @@ const Forum = () => {
           Trending Topics
         </h2>
 
-        {/* Selected topics badges */}
         {selectedTags.length > 0 && (
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
@@ -231,7 +237,6 @@ const Forum = () => {
           </div>
         )}
 
-        {/* Topics List */}
         {tags.length === 0 ? (
           <p className="text-gray-500 text-sm">No topics available yet</p>
         ) : (
@@ -267,13 +272,9 @@ const Forum = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      {/* Responsive Nav Bar */}
       <nav className="sticky top-0 z-10 backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-end gap-4">
-            {/* <h1 className="text-2xl sm:text-3xl font-serif text-emerald-700 font-bold tracking-tight">
-              Forum
-            </h1> */}
             <div className="flex items-center w-full sm:w-auto gap-1 xl:gap-6">
               <div className="relative w-full sm:w-64">
                 <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -299,17 +300,12 @@ const Forum = () => {
           </div>
         </div>
       </nav>
-
-      {/* Mobile Horizontal Scrollable Topics - Only visible on mobile screens */}
       <div className="lg:hidden px-4 sm:px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
         {renderMobileTopics()}
       </div>
-
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-          {/* Main Content Column */}
           <div className="lg:col-span-8">
-            {/* New Post Form */}
             {showNewPostForm && (
               <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 mb-6 sm:mb-8">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">
@@ -366,8 +362,6 @@ const Forum = () => {
                 </div>
               </div>
             )}
-
-            {/* Empty State */}
             {posts.length === 0 && (
               <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 sm:p-10 mb-6 text-center">
                 <div className="text-gray-400 mb-3">
@@ -390,8 +384,6 @@ const Forum = () => {
                 </button>
               </div>
             )}
-
-            {/* Posts */}
             {posts.map((post) => (
               <article
                 key={post._id}
@@ -424,8 +416,6 @@ const Forum = () => {
                 <p className="text-gray-700 leading-relaxed mb-4 xl:text-md text-sm">
                   {post.content}
                 </p>
-
-                {/* Tags */}
                 {post.tags?.length > 0 && (
                   <div className="flex flex-wrap gap-1 mb-4">
                     {post.tags.map((tag) => (
@@ -439,17 +429,20 @@ const Forum = () => {
                     ))}
                   </div>
                 )}
-
-                {/* Action Buttons */}
                 <div className="flex xl:flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-100">
                   <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                     <button
-                      className="flex items-center space-x-2 text-gray-500 hover:text-emerald-600 transition-colors duration-200 group"
+                      className={`flex items-center space-x-2 transition-colors duration-200 group ${
+                        post.likes.includes(userId)
+                          ? "text-emerald-600"
+                          : "text-gray-500 hover:text-emerald-600"
+                      }`}
                       onClick={() => toggleLike(post._id)}
+                      disabled={post.likes.includes(userId)}
                     >
                       <ThumbsUp className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                       <span className="text-sm font-medium">
-                        {post.likes || 0} Upvotes
+                        {post.likes?.length || 0} Upvotes
                       </span>
                     </button>
                     <button
@@ -480,8 +473,6 @@ const Forum = () => {
                     <Bookmark className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                   </button>
                 </div>
-
-                {/* Comments Section */}
                 {showCommentForm[post._id] && (
                   <div className="mt-5 pt-4 border-t border-gray-100">
                     <div className="relative flex items-center">
@@ -501,8 +492,6 @@ const Forum = () => {
                     </div>
                   </div>
                 )}
-
-                {/* Comments List */}
                 {post.comments?.length > 0 && (
                   <div className="mt-6 space-y-4">
                     <h4 className="text-sm font-medium text-gray-500">
@@ -526,8 +515,6 @@ const Forum = () => {
                             </div>
                           </div>
                         </div>
-
-                        {/* Reply Form */}
                         <div className="ml-11 mb-3 relative flex items-center">
                           <input
                             className="w-full px-3 py-2 pr-10 text-sm bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 transition-all duration-200"
@@ -545,8 +532,6 @@ const Forum = () => {
                             <Send className="w-4 h-4" />
                           </button>
                         </div>
-
-                        {/* Nested Replies */}
                         {c.replies?.map((r) => (
                           <div
                             key={r._id}
@@ -574,14 +559,9 @@ const Forum = () => {
               </article>
             ))}
           </div>
-
-          {/* Sidebar - Only visible on desktop */}
           <div className="hidden lg:block lg:col-span-4 space-y-6">
             <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-24">
-              {/* Desktop Popular Topics */}
               {renderDesktopTopicsSection()}
-
-              {/* Forum Statistics */}
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <h3 className="text-sm font-medium text-gray-500 mb-3">
                   Forum Statistics
@@ -603,8 +583,6 @@ const Forum = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Desktop New Discussion Button */}
               <div className="mt-6 pt-4 border-t border-gray-100">
                 <button
                   onClick={() =>
@@ -620,8 +598,6 @@ const Forum = () => {
           </div>
         </div>
       </main>
-
-      {/* CSS for hiding scrollbars but allowing scrolling */}
       <style jsx global>{`
         .hide-scrollbar {
           -ms-overflow-style: none; /* IE and Edge */
