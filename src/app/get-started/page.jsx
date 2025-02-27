@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation"; // Import the router for navigation
 
 const MultiStepForm = () => {
+  const router = useRouter(); // Initialize the router
   const [selectedSection, setSelectedSection] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
@@ -37,9 +39,21 @@ const MultiStepForm = () => {
   });
 
   const mainSections = [
-    { id: "expertSupport", name: "Expert Booking" },
-    { id: "mentalWellBeing", name: "Mental Well-being Program" },
-    { id: "professionalCourse", name: "Certificate Course" },
+    {
+      id: "expertSupport",
+      name: "Expert Booking",
+      redirectPage: "all-experts",
+    },
+    {
+      id: "mentalWellBeing",
+      name: "Mental Well-being Program",
+      redirectPage: "mental-wellbeing",
+    },
+    {
+      id: "professionalCourse",
+      name: "Certificate Course",
+      redirectPage: "all-courses",
+    },
   ];
 
   const sections = {
@@ -221,7 +235,7 @@ const MultiStepForm = () => {
           {mainSections.map((section) => (
             <div
               key={section.id}
-              className={`text-lg font-semibold bg-gradient-to-r from-blue-200 to-purple-200 rounded-full p-3 ${
+              className={`text-lg font-semibold bg-slate-100 rounded-full p-3 ${
                 selectedSection === section.id
                   ? "text-blue-600"
                   : "text-slate-500"
@@ -314,19 +328,19 @@ const MultiStepForm = () => {
 
   const handleSubmit = () => {
     console.log(formData[selectedSection]);
-    // After submitting each section, move to the next section
-    const currentSectionIndex = mainSections.findIndex(
+
+    // Find the current section to get its redirect page
+    const currentSectionObj = mainSections.find(
       (section) => section.id === selectedSection
     );
-    if (currentSectionIndex < mainSections.length - 1) {
-      // Move to next section
-      setSelectedSection(mainSections[currentSectionIndex + 1].id);
-      setCurrentStep(0);
-    } else {
-      // Final submission logic here
-      console.log("Final submission:", formData);
-      // You can add your final submission logic here
+
+    if (currentSectionObj) {
+      // Redirect to the appropriate page based on the completed section
+      router.push(`/${currentSectionObj.redirectPage}`);
     }
+
+    // For development/testing purposes - log the form data
+    console.log("Final submission for section:", formData[selectedSection]);
   };
 
   const renderInitialSelection = () => (
