@@ -58,9 +58,9 @@ async function ExpertDetailsPage({ params, searchParams }) {
       {/* Cover Photo Section */}
       <div className="w-full h-48 sm:h-64 md:h-96 relative">
         <img
-          src={expert?.coverPhoto || "/api/placeholder/1200/400"}
+          src="/syhlogo.jpg"
           alt="Cover"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-fill"
         />
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/50 to-transparent" />
       </div>
@@ -79,7 +79,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="flex items-center bg-white shadow-md rounded-full px-3 mt-4">
+              <div className="flex items-center bg-white p-2 shadow-md rounded-full px-4 mt-4">
                 {[...Array(5)].map((_, index) => (
                   <Star
                     key={index}
@@ -492,7 +492,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   Consultations
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm">
-                  {/* <ConsultQNA /> */}
+                  <ConsultQNA />
                 </div>
               </div>
             )}
@@ -504,7 +504,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   Journal
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm">
-                  {/* <JournalsExpert /> */}
+                  <JournalsExpert />
                 </div>
               </div>
             )}
