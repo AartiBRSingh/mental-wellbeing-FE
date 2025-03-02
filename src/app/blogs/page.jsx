@@ -130,8 +130,6 @@ const BlogPage = () => {
     fetchRecommendedPosts();
   }, [recommendedCategories]);
 
-  console.log(recommendedCategories, "raju");
-
   return (
     <div className="bg-transparent font-sans">
       <Toaster position="bottom-left" reverseOrder={false} />

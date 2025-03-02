@@ -13,7 +13,6 @@ import axios from "axios";
 const HealPoint = () => {
   const [email, setEmail] = useState("");
   const [userId, setUserId] = useState("");
-  console.log(userId, "raju");
 
   useEffect(() => {
     const userId = Cookies.get("userId");

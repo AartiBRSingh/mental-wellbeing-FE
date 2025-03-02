@@ -45,8 +45,6 @@ const Forum = () => {
   const [showNewPostForm, setShowNewPostForm] = useState(false);
   const [showCommentForm, setShowCommentForm] = useState({});
 
-  console.log(newPost, "raju");
-
   const fetchPosts = async (tagList = [], search = "") => {
     try {
       let queryParams = "";
