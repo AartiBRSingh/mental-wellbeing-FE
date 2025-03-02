@@ -3,6 +3,7 @@ import { Fraunces } from "next/font/google";
 import Navbar from "./sections/Navbar";
 import Footer from "./sections/Footer";
 import CustomCursor from "./components/CustomCursor";
+import RecaptchaProvider from "./utils/RecaptchaProvider";
 
 const font = Fraunces({ subsets: ["latin"] });
 
@@ -25,9 +26,11 @@ export default function RootLayout({ children }) {
         className={`${font.className} antialiased bg-[#F9F5F2] no-select`}
         // style={{ backgroundImage: "url('/bg-01.svg')" }}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <RecaptchaProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </RecaptchaProvider>
       </body>
     </html>
   );

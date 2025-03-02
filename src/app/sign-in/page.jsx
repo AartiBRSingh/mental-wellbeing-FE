@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DecorativeShapes } from "../sections/Services";
 import { baseURL } from "../baseURL";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast, { Toaster } from "react-hot-toast";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,14 +19,18 @@ const Login = () => {
   const [isUserLogin, setIsUserLogin] = useState(true);
   const [isLoginWIthOrgCode, setLoginWIthOrgCode] = useState(false);
 
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const router = useRouter();
 
-  const onEmailSubmit = async (identifier) => {
+  const onEmailSubmit = async (identifier, recaptchaToken) => {
     const url = isUserLogin
       ? `${baseURL}/users/request-otp`
       : `${baseURL}/expert/request-otp`;
     try {
-      await axios.post(url, { identifier });
+      await axios.post(url, {
+        identifier,
+        recaptchaToken,
+      });
       setIsOtpSent(true);
     } catch (error) {
       throw new Error(
@@ -34,7 +39,12 @@ const Login = () => {
     }
   };
 
-  const onOtpSubmit = async ({ identifier, otp, organizationCode }) => {
+  const onOtpSubmit = async ({
+    identifier,
+    otp,
+    organizationCode,
+    recaptchaToken,
+  }) => {
     const url = isUserLogin
       ? `${baseURL}/users/login`
       : `${baseURL}/expert/login`;
@@ -43,6 +53,7 @@ const Login = () => {
         identifier,
         otp,
         organizationCode,
+        recaptchaToken,
       });
       const { token, profile } = response?.data;
 
@@ -80,29 +91,35 @@ const Login = () => {
 
   const handleEmailSubmit = async (event) => {
     event.preventDefault();
+
+    if (!executeRecaptcha) {
+      setError("reCAPTCHA not available. Please try again later.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
-    if (isLoginWIthOrgCode) {
-      try {
+    try {
+      const recaptchaToken = await executeRecaptcha("login_email");
+
+      if (isLoginWIthOrgCode) {
         await onOtpSubmit({
           identifier: email,
           otp: "",
           organizationCode,
+          recaptchaToken,
         });
-      } catch (error) {
-        setError("Invalid credentials");
-      } finally {
-        setLoading(false);
+      } else {
+        await onEmailSubmit(email, recaptchaToken);
+        toast.success("OTP Sent!");
       }
-      return;
-    }
-
-    try {
-      await onEmailSubmit(email);
-      toast.success("OTP Sent!");
     } catch (error) {
-      setError("An error occurred while sending OTP");
+      setError(
+        isLoginWIthOrgCode
+          ? "Invalid credentials"
+          : "An error occurred while sending OTP"
+      );
     } finally {
       setLoading(false);
     }
@@ -110,11 +127,23 @@ const Login = () => {
 
   const handleOtpSubmit = async (event) => {
     event.preventDefault();
+
+    if (!executeRecaptcha) {
+      setError("reCAPTCHA not available. Please try again later.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
     try {
-      await onOtpSubmit({ identifier: email, otp, organizationCode });
+      const recaptchaToken = await executeRecaptcha("verify_otp");
+      await onOtpSubmit({
+        identifier: email,
+        otp,
+        organizationCode,
+        recaptchaToken,
+      });
     } catch (error) {
       setError("Invalid credentials");
     } finally {
