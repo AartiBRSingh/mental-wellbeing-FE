@@ -492,7 +492,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   Consultations
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm">
-                  <ConsultQNA />
+                  <ConsultQNA expertId={id} />
                 </div>
               </div>
             )}
