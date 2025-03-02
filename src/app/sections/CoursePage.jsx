@@ -59,18 +59,18 @@ const CoursePage = () => {
     );
 
   return (
-    <div className="bg-transparent  py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-12">
-          <div className="flex gap-2 ml-[480px]">
-            <h2 className="text-5xl font-semibold text-gray-900 mb-6">
+    <div className="bg-transparent py-8 sm:py-10 md:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto flex flex-col">
+        <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center mb-8 sm:mb-10 md:mb-12">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:ml-0 md:ml-0 lg:ml-0 xl:ml-[480px]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-900 mb-2 sm:mb-0">
               Featured
             </h2>
-            <span className="text-[#956144] font-semibold relative text-4xl md:text-6xl lg:text-5xl block">
+            <span className="text-[#956144] font-semibold relative text-3xl sm:text-4xl md:text-5xl lg:text-5xl block">
               <span className="relative">
                 Courses
                 <svg
-                  className="absolute w-full h-[12px] -bottom-1 left-0"
+                  className="absolute w-full h-[8px] sm:h-[10px] md:h-[12px] -bottom-1 left-0"
                   viewBox="0 0 100 10"
                   preserveAspectRatio="none"
                 >
@@ -86,7 +86,7 @@ const CoursePage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 flex-grow">
           {courses.map((course) => (
             <div
               key={course._id}
@@ -100,22 +100,22 @@ const CoursePage = () => {
                       alt={course.title}
                       className="object-cover w-full h-full transition-transform duration-300 hover:scale-110"
                     />
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-[#228B22] text-white rounded-full text-sm font-medium shadow-md">
+                    <div className="absolute top-2 sm:top-4 right-2 sm:right-4 px-2 sm:px-3 py-1 bg-[#228B22] text-white rounded-full text-xs sm:text-sm font-medium shadow-md">
                       {course.language}
                     </div>
                   </div>
 
-                  <div className="p-6 space-y-4">
+                  <div className="p-4 sm:p-5 md:p-6 space-y-2 sm:space-y-3 md:space-y-4">
                     <div>
-                      <span className="px-4 py-1.5 bg-[#F0E68C] text-[#8B4513] rounded-full text-sm font-semibold">
+                      <span className="px-3 sm:px-4 py-1 sm:py-1.5 bg-[#F0E68C] text-[#8B4513] rounded-full text-xs sm:text-sm font-semibold">
                         {course.category}
                       </span>
                     </div>
 
-                    <h2 className="text-2xl font-bold text-[#4A3427] mb-3 leading-tight line-clamp-1">
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#4A3427] mb-2 sm:mb-3 leading-tight line-clamp-1">
                       {course.title}
                     </h2>
-                    <p className="text-[#6B584C] line-clamp-2 mb-4">
+                    <p className="text-sm sm:text-base text-[#6B584C] line-clamp-2 mb-2 sm:mb-4">
                       {course.description}
                     </p>
 
@@ -124,15 +124,10 @@ const CoursePage = () => {
                       {renderStars(course.rating || 5)}
                     </div>
 
-                    {/* <div className="flex items-center gap-3">
-                        <Users className="h-5 w-5 text-[#228B22]" />
-                        <span>{course.enrollmentCount} enrolled</span>
-                      </div> */}
-
-                    <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
-                      <div className="flex items-center gap-2">
-                        <Calendar />
-                        <span>
+                    <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-[#F5DEB3]">
+                      <div className="flex items-center gap-1 sm:gap-2">
+                        <Calendar className="h-4 w-4 sm:h-5 sm:w-5" />
+                        <span className="text-xs sm:text-sm">
                           {course.curriculum.reduce(
                             (acc, curr) => acc + curr.duration,
                             0
@@ -140,12 +135,12 @@ const CoursePage = () => {
                           Months
                         </span>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl font-bold text-[#4A3427]">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <span className="text-lg sm:text-xl md:text-2xl font-bold text-[#4A3427]">
                           ₹ {course.discountedPrice}
                         </span>
                         {course.discountedPrice < course.price && (
-                          <span className="text-sm text-[#6B584C] line-through opacity-70 gap-1">
+                          <span className="text-xs sm:text-sm text-[#6B584C] line-through opacity-70 gap-1">
                             ₹{course.price}
                           </span>
                         )}
@@ -157,14 +152,16 @@ const CoursePage = () => {
             </div>
           ))}
         </div>
-      </div>
-      <div className="flex justify-center mt-8">
-        <Link href="/all-courses">
-          <button className="px-6 py-3 mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
-            All Courses
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </Link>
+
+        {/* All Courses button - now in its own container that's always centered */}
+        <div className="flex justify-center w-full mt-10 sm:mt-12 md:mt-16">
+          <Link href="/all-courses">
+            <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-lg sm:rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-1 sm:gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
+              All Courses
+              <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
