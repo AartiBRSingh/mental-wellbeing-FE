@@ -9,8 +9,10 @@ import {
   User,
   AlertCircle,
 } from "lucide-react";
+import axios from "axios";
+import { baseURL } from "../baseURL";
 
-const ConsultQNA = () => {
+const ConsultQNA = ({ expertId }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAskForm, setShowAskForm] = useState(false);
@@ -19,8 +21,6 @@ const ConsultQNA = () => {
   const [professional, setProfessional] = useState(null);
   const [showResponseForm, setShowResponseForm] = useState(null);
   const [responseText, setResponseText] = useState("");
-
-  // Form state
   const [formData, setFormData] = useState({
     category: "",
     title: "",
@@ -31,19 +31,44 @@ const ConsultQNA = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // In a real application, you would fetch this data from your API
-        // const response = await fetch('/api/questions');
-        // const data = await response.json();
-        // setQuestions(data.questions);
-        // setProfessional(data.professional);
+        setLoading(true);
+        const response = await axios.get(`${baseURL}/get-consultationQnA`, {
+          params: { expertId: expertId },
+        });
+        const transformedQuestions = response.data.map((q) => ({
+          id: q._id,
+          question: q.title,
+          details: q.details,
+          askedBy: "Expert",
+          askedByRole: "Healthcare Professional",
+          date: new Date(q.createdAt).toISOString().split("T")[0],
+          category: q.category,
+          tags: q.tags,
+          responses: q.responses.map((r) => ({
+            id: r._id,
+            professional: r.professional,
+            role: r.role,
+            response: r.response,
+            date: new Date(r.date).toISOString().split("T")[0],
+            likes: r.likes,
+            isVerified: r.isVerified,
+          })),
+          status: q.status,
+          urgency: q.category === "emergency" ? "high" : "medium",
+        }));
 
-        // Since we're removing hardcoded data, initialize with empty arrays
-        setQuestions([]);
+        setQuestions(transformedQuestions);
         setProfessional({
           name: "Current User",
           role: "Healthcare Professional",
           specialization: "Your Specialization",
-          responsesGiven: 0,
+          responsesGiven: transformedQuestions.reduce(
+            (count, q) =>
+              count +
+              q.responses.filter((r) => r.professional === "Current User")
+                .length,
+            0
+          ),
           rating: 0,
         });
 
@@ -56,9 +81,8 @@ const ConsultQNA = () => {
     };
 
     fetchData();
-  }, []);
+  }, [expertId]);
 
-  // Handle form input changes
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -67,91 +91,162 @@ const ConsultQNA = () => {
     });
   };
 
-  // Handle form submission
-  const handleSubmitQuestion = (e) => {
+  const handleSubmitQuestion = async (e) => {
     e.preventDefault();
 
-    // Create new question object
-    const newQuestion = {
-      id: Date.now(), // Use timestamp as unique ID
-      question: formData.title,
-      details: formData.details,
-      askedBy: "Current User", // In a real app, this would be the logged-in user
-      askedByRole: "Healthcare Professional",
-      date: new Date().toISOString().split("T")[0],
-      category: formData.category,
-      tags: formData.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter((tag) => tag),
-      responses: [],
-      status: "unanswered",
-      urgency: formData.category === "emergency" ? "high" : "medium",
-    };
+    try {
+      setLoading(true);
+      const payload = {
+        expert: expertId,
+        category: formData.category,
+        title: formData.title,
+        details: formData.details,
+        tags: formData.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag),
+      };
+      const response = await axios.post(
+        `${baseURL}/create-consultationQnA`,
+        payload
+      );
+      const newQuestion = {
+        id: response.data._id,
+        question: response.data.title,
+        details: response.data.details,
+        askedBy: "Current User",
+        askedByRole: "Healthcare Professional",
+        date: new Date(response.data.createdAt).toISOString().split("T")[0],
+        category: response.data.category,
+        tags: response.data.tags,
+        responses: [],
+        status: response.data.status,
+        urgency: response.data.category === "emergency" ? "high" : "medium",
+      };
 
-    // Add new question to state
-    setQuestions([newQuestion, ...questions]);
-
-    // Reset form and close modal
-    setFormData({
-      category: "",
-      title: "",
-      details: "",
-      tags: "",
-    });
-    setShowAskForm(false);
-  };
-
-  // Handle response submission
-  const handleSubmitResponse = (questionId) => {
-    if (!responseText.trim()) return;
-
-    // Find the question to update
-    const updatedQuestions = questions.map((question) => {
-      if (question.id === questionId) {
-        // Create new response
-        const newResponse = {
-          id: Date.now(),
-          professional: professional.name,
-          role: professional.role,
-          response: responseText,
-          date: new Date().toISOString().split("T")[0],
-          likes: 0,
-          isVerified: true,
-        };
-
-        // Update question with new response and change status
-        return {
-          ...question,
-          responses: [...question.responses, newResponse],
-          status: "answered",
-        };
-      }
-      return question;
-    });
-
-    // Update state
-    setQuestions(updatedQuestions);
-    setResponseText("");
-    setShowResponseForm(null);
-
-    // Update professional stats in a real app
-    if (professional) {
-      setProfessional({
-        ...professional,
-        responsesGiven: professional.responsesGiven + 1,
+      setQuestions([newQuestion, ...questions]);
+      setFormData({
+        category: "",
+        title: "",
+        details: "",
+        tags: "",
       });
+      setShowAskForm(false);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error creating question:", error);
+      setLoading(false);
     }
   };
 
-  // Filter and search questions
+  const handleSubmitResponse = async (questionId) => {
+    if (!responseText.trim()) return;
+    try {
+      setLoading(true);
+      const payload = {
+        professional: professional.name,
+        role: professional.role,
+        response: responseText,
+      };
+      const response = await axios.post(
+        `${baseURL}/create-consultationQnA/${questionId}/response`,
+        payload
+      );
+
+      const updatedQuestions = questions.map((question) => {
+        if (question.id === questionId) {
+          const transformedResponses = response.data.responses.map((r) => ({
+            id: r._id,
+            professional: r.professional,
+            role: r.role,
+            response: r.response,
+            date: new Date(r.date).toISOString().split("T")[0],
+            likes: r.likes,
+            isVerified: r.isVerified,
+          }));
+
+          return {
+            ...question,
+            responses: transformedResponses,
+            status: response.data.status,
+          };
+        }
+        return question;
+      });
+
+      setQuestions(updatedQuestions);
+      setResponseText("");
+      setShowResponseForm(null);
+      if (professional) {
+        setProfessional({
+          ...professional,
+          responsesGiven: professional.responsesGiven + 1,
+        });
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error submitting response:", error);
+      setLoading(false);
+    }
+  };
+
+  const handleLikeResponse = async (questionId, responseId) => {
+    try {
+      const response = await axios.patch(
+        `${baseURL}/like-consultationQnA/${questionId}/response/${responseId}/like`
+      );
+      const updatedQuestions = questions.map((question) => {
+        if (question.id === questionId) {
+          const updatedResponses = question.responses.map((r) => {
+            if (r.id === responseId) {
+              return {
+                ...r,
+                likes: r.likes + 1,
+              };
+            }
+            return r;
+          });
+          return {
+            ...question,
+            responses: updatedResponses,
+          };
+        }
+        return question;
+      });
+      setQuestions(updatedQuestions);
+    } catch (error) {
+      console.error("Error liking response:", error);
+    }
+  };
+
+  const handleDeleteResponse = async (questionId, responseId) => {
+    try {
+      const response = await axios.delete(
+        `${baseURL}/delete-consultationQnA/${questionId}/response/${responseId}`
+      );
+      const updatedQuestions = questions.map((question) => {
+        if (question.id === questionId) {
+          return {
+            ...question,
+            responses: question.responses.filter((r) => r.id !== responseId),
+            status:
+              response.data.responses.length === 0 ? "unanswered" : "answered",
+          };
+        }
+        return question;
+      });
+
+      setQuestions(updatedQuestions);
+    } catch (error) {
+      console.error("Error deleting response:", error);
+    }
+  };
+
   const filteredQuestions = questions.filter((question) => {
-    // Apply category filter
     const categoryMatch =
       filter === "all" ||
       question.category.toLowerCase() === filter.toLowerCase();
-
-    // Apply search term if present
     const searchMatch =
       !searchTerm ||
       question.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -164,7 +259,6 @@ const ConsultQNA = () => {
     return categoryMatch && searchMatch;
   });
 
-  // Categories for dropdown
   const categories = [
     { value: "treatment", label: "Treatment" },
     { value: "techniques", label: "Techniques" },
@@ -176,7 +270,6 @@ const ConsultQNA = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-5xl mx-auto">
-        {/* Professional Header */}
         {professional && (
           <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
             <div className="flex justify-between items-start">
@@ -203,8 +296,6 @@ const ConsultQNA = () => {
             </div>
           </div>
         )}
-
-        {/* Search and Filters */}
         <div className="mb-6 flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -229,8 +320,6 @@ const ConsultQNA = () => {
             ))}
           </select>
         </div>
-
-        {/* Ask Question Form Modal */}
         {showAskForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-lg p-6 w-full max-w-2xl">
@@ -299,8 +388,6 @@ const ConsultQNA = () => {
             </div>
           </div>
         )}
-
-        {/* Questions List */}
         {loading ? (
           <div className="text-center py-8">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
@@ -313,7 +400,6 @@ const ConsultQNA = () => {
                   key={question.id}
                   className="bg-white rounded-lg shadow-sm"
                 >
-                  {/* Question Header */}
                   <div className="p-6 border-b border-gray-100">
                     <div className="flex justify-between items-start mb-4">
                       <div>
@@ -354,8 +440,6 @@ const ConsultQNA = () => {
                         ))}
                     </div>
                   </div>
-
-                  {/* Responses */}
                   <div className="p-6">
                     {question.responses && question.responses.length > 0 ? (
                       <div className="space-y-6">
@@ -377,13 +461,34 @@ const ConsultQNA = () => {
                               {response.response}
                             </p>
                             <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
-                              <button className="flex items-center gap-1 hover:text-green-600">
+                              <button
+                                className="flex items-center gap-1 hover:text-green-600"
+                                onClick={() =>
+                                  handleLikeResponse(question.id, response.id)
+                                }
+                              >
                                 <ThumbsUp className="w-4 h-4" />
                                 {response.likes}
                               </button>
                               <span>•</span>
                               <Clock className="w-4 h-4" />
                               {new Date(response.date).toLocaleDateString()}
+                              {response.professional === professional?.name && (
+                                <>
+                                  <span>•</span>
+                                  <button
+                                    className="text-red-500 hover:text-red-700"
+                                    onClick={() =>
+                                      handleDeleteResponse(
+                                        question.id,
+                                        response.id
+                                      )
+                                    }
+                                  >
+                                    Delete
+                                  </button>
+                                </>
+                              )}
                             </div>
                           </div>
                         ))}
@@ -393,8 +498,6 @@ const ConsultQNA = () => {
                         No responses yet. Be the first to respond!
                       </div>
                     )}
-
-                    {/* Response Form */}
                     {showResponseForm === question.id ? (
                       <div className="mt-4 bg-gray-50 p-4 rounded-lg">
                         <h3 className="font-medium text-gray-800 mb-2">
