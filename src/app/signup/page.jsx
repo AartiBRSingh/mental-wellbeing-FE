@@ -78,7 +78,7 @@ export const SignupPage = () => {
       setPassword("");
       setLoading(false);
       router.push(`/sign-in?userType=${finalUserType}`);
-      toast.success("Succesfully SignedUp");
+      toast.success("Successfully SignedUp");
     } catch (error) {
       toast.error("Error in SignUp:", error);
       console.error(error);
@@ -200,18 +200,17 @@ export const SignupPage = () => {
 
   return (
     <>
-      <div className="w-full h-[100vh] flex justify-center items-center">
+      <div className="w-full min-h-screen flex justify-center items-center py-6 px-4 sm:px-6">
         <Toaster position="bottom-left" reverseOrder={false} />
-        <div className="flex justify-center items-center bg-[#003B29] rounded-3xl w-[80vw] h-[90vh] flex-wrap px-16 relative">
-          <DecorativeShapes />
-          <div className="flex-1 flex items-center justify-center p-4">
-            <section className="flex-1 flex flex-col gap-8">
+        <div className="flex justify-center items-center bg-[#003B29] rounded-3xl w-full max-w-7xl flex-col lg:flex-row p-4 sm:p-6 md:p-8 lg:p-10 relative overflow-hidden">
+          <div className="flex-1 flex items-center justify-center p-4 mb-8 lg:mb-0">
+            <section className="flex-1 flex flex-col gap-4 md:gap-8">
               <div className="inline-block">
                 <span className="px-4 py-2 rounded-full border border-green-700 text-white text-xs font-semibold">
-                  CARING IS ALWAYS FREE{" "}
+                  CARING IS ALWAYS FREE
                 </span>
               </div>
-              <h1 className="lg:text-6xl text-xl text-white">
+              <h1 className="text-2xl md:text-4xl lg:text-6xl text-white">
                 <span>We help you to </span>
                 <br />
                 <span className="text-[#FDD56A] relative">
@@ -219,7 +218,7 @@ export const SignupPage = () => {
                   <span className="relative">
                     row confidence
                     <svg
-                      className="absolute w-full h-[10px] bottom-0 left-0"
+                      className="absolute w-full h-[10px] -bottom-2 left-0"
                       viewBox="0 0 100 10"
                       preserveAspectRatio="none"
                     >
@@ -236,7 +235,7 @@ export const SignupPage = () => {
                 <span> at any age</span>
               </h1>
 
-              <p className="text-white max-w-md">
+              <p className="text-white max-w-md text-sm md:text-base">
                 To live your life to the fullest, we&apos;re continuing to find
                 ways to prevent mental health problems.
               </p>
@@ -244,15 +243,15 @@ export const SignupPage = () => {
           </div>
 
           {isUserLogin ? (
-            <div className="flex-1 flex items-center justify-center p-4">
-              <div className="">
+            <div className="flex-1 flex items-center justify-center w-full max-w-md">
+              <div className="w-full">
                 <form
                   onSubmit={handleUserSubmit}
-                  className="bg-white p-8 rounded-xl shadow-lg space-y-6 h-[80vh]"
+                  className="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-lg space-y-4 md:space-y-6 max-h-[80vh] md:max-h-[90vh] overflow-y-auto"
                 >
-                  <div className="flex items-center justify-center space-x-4 px-4">
+                  <div className="flex items-center justify-center space-x-4 px-2 sm:px-4">
                     <span
-                      className={`text-sm font-medium ${
+                      className={`text-xs sm:text-sm font-medium ${
                         isUserLogin ? "text-black" : "text-gray-500"
                       }`}
                     >
@@ -265,55 +264,38 @@ export const SignupPage = () => {
                     >
                       <div
                         className={`
-            absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300
-            ${isUserLogin ? "translate-x-1" : "translate-x-8"}
-          `}
+                        absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300
+                        ${isUserLogin ? "translate-x-1" : "translate-x-8"}
+                      `}
                       />
                     </div>
 
                     <span
-                      className={`text-sm font-medium ${
+                      className={`text-xs sm:text-sm font-medium ${
                         !isUserLogin ? "text-black" : "text-gray-500"
                       }`}
                     >
                       Expert Register
                     </span>
                   </div>
-                  <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-gray-900">
+                  <div className="text-center mb-4 sm:mb-6">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
                       Create Account
                     </h2>
-                    <p className="text-gray-600 mt-2">
+                    <p className="text-gray-600 mt-2 text-sm">
                       Fill in your details to get started
                     </p>
                   </div>
 
                   {error && (
-                    <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                      <p className="text-gray-600 text-sm">{error}</p>
+                    <div className="p-3 sm:p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                      <p className="text-gray-600 text-xs sm:text-sm">
+                        {error}
+                      </p>
                     </div>
                   )}
 
-                  {/* {!userType && (
-                    <div>
-                      <label className={labelClasses}>
-                        User Type <span className="text-black">*</span>
-                      </label>
-                      <select
-                        value={selectedUserType}
-                        onChange={(e) => setSelectedUserType(e.target.value)}
-                        required
-                        className={inputClasses}
-                      >
-                        <option value="">Select user type</option>
-                        <option value="Self">Self</option>
-                        <option value="Employee">Employee</option>
-                        <option value="Student">Student</option>
-                      </select>
-                    </div>
-                  )} */}
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                       <label htmlFor="name" className={labelClasses}>
                         Name <span className="text-black">*</span>
@@ -343,7 +325,7 @@ export const SignupPage = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                       <label htmlFor="contactNumber" className={labelClasses}>
                         Contact Number <span className="text-black">*</span>
@@ -375,7 +357,7 @@ export const SignupPage = () => {
                   </div>
 
                   {showEmployeeFields && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                       <div>
                         <label
                           htmlFor="organizationName"
@@ -410,7 +392,7 @@ export const SignupPage = () => {
                     </div>
                   )}
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                       <label htmlFor="city" className={labelClasses}>
                         City <span className="text-black">*</span>
@@ -470,7 +452,7 @@ export const SignupPage = () => {
                   </div>
                   <button
                     type="submit"
-                    className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+                    className="cursor-pointer w-full bg-black text-white p-3 rounded-lg font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-4 sm:mt-6"
                     disabled={loading}
                   >
                     {loading ? (
@@ -501,7 +483,7 @@ export const SignupPage = () => {
                       "Create Account"
                     )}
                   </button>
-                  <div className="text-center mt-6">
+                  <div className="text-center mt-4 sm:mt-6 space-y-2">
                     <button
                       type="button"
                       onClick={() =>
@@ -511,36 +493,38 @@ export const SignupPage = () => {
                           }`
                         )
                       }
-                      className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer"
+                      className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer text-sm"
                     >
                       Already have an account? Log in
                     </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        router.push(
-                          `/sign-in?userType=${
-                            userType || selectedUserType.toLowerCase()
-                          }`
-                        )
-                      }
-                      className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer"
-                    >
-                      Are you running an organization? Please sign up here
-                    </button>
+                    <div className="block w-full">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          router.push(
+                            `/sign-in?userType=${
+                              userType || selectedUserType.toLowerCase()
+                            }`
+                          )
+                        }
+                        className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer text-xs sm:text-sm"
+                      >
+                        Are you running an organization? Please sign up here
+                      </button>
+                    </div>
                   </div>
                 </form>
               </div>
             </div>
           ) : (
-            <div className="flex-1 flex items-center justify-center p-4">
+            <div className="flex-1 flex items-center justify-center w-full max-w-md">
               <form
                 onSubmit={handleAdminSubmit}
-                className="bg-white p-10 rounded-2xl shadow-2xl space-y-6  h-[80vh]  overflow-y-auto scroll-smooth"
+                className="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-lg space-y-4 md:space-y-6 max-h-[80vh] md:max-h-[90vh] overflow-y-auto w-full"
               >
-                <div className="flex items-center justify-center space-x-4 px-4">
+                <div className="flex items-center justify-center space-x-4 px-2 sm:px-4">
                   <span
-                    className={`text-sm font-medium ${
+                    className={`text-xs sm:text-sm font-medium ${
                       isUserLogin ? "text-black" : "text-gray-500"
                     }`}
                   >
@@ -553,33 +537,33 @@ export const SignupPage = () => {
                   >
                     <div
                       className={`
-            absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300
-            ${isUserLogin ? "translate-x-1" : "translate-x-8"}
-          `}
+                      absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300
+                      ${isUserLogin ? "translate-x-1" : "translate-x-8"}
+                    `}
                     />
                   </div>
 
                   <span
-                    className={`text-sm font-medium ${
+                    className={`text-xs sm:text-sm font-medium ${
                       !isUserLogin ? "text-black" : "text-gray-500"
                     }`}
                   >
                     Expert Register
                   </span>
                 </div>
-                <div className="text-center mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900">
+                <div className="text-center mb-4 sm:mb-6">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
                     Expert Registration
                   </h2>
                 </div>
 
                 {error && (
-                  <div className="bg-red-50 border border-red-200 text-red-600 p-4 rounded-lg text-sm">
+                  <div className="bg-red-50 border border-red-200 text-red-600 p-3 sm:p-4 rounded-lg text-xs sm:text-sm">
                     {error}
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div className="relative">
                     <label htmlFor="name" className={labelClasses}>
                       Full Name <span className="text-[#EF4444] ml-1">*</span>
@@ -611,7 +595,7 @@ export const SignupPage = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div className="relative">
                     <label htmlFor="state" className={labelClasses}>
                       State <span className="text-[#EF4444] ml-1">*</span>
@@ -642,7 +626,7 @@ export const SignupPage = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div className="relative">
                     <label htmlFor="contactNumber" className={labelClasses}>
                       Mobile Number{" "}
@@ -687,17 +671,17 @@ export const SignupPage = () => {
                     </select>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-                  <div className="relative  p-4 rounded-lg border border-gray-200">
+                <div className="grid grid-cols-1 gap-4 sm:gap-6">
+                  <div className="relative p-3 sm:p-4 rounded-lg border border-gray-200">
                     <label
                       htmlFor="image"
-                      className="text-sm font-medium text-gray-700 mb-2 flex items-center"
+                      className="text-xs sm:text-sm font-medium text-gray-700 mb-2 flex items-center"
                     >
                       <span className="mr-2 text-black font-semibold">
                         Upload Image
                       </span>
                     </label>
-                    <div className="flex items-center space-x-4">
+                    <div className="flex flex-wrap items-center gap-4">
                       <input
                         type="file"
                         id="image"
@@ -707,7 +691,7 @@ export const SignupPage = () => {
                       />
                       <label
                         htmlFor="image"
-                        className="cursor-pointer bg-black text-white px-4 py-2 rounded-lg transition-all duration-200"
+                        className="cursor-pointer bg-black text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm"
                       >
                         Choose File
                       </label>
@@ -722,7 +706,7 @@ export const SignupPage = () => {
                       )}
                     </div>
                     {image && (
-                      <p className="mt-2 text-sm text-gray-600 truncate">
+                      <p className="mt-2 text-xs sm:text-sm text-gray-600 truncate">
                         Selected File: {image.name}
                       </p>
                     )}
@@ -748,7 +732,11 @@ export const SignupPage = () => {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                     >
-                      <Eye />
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
                   {formData.password && (
@@ -780,16 +768,16 @@ export const SignupPage = () => {
                     </div>
                   )}
                 </div>
-                <div className="mt-6">
+                <div className="mt-4 sm:mt-6">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-black text-white py-3 rounded-lg font-semibol focus:ring-offset-2 transition-all duration-200 cursor-pointer"
+                    className="w-full bg-black text-white py-3 rounded-lg font-semibold focus:ring-offset-2 transition-all duration-200 cursor-pointer"
                   >
                     {loading ? "Creating..." : "Create Account"}
                   </button>
                 </div>
-                <div className="text-center mt-6">
+                <div className="text-center mt-4 sm:mt-6">
                   <button
                     type="button"
                     onClick={() =>
@@ -799,7 +787,7 @@ export const SignupPage = () => {
                         }`
                       )
                     }
-                    className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer"
+                    className="text-black hover:text-gray-600 font-medium transition-colors cursor-pointer text-xs sm:text-sm"
                   >
                     Already have an account? Log in
                   </button>

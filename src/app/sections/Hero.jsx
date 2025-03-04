@@ -23,7 +23,22 @@ const Hero = () => {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight">
-            <span className="text-[#956144]">Mental Health</span>
+            <span className="text-[#956144] relative">
+              Mental Health
+              <svg
+                className="absolute w-full h-[14px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+
             <br />
             <span>is Wealth</span>
           </h1>
