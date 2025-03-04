@@ -98,7 +98,21 @@ const GetHelp = () => {
             <span>How </span>
             <span className="">can the </span>
             <br className="hidden sm:block" />
-            <span className="text-[#956144]">Forum </span>
+            <span className="text-[#956144] relative">
+              Forum
+              <svg
+                className="absolute w-full h-[14px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
             <span className="text-red-500 text-4xl">♥</span>
             <br className="hidden sm:block" />
             <span>help you?</span>
