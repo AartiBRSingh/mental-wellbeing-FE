@@ -104,8 +104,8 @@ const Navbar = () => {
         <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center bg-white px-4 md:px-10 w-full md:w-[80vw]">
           <Link href={"/"}>
             <img
-              src="/syhlogo.png"
-              alt="logo"
+              src="/websiteLogo.png"
+              alt=""
               className="w-full h-16 cursor-pointer"
             />
           </Link>
