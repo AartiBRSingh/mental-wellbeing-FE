@@ -6,6 +6,7 @@ import { baseURL } from "@/app/baseURL";
 import axios from "axios";
 import Cookies from "js-cookie";
 import CourseReviews from "@/app/components/CourseReviews";
+import toast, { Toaster } from "react-hot-toast";
 
 const CourseDetailPage = () => {
   const searchParams = useSearchParams();
@@ -14,6 +15,9 @@ const CourseDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("about");
   const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [phoneNo, setPhoneNo] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -58,6 +62,98 @@ const CourseDetailPage = () => {
     { id: "reviews", label: "Reviews" },
     { id: "testimonials", label: "Testimonials" },
   ];
+
+  useEffect(() => {
+    const loadRazorpayScript = () => {
+      return new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+      });
+    };
+
+    loadRazorpayScript();
+
+    const storedUserId = Cookies.get("userId");
+    const storedUserName = Cookies.get("name");
+    const storedEmail = Cookies.get("email");
+    const storedPhoneNo = Cookies.get("contactNumber");
+
+    setUserId(storedUserId);
+    setUserName(storedUserName);
+    setEmail(storedEmail);
+    setPhoneNo(storedPhoneNo);
+  }, []);
+
+  const handlePayment = async () => {
+    const amount = course.discountedPrice;
+
+    const response = await fetch(`${baseURL}/api/create-order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, amount }),
+    });
+
+    const data = await response.json();
+    if (!data.success) {
+      return alert("Failed to create Razorpay order");
+    }
+
+    const { order } = data;
+
+    if (!window.Razorpay) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_CR2IahVWmEdcMA",
+      amount: order.amount,
+      currency: "INR",
+      name: "ShareYHeart",
+      description: "Transaction",
+      image: "/logo.png",
+      order_id: order.id,
+      handler: async (response) => {
+        const verifyResponse = await fetch(
+          `${baseURL}/api/verify-payment-course`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              userId,
+              amount,
+              courseId: course._id,
+              planType: "course",
+            }),
+          }
+        );
+
+        const verifyData = await verifyResponse.json();
+        if (verifyData.success) {
+          toast.success("Payment Successful!");
+        } else {
+          toast.error("Payment verification failed. Please try again.");
+        }
+      },
+      prefill: {
+        name: userName,
+        email: email,
+        contact: phoneNo,
+      },
+      theme: {
+        color: "black",
+      },
+    };
+
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,6 +202,7 @@ const CourseDetailPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 bg-white my-10 rounded-2xl shadow-xl">
+      <Toaster position="bottom-left" reverseOrder={false} />
       {/* Hero Section */}
       <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-white rounded-xl">
         <div className="flex flex-col md:flex-row md:items-center gap-6">
@@ -195,7 +292,10 @@ const CourseDetailPage = () => {
                 </span>
               )}
             </div>
-            <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold mb-2 hover:bg-blue-700 transition-colors duration-200 shadow-md">
+            <button
+              onClick={handlePayment}
+              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold mb-2 hover:bg-blue-700 transition-colors duration-200 shadow-md"
+            >
               Enroll Now
             </button>
           </div>
