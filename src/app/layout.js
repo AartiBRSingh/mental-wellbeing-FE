@@ -32,6 +32,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-KN87CTM7');`,
           }}
         ></Script>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-Q5E7N97732"
+        ></Script>
+        <Script strategy="afterInteractive" id="ga4">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Q5E7N97732');
+        `}
+        </Script>
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"
