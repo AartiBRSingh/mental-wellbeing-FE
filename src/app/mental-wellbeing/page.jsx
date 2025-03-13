@@ -58,8 +58,7 @@ const Page = () => {
       <div
         className="absolute inset-0 z-0 opacity-40"
         style={{
-          backgroundImage:
-            "url('https://img.freepik.com/free-vector/watercolor-international-yoga-day-background_23-2149394054.jpg?t=st=1741844447~exp=1741848047~hmac=89ef11e14e935d1d316e89adef3fe2f3166a30956ba617ef5504fda409219629&w=1060')",
+          backgroundImage: "url('/mental-bg.jpg')",
           backgroundSize: "contain",
           backgroundPosition: "",
           backgroundRepeat: "no-repeat",
