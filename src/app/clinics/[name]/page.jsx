@@ -224,65 +224,78 @@ const ClinicDetailPage = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-green-600 via-green-500 to-green-400 text-white">
+      <div className="bg-[#003B29] text-white">
         <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="flex items-center space-x-2 bg-white/10 w-fit rounded-full px-4 py-1 text-sm backdrop-blur-sm mb-6">
-              <Clock className="w-4 h-4" />
-              <span>Open Today</span>
-              <ChevronRight className="w-4 h-4" />
-              <span className="font-medium">{clinic.timings.monday}</span>
-            </div>
+          <div className="flex justify-between items-center ml-10">
+            <div className="max-w-3xl">
+              <div className="flex items-center space-x-2 bg-white/10 w-fit rounded-full px-4 py-1 text-sm backdrop-blur-sm mb-6">
+                <Clock className="w-4 h-4" />
+                <span>Open Today</span>
+                <ChevronRight className="w-4 h-4" />
+                <span className="font-medium">{clinic.timings.monday}</span>
+              </div>
 
-            {/* <h1 className="text-5xl font-bold mb-4">{clinic.name}</h1> */}
-            <span className="text-white relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
-              <span className="relative">
-                {clinic.name}
-                <svg
-                  className="absolute w-full h-[6px] bottom-0 left-0"
-                  viewBox="0 0 100 10"
-                  preserveAspectRatio="none"
+              {/* <h1 className="text-5xl font-bold mb-4">{clinic.name}</h1> */}
+              <span className="text-white relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
+                <span className="relative">
+                  {clinic.name}
+                  <svg
+                    className="absolute w-full h-[6px] bottom-0 left-0"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 -5, 100 5"
+                      stroke="orange"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                  </svg>
+                </span>
+              </span>
+
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="flex items-center space-x-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      className="w-5 h-5 text-yellow-400 fill-current"
+                    />
+                  ))}
+                </div>
+                <span className="text-blue-100">
+                  {clinic.testimonials?.length || 0} Patient Reviews
+                </span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="flex items-start space-x-2">
+                  <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
+                  <p className="text-blue-50">
+                    {clinic.line1}
+                    <br />
+                    {clinic.city}, {clinic.state} - {clinic.pincode}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="w-full sm:w-auto px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl"
                 >
-                  <path
-                    d="M0 5 Q 50 -5, 100 5"
-                    stroke="orange"
-                    strokeWidth="4"
-                    fill="transparent"
-                  />
-                </svg>
-              </span>
-            </span>
-
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="flex items-center space-x-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    className="w-5 h-5 text-yellow-400 fill-current"
-                  />
-                ))}
+                  Book Appointment
+                </button>
               </div>
-              <span className="text-blue-100">
-                {clinic.testimonials?.length || 0} Patient Reviews
-              </span>
             </div>
-
-            <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <div className="flex items-start space-x-2">
-                <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
-                <p className="text-blue-50">
-                  {clinic.line1}
-                  <br />
-                  {clinic.city}, {clinic.state} - {clinic.pincode}
-                </p>
-              </div>
-
-              <button
-                onClick={() => setShowModal(true)}
-                className="w-full sm:w-auto px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl"
-              >
-                Book Appointment
-              </button>
+            <div className="mt-2 max-w-sm w-full">
+              <iframe
+                src={clinic.googleAddressUrl}
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                className="rounded-2xl"
+              ></iframe>
             </div>
           </div>
         </div>
@@ -314,16 +327,13 @@ const ClinicDetailPage = () => {
 
             {/* Tab Content */}
             {tabContent[selectedTab]}
-            {selectedTab !== "testimonials" && (
-              <div className="flex">
-                <RateClinic clinicId={id} />
-              </div>
-            )}
+            {selectedTab !== "testimonials" && <div className="flex"></div>}
           </div>
 
           {/* Right Column - Info Cards */}
           <div className="space-y-6">
             {/* Contact Card */}
+
             <div className="bg-white rounded-2xl p-6 shadow-lg">
               <h2 className="text-xl font-bold text-gray-800 mb-4">
                 Contact Information
@@ -370,17 +380,7 @@ const ClinicDetailPage = () => {
                 ))}
               </div>
             </div>
-            <div className="mt-2">
-              <iframe
-                src={clinic.googleAddressUrl}
-                width="100%"
-                height="300"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                className="rounded-2xl"
-              ></iframe>
-            </div>
+            <RateClinic clinicId={id} />
           </div>
         </div>
       </div>
