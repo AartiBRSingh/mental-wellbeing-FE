@@ -17,7 +17,6 @@ export const DecorativeShapes = () => (
         opacity="0.2"
       />
     </svg>
-    {/* Add your PNG image here */}
     <Image
       src="/sunflower21.png"
       alt="Decorative image"
@@ -25,13 +24,6 @@ export const DecorativeShapes = () => (
       height={200}
       className="absolute top-[590px] rotate-12 right-6 sm:top-[210px] sm:right-20 z-0 opacity-100 w-[130px] sm:w-[200px] h-auto"
     />
-    {/* <Image
-      src="/hearttext.png" // Replace with your image path from the public folder
-      alt="Decorative image"
-      width={70} // Adjust size as needed
-      height={70} // Adjust size as needed
-      className="absolute rotate-12 top-[135px] right-8 sm:right-[1080px] z-0 opacity-100" // Adjust positioning and opacity as needed
-    /> */}
   </div>
 );
 
@@ -40,36 +32,51 @@ const Services = () => {
   const hardcodedCourses = [
     {
       _id: "course1",
-      title: "Anxiety Management for Children",
-      category: "Mental Health",
+      title: "Clinical Psychology",
+      category: "Jadavpur University",
+      categoryIcon: "/JUBG.png",
       language: "English",
-      thumbnailUrl:
-        "https://img.freepik.com/free-vector/hand-drawn-child-custody-illustration_23-2150790640.jpg?t=st=1740114026~exp=1740117626~hmac=d08936976f033e7c6452999b0b702d121b10c8379726414233ded5bea1789ae2&w=740",
+      thumbnailUrl: "/Course.jpg",
       rating: 4.8,
       price: 2999,
       discountedPrice: 1499,
+      level: "Beginner",
+      duration: "3 months",
+      reviews: 285,
+      details:
+        "Career path include roles in hospital, mental health clinics, and private practice.",
     },
     {
       _id: "course2",
-      title: "Building Self-Esteem in Teenagers",
-      category: "Personal Growth",
-      language: "Hindi",
-      thumbnailUrl:
-        "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2000",
+      title: "Counseling Psychology",
+      category: "Jadavpur University",
+      categoryIcon: "/JUBG.png",
+      language: "English",
+      thumbnailUrl: "/Course.jpg",
       rating: 4.6,
       price: 3499,
       discountedPrice: 1999,
+      level: "Intermediate",
+      duration: "4 months",
+      reviews: 320,
+      details:
+        "Career path include roles in educational institutions, corporate wellness program, and community support services.",
     },
     {
       _id: "course3",
-      title: "Mindfulness for School Success",
-      category: "Education",
+      title: "Industrial/Organisational Psychology",
+      category: "Jadavpur University",
+      categoryIcon: "/JUBG.png",
       language: "English",
-      thumbnailUrl:
-        "https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=2000",
+      thumbnailUrl: "/Course.jpg",
       rating: 4.9,
       price: 2799,
       discountedPrice: 1299,
+      level: "Beginner",
+      duration: "2 months",
+      reviews: 175,
+      details:
+        "Career path include roles in HR department, corporate training, and organisational consulting.",
     },
   ];
 
@@ -145,15 +152,25 @@ const Services = () => {
             <span> at any age</span>
           </h1>
 
-          <p className="text-white max-w-60  text-xs mb-10 sm:text-sm md:text-base xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
+          <p className="text-white max-w-60 text-xs mb-6 sm:text-sm md:text-base xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
             Enhance skills, boost career opportunities, and get
             industry-specific knowledge.
           </p>
+
+          {/* Moved the "All Courses" button here to ensure it's visible and in the front */}
+          <div className="flex justify-center md:justify-start z-20">
+            <Link href="/all-courses">
+              <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
+                All Courses
+                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+              </button>
+            </Link>
+          </div>
         </section>
 
-        <section className="flex-1 flex justify-center md:justify-end z-10 relative w-full md:w-auto  sm:mt-8 md:mt-0">
+        <section className="flex-1 flex justify-center md:justify-end z-10 relative w-full md:w-auto sm:mt-8 md:mt-0">
           {courses.length > 0 && (
-            <div className="w-full max-w-[320px] h-[360px] sm:h-96 flex justify-center gap-3 sm:gap-4">
+            <div className="w-full max-w-[320px] h-[450px] sm:h-[450px] flex justify-center gap-3 sm:gap-4">
               <div className="flex flex-col justify-between my-2">
                 {courses.map((_, index) => (
                   <div
@@ -166,31 +183,71 @@ const Services = () => {
                 ))}
               </div>
 
-              <div className="bg-white rounded-xl shadow-lg w-full sm:w-[320px]">
-                <Link href={`/all-courses/${courses[currentCourse]?._id}`}>
+              <div className="bg-white rounded-lg shadow-lg w-full sm:w-[320px] overflow-hidden border border-gray-200 flex flex-col">
+                <Link
+                  href={`/all-courses/${courses[currentCourse]?._id}`}
+                  className="flex flex-col h-full"
+                >
                   <div className="relative">
                     <img
                       src={courses[currentCourse]?.thumbnailUrl}
                       alt={courses[currentCourse]?.title}
-                      className="rounded-t-lg w-full h-48 sm:h-48 object-cover"
+                      className="w-full h-44 object-cover"
                     />
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 sm:px-3 py-1 bg-[#228B22] text-white rounded-full text-xs sm:text-sm font-medium">
-                      {courses[currentCourse]?.language}
+                    <div className="absolute top-3 right-3 bg-white rounded-md px-2 py-1 text-sm font-medium flex items-center">
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        className="mr-1"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                        />
+                      </svg>
+                      AI skills
                     </div>
                   </div>
-                  <div className="p-4 sm:p-4">
-                    <div className="mb-3 sm:mb-4">
-                      <span className="px-3 sm:px-4 py-1 sm:py-1.5 bg-[#F0E68C] text-[#8B4513] rounded-full text-xs sm:text-sm font-semibold">
+
+                  <div className="p-4 flex-grow flex flex-col">
+                    <div className="flex items-center mb-2">
+                      <Image
+                        src={courses[currentCourse]?.categoryIcon}
+                        alt="category icon"
+                        width={30}
+                        height={30}
+                        className="object-contain mr-2"
+                      />
+                      <span className="text-gray-700">
                         {courses[currentCourse]?.category}
                       </span>
                     </div>
-                    <h2 className="text-base sm:text-lg font-semibold text-[#4A3427] mb-2 sm:mb-3 line-clamp-1 h-6 sm:h-7">
+
+                    <h2 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">
                       {courses[currentCourse]?.title}
                     </h2>
-                    <div className="mb-3 sm:mb-4">
+
+                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                      {courses[currentCourse]?.details}
+                    </p>
+
+                    <div className="mb-2">
                       {renderStars(courses[currentCourse]?.rating || 5)}
                     </div>
-                    <div className="flex items-center justify-between border-t border-[#F5DEB3] pt-3 sm:pt-4">
+
+                    <div className="text-sm text-gray-600 mb-2">
+                      <span className="mr-2">
+                        {courses[currentCourse]?.level}
+                      </span>
+                      <span className="mx-1">•</span>
+                      <span className="mr-2">Professional Certificate</span>
+                      <span className="mx-1">•</span>
+                      <span>{courses[currentCourse]?.duration}</span>
+                    </div>
+
+                    {/* Price section always at bottom */}
+                    {/* <div className="mt-auto pt-2 flex items-center justify-between border-t border-[#F5DEB3] ">
                       <span className="text-lg sm:text-xl font-bold text-[#4A3427]">
                         ₹{courses[currentCourse]?.discountedPrice}
                       </span>
@@ -200,21 +257,14 @@ const Services = () => {
                           ₹{courses[currentCourse]?.price}
                         </span>
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 </Link>
               </div>
             </div>
           )}
         </section>
-        <div className="relative flex justify-center md:justify-start md:absolute md:left-[870px] md:bottom-6">
-          <Link href="/all-courses">
-            <button className="px-4 sm:px-6 py-2 sm:py-3 mt-2 sm:mt-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
-              All Courses
-              <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
-            </button>
-          </Link>
-        </div>
+        {/* Removed the previously positioned "All Courses" button that was getting covered */}
       </main>
     </div>
   );
