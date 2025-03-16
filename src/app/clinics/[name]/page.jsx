@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   MapPin,
   Phone,
@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   ArrowRight,
   Quote,
+  Map,
 } from "lucide-react";
 import CustomCursor from "@/app/components/CustomCursor";
 import RateClinic from "@/app/sections/RateClinic";
@@ -26,7 +27,13 @@ const ClinicDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showMapModal, setShowMapModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState("about");
+  const [isSticky, setIsSticky] = useState(false);
+  const tabsRef = useRef(null);
+  const aboutRef = useRef(null);
+  const expertsRef = useRef(null);
+  const testimonialsRef = useRef(null);
   const [appointmentForm, setAppointmentForm] = useState({
     name: "",
     email: "",
@@ -44,12 +51,52 @@ const ClinicDetailPage = () => {
         setClinic(res.data);
       } catch (error) {
         console.log(error);
+        setError("Failed to load clinic data. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, [id]);
+
+  // Handle sticky navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (tabsRef.current) {
+        const tabsPosition = tabsRef.current.getBoundingClientRect().top;
+        setIsSticky(tabsPosition <= 0);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Smooth scrolling function
+  const scrollToSection = (section) => {
+    const scrollOptions = {
+      behavior: "smooth",
+      block: "start",
+    };
+
+    setSelectedTab(section);
+
+    switch (section) {
+      case "about":
+        aboutRef.current?.scrollIntoView(scrollOptions);
+        break;
+      case "experts":
+        expertsRef.current?.scrollIntoView(scrollOptions);
+        break;
+      case "testimonials":
+        testimonialsRef.current?.scrollIntoView(scrollOptions);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,158 +122,12 @@ const ClinicDetailPage = () => {
 
   if (!clinic) return null;
 
-  const tabContent = {
-    about: (
-      <div className="space-y-6">
-        <div className="bg-white rounded-b-2xl p-6 shadow-lg">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            About Our Clinic
-          </h2>
-          <p className="text-gray-600 leading-relaxed">{clinic.about}</p>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-blue-50 p-4 rounded-xl">
-              <div className="flex items-center space-x-2 text-blue-600 mb-2">
-                <CheckCircle2 className="w-5 h-5" />
-                <span className="font-semibold">Expert Care</span>
-              </div>
-              <p className="text-sm text-gray-600">
-                Professional medical services with experienced specialists
-              </p>
-            </div>
-            <div className="bg-blue-50 p-4 rounded-xl">
-              <div className="flex items-center space-x-2 text-blue-600 mb-2">
-                <CheckCircle2 className="w-5 h-5" />
-                <span className="font-semibold">Modern Facilities</span>
-              </div>
-              <p className="text-sm text-gray-600">
-                State-of-the-art medical equipment and comfortable environment
-              </p>
-            </div>
-            <div className="bg-blue-50 p-4 rounded-xl">
-              <div className="flex items-center space-x-2 text-blue-600 mb-2">
-                <CheckCircle2 className="w-5 h-5" />
-                <span className="font-semibold">Patient-First</span>
-              </div>
-              <p className="text-sm text-gray-600">
-                Focused on providing the best patient experience
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
-    experts: (
-      <div className="space-y-6">
-        <div className="bg-white rounded-2xl p-6 shadow-lg">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
-            Our Medical Experts
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {clinic.experts.map((expert) => (
-              <div
-                key={expert._id}
-                className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-              >
-                <div className="aspect-video relative">
-                  <img
-                    src={expert.image}
-                    alt={expert.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                      Available Today
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800">
-                    {expert.name}
-                  </h3>
-                  <p className="text-blue-600 font-medium mb-4">
-                    {expert.specialization}
-                  </p>
-                  <div className="flex items-center space-x-4">
-                    <button
-                      onClick={() => setShowModal(true)}
-                      className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
-                    >
-                      <span>Book Appointment</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-    testimonials: (
-      <div className="space-y-6">
-        <div className="bg-white rounded-2xl p-6 shadow-lg">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
-            Patient Testimonials
-          </h2>
-          <div className="space-y-6">
-            {clinic.testimonials && clinic.testimonials.length > 0 ? (
-              clinic.testimonials.map((testimonial, index) => (
-                <div
-                  key={testimonial._id || index}
-                  className="bg-blue-50 p-6 rounded-xl relative"
-                >
-                  <div className="absolute top-4 right-4 text-blue-300">
-                    <Quote className="w-8 h-8" />
-                  </div>
-                  <p className="text-gray-700 italic mb-4 leading-relaxed">
-                    {testimonial.review}
-                  </p>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                      {testimonial.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-800">
-                        {testimonial.name}
-                      </h4>
-                      <div className="flex items-center space-x-1">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star
-                            key={star}
-                            className="w-4 h-4 text-yellow-400 fill-current"
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="text-center py-8 text-gray-500">
-                <p>No testimonials available yet.</p>
-              </div>
-            )}
-          </div>
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
-            >
-              <span>Share Your Experience</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </div>
-    ),
-  };
-
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Hero Section */}
       <div className="bg-[#003B29] text-white">
         <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center ml-10">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center md:ml-10">
             <div className="max-w-3xl">
               <div className="flex items-center space-x-2 bg-white/10 w-fit rounded-full px-4 py-1 text-sm backdrop-blur-sm mb-6">
                 <Clock className="w-4 h-4" />
@@ -235,7 +136,6 @@ const ClinicDetailPage = () => {
                 <span className="font-medium">{clinic.timings.monday}</span>
               </div>
 
-              {/* <h1 className="text-5xl font-bold mb-4">{clinic.name}</h1> */}
               <span className="text-white relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
                 <span className="relative">
                   {clinic.name}
@@ -285,17 +185,17 @@ const ClinicDetailPage = () => {
                   Book Appointment
                 </button>
               </div>
-            </div>
-            <div className="mt-2 max-w-sm w-full">
-              <iframe
-                src={clinic.googleAddressUrl}
-                width="100%"
-                height="300"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                className="rounded-2xl"
-              ></iframe>
+
+              {/* VIEW MAP button for mobile only */}
+              <div className="mt-6 md:hidden">
+                <button
+                  onClick={() => setShowMapModal(true)}
+                  className="flex items-center justify-center w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors shadow-lg"
+                >
+                  <Map className="w-5 h-5 mr-2" />
+                  VIEW MAP
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -307,12 +207,17 @@ const ClinicDetailPage = () => {
           {/* Left Column - Main Content */}
           <div className="md:col-span-2">
             {/* Navigation Tabs */}
-            <div className="bg-white rounded-t-2xl shadow-sm p-4">
+            <div
+              ref={tabsRef}
+              className={`bg-white rounded-t-2xl shadow-sm p-4 ${
+                isSticky ? "sticky top-0 z-10 rounded-2xl shadow-md" : ""
+              }`}
+            >
               <div className="flex space-x-6">
                 {["about", "experts", "testimonials"].map((tab) => (
                   <button
                     key={tab}
-                    onClick={() => setSelectedTab(tab)}
+                    onClick={() => scrollToSection(tab)}
                     className={`pb-2 font-medium text-lg capitalize ${
                       selectedTab === tab
                         ? "text-blue-600 border-b-2 border-blue-600"
@@ -325,14 +230,169 @@ const ClinicDetailPage = () => {
               </div>
             </div>
 
-            {/* Tab Content */}
-            {tabContent[selectedTab]}
-            {selectedTab !== "testimonials" && <div className="flex"></div>}
+            {/* About Section */}
+            <div ref={aboutRef} id="about" className="space-y-6 pt-4">
+              <div className="bg-white rounded-b-2xl p-6 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                  About Our Clinic
+                </h2>
+                <p className="text-gray-600 leading-relaxed">{clinic.about}</p>
+                <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-blue-50 p-4 rounded-xl">
+                    <div className="flex items-center space-x-2 text-blue-600 mb-2">
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span className="font-semibold">Expert Care</span>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Professional medical services with experienced specialists
+                    </p>
+                  </div>
+                  <div className="bg-blue-50 p-4 rounded-xl">
+                    <div className="flex items-center space-x-2 text-blue-600 mb-2">
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span className="font-semibold">Modern Facilities</span>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      State-of-the-art medical equipment and comfortable
+                      environment
+                    </p>
+                  </div>
+                  <div className="bg-blue-50 p-4 rounded-xl">
+                    <div className="flex items-center space-x-2 text-blue-600 mb-2">
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span className="font-semibold">Patient-First</span>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Focused on providing the best patient experience
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Experts Section */}
+            <div ref={expertsRef} id="experts" className="space-y-6 pt-8 mt-6">
+              <div className="bg-white rounded-2xl p-6 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                  Our Medical Experts
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {clinic.experts.map((expert) => (
+                    <div
+                      key={expert._id}
+                      className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                    >
+                      <div className="aspect-video relative">
+                        <img
+                          src={expert.image}
+                          alt={expert.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                            Available Today
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-gray-800">
+                          {expert.name}
+                        </h3>
+                        <p className="text-blue-600 font-medium mb-4">
+                          {expert.specialization}
+                        </p>
+                        <div className="flex items-center space-x-4">
+                          <button
+                            onClick={() => setShowModal(true)}
+                            className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+                          >
+                            <span>Book Appointment</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonials Section */}
+            <div
+              ref={testimonialsRef}
+              id="testimonials"
+              className="space-y-6 pt-8 mt-6"
+            >
+              <div className="bg-white rounded-2xl p-6 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                  Patient Testimonials
+                </h2>
+                <div className="space-y-6">
+                  {clinic.testimonials && clinic.testimonials.length > 0 ? (
+                    clinic.testimonials.map((testimonial, index) => (
+                      <div
+                        key={testimonial._id || index}
+                        className="bg-blue-50 p-6 rounded-xl relative"
+                      >
+                        <div className="absolute top-4 right-4 text-blue-300">
+                          <Quote className="w-8 h-8" />
+                        </div>
+                        <p className="text-gray-700 italic mb-4 leading-relaxed">
+                          {testimonial.review}
+                        </p>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                            {testimonial.name.charAt(0)}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-800">
+                              {testimonial.name}
+                            </h4>
+                            <div className="flex items-center space-x-1">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <Star
+                                  key={star}
+                                  className="w-4 h-4 text-yellow-400 fill-current"
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-8 text-gray-500">
+                      <p>No testimonials available yet.</p>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
+                  >
+                    <span>Share Your Experience</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right Column - Info Cards */}
           <div className="space-y-6">
             {/* Contact Card */}
+            <div className="mt-8 md:mt-2 max-w-sm w-full hidden md:block p-1 bg-white rounded-2xl shadow-xl">
+              <iframe
+                src={clinic.googleAddressUrl}
+                width="100%"
+                height="200"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                className="rounded-2xl"
+              ></iframe>
+            </div>
 
             <div className="bg-white rounded-2xl p-6 shadow-lg">
               <h2 className="text-xl font-bold text-gray-800 mb-4">
@@ -491,61 +551,44 @@ const ClinicDetailPage = () => {
         </div>
       )}
 
-      {/* Footer */}
-      {/* <footer className="bg-white border-t">
-        <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                {clinic.name}
-              </h3>
-              <p className="text-gray-600">
-                Providing quality healthcare services with a focus on patient
-                comfort and well-being.
-              </p>
+      {/* Map Modal for Mobile View */}
+      {showMapModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-sm md:hidden">
+          <div className="bg-white rounded-2xl w-full max-w-lg p-4 relative">
+            <button
+              onClick={() => setShowMapModal(false)}
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 z-10"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <h3 className="text-xl font-bold text-gray-800 mb-4">
+              Clinic Location
+            </h3>
+
+            <div className="w-full h-80">
+              <iframe
+                src={clinic.googleAddressUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 2 }}
+                allowFullScreen=""
+                loading="lazy"
+                className="rounded-xl"
+              ></iframe>
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                Quick Links
-              </h3>
-              <div className="space-y-3">
-                <a href="#" className="block text-gray-600 hover:text-blue-600">
-                  About Us
-                </a>
-                <a href="#" className="block text-gray-600 hover:text-blue-600">
-                  Our Doctors
-                </a>
-                <a href="#" className="block text-gray-600 hover:text-blue-600">
-                  Services
-                </a>
-                <a href="#" className="block text-gray-600 hover:text-blue-600">
-                  Contact
-                </a>
-              </div>
+
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={() => setShowMapModal(false)}
+                className="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors"
+              >
+                Close
+              </button>
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                Emergency Contact
-              </h3>
-              <div className="space-y-3">
-                <p className="flex items-center text-gray-600">
-                  <Phone className="w-5 h-5 mr-2 text-blue-600" />
-                  {clinic.phoneNumber}
-                </p>
-                <p className="flex items-center text-gray-600">
-                  <Mail className="w-5 h-5 mr-2 text-blue-600" />
-                  {clinic.email}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="border-t mt-12 pt-8">
-            <p className="text-center text-gray-500 text-sm">
-              © {new Date().getFullYear()} {clinic.name}. All rights reserved.
-            </p>
           </div>
         </div>
-      </footer> */}
+      )}
     </div>
   );
 };

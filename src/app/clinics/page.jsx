@@ -11,6 +11,7 @@ import {
   ChevronDown,
   ChevronUp,
   ChevronRight,
+  ChevronLeft,
   Search,
 } from "lucide-react";
 import axios from "axios";
@@ -18,7 +19,6 @@ import { baseURL } from "../baseURL";
 import Link from "next/link";
 
 const ClinicDisplay = () => {
-  // Rest of the code remains exactly the same as before
   const [clinics, setClinics] = useState([]);
   const [filteredClinics, setFilteredClinics] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,6 +29,7 @@ const ClinicDisplay = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [openFaq, setOpenFaq] = useState(null);
+
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
   };
@@ -161,37 +162,80 @@ const ClinicDisplay = () => {
     </div>
   );
 
-  const TestimonialSection = ({ clinicId, testimonials }) => {
+  const TestimonialSection = ({ testimonials, showAll = true }) => {
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+    const displayTestimonials = showAll
+      ? testimonials || []
+      : testimonials?.filter((t) => t.isApproved === true) || [];
+
+    if (displayTestimonials.length === 0) return null;
 
     const nextTestimonial = () => {
       setCurrentTestimonial((prev) =>
-        prev === testimonials?.length - 1 ? 0 : prev + 1
+        prev === displayTestimonials.length - 1 ? 0 : prev + 1
+      );
+    };
+
+    const prevTestimonial = () => {
+      setCurrentTestimonial((prev) =>
+        prev === 0 ? displayTestimonials.length - 1 : prev - 1
       );
     };
 
     useEffect(() => {
       const timer = setInterval(nextTestimonial, 5000);
       return () => clearInterval(timer);
-    }, [testimonials?.length]);
+    }, [displayTestimonials.length]);
 
-    return testimonials?.length > 0 ? (
-      <div className="bg-gray-100 p-6 rounded-lg mt-6">
-        <h3 className="text-lg font-semibold mb-4">What Our Patients Say</h3>
+    return (
+      <div className="bg-gray-50 p-6 rounded-lg mt-6 shadow-sm">
+        <h3 className="text-lg font-semibold mb-4 text-green-800">
+          What Our Patients Say
+        </h3>
         <div className="relative overflow-hidden">
           <div className="transition-all duration-500 ease-in-out">
-            <div className="space-y-2">
+            <div className="space-y-3 line-clamp-1">
               <p className="text-gray-600 italic">
-                {testimonials[currentTestimonial].review}
+                {displayTestimonials[currentTestimonial].review}
               </p>
-              <p className="text-sm font-medium text-gray-800">
-                - {testimonials[currentTestimonial].name}
+              <p className="text-sm font-medium text-green-700">
+                - {displayTestimonials[currentTestimonial].name}
               </p>
             </div>
           </div>
+
+          {displayTestimonials.length > 1 && (
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={prevTestimonial}
+                className="p-1 rounded-full bg-green-100 hover:bg-green-200 transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5 text-green-700" />
+              </button>
+              <div className="flex space-x-1 items-center">
+                {displayTestimonials.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`block h-2 w-2 rounded-full ${
+                      currentTestimonial === index
+                        ? "bg-green-600"
+                        : "bg-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={nextTestimonial}
+                className="p-1 rounded-full bg-green-100 hover:bg-green-200 transition-colors"
+              >
+                <ChevronRight className="w-5 h-5 text-green-700" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
-    ) : null;
+    );
   };
 
   if (loading) {
@@ -215,8 +259,7 @@ const ClinicDisplay = () => {
           key={clinic._id}
           className="mb-8 bg-white rounded-lg shadow-lg overflow-hidden"
         >
-          <div className="bg-gradient-to-r from-green-500 to-green-300 p-6">
-            {/* <h2 className="text-2xl font-bold text-white">{clinic.name}</h2> */}
+          <div className="bg-green-800 p-6">
             <span className="text-white relative text-4xl md:text-6xl lg:text-4xl block">
               <span className="relative">
                 {clinic.name}
@@ -277,7 +320,14 @@ const ClinicDisplay = () => {
                       {clinic.email}
                     </span>
                   </button>
+                </div>
 
+                <TestimonialSection
+                  testimonials={clinic.testimonials}
+                  showAll={true}
+                />
+
+                <div className="flex items-center justify-center md:hidden">
                   <Link
                     href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
                     className="inline-flex text-lg pt-4 pl-2 items-center text-green-600 font-semibold hover:text-green-700 transition-colors"
@@ -287,18 +337,6 @@ const ClinicDisplay = () => {
                     <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
-
-                {/* <div className="mt-2">
-                  <a
-                    href={clinic.googleAddressUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-                  >
-                    <MapPin className="w-5 h-5" />
-                    View on Maps
-                  </a>
-                </div> */}
               </div>
 
               <div className="space-y-5">
@@ -328,7 +366,7 @@ const ClinicDisplay = () => {
                   </div>
 
                   <div
-                    className={`grid grid-cols-2 gap-2 mt-2 transition-all duration-300 ${
+                    className={`grid grid-cols-1 gap-4 mt-2 transition-all duration-300 ${
                       expandedTimings[clinic._id] ? "block" : "hidden"
                     }`}
                   >
@@ -341,20 +379,16 @@ const ClinicDisplay = () => {
                   </div>
                 </div>
 
-                {/* <TestimonialSection
-                  clinicId={clinic._id}
-                  testimonials={clinic.testimonials}
-                /> */}
-
-                {/* <div className="aspect-video rounded-lg overflow-hidden shadow-md">
-                  <iframe
-                    src={clinic.googleAddressUrl}
-                    className="w-full h-full border-0"
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </div> */}
+                <div className="hidden md:flex items-center justify-center">
+                  <Link
+                    href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
+                    className="inline-flex text-lg pt-4 pl-2 items-center text-green-600 font-semibold hover:text-green-700 transition-colors"
+                    target="_blank"
+                  >
+                    View More
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
