@@ -130,21 +130,19 @@ const BlogDetailPage = () => {
             <div className="flex gap-3">
               <button
                 className={`${buttonStyle} bg-green-500 hover:bg-green-600`}
-                onClick={() =>
-                  window.open(`https://wa.me/?text=${url}`, "_blank")
-                }
+                onClick={() => window.open(`https://wa.me/?text=${url}`)}
               >
                 <FaWhatsapp size={20} className="text-white" />
               </button>
               <button
                 className={`${buttonStyle} bg-red-500 hover:bg-red-600`}
-                onClick={() => window.open(`mailto:?body=${url}`, "_blank")}
+                onClick={() => window.open(`mailto:?body=${url}`)}
               >
                 <Mails size={20} className="text-white" />
               </button>
               <button
                 className={`${buttonStyle} bg-red-500 hover:bg-[#006396]`}
-                onClick={() => window.open(`https://www.quora.com/`, "_blank")}
+                onClick={() => window.open(`https://www.quora.com/`)}
               >
                 <BsQuora size={20} className="text-white" />
               </button>
@@ -152,8 +150,7 @@ const BlogDetailPage = () => {
                 className={`${buttonStyle} bg-[#0077b5] hover:bg-[#006396]`}
                 onClick={() =>
                   window.open(
-                    `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-                    "_blank"
+                    `https://www.linkedin.com/sharing/share-offsite/?url=${url}`
                   )
                 }
               >
@@ -161,7 +158,7 @@ const BlogDetailPage = () => {
               </button>
               <button
                 className={`${buttonStyle} bg-black hover:bg-sky-600`}
-                onClick={() => window.open(`https://twitter.com/`, "_blank")}
+                onClick={() => window.open(`https://twitter.com/`)}
               >
                 <BsTwitterX size={20} className="text-white" />
               </button>
@@ -169,8 +166,7 @@ const BlogDetailPage = () => {
                 className={`${buttonStyle} bg-blue-600 hover:bg-blue-700`}
                 onClick={() =>
                   window.open(
-                    `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-                    "_blank"
+                    `https://www.facebook.com/sharer/sharer.php?u=${url}`
                   )
                 }
               >
@@ -194,7 +190,6 @@ const BlogDetailPage = () => {
             <Link
               href={`/blog/${generateSlug(post.title, post._id)}`}
               className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
-              target="_blank"
             >
               {post.title}
             </Link>

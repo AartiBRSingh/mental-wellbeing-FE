@@ -166,7 +166,6 @@ const NewsPage = () => {
                       <Link
                         href={`/news/${generateSlug(post.title, post._id)}`}
                         className="text-xl font-bold text-gray-800 mb-2 cursor-pointer"
-                        target="_blank"
                       >
                         {post.title}
                       </Link>
@@ -180,7 +179,6 @@ const NewsPage = () => {
                       <Link
                         href={`/news/${generateSlug(post.title, post._id)}`}
                         className="text-orange-500 hover:underline cursor-pointer"
-                        target="_blank"
                       >
                         Read More
                       </Link>
@@ -227,7 +225,6 @@ const NewsPage = () => {
                 <Link
                   href={`/news/${generateSlug(post.title, post._id)}`}
                   className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
-                  target="_blank"
                 >
                   {post.title}
                 </Link>

@@ -1,14 +1,31 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 export default function RateClinic({ clinicId }) {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [message, setMessage] = useState("");
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    const userId = Cookies.get("userId");
+    if (userId) {
+      setUserId(userId);
+    } else {
+      setUserId("");
+    }
+  }, []);
 
   const submitReview = async () => {
+    if (!userId) {
+      router.push("/sign-in");
+      return;
+    }
     if (!name || !review) {
       setMessage("Name and review are required");
       return;
