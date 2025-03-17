@@ -265,7 +265,7 @@ const ClinicDisplay = () => {
           key={clinic._id}
           className="mb-8 bg-white rounded-lg shadow-lg overflow-hidden"
         >
-          <div className="bg-green-800 p-6">
+          <div className="bg-green-800 p-6 flex justify-between">
             <span className="text-white relative text-4xl md:text-6xl lg:text-4xl block">
               <span className="relative">
                 {clinic.name}
@@ -283,6 +283,15 @@ const ClinicDisplay = () => {
                 </svg>
               </span>
             </span>
+            <div className="hidden md:flex items-center justify-center">
+              <Link
+                href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
+                className="inline-flex text-lg pt-4 pl-2 items-center text-slate-100 font-semibold hover:text-white transition-colors"
+              >
+                View Details
+                <ChevronRight className="w-4 h-4 ml-1" />
+              </Link>
+            </div>
           </div>
           <div className="p-6">
             <div className="grid md:grid-cols-2 gap-6">
@@ -328,33 +337,6 @@ const ClinicDisplay = () => {
                   </button>
                 </div>
 
-                <TestimonialSection
-                  testimonials={clinic.testimonials}
-                  showAll={true}
-                />
-
-                <div className="flex items-center justify-center md:hidden">
-                  <Link
-                    href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
-                    className="inline-flex text-lg pt-4 pl-2 items-center text-green-600 font-semibold hover:text-green-700 transition-colors"
-                    target="_blank"
-                  >
-                    View More
-                    <ChevronRight className="w-4 h-4 ml-1" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="space-y-5">
-                <div className="aspect-video rounded-lg overflow-hidden shadow-md">
-                  <img
-                    src={clinic.images[0]}
-                    alt={`${clinic.name} - Featured Image`}
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300 cursor-pointer"
-                    onClick={() => window.open(clinic.images[0], "_blank")}
-                  />
-                </div>
-
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div
                     className="flex items-center justify-between cursor-pointer"
@@ -385,16 +367,31 @@ const ClinicDisplay = () => {
                   </div>
                 </div>
 
-                <div className="hidden md:flex items-center justify-center">
+                <div className="flex items-center justify-center md:hidden">
                   <Link
                     href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
                     className="inline-flex text-lg pt-4 pl-2 items-center text-green-600 font-semibold hover:text-green-700 transition-colors"
-                    target="_blank"
                   >
                     View More
                     <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
+              </div>
+
+              <div className="space-y-5">
+                <div className="aspect-video rounded-lg overflow-hidden shadow-md">
+                  <img
+                    src={clinic.images[0]}
+                    alt={`${clinic.name} - Featured Image`}
+                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+                    onClick={() => window.open(clinic.images[0])}
+                  />
+                </div>
+
+                <TestimonialSection
+                  testimonials={clinic.testimonials}
+                  showAll={true}
+                />
               </div>
             </div>
           </div>
