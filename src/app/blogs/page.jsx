@@ -212,13 +212,11 @@ const BlogPage = () => {
                         <Link
                           href={`/blogs/${generateSlug(post.title, post._id)}`}
                           className="block text-2xl font-bold text-gray-800 mb-3 hover:text-green-600 transition-colors"
-                          target="_blank"
                           onClick={(e) => {
                             e.preventDefault();
                             trackPostView(post._id);
                             window.open(
-                              `/blogs/${generateSlug(post.title, post._id)}`,
-                              "_blank"
+                              `/blogs/${generateSlug(post.title, post._id)}`
                             );
                           }}
                         >
@@ -234,7 +232,6 @@ const BlogPage = () => {
                         <Link
                           href={`/blogs/${generateSlug(post.title, post._id)}`}
                           className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
-                          target="_blank"
                         >
                           Read More
                           <ChevronRight className="w-4 h-4 ml-1" />
@@ -306,7 +303,6 @@ const BlogPage = () => {
                   <Link
                     href={`/blogs/${generateSlug(post.title, post._id)}`}
                     className="block font-semibold text-gray-800 mb-2 group-hover:text-green-600 transition-colors"
-                    target="_blank"
                   >
                     {post.title}
                   </Link>

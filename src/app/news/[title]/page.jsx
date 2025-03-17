@@ -113,7 +113,6 @@ const NewsDetailPage = () => {
             <Link
               href={`/news/${generateSlug(post.title, post._id)}`}
               className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
-              target="_blank"
             >
               {post.title}
             </Link>
