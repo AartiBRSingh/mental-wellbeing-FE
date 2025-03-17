@@ -169,7 +169,16 @@ const ClinicDisplay = () => {
       ? testimonials || []
       : testimonials?.filter((t) => t.isApproved === true) || [];
 
-    if (displayTestimonials.length === 0) return null;
+    useEffect(() => {
+      if (displayTestimonials.length > 0) {
+        const timer = setInterval(() => {
+          setCurrentTestimonial((prev) =>
+            prev === displayTestimonials.length - 1 ? 0 : prev + 1
+          );
+        }, 5000);
+        return () => clearInterval(timer);
+      }
+    }, [displayTestimonials.length]);
 
     const nextTestimonial = () => {
       setCurrentTestimonial((prev) =>
@@ -183,10 +192,7 @@ const ClinicDisplay = () => {
       );
     };
 
-    useEffect(() => {
-      const timer = setInterval(nextTestimonial, 5000);
-      return () => clearInterval(timer);
-    }, [displayTestimonials.length]);
+    if (displayTestimonials.length === 0) return null;
 
     return (
       <div className="bg-gray-50 p-6 rounded-lg mt-6 shadow-sm">
