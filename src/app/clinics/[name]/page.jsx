@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { Image, ChevronLeft } from "lucide-react";
 import {
   MapPin,
   Phone,
@@ -34,6 +35,7 @@ const ClinicDetailPage = () => {
   const aboutRef = useRef(null);
   const expertsRef = useRef(null);
   const testimonialsRef = useRef(null);
+  const galleryRef = useRef(null);
   const [appointmentForm, setAppointmentForm] = useState({
     name: "",
     email: "",
@@ -64,7 +66,8 @@ const ClinicDetailPage = () => {
     const handleScroll = () => {
       if (tabsRef.current) {
         const tabsPosition = tabsRef.current.getBoundingClientRect().top;
-        setIsSticky(tabsPosition <= 0);
+        const navbarHeight = 64; // Replace with your actual navbar height
+        setIsSticky(tabsPosition <= navbarHeight);
       }
     };
 
@@ -74,7 +77,20 @@ const ClinicDetailPage = () => {
     };
   }, []);
 
-  // Smooth scrolling function
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showGalleryModal, setShowGalleryModal] = useState(false);
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === clinic.images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? clinic.images.length - 1 : prevIndex - 1
+    );
+  };
   const scrollToSection = (section) => {
     const scrollOptions = {
       behavior: "smooth",
@@ -86,6 +102,9 @@ const ClinicDetailPage = () => {
     switch (section) {
       case "about":
         aboutRef.current?.scrollIntoView(scrollOptions);
+        break;
+      case "gallery":
+        galleryRef.current?.scrollIntoView(scrollOptions);
         break;
       case "experts":
         expertsRef.current?.scrollIntoView(scrollOptions);
@@ -210,11 +229,11 @@ const ClinicDetailPage = () => {
             <div
               ref={tabsRef}
               className={`bg-white rounded-t-2xl shadow-sm p-4 ${
-                isSticky ? "sticky top-0 z-10 rounded-2xl shadow-md" : ""
+                isSticky ? "sticky top-24 z-10 rounded-2xl shadow-md" : ""
               }`}
             >
               <div className="flex space-x-6">
-                {["about", "experts", "testimonials"].map((tab) => (
+                {["about", "gallery", "experts", "testimonials"].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => scrollToSection(tab)}
@@ -269,6 +288,95 @@ const ClinicDetailPage = () => {
                 </div>
               </div>
             </div>
+
+            {/* Gallery Section */}
+            <div ref={galleryRef} id="gallery" className="space-y-6 pt-8 mt-6">
+              <div className="bg-white rounded-2xl p-6 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <Image className="w-6 h-6 mr-2 text-blue-600" />
+                  Clinic Gallery
+                </h2>
+
+                {clinic.images && clinic.images.length > 0 ? (
+                  <>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {clinic.images.map((image, index) => (
+                        <div
+                          key={index}
+                          className="aspect-video relative rounded-xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => {
+                            setCurrentImageIndex(index);
+                            setShowGalleryModal(true);
+                          }}
+                        >
+                          <img
+                            src={image}
+                            alt={`Clinic image ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-4 text-center">
+                      <button
+                        onClick={() => setShowGalleryModal(true)}
+                        className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800"
+                      >
+                        <span className="font-medium">View all photos</span>
+                        <ChevronRight className="w-5 h-5 ml-1" />
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-8 text-gray-500">
+                    <p>No gallery images available.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Gallery Modal */}
+            {showGalleryModal && (
+              <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50">
+                <button
+                  onClick={() => setShowGalleryModal(false)}
+                  className="absolute right-4 top-4 text-white hover:text-gray-300"
+                >
+                  <X className="w-8 h-8" />
+                </button>
+
+                <div className="relative w-full max-w-4xl">
+                  <div className="relative">
+                    <img
+                      src={clinic.images[currentImageIndex]}
+                      alt={`Gallery image ${currentImageIndex + 1}`}
+                      className="w-full h-auto max-h-[80vh] object-contain"
+                    />
+
+                    <button
+                      onClick={handlePrevImage}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+
+                    <button
+                      onClick={handleNextImage}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                  </div>
+
+                  <div className="mt-4 text-center text-white">
+                    <p>
+                      {currentImageIndex + 1} / {clinic.images.length}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Experts Section */}
             <div ref={expertsRef} id="experts" className="space-y-6 pt-8 mt-6">

@@ -201,66 +201,83 @@ const CourseDetailPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 bg-white my-10 rounded-2xl shadow-xl">
+    <div className="max-w-7xl mx-auto px-4 py-8 bg-gradient-to-b from-white to-[#FFD255] my-10 rounded-2xl shadow-xl">
       <Toaster position="bottom-left" reverseOrder={false} />
       {/* Hero Section */}
-      <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-white rounded-xl">
-        <div className="flex flex-col md:flex-row md:items-center gap-6">
+      <div className="mb-8 p-6 bg-transparent rounded-xl mx-5">
+        <div className="flex flex-col md:flex-row md:items-center p-5 gap-6 rounded-2xl ">
           <img
             src={course?.thumbnailUrl || "/childhover.jpg"}
             alt={course?.title}
             className="h-60 w-60 rounded-full mb-6 shadow-xl object-cover border-4 border-white mx-auto md:mx-0"
           />
-          <div>
-            <h1 className="text-3xl font-bold mb-3 text-gray-800">
+
+          <span className="text-black relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
+            <span className="relative">
               {course?.title}
-            </h1>
-            <div className="relative">
-              <p
-                className={`text-gray-700 mb-1 max-w-3xl leading-relaxed ${
-                  !showFullDescription ? "line-clamp-5" : ""
-                }`}
+              <svg
+                className="absolute w-full h-[10px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
               >
-                {course?.description}
-              </p>
-              <button
-                onClick={() => setShowFullDescription(!showFullDescription)}
-                className="text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none transition-colors duration-200"
-              >
-                {showFullDescription ? "Show less" : "Read more"}
-              </button>
-            </div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-gray-600 font-medium">Instructor: </span>
-              <a href="#" className="text-blue-600 hover:underline font-medium">
-                {course?.instructor}
-              </a>
-            </div>
-            <div className="flex flex-wrap items-center gap-4 mb-4">
-              <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4 text-blue-600" />
-                <span className="text-gray-700">
-                  Start Date:{" "}
-                  <span className="font-medium">{course?.startDate}</span>
-                </span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4 text-blue-600" />
-                <span className="text-gray-700">
-                  Schedule:{" "}
-                  <span className="font-medium">{course?.schedule}</span>
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-2 mb-4">
-              <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                {course?.language}
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div className="flex justify-between mt-4">
+          <div className="flex flex-wrap items-center gap-2 m-4">
+            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+              {course?.language}
+            </span>
+            <span className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">
+              {course?.category}
+            </span>
+            <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+              {course?.level}
+            </span>
+          </div>
+        </div>
+        <div className="m-4">
+          <div className="relative">
+            <p
+              className={`text-gray-700 mb-1 max-w-max leading-relaxed ${
+                !showFullDescription ? "line-clamp-3" : ""
+              }`}
+            >
+              {course?.description}
+            </p>
+            <button
+              onClick={() => setShowFullDescription(!showFullDescription)}
+              className="text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none transition-colors duration-200"
+            >
+              {showFullDescription ? "Show less" : "Read more"}
+            </button>
+          </div>
+          <div className="flex items-center gap-2 my-4">
+            <span className="text-gray-600 font-medium">Instructor: </span>
+            <a href="#" className="text-blue-600 hover:underline font-medium">
+              {course?.instructor}
+            </a>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 mb-4 text-lg">
+            <div className="flex items-center gap-1">
+              <Calendar className="w-4 h-4 text-blue-600" />
+              <span className="text-gray-700">
+                Start Date:{" "}
+                <span className="font-medium">{course?.startDate}</span>
               </span>
-              <span className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">
-                {course?.category}
-              </span>
-              <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
-                {course?.level}
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="w-4 h-4 text-blue-600" />
+              <span className="text-gray-700">
+                Schedule:{" "}
+                <span className="font-medium">{course?.schedule}</span>
               </span>
             </div>
           </div>
@@ -294,7 +311,7 @@ const CourseDetailPage = () => {
             </div>
             <button
               onClick={handlePayment}
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold mb-2 hover:bg-blue-700 transition-colors duration-200 shadow-md"
+              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold mb-2 hover:bg-blue-700 transition-colors duration-200 shadow-md mt-4"
             >
               Enroll Now
             </button>
@@ -347,7 +364,7 @@ const CourseDetailPage = () => {
       </div>
 
       {/* Navigation */}
-      <div className="sticky top-0 bg-white border-b mb-6 z-10 py-2 px-2 rounded-t-lg shadow-sm">
+      <div className="sticky top-24 bg-white border-b mb-6 z-10 py-5 px-5 rounded-xl shadow-sm">
         <nav className="flex gap-8 overflow-x-auto">
           {sections.map(({ id, label }) => (
             <button
