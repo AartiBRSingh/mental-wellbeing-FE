@@ -6,11 +6,14 @@ import { baseURL } from "../baseURL";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
+import ExpertBookingModal from "../components/ExpertBookingModal";
 
 const ExpertPage = () => {
   const searchParams = useSearchParams();
   const urlUserType = searchParams.get("userType");
   const [userId, setUserId] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedExpert, setSelectedExpert] = useState(null);
 
   useEffect(() => {
     const userId = Cookies.get("userId");
@@ -68,6 +71,11 @@ const ExpertPage = () => {
     fetchCities();
   }, []);
 
+  const handleBookAppointment = (expert) => {
+    setSelectedExpert(expert);
+    setShowModal(true);
+  };
+
   const ExpertCard = ({ expert }) => (
     <div className="bg-slate-50 rounded-xl md:rounded-3xl p-4 md:p-8 relative border shadow-xl border-red-100 w-full">
       <div className="flex flex-col md:flex-row gap-4 md:gap-6">
@@ -105,18 +113,6 @@ const ExpertPage = () => {
             <p className="text-sm md:text-xl font-medium text-gray-600">
               {expert.userType}
             </p>
-            {/* <div className="flex items-center gap-2 md:gap-3">
-              <Mail className="w-4 h-4 text-black" />
-              <span className="text-xs md:text-xl truncate text-gray-600">
-                {expert.email}
-              </span>
-            </div> */}
-            {/* <div className="flex items-center gap-2 md:gap-3">
-              <Phone className="w-4 h-4 text-black" />
-              <span className="text-xs md:text-xl text-gray-600">
-                {expert.contactNumber}
-              </span>
-            </div> */}
             <div className="flex gap-2">
               {expert._id !== userId ? (
                 <>
@@ -166,7 +162,10 @@ const ExpertPage = () => {
               9:00 AM - 5:00 PM
             </p>
           </div>
-          <button className="w-full md:w-40 mt-4 md:mt-0 md:absolute md:right-16 md:bottom-10 bg-green-700 text-white p-2 rounded-xl hover:bg-green-800 transition-colors font-semibold text-sm md:text-base">
+          <button
+            onClick={() => handleBookAppointment(expert)}
+            className="w-full md:w-40 mt-4 md:mt-0 md:absolute md:right-16 md:bottom-10 bg-green-700 text-white p-2 rounded-xl hover:bg-green-800 transition-colors font-semibold text-sm md:text-base"
+          >
             Book Appointment
           </button>
         </div>
@@ -235,13 +234,14 @@ const ExpertPage = () => {
           </select>
         </div>
 
-        {/* Unified View for both Mobile and Desktop */}
         <div className="space-y-4 md:space-y-6">
           {experts?.map((expert) => (
             <ExpertCard key={expert._id} expert={expert} />
           ))}
         </div>
       </div>
+
+      {showModal && <ExpertBookingModal setShowModal={setShowModal} />}
     </section>
   );
 };

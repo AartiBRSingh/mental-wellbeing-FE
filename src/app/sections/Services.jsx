@@ -40,8 +40,8 @@ const Services = () => {
       rating: 4.8,
       price: 2999,
       discountedPrice: 1499,
-      level: "Beginner",
-      duration: "3 months",
+      level: "Advanced",
+      duration: "6 Months",
       reviews: 285,
       details:
         "Career path include roles in hospital, mental health clinics, and private practice.",
@@ -56,8 +56,8 @@ const Services = () => {
       rating: 4.6,
       price: 3499,
       discountedPrice: 1999,
-      level: "Beginner",
-      duration: "3 months",
+      level: "Advanced",
+      duration: "6 Months",
       reviews: 320,
       details:
         "Career path include roles in educational institutions, corporate wellness program, and community support services.",
@@ -72,8 +72,8 @@ const Services = () => {
       rating: 4.9,
       price: 2799,
       discountedPrice: 1299,
-      level: "Beginner",
-      duration: "3 months",
+      level: "Advanced",
+      duration: "6 Months",
       reviews: 175,
       details:
         "Career path include roles in HR department, corporate training, and organisational consulting.",
@@ -240,9 +240,12 @@ const Services = () => {
                     <span className="mr-2">
                       {courses[currentCourse]?.level}
                     </span>
-                    <span className="mx-1">•</span>
-                    <span className="mr-2">Professional Certificate</span>
-                    <span className="mx-1">•</span>
+
+                    <span className="mr-2">
+                      <span className="mx-2">•</span>Professional Certificate
+                      <span className="mx-2">•</span>
+                    </span>
+
                     <span>{courses[currentCourse]?.duration}</span>
                   </div>
 
