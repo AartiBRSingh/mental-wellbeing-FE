@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Star, Info, ChevronDown, Calendar, Clock } from "lucide-react";
+import { Star, Info, ChevronDown, Calendar, Clock, Share } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { baseURL } from "@/app/baseURL";
 import axios from "axios";
 import Cookies from "js-cookie";
 import CourseReviews from "@/app/components/CourseReviews";
+import ShareModal from "@/app/components/ShareModal";
 import toast, { Toaster } from "react-hot-toast";
 
 const CourseDetailPage = () => {
@@ -21,6 +22,8 @@ const CourseDetailPage = () => {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [pageUrl, setPageUrl] = useState("");
 
   useEffect(() => {
     const userId = Cookies.get("userId");
@@ -28,6 +31,12 @@ const CourseDetailPage = () => {
       setUserId(userId);
     } else {
       setUserId("");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPageUrl(window.location.href);
     }
   }, []);
 
@@ -183,6 +192,11 @@ const CourseDetailPage = () => {
     }).format(price);
   };
 
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(pageUrl);
+    toast.success("Link copied to clipboard!");
+  };
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-8 bg-white m-10 rounded-2xl shadow-xl">
@@ -309,12 +323,21 @@ const CourseDetailPage = () => {
                 </span>
               )}
             </div>
-            <button
-              onClick={handlePayment}
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold mb-2 hover:bg-blue-700 transition-colors duration-200 shadow-md mt-4"
-            >
-              Enroll Now
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handlePayment}
+                className="bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold mb-2 hover:bg-blue-700 transition-colors duration-200 shadow-md mt-4 flex-grow"
+              >
+                Enroll Now
+              </button>
+              <button
+                onClick={() => setShowShareModal(true)}
+                className="bg-green-500 text-white py-3 px-4 rounded-lg font-semibold mb-2 hover:bg-slate-600 transition-colors duration-200 shadow-md gap-2 mt-4 flex items-center justify-center"
+              >
+                Share
+                <Share size={20} />
+              </button>
+            </div>
           </div>
           {course?.enrollmentCount > 0 && (
             <div className="mt-4 flex items-center bg-blue-50 px-4 py-2 rounded-lg">
@@ -549,6 +572,17 @@ const CourseDetailPage = () => {
             What learners are saying
           </h2>
           <p className="text-gray-600 italic">No testimonials available yet.</p>
+        </div>
+      )}
+
+      {/* Share Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <ShareModal
+            onClose={() => setShowShareModal(false)}
+            copyToClipboard={handleCopyToClipboard}
+            src={pageUrl}
+          />
         </div>
       )}
     </div>

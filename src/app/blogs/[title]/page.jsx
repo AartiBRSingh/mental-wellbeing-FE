@@ -25,12 +25,13 @@ const BlogDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [pageUrl, setPageUrl] = useState("");
 
   const searchParams = useSearchParams();
   const postId = searchParams.get("id");
 
   const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(pageUrl);
   };
 
   function generateSlug(title, id) {
@@ -40,7 +41,21 @@ const BlogDetailPage = () => {
       .replace(/(^-|-$)+/g, "")}?id=${id}`;
   }
 
+  // Helper function to open share popups with consistent dimensions
+  const openSharePopup = (url) => {
+    window.open(
+      url,
+      "_blank",
+      "width=600,height=500,location=yes,resizable=yes,scrollbars=yes"
+    );
+  };
+
   useEffect(() => {
+    // Set the page URL when the component mounts
+    if (typeof window !== "undefined") {
+      setPageUrl(window.location.href);
+    }
+
     const fetchData = async () => {
       try {
         const api = axios.create({
@@ -93,6 +108,10 @@ const BlogDetailPage = () => {
     return null;
   }
 
+  // URL encode the page URL and title for sharing
+  const encodedUrl = encodeURIComponent(pageUrl);
+  const encodedTitle = encodeURIComponent(post.title);
+
   return (
     <div className="container mx-auto px-4 py-8 grid md:grid-cols-3 gap-8">
       <div className="md:col-span-2">
@@ -118,55 +137,74 @@ const BlogDetailPage = () => {
                 <Eye className="mr-2 h-5 w-5" />
                 <span>{post.totalViews} Views</span>
               </div>
-
-              {/* <button
-                onClick={() => setShowShareModal(true)}
-                className="px-4 py-2 bg-slate-400 text-white rounded-md hover:bg-blue-500 transition-colors cursor-pointer flex items-center gap-2"
-              >
-                Share
-                <Share size={20} />
-              </button> */}
             </div>
             <div className="flex gap-3">
+              {/* WhatsApp share button */}
               <button
                 className={`${buttonStyle} bg-green-500 hover:bg-green-600`}
-                onClick={() => window.open(`https://wa.me/?text=${url}`)}
+                onClick={() =>
+                  openSharePopup(
+                    `https://api.whatsapp.com/send?text=${encodedTitle}%20-%20${encodedUrl}`
+                  )
+                }
               >
                 <FaWhatsapp size={20} className="text-white" />
               </button>
+
+              {/* Email share button */}
               <button
                 className={`${buttonStyle} bg-red-500 hover:bg-red-600`}
-                onClick={() => window.open(`mailto:?body=${url}`)}
+                onClick={() =>
+                  openSharePopup(
+                    `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodedTitle}&body=Check out this article: ${encodedUrl}`
+                  )
+                }
               >
                 <Mails size={20} className="text-white" />
               </button>
+
+              {/* Quora share button */}
               <button
                 className={`${buttonStyle} bg-red-500 hover:bg-[#006396]`}
-                onClick={() => window.open(`https://www.quora.com/`)}
+                onClick={() =>
+                  openSharePopup(
+                    `https://www.quora.com/share?url=${encodedUrl}`
+                  )
+                }
               >
                 <BsQuora size={20} className="text-white" />
               </button>
+
+              {/* LinkedIn share button */}
               <button
                 className={`${buttonStyle} bg-[#0077b5] hover:bg-[#006396]`}
                 onClick={() =>
-                  window.open(
-                    `https://www.linkedin.com/sharing/share-offsite/?url=${url}`
+                  openSharePopup(
+                    `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}&title=${encodedTitle}`
                   )
                 }
               >
                 <Linkedin size={20} className="text-white" />
               </button>
+
+              {/* Twitter share button */}
               <button
                 className={`${buttonStyle} bg-black hover:bg-sky-600`}
-                onClick={() => window.open(`https://twitter.com/`)}
+                onClick={() =>
+                  openSharePopup(
+                    `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`
+                  )
+                }
               >
                 <BsTwitterX size={20} className="text-white" />
               </button>
+
+              {/* Facebook share button */}
               <button
                 className={`${buttonStyle} bg-blue-600 hover:bg-blue-700`}
                 onClick={() =>
-                  window.open(
-                    `https://www.facebook.com/sharer/sharer.php?u=${url}`
+                  openSharePopup(
+                    `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`
                   )
                 }
               >
@@ -211,7 +249,7 @@ const BlogDetailPage = () => {
           <ShareModal
             onClose={() => setShowShareModal(false)}
             copyToClipboard={handleCopyToClipboard}
-            src={window.location.href}
+            src={pageUrl}
           />
         </div>
       )}
