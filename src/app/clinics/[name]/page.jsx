@@ -62,12 +62,21 @@ const ClinicDetailPage = () => {
   }, [id]);
 
   // Handle sticky navbar
+  // Replace your current sticky navbar useEffect with this:
   useEffect(() => {
     const handleScroll = () => {
       if (tabsRef.current) {
         const tabsPosition = tabsRef.current.getBoundingClientRect().top;
         const navbarHeight = 64; // Replace with your actual navbar height
-        setIsSticky(tabsPosition <= navbarHeight);
+
+        // Add a small buffer to prevent flickering at the threshold
+        if (tabsPosition <= navbarHeight + 2) {
+          // Only set to true if it's not already true
+          if (!isSticky) setIsSticky(true);
+        } else {
+          // Only set to false if it's not already false
+          if (isSticky) setIsSticky(true);
+        }
       }
     };
 
@@ -75,7 +84,7 @@ const ClinicDetailPage = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isSticky]); // Add isSticky to the dependency array
 
   const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
   const testimonialsPerPage = 2;
@@ -239,7 +248,7 @@ const ClinicDetailPage = () => {
             {/* Navigation Tabs */}
             <div
               ref={tabsRef}
-              className={`bg-white rounded-t-2xl shadow-sm p-4 ${
+              className={`bg-white rounded-t-2xl shadow-sm p-4 transition-all duration-200 ease-in-out ${
                 isSticky ? "sticky top-24 z-10 rounded-2xl shadow-md" : ""
               }`}
             >

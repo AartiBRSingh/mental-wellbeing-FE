@@ -3,8 +3,61 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Star, Calendar } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const CourseCatalog = () => {
+  // Hardcoded courses from Services component
+  const hardcodedCourses = [
+    {
+      _id: "course1",
+      title: "Clinical Psychology",
+      category: "Jadavpur University",
+      categoryIcon: "/JUBG.png",
+      language: "English",
+      thumbnailUrl: "/Course.jpg",
+      rating: 4.8,
+      level: "Advanced",
+      duration: "6",
+      reviews: 0,
+      details:
+        "Career path include roles in hospital, mental health clinics, and private practice.",
+      // Adding needed properties for consistency with API courses
+      curriculum: [{ duration: 6 }],
+    },
+    {
+      _id: "course2",
+      title: "Counseling Psychology",
+      category: "Jadavpur University",
+      categoryIcon: "/JUBG.png",
+      language: "English",
+      thumbnailUrl: "/Course.jpg",
+      rating: 4.6,
+      level: "Advanced",
+      duration: "6",
+      reviews: 0,
+      details:
+        "Career path include roles in educational institutions, corporate wellness program, and community support services.",
+      // Adding needed properties for consistency with API courses
+      curriculum: [{ duration: 6 }],
+    },
+    {
+      _id: "course3",
+      title: "Industrial/Organisational Psychology",
+      category: "Jadavpur University",
+      categoryIcon: "/JUBG.png",
+      language: "English",
+      thumbnailUrl: "/Course.jpg",
+      rating: 4.9,
+      level: "Advanced",
+      duration: "6",
+      reviews: 0,
+      details:
+        "Career path include roles in HR department, corporate training, and organisational consulting.",
+      // Adding needed properties for consistency with API courses
+      curriculum: [{ duration: 6 }],
+    },
+  ];
+
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,7 +68,17 @@ const CourseCatalog = () => {
         const response = await axios.get(
           "https://starfish-app-fko8w.ondigitalocean.app/get-courses"
         );
-        setCourses(response.data);
+
+        // Combine hardcoded courses with fetched courses
+        // Filter out any duplicates by ID if needed
+        const fetchedCourses = response.data;
+        const hardcodedIds = hardcodedCourses.map((course) => course._id);
+        const filteredFetchedCourses = fetchedCourses.filter(
+          (course) => !hardcodedIds.includes(course._id)
+        );
+
+        // Combine with hardcoded courses first
+        setCourses([...hardcodedCourses, ...filteredFetchedCourses]);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch courses");
@@ -36,6 +99,7 @@ const CourseCatalog = () => {
   };
 
   const getTotalDuration = (curriculum) => {
+    if (!curriculum || !Array.isArray(curriculum)) return 0;
     return curriculum.reduce((total, item) => total + item.duration, 0);
   };
 
@@ -92,58 +156,77 @@ const CourseCatalog = () => {
           <div className="h-1.5 w-24 bg-[#D2691E] mx-auto rounded-full"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {courses.map((course) => (
-            <div
-              key={course._id}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-[#F5DEB3]/50"
-            >
-              <Link
-                href={`/all-courses/${generateSlug(course.title, course._id)}`}
+          {courses.map((course) => {
+            // Determine if this is a hardcoded course (has categoryIcon) or fetched course
+            const isHardcodedCourse = Boolean(course.categoryIcon);
+
+            return (
+              <div
+                key={course._id}
+                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-[#F5DEB3]/50"
               >
-                <div>
-                  <div className="relative aspect-video">
-                    <img
-                      src={course.thumbnailUrl}
-                      alt={course.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                    />
-                    <div className="absolute top-4 right-4 px-4 py-1.5 bg-[#228B22] text-white rounded-full text-sm font-medium shadow-md">
-                      {course.category}
-                    </div>
-                  </div>
-                  <div className="p-6 space-y-4">
-                    <h2 className="text-2xl font-bold text-[#4A3427] leading-tight line-clamp-1">
-                      {course.title}
-                    </h2>
-                    <p className="text-[#6B584C] line-clamp-2">
-                      {course.description}
-                    </p>
-                    <div className="flex items-center">
-                      {renderStars(course.rating || 5)}
-                    </div>
-                    <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
-                      <div className="flex gap-3 items-center">
-                        <Calendar />
-                        <span>
-                          {getTotalDuration(course.curriculum)} months
-                        </span>
-                      </div>
-                      <div className="flex gap-3 items-center">
-                        <span className="text-2xl font-bold text-[#4A3427]">
-                          {formatPrice(course.discountedPrice)}
-                        </span>
-                        {course.discountedPrice < course.price && (
-                          <span className="text-sm text-[#6B584C] line-through opacity-70 gap-1">
-                            {formatPrice(course.price)}
-                          </span>
+                <Link
+                  href={`/all-courses/${generateSlug(
+                    course.title,
+                    course._id
+                  )}`}
+                >
+                  <div>
+                    <div className="relative aspect-video">
+                      <img
+                        src={course.thumbnailUrl}
+                        alt={course.title}
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      />
+
+                      {/* Display category based on course type */}
+                      <div className="absolute top-4 right-4 px-4 py-1.5 bg-[#228B22] text-white rounded-full text-sm font-medium shadow-md flex items-center">
+                        {isHardcodedCourse && (
+                          <img
+                            src={course.categoryIcon}
+                            alt="University logo"
+                            className="h-5 w-5 mr-2 rounded-full"
+                          />
                         )}
+                        {course.category}
+                      </div>
+                    </div>
+                    <div className="p-6 space-y-4">
+                      <h2 className="text-2xl font-bold text-[#4A3427] leading-tight line-clamp-1">
+                        {course.title}
+                      </h2>
+                      <p className="text-[#6B584C] line-clamp-2">
+                        {course.details || course.description || ""}
+                      </p>
+                      <div className="flex items-center">
+                        {renderStars(course.rating || 5)}
+                      </div>
+                      <div className="flex items-center justify-between pt-4 border-t border-[#F5DEB3]">
+                        <div className="flex gap-3 items-center">
+                          <Calendar />
+                          <span>
+                            {course.duration ||
+                              getTotalDuration(course.curriculum)}{" "}
+                            months
+                          </span>
+                        </div>
+                        <div className="flex gap-3 items-center">
+                          <span className="text-2xl font-bold text-[#4A3427]">
+                            {formatPrice(course.discountedPrice)}
+                          </span>
+                          {course.discountedPrice < course.price && (
+                            <span className="text-sm text-[#6B584C] line-through opacity-70 gap-1">
+                              {formatPrice(course.price)}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
