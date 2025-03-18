@@ -77,6 +77,21 @@ const ClinicDetailPage = () => {
     };
   }, []);
 
+  const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
+  const testimonialsPerPage = 2;
+
+  const handleNextTestimonialPage = () => {
+    const maxPages =
+      Math.ceil((clinic.testimonials?.length || 0) / testimonialsPerPage) - 1;
+    setCurrentTestimonialPage((prev) => (prev < maxPages ? prev + 1 : 0));
+  };
+
+  const handlePrevTestimonialPage = () => {
+    const maxPages =
+      Math.ceil((clinic.testimonials?.length || 0) / testimonialsPerPage) - 1;
+    setCurrentTestimonialPage((prev) => (prev > 0 ? prev - 1 : maxPages));
+  };
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showGalleryModal, setShowGalleryModal] = useState(false);
 
@@ -143,9 +158,9 @@ const ClinicDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Hero Section */}
-      <div className="bg-[#003B29] text-white">
-        <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 -mt-10 sm:px-6 lg:px-8 mb-12 bg-gradient-to-b from-white to-green-600 rounded-2xl p-6">
+        <div className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center md:ml-10">
             <div className="max-w-3xl">
               <div className="flex items-center space-x-2 bg-white/10 w-fit rounded-full px-4 py-1 text-sm backdrop-blur-sm mb-6">
@@ -155,7 +170,7 @@ const ClinicDetailPage = () => {
                 <span className="font-medium">{clinic.timings.monday}</span>
               </div>
 
-              <span className="text-white relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
+              <span className="text-black relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
                 <span className="relative">
                   {clinic.name}
                   <svg
@@ -182,7 +197,7 @@ const ClinicDetailPage = () => {
                     />
                   ))}
                 </div>
-                <span className="text-blue-100">
+                <span className="text-slate-800">
                   {clinic.testimonials?.length || 0} Patient Reviews
                 </span>
               </div>
@@ -190,7 +205,7 @@ const ClinicDetailPage = () => {
               <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <div className="flex items-start space-x-2">
                   <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
-                  <p className="text-blue-50">
+                  <p className="text-slate-900">
                     {clinic.line1}
                     <br />
                     {clinic.city}, {clinic.state} - {clinic.pincode}
@@ -218,10 +233,6 @@ const ClinicDetailPage = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 -mt-10 sm:px-6 lg:px-8 mb-12">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Left Column - Main Content */}
           <div className="md:col-span-2">
@@ -250,7 +261,7 @@ const ClinicDetailPage = () => {
             </div>
 
             {/* About Section */}
-            <div ref={aboutRef} id="about" className="space-y-6 pt-4">
+            <div ref={aboutRef} id="about" className=" pt-4">
               <div className="bg-white rounded-b-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">
                   About Our Clinic
@@ -290,7 +301,7 @@ const ClinicDetailPage = () => {
             </div>
 
             {/* Gallery Section */}
-            <div ref={galleryRef} id="gallery" className="space-y-6 pt-8 mt-6">
+            <div ref={galleryRef} id="gallery" className="pt-2 mt-4">
               <div className="bg-white rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                   <Image className="w-6 h-6 mr-2 text-blue-600" />
@@ -379,7 +390,7 @@ const ClinicDetailPage = () => {
             )}
 
             {/* Experts Section */}
-            <div ref={expertsRef} id="experts" className="space-y-6 pt-8 mt-6">
+            <div ref={expertsRef} id="experts" className=" pt-2 mt-4">
               <div className="bg-white rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">
                   Our Medical Experts
@@ -425,8 +436,12 @@ const ClinicDetailPage = () => {
               </div>
             </div>
 
+            <div className="flex justify-center mt-3">
+              <RateClinic clinicId={id} />
+            </div>
+
             {/* Testimonials Section */}
-            <div
+            {/* <div
               ref={testimonialsRef}
               id="testimonials"
               className="space-y-6 pt-8 mt-6"
@@ -484,7 +499,7 @@ const ClinicDetailPage = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column - Info Cards */}
@@ -548,7 +563,104 @@ const ClinicDetailPage = () => {
                 ))}
               </div>
             </div>
-            <RateClinic clinicId={id} />
+
+            {/* Testimonials Section - Move this below RateClinic in the right column */}
+            <div
+              ref={testimonialsRef}
+              id="testimonials"
+              className="space-y-6 mt-6"
+            >
+              <div className="bg-white rounded-2xl p-6 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                  Patient Testimonials
+                </h2>
+
+                {clinic.testimonials && clinic.testimonials.length > 0 ? (
+                  <>
+                    <div className="space-y-6">
+                      {clinic.testimonials
+                        .slice(
+                          currentTestimonialPage * testimonialsPerPage,
+                          currentTestimonialPage * testimonialsPerPage +
+                            testimonialsPerPage
+                        )
+                        .map((testimonial, index) => (
+                          <div
+                            key={testimonial._id || index}
+                            className="bg-blue-50 p-6 rounded-xl relative"
+                          >
+                            <div className="absolute top-4 right-4 text-blue-300">
+                              <Quote className="w-8 h-8" />
+                            </div>
+                            <p className="text-gray-700 italic mb-4 leading-relaxed">
+                              {testimonial.review}
+                            </p>
+                            <div className="flex items-center space-x-3">
+                              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                                {testimonial.name.charAt(0)}
+                              </div>
+                              <div>
+                                <h4 className="font-semibold text-gray-800">
+                                  {testimonial.name}
+                                </h4>
+                                <div className="flex items-center space-x-1">
+                                  {[1, 2, 3, 4, 5].map((star) => (
+                                    <Star
+                                      key={star}
+                                      className="w-4 h-4 text-yellow-400 fill-current"
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+
+                    {/* Pagination controls */}
+                    <div className="flex justify-between items-center mt-6">
+                      <span className="text-sm text-gray-500">
+                        Showing page {currentTestimonialPage + 1} of{" "}
+                        {Math.ceil(
+                          (clinic.testimonials.length || 0) /
+                            testimonialsPerPage
+                        )}
+                      </span>
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={handlePrevTestimonialPage}
+                          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                          aria-label="Previous page"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button
+                          onClick={handleNextTestimonialPage}
+                          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                          aria-label="Next page"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-8 text-gray-500">
+                    <p>No testimonials available yet.</p>
+                  </div>
+                )}
+
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
+                  >
+                    <span>Share Your Experience</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

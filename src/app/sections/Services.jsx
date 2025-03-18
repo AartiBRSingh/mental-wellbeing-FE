@@ -56,8 +56,8 @@ const Services = () => {
       rating: 4.6,
       price: 3499,
       discountedPrice: 1999,
-      level: "Intermediate",
-      duration: "4 months",
+      level: "Beginner",
+      duration: "3 months",
       reviews: 320,
       details:
         "Career path include roles in educational institutions, corporate wellness program, and community support services.",
@@ -73,7 +73,7 @@ const Services = () => {
       price: 2799,
       discountedPrice: 1299,
       level: "Beginner",
-      duration: "2 months",
+      duration: "3 months",
       reviews: 175,
       details:
         "Career path include roles in HR department, corporate training, and organisational consulting.",
@@ -184,17 +184,17 @@ const Services = () => {
               </div>
 
               <div className="bg-white rounded-lg shadow-lg w-full sm:w-[320px] overflow-hidden border border-gray-200 flex flex-col">
-                <Link
+                {/* <Link
                   href={`/all-courses/${courses[currentCourse]?._id}`}
                   className="flex flex-col h-full"
-                >
-                  <div className="relative">
-                    <img
-                      src={courses[currentCourse]?.thumbnailUrl}
-                      alt={courses[currentCourse]?.title}
-                      className="w-full h-44 object-cover"
-                    />
-                    <div className="absolute top-3 right-3 bg-white rounded-md px-2 py-1 text-sm font-medium flex items-center">
+                > */}
+                <div className="relative">
+                  <img
+                    src={courses[currentCourse]?.thumbnailUrl}
+                    alt={courses[currentCourse]?.title}
+                    className="w-full h-56 object-cover"
+                  />
+                  {/* <div className="absolute top-3 right-3 bg-white rounded-md px-2 py-1 text-sm font-medium flex items-center">
                       <svg
                         width="18"
                         height="18"
@@ -207,47 +207,47 @@ const Services = () => {
                         />
                       </svg>
                       AI skills
-                    </div>
+                    </div> */}
+                </div>
+
+                <div className="px-3 flex-grow flex flex-col">
+                  <div className="flex items-center">
+                    <Image
+                      src={courses[currentCourse]?.categoryIcon}
+                      alt="category icon"
+                      width={30}
+                      height={30}
+                      className="object-contain mr-2"
+                    />
+                    <span className="text-gray-700">
+                      {courses[currentCourse]?.category}
+                    </span>
                   </div>
 
-                  <div className="p-4 flex-grow flex flex-col">
-                    <div className="flex items-center mb-2">
-                      <Image
-                        src={courses[currentCourse]?.categoryIcon}
-                        alt="category icon"
-                        width={30}
-                        height={30}
-                        className="object-contain mr-2"
-                      />
-                      <span className="text-gray-700">
-                        {courses[currentCourse]?.category}
-                      </span>
-                    </div>
+                  <h2 className="text-md font-bold text-gray-900 mb-1 ">
+                    {courses[currentCourse]?.title}
+                  </h2>
 
-                    <h2 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">
-                      {courses[currentCourse]?.title}
-                    </h2>
+                  <p className="text-gray-600 text-sm mb-1 line-clamp-3">
+                    {courses[currentCourse]?.details}
+                  </p>
 
-                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                      {courses[currentCourse]?.details}
-                    </p>
+                  <div className="mb-1">
+                    {renderStars(courses[currentCourse]?.rating || 5)}
+                  </div>
 
-                    <div className="mb-2">
-                      {renderStars(courses[currentCourse]?.rating || 5)}
-                    </div>
+                  <div className="text-sm text-gray-600 ">
+                    <span className="mr-2">
+                      {courses[currentCourse]?.level}
+                    </span>
+                    <span className="mx-1">•</span>
+                    <span className="mr-2">Professional Certificate</span>
+                    <span className="mx-1">•</span>
+                    <span>{courses[currentCourse]?.duration}</span>
+                  </div>
 
-                    <div className="text-sm text-gray-600 mb-2">
-                      <span className="mr-2">
-                        {courses[currentCourse]?.level}
-                      </span>
-                      <span className="mx-1">•</span>
-                      <span className="mr-2">Professional Certificate</span>
-                      <span className="mx-1">•</span>
-                      <span>{courses[currentCourse]?.duration}</span>
-                    </div>
-
-                    {/* Price section always at bottom */}
-                    {/* <div className="mt-auto pt-2 flex items-center justify-between border-t border-[#F5DEB3] ">
+                  {/* Price section always at bottom */}
+                  {/* <div className="mt-auto pt-2 flex items-center justify-between border-t border-[#F5DEB3] ">
                       <span className="text-lg sm:text-xl font-bold text-[#4A3427]">
                         ₹{courses[currentCourse]?.discountedPrice}
                       </span>
@@ -258,8 +258,8 @@ const Services = () => {
                         </span>
                       )}
                     </div> */}
-                  </div>
-                </Link>
+                </div>
+                {/* </Link> */}
               </div>
             </div>
           )}
