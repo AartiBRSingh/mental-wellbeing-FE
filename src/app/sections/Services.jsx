@@ -188,7 +188,7 @@ const Services = () => {
                   <img
                     src={courses[currentCourse]?.thumbnailUrl}
                     alt={courses[currentCourse]?.title}
-                    className="w-full h-56 object-cover"
+                    className="w-full h-60 object-cover"
                   />
                 </div>
 
@@ -206,7 +206,7 @@ const Services = () => {
                     </span>
                   </div>
 
-                  <h2 className="text-lg font-bold text-gray-900 mb-2">
+                  <h2 className="text-lg font-bold text-gray-900 mb-1">
                     {courses[currentCourse]?.title}
                   </h2>
 

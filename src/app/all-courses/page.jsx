@@ -176,7 +176,7 @@ const CourseCatalog = () => {
                       <img
                         src={course.thumbnailUrl}
                         alt={course.title}
-                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                        className="w-full h-92 object-cover transition-transform duration-300 hover:scale-110"
                       />
 
                       {/* Display category based on course type */}
@@ -192,10 +192,10 @@ const CourseCatalog = () => {
                       </div>
                     </div>
                     <div className="p-6 space-y-4">
-                      <h2 className="text-2xl font-bold text-[#4A3427] leading-tight line-clamp-1">
+                      <h2 className="text-2xl font-bold text-[#4A3427] leading-tight">
                         {course.title}
                       </h2>
-                      <p className="text-[#6B584C] line-clamp-2">
+                      <p className="text-[#6B584C] ">
                         {course.details || course.description || ""}
                       </p>
                       <div className="flex items-center">
@@ -210,7 +210,7 @@ const CourseCatalog = () => {
                             months
                           </span>
                         </div>
-                        <div className="flex gap-3 items-center">
+                        {/* <div className="flex gap-3 items-center">
                           <span className="text-2xl font-bold text-[#4A3427]">
                             {formatPrice(course.discountedPrice)}
                           </span>
@@ -219,7 +219,7 @@ const CourseCatalog = () => {
                               {formatPrice(course.price)}
                             </span>
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
