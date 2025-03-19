@@ -139,23 +139,23 @@ const TestimonialsSlider = () => {
   if (testimonials.length === 0) return null;
 
   return (
-    <div className="bg-[#FDF8F3] py-6 md:py-10 overflow-hidden relative">
-      <button
+    <div className=" py-6 md:py-10 overflow-hidden relative">
+      {/* <button
         onClick={() => handleScroll("left")}
-        className="absolute left-2 sm:left-4 lg:left-8 xl:left-96 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
+        className="absolute left-2 sm:left-4 lg:left-8 xl:left-10 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
         aria-label="Previous testimonial"
       >
         <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
       </button>
       <button
         onClick={() => handleScroll("right")}
-        className="absolute right-2 sm:right-4 lg:right-8 xl:right-96 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
+        className="absolute right-2 sm:right-4 lg:right-8 xl:right-10 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
         aria-label="Next testimonial"
       >
         <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
-      </button>
+      </button> */}
 
-      <div className="max-w-[320px] sm:max-w-[640px] md:max-w-[768px] lg:max-w-[940px] mx-auto px-2 sm:px-4">
+      <div className="max-w-[320px] sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1220px] mx-auto px-2 sm:px-4">
         <div
           ref={containerRef}
           className="relative overflow-hidden"
@@ -179,7 +179,7 @@ const TestimonialsSlider = () => {
                 style={{ width: `${cardWidth}px` }}
               >
                 <div className="mx-1 sm:mx-2 md:mx-3 p-2 h-full">
-                  <div className="bg-slate-100 rounded-3xl p-4 sm:p-10 h-full relative transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer">
+                  <div className="bg-slate-100 rounded-3xl p-4 sm:p-10 h-full relative transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer shadow-md">
                     <div className="flex flex-col space-y-4 sm:space-y-8">
                       <div className="flex items-center space-x-4 bg-white rounded-full">
                         <div className="w-12 h-12 bg-orange-400 rounded-full overflow-hidden">

@@ -30,7 +30,7 @@ const CircleImage = ({ imageUrl }) => {
           <circle cx="240" cy="240" r="240" />
         </clipPath>
       </defs>
-      <circle cx="240" cy="240" r="240" fill="#CAFA90" />
+      {/* <circle cx="240" cy="240" r="240" fill="white" /> */}
       <image
         href={imageUrl}
         width="480"
@@ -134,7 +134,7 @@ const WhyUs = () => {
   );
 
   return (
-    <section className="py-16 bg-white relative">
+    <section className="py-16 relative">
       <div className="w-full mx-auto px-4">
         <div className="text-center relative">
           <span className="inline-flex items-center xl:px-4 xl:py-2 rounded-full border border-[#956144] xl:text-sm text-xs px-2 py-1 font-semibold">

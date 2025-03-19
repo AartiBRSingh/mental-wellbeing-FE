@@ -41,7 +41,7 @@ const Services = () => {
       price: 2999,
       discountedPrice: 1499,
       level: "Advanced",
-      duration: "6 Months",
+      duration: "6 Months",
       reviews: 285,
       details:
         "Career path include roles in hospital, mental health clinics, and private practice.",
@@ -57,7 +57,7 @@ const Services = () => {
       price: 3499,
       discountedPrice: 1999,
       level: "Advanced",
-      duration: "6 Months",
+      duration: "6 Months",
       reviews: 320,
       details:
         "Career path include roles in educational institutions, corporate wellness program, and community support services.",
@@ -73,7 +73,7 @@ const Services = () => {
       price: 2799,
       discountedPrice: 1299,
       level: "Advanced",
-      duration: "6 Months",
+      duration: "6 Months",
       reviews: 175,
       details:
         "Career path include roles in HR department, corporate training, and organisational consulting.",
@@ -168,9 +168,9 @@ const Services = () => {
           </div>
         </section>
 
-        <section className="flex-1 flex justify-center md:justify-end z-10 relative w-full md:w-auto sm:mt-8 md:mt-0">
+        <section className="flex justify-center md:justify-end z-10 relative w-full md:w-auto sm:mt-8 md:mt-0">
           {courses.length > 0 && (
-            <div className="w-full max-w-[320px] h-[450px] sm:h-[450px] flex justify-center gap-3 sm:gap-4">
+            <div className="w-full max-w-md h-[450px] sm:h-[450px] flex justify-center gap-3 sm:gap-4">
               <div className="flex flex-col justify-between my-2">
                 {courses.map((_, index) => (
                   <div
@@ -183,34 +183,16 @@ const Services = () => {
                 ))}
               </div>
 
-              <div className="bg-white rounded-lg shadow-lg w-full sm:w-[320px] overflow-hidden border border-gray-200 flex flex-col">
-                {/* <Link
-                  href={`/all-courses/${courses[currentCourse]?._id}`}
-                  className="flex flex-col h-full"
-                > */}
+              <div className="bg-white rounded-lg shadow-lg w-full max-w-sm overflow-hidden border border-gray-200 flex flex-col">
                 <div className="relative">
                   <img
                     src={courses[currentCourse]?.thumbnailUrl}
                     alt={courses[currentCourse]?.title}
                     className="w-full h-56 object-cover"
                   />
-                  {/* <div className="absolute top-3 right-3 bg-white rounded-md px-2 py-1 text-sm font-medium flex items-center">
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        className="mr-1"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                        />
-                      </svg>
-                      AI skills
-                    </div> */}
                 </div>
 
-                <div className="px-3 flex-grow flex flex-col">
+                <div className="px-4 py-3 flex-grow flex flex-col">
                   <div className="flex items-center">
                     <Image
                       src={courses[currentCourse]?.categoryIcon}
@@ -224,19 +206,19 @@ const Services = () => {
                     </span>
                   </div>
 
-                  <h2 className="text-md font-bold text-gray-900 mb-1 ">
+                  <h2 className="text-lg font-bold text-gray-900 mb-2">
                     {courses[currentCourse]?.title}
                   </h2>
 
-                  <p className="text-gray-600 text-sm mb-1 line-clamp-3">
+                  <p className="text-gray-600 text-sm mb-2 line-clamp-3">
                     {courses[currentCourse]?.details}
                   </p>
 
-                  <div className="mb-1">
+                  <div className="mb-2">
                     {renderStars(courses[currentCourse]?.rating || 5)}
                   </div>
 
-                  <div className="text-sm text-gray-600 ">
+                  <div className="text-sm text-gray-600">
                     <span className="mr-2">
                       {courses[currentCourse]?.level}
                     </span>
@@ -248,26 +230,11 @@ const Services = () => {
 
                     <span>{courses[currentCourse]?.duration}</span>
                   </div>
-
-                  {/* Price section always at bottom */}
-                  {/* <div className="mt-auto pt-2 flex items-center justify-between border-t border-[#F5DEB3] ">
-                      <span className="text-lg sm:text-xl font-bold text-[#4A3427]">
-                        ₹{courses[currentCourse]?.discountedPrice}
-                      </span>
-                      {courses[currentCourse]?.discountedPrice <
-                        courses[currentCourse]?.price && (
-                        <span className="text-xs sm:text-sm text-[#6B584C] line-through opacity-70">
-                          ₹{courses[currentCourse]?.price}
-                        </span>
-                      )}
-                    </div> */}
                 </div>
-                {/* </Link> */}
               </div>
             </div>
           )}
         </section>
-        {/* Removed the previously positioned "All Courses" button that was getting covered */}
       </main>
     </div>
   );

@@ -94,8 +94,8 @@ const BlogCard = ({
       rounded-3xl p-6 md:p-8 relative border shadow-lg 
       bg-gradient-to-r ${getBackgroundStyle(index)}
       transform transition-all duration-300 hover:scale-[1.02]
-      hover:shadow-xl overflow-hidden
-      w-full max-w-md md:max-w-xl lg:max-w-2xl mx-auto
+      hover:shadow-xl overflow-hidden 
+      w-full max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto
     `}
     >
       <DecorativeCircles />
