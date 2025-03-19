@@ -205,7 +205,7 @@ const Login = () => {
           </div>
           <div className="w-full lg:w-1/2 flex items-center justify-center p-2 md:p-4 z-10">
             <form
-              onSubmit={isOtpSent ? handleOtpSubmit : handleEmailSubmit}
+              onSubmit={isOtpSent ? handleOtpSubmit : onEmailSubmit}
               className="w-full max-w-sm p-4 md:px-8 md:py-10 border border-gray-200 rounded shadow-sm bg-white"
             >
               <div className="flex items-center justify-center space-x-3 md:space-x-4 mb-4 md:mb-6">
