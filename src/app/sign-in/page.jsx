@@ -130,6 +130,7 @@ const Login = () => {
     try {
       await axios.post(url, {
         identifier,
+        recaptchaToken,
       });
       setIsOtpSent(true);
     } catch (error) {
