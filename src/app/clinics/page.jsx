@@ -154,7 +154,7 @@ const ClinicDisplay = () => {
             setSelectedState("");
             setSelectedCity("");
           }}
-          className="px-4 py-2 text-sm font-semibold bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 whitespace-nowrap"
+          className="px-4 py-2 text-sm font-semibold bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 whitespace-nowrap"
         >
           Reset
         </button>
@@ -265,7 +265,7 @@ const ClinicDisplay = () => {
           key={clinic._id}
           className="mb-8 bg-white rounded-lg shadow-lg overflow-hidden"
         >
-          <div className="bg-green-800 p-6 flex justify-between">
+          <div className="bg-green-600 p-6 flex justify-between">
             <span className="text-white relative text-4xl md:text-6xl lg:text-4xl block">
               <span className="relative">
                 {clinic.name}

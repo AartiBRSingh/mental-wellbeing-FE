@@ -445,10 +445,6 @@ const ClinicDetailPage = () => {
               </div>
             </div>
 
-            <div className="flex justify-center mt-3">
-              <RateClinic clinicId={id} />
-            </div>
-
             {/* Testimonials Section */}
             {/* <div
               ref={testimonialsRef}
@@ -581,7 +577,7 @@ const ClinicDetailPage = () => {
             >
               <div className="bg-white rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                  Patient Testimonials
+                  Testimonials
                 </h2>
 
                 {clinic.testimonials && clinic.testimonials.length > 0 ? (
@@ -659,7 +655,7 @@ const ClinicDetailPage = () => {
                   </div>
                 )}
 
-                <div className="mt-8 text-center">
+                {/* <div className="mt-8 text-center">
                   <button
                     onClick={() => setShowModal(true)}
                     className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
@@ -667,6 +663,9 @@ const ClinicDetailPage = () => {
                     <span>Share Your Experience</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
+                </div> */}
+                <div className="flex justify-center mt-3">
+                  <RateClinic clinicId={id} />
                 </div>
               </div>
             </div>

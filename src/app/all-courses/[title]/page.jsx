@@ -68,7 +68,6 @@ const CourseDetailPage = () => {
     { id: "about", label: "About" },
     { id: "outcomes", label: "Outcomes" },
     { id: "courses", label: "Courses" },
-    { id: "reviews", label: "Reviews" },
     { id: "testimonials", label: "Testimonials" },
   ];
 
@@ -511,7 +510,7 @@ const CourseDetailPage = () => {
       </div>
 
       {/* Reviews Section */}
-      <div
+      {/* <div
         id="reviews"
         className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
       >
@@ -528,7 +527,7 @@ const CourseDetailPage = () => {
           comment={comment}
           setComment={setComment}
         />
-      </div>
+      </div> */}
 
       {/* Testimonials Section */}
       {course?.testimonials && course.testimonials.length > 0 ? (

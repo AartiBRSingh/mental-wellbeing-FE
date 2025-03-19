@@ -297,7 +297,7 @@ const BlogSection = () => {
         </div>
 
         {/* Desktop blog grid - Keep exactly the same */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 md:gap-8 mx-4 sm:mx-8 md:mx-16 lg:mx-2">
           {data?.map((item, index) => (
             <div key={index} className="group relative">
               <div className="absolute -inset-2 bg-[#F5E6E0] rounded-3xl opacity-0 transition-opacity -z-10" />
