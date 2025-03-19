@@ -20,27 +20,28 @@ const TitleUnderline = ({ stroke }) => (
 
 const CircleImage = ({ imageUrl }) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 480 480"
-      className="w-full h-full transition-all duration-300 hover:scale-105"
-    >
-      <defs>
-        <clipPath id="circleClip">
-          <circle cx="240" cy="240" r="240" />
-        </clipPath>
-      </defs>
-      {/* <circle cx="240" cy="240" r="240" fill="white" /> */}
-      <image
-        href={imageUrl}
-        width="480"
-        height="480"
-        x="0"
-        y="30"
-        preserveAspectRatio="xMidYMid slice"
-        clipPath="url(#circleClip)"
-      />
-    </svg>
+    <div className="rounded-3xl overflow-hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 380 380"
+        className="w-full h-full transition-all duration-300 hover:scale-105"
+      >
+        {/* <defs>
+          <clipPath id="circleClip">
+            <circle cx="240" cy="240" r="240" />
+          </clipPath>
+        </defs> */}
+        <image
+          href={imageUrl}
+          width="380"
+          height="380"
+          x="0"
+          y="0"
+          preserveAspectRatio="xMidYMid slice"
+          clipPath="url(#circleClip)"
+        />
+      </svg>
+    </div>
   );
 };
 
@@ -55,36 +56,31 @@ const WhyUs = () => {
       id: 1,
       title: "Individual Therapy",
       slug: "Individual+Therapy",
-      imageUrl:
-        "https://img.freepik.com/free-vector/psychologist-concept-illustration_114360-2141.jpg?t=st=1740113485~exp=1740117085~hmac=ce63dc367188a3ba0d748db26e8beaa9b4fe9e07bb449701a2dc735d44e4b4a3&w=740",
+      imageUrl: "/individual.jpg",
     },
     {
       id: 2,
       title: "Couples / Marriage Counseling",
       slug: "Couples+%2F+Marriage+Counseling",
-      imageUrl:
-        "https://img.freepik.com/free-vector/marriage-counseling-concept-illustration_114360-3095.jpg?t=st=1740113562~exp=1740117162~hmac=94defde0854fc5e98443a587d384d3388a5692407505cc5e155123f37a83b036&w=740",
+      imageUrl: "couple.jpg",
     },
     {
       id: 3,
       title: "Child & Teen Therapy",
       slug: "Child+%26+Teen+Therapy",
-      imageUrl:
-        "https://img.freepik.com/free-vector/child-therapy-concept-illustration_114360-20002.jpg?t=st=1740113593~exp=1740117193~hmac=376bb5fa33214756a7e7a912c4e8a0054046b2a4151242d52d4cde955b06c941&w=740",
+      imageUrl: "child.jpg",
     },
     {
       id: 4,
       title: "Family Therapy",
       slug: "Family+Therapy",
-      imageUrl:
-        "https://img.freepik.com/free-vector/family-therapy-concept-illustration_114360-20005.jpg?t=st=1740113625~exp=1740117225~hmac=6a5634dd1da93dc57534c156a696667587c38031e34393e2915cc0950ee255c3&w=740",
+      imageUrl: "family.jpg",
     },
     {
       id: 5,
       title: "Psychiatry & Medication",
       slug: "Psychiatry+%26+Medication",
-      imageUrl:
-        "https://img.freepik.com/free-vector/coffee-break-concept-illustration_114360-3884.jpg?t=st=1740113686~exp=1740117286~hmac=d798c51dc7750419800db800128171aad673ec21ddd757f04af73612a271e41f&w=740",
+      imageUrl: "medication.jpg",
     },
   ];
 
@@ -123,7 +119,7 @@ const WhyUs = () => {
           isMobile ? "min-w-[200px] px-2" : ""
         }`}
       >
-        <div className="w-32 h-32 md:w-44 md:h-44 mb-4 md:mb-6 object-cover">
+        <div className="w-32 h-32 md:w-44 md:h-44 mb-4 md:mb-6 rounded-xl overflow-hidden">
           <CircleImage imageUrl={expert.imageUrl} />
         </div>
         <div className="relative inline-block pb-4 mb-2">
@@ -172,20 +168,6 @@ const WhyUs = () => {
               </div>
             ))}
           </div>
-          {/* <div className="flex justify-center mt-4 gap-4">
-            <button
-              onClick={() => scrollCarousel("left")}
-              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              onClick={() => scrollCarousel("right")}
-              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </div> */}
         </div>
 
         {/* Desktop Grid View */}

@@ -23,6 +23,7 @@ import { baseURL } from "@/app/baseURL";
 
 const ClinicDetailPage = () => {
   const searchParams = useSearchParams();
+  const [currentExpertIndex, setCurrentExpertIndex] = useState(0);
   const id = searchParams.get("id");
   const [clinic, setClinic] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -88,6 +89,22 @@ const ClinicDetailPage = () => {
 
   const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
   const testimonialsPerPage = 2;
+
+  const handleNextExpert = () => {
+    if (clinic && clinic.experts) {
+      setCurrentExpertIndex((prevIndex) =>
+        prevIndex === clinic.experts.length - 1 ? 0 : prevIndex + 1
+      );
+    }
+  };
+
+  const handlePrevExpert = () => {
+    if (clinic && clinic.experts) {
+      setCurrentExpertIndex((prevIndex) =>
+        prevIndex === 0 ? clinic.experts.length - 1 : prevIndex - 1
+      );
+    }
+  };
 
   const handleNextTestimonialPage = () => {
     const maxPages =
@@ -399,49 +416,113 @@ const ClinicDetailPage = () => {
             )}
 
             {/* Experts Section */}
-            <div ref={expertsRef} id="experts" className=" pt-2 mt-4">
+            <div ref={expertsRef} id="experts" className="pt-2 mt-4">
               <div className="bg-white rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">
                   Our Medical Experts
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {clinic.experts.map((expert) => (
-                    <div
-                      key={expert._id}
-                      className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-                    >
-                      <div className="aspect-video relative">
-                        <img
-                          src={expert.image}
-                          alt={expert.name}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-4 right-4">
-                          <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                            Available Today
-                          </span>
-                        </div>
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold text-gray-800">
-                          {expert.name}
-                        </h3>
-                        <p className="text-blue-600 font-medium mb-4">
-                          {expert.specialization}
-                        </p>
-                        <div className="flex items-center space-x-4">
-                          <button
-                            onClick={() => setShowModal(true)}
-                            className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+
+                {clinic.experts && clinic.experts.length > 0 ? (
+                  <div className="relative">
+                    <div className="overflow-hidden">
+                      <div
+                        className="flex transition-transform duration-300"
+                        style={{
+                          transform: `translateX(-${
+                            currentExpertIndex * 100
+                          }%)`,
+                        }}
+                      >
+                        {clinic.experts.map((expert) => (
+                          <div
+                            key={expert._id}
+                            className="w-full flex-shrink-0 px-4"
                           >
-                            <span>Book Appointment</span>
-                            <ArrowRight className="w-4 h-4" />
-                          </button>
-                        </div>
+                            {/* Reduced size container with max-width and centering */}
+                            <div className="mx-auto max-w-md md:max-w-sm">
+                              <div className="bg-slate-100 border border-black rounded-xl shadow-xl overflow-hidden hover:shadow-md transition-shadow">
+                                {/* Reduced aspect ratio of the image */}
+                                <div className="aspect-[4/3] relative">
+                                  <img
+                                    src={expert.image}
+                                    alt={expert.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute top-4 right-4">
+                                    <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                                      Available Today
+                                    </span>
+                                  </div>
+                                </div>
+                                {/* Reduced padding in the content area */}
+                                <div className="p-4">
+                                  <h3 className="text-lg font-bold text-gray-800">
+                                    {expert.name}
+                                  </h3>
+                                  <p className="text-blue-600 font-medium mb-3 text-sm">
+                                    {expert.specialization}
+                                  </p>
+                                  <div className="flex items-center space-x-4">
+                                    <button
+                                      onClick={() => setShowModal(true)}
+                                      className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 text-sm"
+                                    >
+                                      <span>Book Appointment</span>
+                                      <ArrowRight className="w-4 h-4" />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
-                </div>
+
+                    {/* Carousel Navigation */}
+                    <div className="absolute inset-y-0 left-0 flex items-center">
+                      <button
+                        onClick={handlePrevExpert}
+                        className="bg-white/80 hover:bg-white p-2 rounded-full shadow-md -ml-2"
+                      >
+                        <ChevronLeft className="w-5 h-5 text-gray-800" />
+                      </button>
+                    </div>
+                    <div className="absolute inset-y-0 right-0 flex items-center">
+                      <button
+                        onClick={handleNextExpert}
+                        className="bg-white/80 hover:bg-white p-2 rounded-full shadow-md -mr-2"
+                      >
+                        <ChevronRight className="w-5 h-5 text-gray-800" />
+                      </button>
+                    </div>
+
+                    {/* Pagination Dots */}
+                    <div className="flex justify-center mt-6 space-x-2">
+                      {clinic.experts.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentExpertIndex(index)}
+                          className={`w-2.5 h-2.5 rounded-full ${
+                            currentExpertIndex === index
+                              ? "bg-blue-600"
+                              : "bg-gray-300"
+                          }`}
+                          aria-label={`Go to slide ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Page Counter */}
+                    <div className="text-center mt-2 text-sm text-gray-500">
+                      Expert {currentExpertIndex + 1} of {clinic.experts.length}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-gray-500">
+                    <p>No experts available.</p>
+                  </div>
+                )}
               </div>
             </div>
 
