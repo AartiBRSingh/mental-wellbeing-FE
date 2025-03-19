@@ -4,6 +4,8 @@ import axios from "axios";
 import { baseURL } from "../baseURL";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { RegisterModal } from "../components/RegisterModal";
+import LoginModal from "../components/LoginModal";
 
 export default function RateClinic({ clinicId }) {
   const router = useRouter();
@@ -11,6 +13,7 @@ export default function RateClinic({ clinicId }) {
   const [review, setReview] = useState("");
   const [message, setMessage] = useState("");
   const [userId, setUserId] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const userId = Cookies.get("userId");
@@ -23,7 +26,7 @@ export default function RateClinic({ clinicId }) {
 
   const submitReview = async () => {
     if (!userId) {
-      router.push("/sign-in");
+      setIsModalOpen(true);
       return;
     }
     if (!name || !review) {
@@ -64,7 +67,7 @@ export default function RateClinic({ clinicId }) {
         onChange={(e) => setReview(e.target.value)}
         className="w-full p-2 mt-2 border rounded"
       />
-
+      <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       {message && <p className="mt-2 text-sm text-gray-600">{message}</p>}
     </div>
   );

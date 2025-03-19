@@ -8,7 +8,7 @@ import { Eye, EyeOff } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import RecaptchaProvider from "../utils/RecaptchaProvider";
 
-export const SignupPage = () => {
+export const RegisterModal = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -199,9 +199,17 @@ export const SignupPage = () => {
     return { score, message, color };
   };
 
+  if (!isOpen) return null;
+
   return (
-    <>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="w-full min-h-screen flex justify-center items-center py-6 px-4 sm:px-6">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+        >
+          ✕
+        </button>
         <Toaster position="bottom-left" reverseOrder={false} />
         <div className="flex justify-center items-center bg-[#003B29] rounded-3xl w-full max-w-7xl flex-col lg:flex-row p-4 sm:p-6 md:p-8 lg:p-10 relative overflow-hidden">
           <div className="flex-1 flex items-center justify-center p-4 mb-8 lg:mb-0">
@@ -798,7 +806,7 @@ export const SignupPage = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -806,7 +814,7 @@ const page = () => {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <RecaptchaProvider>
-        <SignupPage />
+        <RegisterModal />
       </RecaptchaProvider>
     </Suspense>
   );
