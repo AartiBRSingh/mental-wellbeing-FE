@@ -21,11 +21,6 @@ const Login = () => {
   const [isUserLogin, setIsUserLogin] = useState(true);
   const [isLoginWIthOrgCode, setLoginWIthOrgCode] = useState(false);
   // const [showVerificationModal, setShowVerificationModal] = useState(false);
-  console.log(
-    process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY,
-    "raju"
-  );
 
   const { executeRecaptcha } = useGoogleReCaptcha();
   const router = useRouter();
