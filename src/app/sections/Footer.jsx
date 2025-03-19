@@ -116,7 +116,7 @@ const HealPoint = () => {
             <div className="flex sm:flex-row justify-between sm:justify-center sm:space-x-8 md:space-x-16 items-center px-4 sm:px-8 md:px-12 lg:px-20 py-8 min-h-[270px]">
               <div className=" sm:mb-0 text-center sm:text-left">
                 <div className="text-4xl md:text-5xl lg:text-6xl font-bold">
-                  48<span className="text-2xl md:text-3xl">k</span>
+                  12<span className="text-2xl md:text-3xl">k</span>
                 </div>
                 <div className="mt-2 text-gray-400">
                   People enrolled program
