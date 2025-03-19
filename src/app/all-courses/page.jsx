@@ -8,54 +8,54 @@ import Image from "next/image";
 const CourseCatalog = () => {
   // Hardcoded courses from Services component
   const hardcodedCourses = [
-    {
-      _id: "course1",
-      title: "Clinical Psychology",
-      category: "Jadavpur University",
-      categoryIcon: "/JUBG.png",
-      language: "English",
-      thumbnailUrl: "/Course.jpg",
-      rating: 4.8,
-      level: "Advanced",
-      duration: "6",
-      reviews: 0,
-      details:
-        "Career path include roles in hospital, mental health clinics, and private practice.",
-      // Adding needed properties for consistency with API courses
-      curriculum: [{ duration: 6 }],
-    },
-    {
-      _id: "course2",
-      title: "Counseling Psychology",
-      category: "Jadavpur University",
-      categoryIcon: "/JUBG.png",
-      language: "English",
-      thumbnailUrl: "/Course.jpg",
-      rating: 4.6,
-      level: "Advanced",
-      duration: "6",
-      reviews: 0,
-      details:
-        "Career path include roles in educational institutions, corporate wellness program, and community support services.",
-      // Adding needed properties for consistency with API courses
-      curriculum: [{ duration: 6 }],
-    },
-    {
-      _id: "course3",
-      title: "Industrial/Organisational Psychology",
-      category: "Jadavpur University",
-      categoryIcon: "/JUBG.png",
-      language: "English",
-      thumbnailUrl: "/Course.jpg",
-      rating: 4.9,
-      level: "Advanced",
-      duration: "6",
-      reviews: 0,
-      details:
-        "Career path include roles in HR department, corporate training, and organisational consulting.",
-      // Adding needed properties for consistency with API courses
-      curriculum: [{ duration: 6 }],
-    },
+    // {
+    //   _id: "course1",
+    //   title: "Clinical Psychology",
+    //   category: "Jadavpur University",
+    //   categoryIcon: "/JUBG.png",
+    //   language: "English",
+    //   thumbnailUrl: "/Course.jpg",
+    //   rating: 4.8,
+    //   level: "Advanced",
+    //   duration: "6",
+    //   reviews: 0,
+    //   details:
+    //     "Career path include roles in hospital, mental health clinics, and private practice.",
+    //   // Adding needed properties for consistency with API courses
+    //   curriculum: [{ duration: 6 }],
+    // },
+    // {
+    //   _id: "course2",
+    //   title: "Counseling Psychology",
+    //   category: "Jadavpur University",
+    //   categoryIcon: "/JUBG.png",
+    //   language: "English",
+    //   thumbnailUrl: "/Course.jpg",
+    //   rating: 4.6,
+    //   level: "Advanced",
+    //   duration: "6",
+    //   reviews: 0,
+    //   details:
+    //     "Career path include roles in educational institutions, corporate wellness program, and community support services.",
+    //   // Adding needed properties for consistency with API courses
+    //   curriculum: [{ duration: 6 }],
+    // },
+    // {
+    //   _id: "course3",
+    //   title: "Industrial/Organisational Psychology",
+    //   category: "Jadavpur University",
+    //   categoryIcon: "/JUBG.png",
+    //   language: "English",
+    //   thumbnailUrl: "/Course.jpg",
+    //   rating: 4.9,
+    //   level: "Advanced",
+    //   duration: "6",
+    //   reviews: 0,
+    //   details:
+    //     "Career path include roles in HR department, corporate training, and organisational consulting.",
+    //   // Adding needed properties for consistency with API courses
+    //   curriculum: [{ duration: 6 }],
+    // },
   ];
 
   const [courses, setCourses] = useState([]);
@@ -188,6 +188,7 @@ const CourseCatalog = () => {
                             className="h-5 w-5 mr-2 rounded-full"
                           />
                         )}
+
                         {course.category}
                       </div>
                     </div>
@@ -195,7 +196,7 @@ const CourseCatalog = () => {
                       <h2 className="text-2xl font-bold text-[#4A3427] leading-tight">
                         {course.title}
                       </h2>
-                      <p className="text-[#6B584C] ">
+                      <p className="text-[#6B584C] line-clamp-3">
                         {course.details || course.description || ""}
                       </p>
                       <div className="flex items-center">

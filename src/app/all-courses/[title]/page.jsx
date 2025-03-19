@@ -263,7 +263,7 @@ const CourseDetailPage = () => {
                 !showFullDescription ? "line-clamp-3" : ""
               }`}
             >
-              {course?.description}
+              {course?.about?.content}
             </p>
             <button
               onClick={() => setShowFullDescription(!showFullDescription)}
@@ -386,7 +386,7 @@ const CourseDetailPage = () => {
       </div>
 
       {/* Navigation */}
-      <div className="sticky top-24 bg-white border-b mb-6 z-10 py-5 px-5 rounded-xl shadow-sm">
+      <div className="sticky top-20 bg-white border-b mb-6 z- py-5 px-5 rounded-xl shadow-sm">
         <nav className="flex gap-8 overflow-x-auto">
           {sections.map(({ id, label }) => (
             <button
@@ -461,7 +461,58 @@ const CourseDetailPage = () => {
           Course Curriculum
         </h2>
         <div className="space-y-4">
-          {course?.courses && course.courses.length > 0 ? (
+          {course?.courses &&
+          course.curriculum &&
+          course.courses.length > 0 &&
+          course.curriculum.length > 0 ? (
+            course.courses.map((courseItem, index) => {
+              // Find the matching curriculum item for this course
+              const curriculumItem = course.curriculum[index];
+
+              return (
+                <div
+                  key={index}
+                  className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow duration-200"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                    <h3 className="font-bold text-lg text-gray-800">
+                      {courseItem.title}
+                    </h3>
+                    {curriculumItem &&
+                      curriculumItem.title &&
+                      curriculumItem.title !== courseItem.title && (
+                        <div className="text-indigo-600 font-medium text-sm mt-1 sm:mt-0">
+                          {curriculumItem.title}
+                        </div>
+                      )}
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
+                    <p className="text-sm text-gray-600 flex items-center">
+                      <Clock className="w-4 h-4 mr-1" />
+                      {courseItem.duration}
+                    </p>
+                    {curriculumItem && curriculumItem.duration > 0 && (
+                      <p className="text-sm text-gray-600 flex items-center sm:ml-4">
+                        <Clock className="w-4 h-4 mr-1" />
+                        {`${Math.ceil(curriculumItem.duration / 60)}h per week`}
+                      </p>
+                    )}
+                  </div>
+                  <div className="text-gray-700 whitespace-pre-line leading-relaxed">
+                    {courseItem.description}
+                    {curriculumItem && curriculumItem.description && (
+                      <>
+                        <hr className="my-3 border-gray-200" />
+                        <div className="whitespace-pre-line">
+                          {curriculumItem.description}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          ) : course?.courses && course.courses.length > 0 ? (
             course.courses.map((courseItem, index) => (
               <div
                 key={index}
@@ -491,12 +542,10 @@ const CourseDetailPage = () => {
                 {item.duration > 0 && (
                   <p className="text-sm text-gray-600 mb-3 flex items-center">
                     <Clock className="w-4 h-4 mr-1" />
-                    {`${Math.floor(item.duration / 60)}h ${
-                      item.duration % 60
-                    }m`}
+                    {`${Math.ceil(item.duration / 60)}h`}
                   </p>
                 )}
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                   {item.description}
                 </p>
               </div>

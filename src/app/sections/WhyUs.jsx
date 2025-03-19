@@ -60,7 +60,7 @@ const WhyUs = () => {
     },
     {
       id: 2,
-      title: "Couples / Marriage Counseling",
+      title: "Couples Counseling",
       slug: "Couples+%2F+Marriage+Counseling",
       imageUrl: "couple.jpg",
     },
@@ -116,14 +116,24 @@ const WhyUs = () => {
     <Link href={`/all-experts?userType=${expert.slug}`}>
       <div
         className={`text-center flex flex-col items-center ${
-          isMobile ? "min-w-[200px] px-2" : ""
+          isMobile ? "min-w-[240px] px-3" : ""
         }`}
       >
-        <div className="w-32 h-32 md:w-44 md:h-44 mb-4 md:mb-6 rounded-xl overflow-hidden">
+        <div
+          className={`${
+            isMobile ? "w-40 h-40" : "w-32 h-32 md:w-44 md:h-44"
+          } mb-4 md:mb-6 rounded-xl overflow-hidden`}
+        >
           <CircleImage imageUrl={expert.imageUrl} />
         </div>
         <div className="relative inline-block pb-4 mb-2">
-          <h3 className="text-sm md:text-lg font-semibold">{expert.title}</h3>
+          <h3
+            className={`${
+              isMobile ? "text-base" : "text-sm md:text-lg"
+            } font-semibold`}
+          >
+            {expert.title}
+          </h3>
         </div>
       </div>
     </Link>
@@ -151,7 +161,7 @@ const WhyUs = () => {
         <div className="md:hidden relative">
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto gap-4 scroll-smooth no-scrollbar touch-pan-x"
+            className="flex overflow-x-auto gap-6 scroll-smooth no-scrollbar touch-pan-x"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
