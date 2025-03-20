@@ -9,6 +9,18 @@ const InsuranceAndPricing = () => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const handleEmailSupport = () => {
+    const email = "support@shareyrheart.com";
+    const subject = "Support Request";
+
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(
+        subject
+      )}`,
+      "_blank"
+    );
+  };
+
   return (
     <div className="min-h-screen bg-white p-4 md:p-8">
       <div className="max-w-screen-xl mx-auto mt-8 md:mt-16">
@@ -328,7 +340,10 @@ const InsuranceAndPricing = () => {
         {/* Support Section */}
         <div className="mt-12 text-center px-4 md:px-0 pb-8">
           <p className="text-stone-600">Need help? Contact our support team</p>
-          <button className="mt-4 inline-flex items-center text-green-700 hover:text-green-800">
+          <button
+            className="mt-4 inline-flex items-center text-green-700 hover:text-green-800 cursor-pointer"
+            onClick={handleEmailSupport}
+          >
             <HelpCircle className="mr-2 h-4 w-4" />
             Get Support
           </button>

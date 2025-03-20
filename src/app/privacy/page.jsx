@@ -18,7 +18,7 @@ const PrivacyPolicy = () => {
     <div className="min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8">
+        <div className="bg-gradient-to-r from-yellow-500 to-[#FFD255] text-white p-8">
           <h1 className="text-4xl font-extrabold mb-4">Privacy Policy</h1>
           <p className="text-white/80 italic">
             Effective Date: December 7th, 2024 (Last Updated)
@@ -45,11 +45,11 @@ const PrivacyPolicy = () => {
                 ShareYrHeart
               </a>{" "}
               use our services, or interact with our platform.
-              <p className="mt-4">
+              <spam className="mt-4">
                 By using ShareYrHeart, you agree to the terms of this Privacy
                 Policy. Please read it carefully to understand our views and
                 practices regarding your personal data and how we will treat it.
-              </p>
+              </spam>
             </p>
           </section>
 
@@ -144,7 +144,7 @@ const PrivacyPolicy = () => {
                       Technical Data
                     </p>
                     <p className="pl-6 p-4 text-blue-800">
-                      <ul className="space-y-2 text-gray-700 list-disc pl-5">
+                      <spam className="space-y-2 text-gray-700 list-disc pl-5">
                         <li>
                           <b>Usage Data:</b> We collect information about how
                           you use our website, including your IP address,
@@ -157,7 +157,7 @@ const PrivacyPolicy = () => {
                           platform. These cookies may collect information such
                           as session data, preferences, and user behavior.
                         </li>
-                      </ul>
+                      </spam>
                     </p>
                   </div>
                 </div>

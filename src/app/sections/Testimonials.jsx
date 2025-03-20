@@ -2,7 +2,13 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
-import { ChevronLeft, ChevronRight, User } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  User,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
 const TestimonialsSlider = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -12,6 +18,15 @@ const TestimonialsSlider = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [visibleItems, setVisibleItems] = useState(4);
   const [cardWidth, setCardWidth] = useState(300);
+  const [expandedItems, setExpandedItems] = useState({});
+
+  // Toggle expanded state for a testimonial
+  const toggleExpand = (index) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
   // Keeping existing useEffects and handlers...
   useEffect(() => {
@@ -139,7 +154,7 @@ const TestimonialsSlider = () => {
   if (testimonials.length === 0) return null;
 
   return (
-    <div className=" py-6 md:py-10 overflow-hidden relative">
+    <div className="py-6 md:py-10 overflow-hidden relative">
       {/* <button
         onClick={() => handleScroll("left")}
         className="absolute left-2 sm:left-4 lg:left-8 xl:left-10 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"
@@ -201,9 +216,33 @@ const TestimonialsSlider = () => {
                         {testimonial.title}
                       </h3>
 
-                      <p className="text-gray-700 text-sm line-clamp-4">
-                        {testimonial.review}
-                      </p>
+                      <div className="text-gray-700 text-sm">
+                        <p
+                          className={expandedItems[index] ? "" : "line-clamp-4"}
+                        >
+                          {testimonial.review}
+                        </p>
+                        {testimonial.review.length > 100 && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleExpand(index);
+                            }}
+                            className="text-orange-500 hover:text-orange-600 font-medium flex items-center mt-2 text-sm"
+                          >
+                            {expandedItems[index] ? (
+                              <>
+                                View Less <ChevronUp className="ml-1 w-4 h-4" />
+                              </>
+                            ) : (
+                              <>
+                                View More{" "}
+                                <ChevronDown className="ml-1 w-4 h-4" />
+                              </>
+                            )}
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
