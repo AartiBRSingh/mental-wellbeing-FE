@@ -59,24 +59,12 @@ const AboutPage = () => {
     },
   ];
 
-  // const reasons = [
-  //   "Global Network of Professionals: Access qualified mental health experts from India and around the world, ensuring you receive the best support no matter where you are located.",
-
-  //   "Comprehensive Mental Health Solutions: From personalized therapy to well-being programs and educational resources, ShareYrHeart offers a full spectrum of services to support mental health at every stage of life.",
-
-  //   "Educational Hub: Stay informed with expert content on psychological disorders, psychotherapy techniques, and the latest research in the field of psychology.",
-
-  //   "Convenience & Accessibility: Access services and educational content online, giving you the flexibility to seek help or improve your knowledge anytime, anywhere.",
-
-  //   "Confidential & Secure: ShareYrHeart prioritizes your privacy with secure platforms for therapy sessions, course enrollment, and payment processing, ensuring a safe and confidential experience.",
-  // ];
-
   return (
     <div className="bg-transparent text-gray-900">
-      <div className="container mx-auto max-w-6xl px-4 py-16">
+      <div className="container mx-auto max-w-6xl px-4 py-16 bg-white rounded-2xl shadow-lg my-10">
         {/* Hero Section */}
         <div className="text-center mb-16 transform transition-all duration-300 hover:scale-[1.01]">
-          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+          <h1 className="text-5xl font-extrabold bg-[#FF8556] bg-clip-text text-transparent mb-6">
             ShareYrHeart
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -119,34 +107,6 @@ const AboutPage = () => {
             ))}
           </div>
         </section>
-
-        {/* Why Choose Us Section */}
-        {/* <section className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-12">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
-            Why Choose ShareYrHeart?
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {reasons.map((reason, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-xl shadow-md flex items-center transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
-              >
-                <svg
-                  className="w-8 h-8 text-green-500 mr-4 flex-shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span className="text-lg text-gray-700">{reason}</span>
-              </div>
-            ))}
-          </div>
-        </section> */}
 
         <section className="bg-gradient-to-r from-blue-100 to-purple-100 p-6 rounded-2xl">
           <h2 className="text-3xl text-center font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
@@ -245,7 +205,7 @@ const AboutPage = () => {
           </p>
           <a
             href="all-courses"
-            className="mt-8 inline-block px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 active:scale-95"
+            className="mt-8 inline-block px-8 py-3 bg-gradient-to-r from-[#FF8556] to-red-500 text-white rounded-full text-lg font-semibold hover:from-red-500 hover:to-red-700 transition-all duration-300 transform hover:scale-105 active:scale-95"
           >
             Start Your Journey
           </a>

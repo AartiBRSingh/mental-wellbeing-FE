@@ -257,8 +257,35 @@ const ClinicDetailPage = () => {
                 </button>
               </div>
             </div>
+            {/* Contact Card */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg px-12">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                Contact Information
+              </h2>
+              <div className="space-y-4">
+                <a
+                  href={`tel:${clinic.phoneNumber}`}
+                  className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
+                >
+                  <div className="bg-blue-50 p-2 rounded-lg">
+                    <Phone className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <span className="font-medium">{clinic.phoneNumber}</span>
+                </a>
+                <a
+                  href={`mailto:${clinic.email}`}
+                  className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
+                >
+                  <div className="bg-blue-50 p-2 rounded-lg">
+                    <Mail className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <span className="font-medium">{clinic.email}</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+
         <div className="grid md:grid-cols-3 gap-8">
           {/* Left Column - Main Content */}
           <div className="md:col-span-2">
@@ -266,7 +293,7 @@ const ClinicDetailPage = () => {
             <div
               ref={tabsRef}
               className={`bg-white rounded-t-2xl shadow-sm p-4 transition-all duration-200 ease-in-out ${
-                isSticky ? "sticky top-24 z-10 rounded-2xl shadow-md" : ""
+                isSticky ? "sticky top-20 z-10 rounded-2xl shadow-md" : ""
               }`}
             >
               <div className="flex space-x-6">
@@ -590,7 +617,6 @@ const ClinicDetailPage = () => {
 
           {/* Right Column - Info Cards */}
           <div className="space-y-6">
-            {/* Contact Card */}
             <div className="mt-8 md:mt-2 max-w-sm w-full hidden md:block p-1 bg-white rounded-2xl shadow-xl">
               <iframe
                 src={clinic.googleAddressUrl}
@@ -601,32 +627,6 @@ const ClinicDetailPage = () => {
                 loading="lazy"
                 className="rounded-2xl"
               ></iframe>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">
-                Contact Information
-              </h2>
-              <div className="space-y-4">
-                <a
-                  href={`tel:${clinic.phoneNumber}`}
-                  className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
-                >
-                  <div className="bg-blue-50 p-2 rounded-lg">
-                    <Phone className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <span className="font-medium">{clinic.phoneNumber}</span>
-                </a>
-                <a
-                  href={`mailto:${clinic.email}`}
-                  className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
-                >
-                  <div className="bg-blue-50 p-2 rounded-lg">
-                    <Mail className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <span className="font-medium">{clinic.email}</span>
-                </a>
-              </div>
             </div>
 
             {/* Opening Hours Card */}
@@ -678,7 +678,7 @@ const ClinicDetailPage = () => {
                             <div className="absolute top-4 right-4 text-blue-300">
                               <Quote className="w-8 h-8" />
                             </div>
-                            <p className="text-gray-700 italic mb-4 leading-relaxed">
+                            <p className="text-gray-700 italic mb-4 leading-relaxed line-clamp-2">
                               {testimonial.review}
                             </p>
                             <div className="flex items-center space-x-3">
