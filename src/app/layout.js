@@ -80,9 +80,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         className={`${font.className} antialiased bg-[#F9F5F2] no-select`}
         // style={{ backgroundImage: "url('/bg-01.svg')" }}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <RecaptchaProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </RecaptchaProvider>
       </body>
     </html>
   );

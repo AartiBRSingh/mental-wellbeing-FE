@@ -813,9 +813,7 @@ export const RegisterModal = ({ isOpen, onClose }) => {
 const page = () => {
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <RecaptchaProvider>
-        <RegisterModal />
-      </RecaptchaProvider>
+      <RegisterModal />
     </Suspense>
   );
 };
