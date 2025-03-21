@@ -168,7 +168,7 @@ const BlogDetailPage = () => {
                 className={`${buttonStyle} bg-red-500 hover:bg-[#006396]`}
                 onClick={() =>
                   openSharePopup(
-                    `https://www.quora.com/share?url=${encodedUrl}`
+                    `https://quora.com/link/create-post?url=${encodedUrl}`
                   )
                 }
               >
