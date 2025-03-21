@@ -58,9 +58,9 @@ async function ExpertDetailsPage({ params, searchParams }) {
       {/* Cover Photo Section */}
       <div className="w-full h-48 sm:h-64 md:h-96 relative">
         <img
-          src="/syhlogo.jpg"
+          src="/SYHexpertCover.png"
           alt="Cover"
-          className="w-full h-full object-fill"
+          className="w-half h-80 object-cotain flex items-center justify-center ml-auto mr-auto"
         />
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/50 to-transparent" />
       </div>
