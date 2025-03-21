@@ -805,9 +805,7 @@ export const SignupPage = () => {
 const page = () => {
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <RecaptchaProvider>
-        <SignupPage />
-      </RecaptchaProvider>
+      <SignupPage />
     </Suspense>
   );
 };
