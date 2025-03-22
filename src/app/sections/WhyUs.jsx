@@ -116,7 +116,7 @@ const WhyUs = () => {
     <Link href={`/all-experts?userType=${expert.slug}`}>
       <div
         className={`text-center flex flex-col items-center ${
-          isMobile ? "min-w-[280px] px-4" : ""
+          isMobile ? "min-w-[240px] px-4" : ""
         }`}
       >
         <div
@@ -161,7 +161,7 @@ const WhyUs = () => {
         <div className="md:hidden relative">
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto gap-1 scroll-smooth no-scrollbar touch-pan-x"
+            className="flex overflow-x-auto scroll-smooth no-scrollbar touch-pan-x"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}

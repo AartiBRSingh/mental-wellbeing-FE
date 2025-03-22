@@ -157,8 +157,8 @@ const Services = () => {
             industry-specific knowledge.
           </p>
 
-          {/* Moved the "All Courses" button here to ensure it's visible and in the front */}
-          <div className="flex justify-center md:justify-start z-20">
+          {/* Desktop/tablet button - identical to original position and styling */}
+          <div className="hidden sm:flex justify-center md:justify-start z-20">
             <Link href="/all-courses">
               <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
                 All Courses
@@ -235,6 +235,15 @@ const Services = () => {
             </div>
           )}
         </section>
+        {/* Mobile-only button at the bottom of the component */}
+        <div className="sm:hidden flex justify-center w-full mt-6 z-20">
+          <Link href="/all-courses">
+            <button className="px-4 py-2 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm">
+              All Courses
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </Link>
+        </div>
       </main>
     </div>
   );

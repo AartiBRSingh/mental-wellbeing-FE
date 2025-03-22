@@ -269,7 +269,7 @@ const BlogSection = () => {
 
         {/* Mobile blog grid with horizontal scroll */}
         <div className="sm:hidden overflow-x-auto pb-4 mx-4">
-          <div className="flex gap-4" style={{ width: "max-content" }}>
+          <div className="flex gap-10" style={{ width: "max-content" }}>
             {data?.map((item, index) => (
               <div key={index} className="w-[280px] flex-shrink-0">
                 <BlogCard
