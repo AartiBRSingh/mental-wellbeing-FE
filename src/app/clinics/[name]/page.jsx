@@ -185,18 +185,21 @@ const ClinicDetailPage = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 -mt-10 sm:px-6 lg:px-8 mb-12 bg-gradient-to-b from-white to-green-600 rounded-2xl p-6">
-        <div className="px-4 py-16 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center md:ml-10">
-            <div className="max-w-3xl">
-              <div className="flex items-center space-x-2 bg-white/10 w-fit rounded-full px-4 py-1 text-sm backdrop-blur-sm mb-6">
-                <Clock className="w-4 h-4" />
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 mb-12 bg-gradient-to-b from-white to-green-600 rounded-lg sm:rounded-2xl p-3 sm:p-6">
+        <div className="px-2 py-8 sm:px-6 lg:px-8">
+          {/* Header section - Made more responsive */}
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center md:ml-0 md:ml-10">
+            <div className="max-w-full md:max-w-3xl">
+              {/* Opening hours tag - adjusted for small screens */}
+              <div className="flex items-center space-x-2 bg-white/10 w-fit rounded-full px-3 py-1 text-xs sm:text-sm backdrop-blur-sm mb-4 sm:mb-6">
+                <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span>Open Today</span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span className="font-medium">{clinic.timings.monday}</span>
               </div>
 
-              <span className="text-black relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
+              {/* Clinic name - responsive text sizes */}
+              <span className="text-black relative font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-5xl block mb-4">
                 <span className="relative">
                   {clinic.name}
                   <svg
@@ -214,94 +217,105 @@ const ClinicDetailPage = () => {
                 </span>
               </span>
 
-              <div className="flex items-center space-x-3 mb-6">
+              {/* Reviews section - made responsive */}
+              <div className="flex items-center space-x-3 mb-4 sm:mb-6">
                 <div className="flex items-center space-x-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
-                      className="w-5 h-5 text-yellow-400 fill-current"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current"
                     />
                   ))}
                 </div>
-                <span className="text-slate-800">
+                <span className="text-slate-800 text-sm sm:text-base">
                   {clinic.testimonials?.length || 0} Patient Reviews
                 </span>
               </div>
 
+              {/* Address and booking section - improved for smaller screens */}
               <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <div className="flex items-start space-x-2">
                   <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
-                  <p className="text-slate-900">
+                  <p className="text-slate-900 text-sm sm:text-base">
                     {clinic.line1}
                     <br />
                     {clinic.city}, {clinic.state} - {clinic.pincode}
                   </p>
                 </div>
 
+                {/* Booking button - full width on mobile */}
                 <button
                   onClick={() => setShowModal(true)}
-                  className="w-full sm:w-auto px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
                 >
                   Book Appointment
                 </button>
               </div>
 
               {/* VIEW MAP button for mobile only */}
-              <div className="mt-6 md:hidden">
+              <div className="mt-4 md:hidden">
                 <button
                   onClick={() => setShowMapModal(true)}
-                  className="flex items-center justify-center w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors shadow-lg"
+                  className="flex items-center justify-center w-full px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors shadow-lg text-sm"
                 >
-                  <Map className="w-5 h-5 mr-2" />
+                  <Map className="w-4 h-4 mr-2" />
                   VIEW MAP
                 </button>
               </div>
             </div>
-            {/* Contact Card */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg px-12">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+
+            {/* Contact Card - Responsive adjustments */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg px-6 sm:px-12 mt-6 md:mt-0">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
                 Contact Information
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <a
                   href={`tel:${clinic.phoneNumber}`}
                   className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
                 >
-                  <div className="bg-blue-50 p-2 rounded-lg">
-                    <Phone className="w-5 h-5 text-blue-600" />
+                  <div className="bg-blue-50 p-1.5 sm:p-2 rounded-lg">
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                   </div>
-                  <span className="font-medium">{clinic.phoneNumber}</span>
+                  <span className="font-medium text-sm sm:text-base">
+                    {clinic.phoneNumber}
+                  </span>
                 </a>
                 <a
                   href={`mailto:${clinic.email}`}
                   className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
                 >
-                  <div className="bg-blue-50 p-2 rounded-lg">
-                    <Mail className="w-5 h-5 text-blue-600" />
+                  <div className="bg-blue-50 p-1.5 sm:p-2 rounded-lg">
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                   </div>
-                  <span className="font-medium">{clinic.email}</span>
+                  <span className="font-medium text-sm sm:text-base">
+                    {clinic.email}
+                  </span>
                 </a>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Main grid layout - improved for responsiveness */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
           {/* Left Column - Main Content */}
           <div className="md:col-span-2">
-            {/* Navigation Tabs */}
+            {/* Navigation Tabs - made responsive */}
             <div
               ref={tabsRef}
-              className={`bg-white rounded-t-2xl shadow-sm p-4 transition-all duration-200 ease-in-out ${
-                isSticky ? "sticky top-20 z-10 rounded-2xl shadow-md" : ""
+              className={`bg-white rounded-t-xl sm:rounded-t-2xl shadow-sm p-3 sm:p-4 transition-all duration-200 ease-in-out ${
+                isSticky
+                  ? "sticky top-16 sm:top-20 z-10 rounded-xl sm:rounded-2xl shadow-md"
+                  : ""
               }`}
             >
-              <div className="flex space-x-6">
+              <div className="flex overflow-x-auto hide-scrollbar space-x-4 sm:space-x-6">
                 {["about", "gallery", "experts", "testimonials"].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => scrollToSection(tab)}
-                    className={`pb-2 font-medium text-lg capitalize ${
+                    className={`pb-2 font-medium text-base sm:text-lg capitalize whitespace-nowrap ${
                       selectedTab === tab
                         ? "text-blue-600 border-b-2 border-blue-600"
                         : "text-gray-500 hover:text-gray-700"
@@ -313,39 +327,47 @@ const ClinicDetailPage = () => {
               </div>
             </div>
 
-            {/* About Section */}
-            <div ref={aboutRef} id="about" className=" pt-4">
-              <div className="bg-white rounded-b-2xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            {/* About Section - improved spacing for mobile */}
+            <div ref={aboutRef} id="about" className="pt-3 sm:pt-4">
+              <div className="bg-white rounded-b-xl sm:rounded-b-2xl p-4 sm:p-6 shadow-lg">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
                   About Our Clinic
                 </h2>
-                <p className="text-gray-600 leading-relaxed">{clinic.about}</p>
-                <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-blue-50 p-4 rounded-xl">
-                    <div className="flex items-center space-x-2 text-blue-600 mb-2">
-                      <CheckCircle2 className="w-5 h-5" />
-                      <span className="font-semibold">Expert Care</span>
+                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                  {clinic.about}
+                </p>
+                <div className="mt-6 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="bg-blue-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">
+                    <div className="flex items-center space-x-2 text-blue-600 mb-1 sm:mb-2">
+                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="font-semibold text-sm sm:text-base">
+                        Expert Care
+                      </span>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs sm:text-sm text-gray-600">
                       Professional medical services with experienced specialists
                     </p>
                   </div>
-                  <div className="bg-blue-50 p-4 rounded-xl">
-                    <div className="flex items-center space-x-2 text-blue-600 mb-2">
-                      <CheckCircle2 className="w-5 h-5" />
-                      <span className="font-semibold">Modern Facilities</span>
+                  <div className="bg-blue-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">
+                    <div className="flex items-center space-x-2 text-blue-600 mb-1 sm:mb-2">
+                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="font-semibold text-sm sm:text-base">
+                        Modern Facilities
+                      </span>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs sm:text-sm text-gray-600">
                       State-of-the-art medical equipment and comfortable
                       environment
                     </p>
                   </div>
-                  <div className="bg-blue-50 p-4 rounded-xl">
-                    <div className="flex items-center space-x-2 text-blue-600 mb-2">
-                      <CheckCircle2 className="w-5 h-5" />
-                      <span className="font-semibold">Patient-First</span>
+                  <div className="bg-blue-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">
+                    <div className="flex items-center space-x-2 text-blue-600 mb-1 sm:mb-2">
+                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="font-semibold text-sm sm:text-base">
+                        Patient-First
+                      </span>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs sm:text-sm text-gray-600">
                       Focused on providing the best patient experience
                     </p>
                   </div>
@@ -353,21 +375,21 @@ const ClinicDetailPage = () => {
               </div>
             </div>
 
-            {/* Gallery Section */}
-            <div ref={galleryRef} id="gallery" className="pt-2 mt-4">
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <Image className="w-6 h-6 mr-2 text-blue-600" />
+            {/* Gallery Section - improved for mobile */}
+            <div ref={galleryRef} id="gallery" className="pt-2 mt-3 sm:mt-4">
+              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center">
+                  <Image className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-blue-600" />
                   Clinic Gallery
                 </h2>
 
                 {clinic.images && clinic.images.length > 0 ? (
                   <>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
                       {clinic.images.map((image, index) => (
                         <div
                           key={index}
-                          className="aspect-video relative rounded-xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                          className="aspect-video relative rounded-lg sm:rounded-xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
                           onClick={() => {
                             setCurrentImageIndex(index);
                             setShowGalleryModal(true);
@@ -382,32 +404,32 @@ const ClinicDetailPage = () => {
                       ))}
                     </div>
 
-                    <div className="mt-4 text-center">
+                    <div className="mt-3 sm:mt-4 text-center">
                       <button
                         onClick={() => setShowGalleryModal(true)}
-                        className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800"
+                        className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm sm:text-base"
                       >
                         <span className="font-medium">View all photos</span>
-                        <ChevronRight className="w-5 h-5 ml-1" />
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-1" />
                       </button>
                     </div>
                   </>
                 ) : (
-                  <div className="text-center py-8 text-gray-500">
+                  <div className="text-center py-6 sm:py-8 text-gray-500">
                     <p>No gallery images available.</p>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Gallery Modal */}
+            {/* Gallery Modal - Improved for all screen sizes */}
             {showGalleryModal && (
-              <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50">
+              <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-2 sm:p-4 z-50">
                 <button
                   onClick={() => setShowGalleryModal(false)}
-                  className="absolute right-4 top-4 text-white hover:text-gray-300"
+                  className="absolute right-2 sm:right-4 top-2 sm:top-4 text-white hover:text-gray-300"
                 >
-                  <X className="w-8 h-8" />
+                  <X className="w-6 h-6 sm:w-8 sm:h-8" />
                 </button>
 
                 <div className="relative w-full max-w-4xl">
@@ -420,20 +442,20 @@ const ClinicDetailPage = () => {
 
                     <button
                       onClick={handlePrevImage}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+                      className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-1 sm:p-2 rounded-full hover:bg-black/70"
                     >
-                      <ChevronLeft className="w-6 h-6" />
+                      <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                     </button>
 
                     <button
                       onClick={handleNextImage}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+                      className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-1 sm:p-2 rounded-full hover:bg-black/70"
                     >
-                      <ChevronRight className="w-6 h-6" />
+                      <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                     </button>
                   </div>
 
-                  <div className="mt-4 text-center text-white">
+                  <div className="mt-2 sm:mt-4 text-center text-white">
                     <p>
                       {currentImageIndex + 1} / {clinic.images.length}
                     </p>
@@ -442,10 +464,10 @@ const ClinicDetailPage = () => {
               </div>
             )}
 
-            {/* Experts Section */}
-            <div ref={expertsRef} id="experts" className="pt-2 mt-4">
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">
+            {/* Experts Section - improved for all devices */}
+            <div ref={expertsRef} id="experts" className="pt-2 mt-3 sm:mt-4">
+              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">
                   Our Medical Experts
                 </h2>
 
@@ -463,39 +485,39 @@ const ClinicDetailPage = () => {
                         {clinic.experts.map((expert) => (
                           <div
                             key={expert._id}
-                            className="w-full flex-shrink-0 px-4"
+                            className="w-full flex-shrink-0 px-2 sm:px-4"
                           >
-                            {/* Reduced size container with max-width and centering */}
-                            <div className="mx-auto max-w-md md:max-w-sm">
-                              <div className="bg-slate-100 border border-black rounded-xl shadow-xl overflow-hidden hover:shadow-md transition-shadow">
-                                {/* Reduced aspect ratio of the image */}
+                            {/* Adjusted container size for better mobile display */}
+                            <div className="mx-auto max-w-xs sm:max-w-sm">
+                              <div className="bg-slate-100 border border-black rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl overflow-hidden hover:shadow-md transition-shadow">
+                                {/* Responsive aspect ratio */}
                                 <div className="aspect-[4/3] relative">
                                   <img
                                     src={expert.image}
                                     alt={expert.name}
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-contain"
                                   />
-                                  <div className="absolute top-4 right-4">
-                                    <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                                  <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
+                                    <span className="bg-green-500 text-white text-xs px-2 py-0.5 sm:py-1 rounded-full">
                                       Available Today
                                     </span>
                                   </div>
                                 </div>
-                                {/* Reduced padding in the content area */}
-                                <div className="p-4">
-                                  <h3 className="text-lg font-bold text-gray-800">
+                                {/* Better padding for mobile */}
+                                <div className="p-3 sm:p-4">
+                                  <h3 className="text-base sm:text-lg font-bold text-gray-800">
                                     {expert.name}
                                   </h3>
-                                  <p className="text-blue-600 font-medium mb-3 text-sm">
+                                  <p className="text-blue-600 font-medium mb-2 sm:mb-3 text-xs sm:text-sm">
                                     {expert.specialization}
                                   </p>
                                   <div className="flex items-center space-x-4">
                                     <button
                                       onClick={() => setShowModal(true)}
-                                      className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 text-sm"
+                                      className="flex-1 bg-blue-600 text-white py-1.5 sm:py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-1 sm:space-x-2 text-xs sm:text-sm"
                                     >
                                       <span>Book Appointment</span>
-                                      <ArrowRight className="w-4 h-4" />
+                                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                                     </button>
                                   </div>
                                 </div>
@@ -506,31 +528,31 @@ const ClinicDetailPage = () => {
                       </div>
                     </div>
 
-                    {/* Carousel Navigation */}
+                    {/* Carousel Navigation - improved touch targets for mobile */}
                     <div className="absolute inset-y-0 left-0 flex items-center">
                       <button
                         onClick={handlePrevExpert}
-                        className="bg-white/80 hover:bg-white p-2 rounded-full shadow-md -ml-2"
+                        className="bg-white/80 hover:bg-white p-1.5 sm:p-2 rounded-full shadow-md -ml-1 sm:-ml-2"
                       >
-                        <ChevronLeft className="w-5 h-5 text-gray-800" />
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800" />
                       </button>
                     </div>
                     <div className="absolute inset-y-0 right-0 flex items-center">
                       <button
                         onClick={handleNextExpert}
-                        className="bg-white/80 hover:bg-white p-2 rounded-full shadow-md -mr-2"
+                        className="bg-white/80 hover:bg-white p-1.5 sm:p-2 rounded-full shadow-md -mr-1 sm:-mr-2"
                       >
-                        <ChevronRight className="w-5 h-5 text-gray-800" />
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800" />
                       </button>
                     </div>
 
-                    {/* Pagination Dots */}
-                    <div className="flex justify-center mt-6 space-x-2">
+                    {/* Pagination Dots - made more touch-friendly */}
+                    <div className="flex justify-center mt-4 sm:mt-6 space-x-3">
                       {clinic.experts.map((_, index) => (
                         <button
                           key={index}
                           onClick={() => setCurrentExpertIndex(index)}
-                          className={`w-2.5 h-2.5 rounded-full ${
+                          className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${
                             currentExpertIndex === index
                               ? "bg-blue-600"
                               : "bg-gray-300"
@@ -541,83 +563,23 @@ const ClinicDetailPage = () => {
                     </div>
 
                     {/* Page Counter */}
-                    <div className="text-center mt-2 text-sm text-gray-500">
+                    <div className="text-center mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500">
                       Expert {currentExpertIndex + 1} of {clinic.experts.length}
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center py-8 text-gray-500">
+                  <div className="text-center py-6 sm:py-8 text-gray-500">
                     <p>No experts available.</p>
                   </div>
                 )}
               </div>
             </div>
-
-            {/* Testimonials Section */}
-            {/* <div
-              ref={testimonialsRef}
-              id="testimonials"
-              className="space-y-6 pt-8 mt-6"
-            >
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                  Patient Testimonials
-                </h2>
-                <div className="space-y-6">
-                  {clinic.testimonials && clinic.testimonials.length > 0 ? (
-                    clinic.testimonials.map((testimonial, index) => (
-                      <div
-                        key={testimonial._id || index}
-                        className="bg-blue-50 p-6 rounded-xl relative"
-                      >
-                        <div className="absolute top-4 right-4 text-blue-300">
-                          <Quote className="w-8 h-8" />
-                        </div>
-                        <p className="text-gray-700 italic mb-4 leading-relaxed">
-                          {testimonial.review}
-                        </p>
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                            {testimonial.name.charAt(0)}
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-gray-800">
-                              {testimonial.name}
-                            </h4>
-                            <div className="flex items-center space-x-1">
-                              {[1, 2, 3, 4, 5].map((star) => (
-                                <Star
-                                  key={star}
-                                  className="w-4 h-4 text-yellow-400 fill-current"
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-center py-8 text-gray-500">
-                      <p>No testimonials available yet.</p>
-                    </div>
-                  )}
-                </div>
-                <div className="mt-8 text-center">
-                  <button
-                    onClick={() => setShowModal(true)}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
-                  >
-                    <span>Share Your Experience</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div> */}
           </div>
 
           {/* Right Column - Info Cards */}
-          <div className="space-y-6">
-            <div className="mt-8 md:mt-2 max-w-sm w-full hidden md:block p-1 bg-white rounded-2xl shadow-xl">
+          <div className="space-y-4 sm:space-y-6">
+            {/* Map for desktop */}
+            <div className="mt-2 sm:mt-8 md:mt-2 max-w-sm w-full hidden md:block p-1 bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl">
               <iframe
                 src={clinic.googleAddressUrl}
                 width="100%"
@@ -625,21 +587,23 @@ const ClinicDetailPage = () => {
                 style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
-                className="rounded-2xl"
+                className="rounded-xl sm:rounded-2xl"
               ></iframe>
             </div>
 
-            {/* Opening Hours Card */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">
+            {/* Opening Hours Card - improved for mobile */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">
                 Opening Hours
               </h2>
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {Object.entries(clinic.timings).map(([day, time]) => (
                   <div key={day} className="flex justify-between items-center">
-                    <span className="capitalize text-gray-600">{day}</span>
+                    <span className="capitalize text-gray-600 text-sm sm:text-base">
+                      {day}
+                    </span>
                     <span
-                      className={`font-medium ${
+                      className={`font-medium text-sm sm:text-base ${
                         day === "sunday" ? "text-red-500" : "text-gray-800"
                       }`}
                     >
@@ -650,20 +614,20 @@ const ClinicDetailPage = () => {
               </div>
             </div>
 
-            {/* Testimonials Section - Move this below RateClinic in the right column */}
+            {/* Testimonials Section - improved for mobile */}
             <div
               ref={testimonialsRef}
               id="testimonials"
-              className="space-y-6 mt-6"
+              className="mt-3 sm:mt-6"
             >
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">
+              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">
                   Testimonials
                 </h2>
 
                 {clinic.testimonials && clinic.testimonials.length > 0 ? (
                   <>
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                       {clinic.testimonials
                         .slice(
                           currentTestimonialPage * testimonialsPerPage,
@@ -673,27 +637,27 @@ const ClinicDetailPage = () => {
                         .map((testimonial, index) => (
                           <div
                             key={testimonial._id || index}
-                            className="bg-blue-50 p-6 rounded-xl relative"
+                            className="bg-blue-50 p-4 sm:p-6 rounded-lg sm:rounded-xl relative"
                           >
-                            <div className="absolute top-4 right-4 text-blue-300">
-                              <Quote className="w-8 h-8" />
+                            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-blue-300">
+                              <Quote className="w-6 h-6 sm:w-8 sm:h-8" />
                             </div>
-                            <p className="text-gray-700 italic mb-4 leading-relaxed line-clamp-2">
+                            <p className="text-gray-700 italic mb-3 sm:mb-4 leading-relaxed line-clamp-2 text-sm sm:text-base">
                               {testimonial.review}
                             </p>
-                            <div className="flex items-center space-x-3">
-                              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                            <div className="flex items-center space-x-2 sm:space-x-3">
+                              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base">
                                 {testimonial.name.charAt(0)}
                               </div>
                               <div>
-                                <h4 className="font-semibold text-gray-800">
+                                <h4 className="font-semibold text-gray-800 text-sm sm:text-base">
                                   {testimonial.name}
                                 </h4>
                                 <div className="flex items-center space-x-1">
                                   {[1, 2, 3, 4, 5].map((star) => (
                                     <Star
                                       key={star}
-                                      className="w-4 h-4 text-yellow-400 fill-current"
+                                      className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current"
                                     />
                                   ))}
                                 </div>
@@ -703,49 +667,40 @@ const ClinicDetailPage = () => {
                         ))}
                     </div>
 
-                    {/* Pagination controls */}
-                    <div className="flex justify-between items-center mt-6">
-                      <span className="text-sm text-gray-500">
-                        Showing page {currentTestimonialPage + 1} of{" "}
+                    {/* Pagination controls - improved for mobile */}
+                    <div className="flex justify-between items-center mt-4 sm:mt-6">
+                      <span className="text-xs sm:text-sm text-gray-500">
+                        Page {currentTestimonialPage + 1} of{" "}
                         {Math.ceil(
                           (clinic.testimonials.length || 0) /
                             testimonialsPerPage
                         )}
                       </span>
-                      <div className="flex space-x-2">
+                      <div className="flex space-x-1 sm:space-x-2">
                         <button
                           onClick={handlePrevTestimonialPage}
-                          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                          className="p-1.5 sm:p-2 rounded-full bg-gray-100 hover:bg-gray-200"
                           aria-label="Previous page"
                         >
-                          <ChevronLeft className="w-5 h-5" />
+                          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                         </button>
                         <button
                           onClick={handleNextTestimonialPage}
-                          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                          className="p-1.5 sm:p-2 rounded-full bg-gray-100 hover:bg-gray-200"
                           aria-label="Next page"
                         >
-                          <ChevronRight className="w-5 h-5" />
+                          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                         </button>
                       </div>
                     </div>
                   </>
                 ) : (
-                  <div className="text-center py-8 text-gray-500">
+                  <div className="text-center py-6 sm:py-8 text-gray-500">
                     <p>No testimonials available yet.</p>
                   </div>
                 )}
 
-                {/* <div className="mt-8 text-center">
-                  <button
-                    onClick={() => setShowModal(true)}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
-                  >
-                    <span>Share Your Experience</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div> */}
-                <div className="flex justify-center mt-3">
+                <div className="flex justify-center mt-2 sm:mt-3">
                   <RateClinic clinicId={id} />
                 </div>
               </div>

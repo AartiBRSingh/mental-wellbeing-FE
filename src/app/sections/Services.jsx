@@ -22,7 +22,7 @@ export const DecorativeShapes = () => (
       alt="Decorative image"
       width={200}
       height={200}
-      className="absolute top-[590px] rotate-12 right-6 sm:top-[210px] sm:right-20 z-0 opacity-100 w-[130px] sm:w-[200px] h-auto"
+      className="absolute top-[590px] rotate-12 right-6 sm:top-[160px] sm:right-20 z-0 opacity-100 w-[130px] sm:w-[200px] h-auto"
     />
   </div>
 );

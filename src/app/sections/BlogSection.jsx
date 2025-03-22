@@ -221,9 +221,9 @@ const BlogSection = () => {
     <div className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-24 relative">
         {/* Header section - Keep exactly the same */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4 md:gap-6 mb-8 md:mb-16">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4 md:gap-6 mb-8 md:mb-20">
           <div className="space-y-4 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
-            <div className="relative inline-block">
+            <div className="relative inline-block mb-5">
               <div className="absolute inset-0 bg-[#956144] opacity-10 rotate-2 rounded-lg" />
               <div className="relative px-3 md:px-4 py-1.5 bg-white rounded-lg text-xs md:text-sm text-[#956144] font-medium border border-[#956144]/20">
                 MENTAL HEALTH AT ANY AGE
@@ -324,7 +324,7 @@ const BlogSection = () => {
           ))}
         </div>
 
-        <div className="flex justify-center mt-10 ml-20">
+        <div className="flex justify-center mt-16 ml-20">
           <Link
             href="/blogs"
             className="group w-full sm:w-auto mx-4 sm:mx-8 md:mx-16 lg:mx-0"

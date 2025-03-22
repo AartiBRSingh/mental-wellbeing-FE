@@ -106,7 +106,7 @@ const Navbar = () => {
             <img
               src="/websiteLogo.png"
               alt=""
-              className="w-48 h-20 cursor-pointer ml-16"
+              className="w-48 h-20 cursor-pointer "
             />
           </Link>
           <section className="hidden md:block">

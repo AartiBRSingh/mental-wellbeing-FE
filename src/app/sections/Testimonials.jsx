@@ -121,7 +121,7 @@ const TestimonialsSlider = () => {
     if (!isHovered && testimonials.length > 0) {
       intervalId = setInterval(() => {
         handleScroll("right");
-      }, 4000);
+      }, 2000);
     }
     return () => clearInterval(intervalId);
   }, [isHovered, handleScroll, testimonials.length]);

@@ -116,12 +116,12 @@ const WhyUs = () => {
     <Link href={`/all-experts?userType=${expert.slug}`}>
       <div
         className={`text-center flex flex-col items-center ${
-          isMobile ? "min-w-[240px] px-3" : ""
+          isMobile ? "min-w-[280px] px-4" : ""
         }`}
       >
         <div
           className={`${
-            isMobile ? "w-40 h-40" : "w-32 h-32 md:w-44 md:h-44"
+            isMobile ? "w-48 h-48" : "w-32 h-32 md:w-44 md:h-44"
           } mb-4 md:mb-6 rounded-xl overflow-hidden`}
         >
           <CircleImage imageUrl={expert.imageUrl} />
@@ -129,7 +129,7 @@ const WhyUs = () => {
         <div className="relative inline-block pb-4 mb-2">
           <h3
             className={`${
-              isMobile ? "text-base" : "text-sm md:text-lg"
+              isMobile ? "text-lg" : "text-sm md:text-lg"
             } font-semibold`}
           >
             {expert.title}
@@ -147,7 +147,7 @@ const WhyUs = () => {
             PEACEFUL BEGINNING
           </span>
           <div className="flex gap-2 justify-center">
-            <h1 className="text-4xl md:text-5xl font-semibold mt-6 mb-10">
+            <h1 className="text-4xl md:text-5xl font-semibold mt-10 mb-16">
               Our{" "}
               <span className="relative text-[#956144]">
                 Experts
@@ -161,7 +161,7 @@ const WhyUs = () => {
         <div className="md:hidden relative">
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto gap-6 scroll-smooth no-scrollbar touch-pan-x"
+            className="flex overflow-x-auto gap-1 scroll-smooth no-scrollbar touch-pan-x"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -181,7 +181,7 @@ const WhyUs = () => {
         </div>
 
         {/* Desktop Grid View */}
-        <div className="hidden md:flex flex-wrap justify-center items-center gap-10">
+        <div className="hidden md:flex flex-wrap justify-center items-center gap-24">
           {expertTypes.map((expert, index) => (
             <ExpertCard key={index} expert={expert} isMobile={false} />
           ))}
