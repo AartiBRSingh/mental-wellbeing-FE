@@ -132,7 +132,7 @@ No Substitute for Emergency Care: ShareYrHeart's services are not a substitute f
   };
 
   return (
-    <div className="bg-white container mx-auto my-10 rounded-3xl shadow-2xl">
+    <div className="bg-white container max-w-6xl mx-auto my-10 rounded-3xl shadow-2xl">
       <header className="bg-gradient-to-r from-blue-100 to-purple-100 py-16 px-4 rounded-2xl">
         <div className="max-w-4xl mx-auto text-center rounded-2xl">
           <FileText className="w-16 h-16 text-blue-600 mx-auto mb-6" />
