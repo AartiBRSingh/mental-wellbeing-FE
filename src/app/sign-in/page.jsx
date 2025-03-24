@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import VerificationModal from "../components/VerificationModal";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ const Login = () => {
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(true);
   const [isLoginWIthOrgCode, setLoginWIthOrgCode] = useState(false);
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
 
   const { executeRecaptcha } = useGoogleReCaptcha();
   const router = useRouter();
@@ -32,10 +34,18 @@ const Login = () => {
         recaptchaToken,
       });
       setIsOtpSent(true);
+      toast.success("OTP Sent!");
     } catch (error) {
-      throw new Error(
-        error.response?.data || "Failed to send OTP. Please try again."
-      );
+      if (
+        error.response?.status === 403 &&
+        error.response?.data?.verificationRequired
+      ) {
+        setShowVerificationModal(true);
+        toast.error("Verification required.");
+      } else {
+        toast.error(error.response?.data?.message || "Something went wrong");
+      }
+      setError(error.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -112,7 +122,6 @@ const Login = () => {
         });
       } else {
         await onEmailSubmit(email, recaptchaToken);
-        toast.success("OTP Sent!");
       }
     } catch (error) {
       setError(
@@ -234,9 +243,9 @@ const Login = () => {
             <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">
               {isOtpSent ? "Verify OTP" : "Login"}
             </h2>
-            {error && (
+            {/* {error && (
               <p className="text-red-500 mb-3 md:mb-4 text-sm">{error}</p>
-            )}
+            )} */}
             <div className="mb-3 md:mb-4">
               <label
                 htmlFor="email"
@@ -339,6 +348,11 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <VerificationModal
+        isOpen={showVerificationModal}
+        onClose={() => setShowVerificationModal(false)}
+        identifier={email}
+      />
     </div>
   );
 };
