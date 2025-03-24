@@ -24,6 +24,32 @@ const CourseDetailPage = () => {
   const [comment, setComment] = useState("");
   const [showShareModal, setShowShareModal] = useState(false);
   const [pageUrl, setPageUrl] = useState("");
+  const [expandedItems, setExpandedItems] = useState({});
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const calculateAverageRating = (reviews) => {
+    if (!reviews || reviews.length === 0) return 0;
+    const sum = reviews.reduce((total, review) => total + review.rating, 0);
+    return (sum / reviews.length).toFixed(1);
+  };
+
+  const convertToBulletPoints = (text) => {
+    if (!text) return [];
+    return text.split(".").filter((item) => item.trim().length > 0);
+  };
+
+  const getTotalDuration = (curriculum) => {
+    if (!curriculum || !Array.isArray(curriculum)) return 0;
+    let totalMonths = 0;
+    curriculum.forEach((item) => {
+      if (item.duration) {
+        // Assuming duration is stored in minutes, convert to months
+        // This is a placeholder calculation - adjust based on your actual data
+        totalMonths += Math.ceil(item.duration / (60 * 24 * 30)); // rough estimate
+      }
+    });
+    return totalMonths || 3; // Default to 3 months if calculation results in 0
+  };
 
   useEffect(() => {
     const userId = Cookies.get("userId");
@@ -172,16 +198,31 @@ const CourseDetailPage = () => {
         rating,
         comment,
       });
-      setReviews([...reviews, response.data.review]);
+
+      // Add the new review to the reviews array
+      const newReview = response.data.review;
+      const updatedReviews = [...reviews, newReview];
+      setReviews(updatedReviews);
+
+      // Update the course rating in the course object
+      const newAverageRating = calculateAverageRating(updatedReviews);
+      setCourse((prevCourse) => ({
+        ...prevCourse,
+        rating: newAverageRating,
+        reviewsCount: updatedReviews.length,
+      }));
+
+      // Reset form fields
       setRating(0);
       setComment("");
+
+      toast.success("Review submitted successfully!");
     } catch (error) {
       console.error("Error submitting review", error);
+      toast.error("Failed to submit review. Please try again.");
     }
     setLoading(false);
   };
-
-  const [showFullDescription, setShowFullDescription] = useState(false);
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("en-IN", {
@@ -219,12 +260,6 @@ const CourseDetailPage = () => {
       {/* Hero Section */}
       <div className="mb-8 p-6 bg-transparent rounded-xl mx-5">
         <div className="flex flex-col md:flex-row md:items-center p-5 gap-6 rounded-2xl ">
-          <img
-            src={course?.thumbnailUrl || "/childhover.jpg"}
-            alt={course?.title}
-            className="h-60 w-60 rounded-full mb-6 shadow-xl object-cover border-4 border-white mx-auto md:mx-0"
-          />
-
           <span className="text-black relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
             <span className="relative">
               {course?.title}
@@ -242,19 +277,6 @@ const CourseDetailPage = () => {
               </svg>
             </span>
           </span>
-        </div>
-        <div className="flex justify-between mt-4">
-          <div className="flex flex-wrap items-center gap-2 m-4">
-            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-              {course?.language}
-            </span>
-            <span className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">
-              {course?.category}
-            </span>
-            <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
-              {course?.level}
-            </span>
-          </div>
         </div>
         <div className="m-4">
           <div className="relative">
@@ -353,24 +375,24 @@ const CourseDetailPage = () => {
       <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-8">
         <div className="grid md:grid-cols-4 gap-8">
           <div className="border-r border-gray-200 md:border-r-2">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-2 ml-10 mt-3">
               <span className="font-bold text-xl text-blue-600">
-                {course?.rating || 0}
+                {course?.rating || calculateAverageRating(reviews) || 0}
               </span>
               <Star className="w-5 h-5 text-yellow-500 fill-current" />
               <span className="text-gray-600 font-medium">
-                ({course?.reviewsCount || 0} reviews)
+                ({reviews.length} reviews)
               </span>
             </div>
           </div>
-          <div className="border-r border-gray-200 md:border-r-2">
+          <div className="border-r border-gray-200 md:border-r-2 ml-5 ">
             <div className="flex items-center gap-2 mb-2">
-              <h3 className="font-bold text-lg">{course?.level}</h3>
+              <h3 className="font-bold text-lg">{course?.level} Level</h3>
               <Info className="w-5 h-5 text-blue-500" />
             </div>
             <p className="text-gray-600 text-sm">Recommended experience</p>
           </div>
-          <div className="border-r border-gray-200 md:border-r-2">
+          <div className="border-r border-gray-200 md:border-r-2 ml-8">
             <h3 className="font-bold text-lg mb-2">
               {course?.numCourses} Courses
             </h3>
@@ -378,9 +400,14 @@ const CourseDetailPage = () => {
               {course?.paceDescription} pace
             </p>
           </div>
-          <div>
-            <h3 className="font-bold text-lg mb-2">{course?.schedulePace}</h3>
-            <p className="text-gray-600 text-sm">Estimated effort</p>
+          <div className="mx-10">
+            <div className="flex gap-2">
+              <Calendar />
+              <span className="font-bold text-lg mb-2">
+                {course.duration || getTotalDuration(course.curriculum)} months
+              </span>
+            </div>
+            <h3 className="text-gray-600 text-md">At {course?.schedulePace}</h3>
           </div>
         </div>
       </div>
@@ -444,7 +471,7 @@ const CourseDetailPage = () => {
           <ul className="space-y-4">
             {course.outcomes.items.map((item, index) => (
               <li key={index} className="flex items-start">
-                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3"></div>
+                <div className="w-3 h-3 mr-3">✓</div>
                 <span className="text-gray-700">{item}</span>
               </li>
             ))}
@@ -458,98 +485,96 @@ const CourseDetailPage = () => {
         className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
       >
         <h2 className="text-2xl font-bold mb-4 text-gray-800 border-l-4 border-purple-500 pl-3">
-          Course Curriculum
+          Courses
         </h2>
         <div className="space-y-4">
-          {course?.courses &&
-          course.curriculum &&
-          course.courses.length > 0 &&
-          course.curriculum.length > 0 ? (
+          {course?.courses?.length > 0 ? (
             course.courses.map((courseItem, index) => {
-              // Find the matching curriculum item for this course
-              const curriculumItem = course.curriculum[index];
+              const curriculumItem = course.curriculum?.[index];
+              const isExpanded = expandedItems[index];
+              const descriptionPoints = convertToBulletPoints(
+                courseItem.description
+              );
+              const curriculumPoints = convertToBulletPoints(
+                curriculumItem?.description
+              );
 
               return (
                 <div
                   key={index}
                   className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow duration-200"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                    <h3 className="font-bold text-lg text-gray-800">
-                      {courseItem.title}
-                    </h3>
-                    {curriculumItem &&
-                      curriculumItem.title &&
-                      curriculumItem.title !== courseItem.title && (
-                        <div className="text-indigo-600 font-medium text-sm mt-1 sm:mt-0">
-                          {curriculumItem.title}
+                  <div
+                    className="flex justify-between items-center cursor-pointer"
+                    onClick={() =>
+                      setExpandedItems((prev) => ({
+                        ...prev,
+                        [index]: !prev[index],
+                      }))
+                    }
+                  >
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg text-gray-800">
+                        {courseItem.title}
+                      </h3>
+                      <div className="flex items-center gap-2 mt-2">
+                        <p className="text-sm text-gray-600 flex items-center">
+                          <Clock className="w-4 h-4 mr-1" />
+                          {courseItem.duration}
+                        </p>
+                        {curriculumItem?.duration > 0 && (
+                          <p className="text-sm text-gray-600 flex items-center sm:ml-4">
+                            <Clock className="w-4 h-4 mr-1" />
+                            {`${Math.ceil(
+                              curriculumItem.duration / 60
+                            )}h per week`}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <ChevronDown
+                      className={`w-6 h-6 text-gray-500 transform transition-transform ${
+                        isExpanded ? "rotate-180" : ""
+                      }`}
+                    />
+                  </div>
+
+                  {isExpanded && (
+                    <div className="mt-4 space-y-4">
+                      {descriptionPoints.length > 0 && (
+                        <div className="space-y-2">
+                          <h4 className="font-medium text-gray-700">
+                            Course Overview:
+                          </h4>
+                          <ul className="list-disc pl-5 space-y-2">
+                            {descriptionPoints.map((point, i) => (
+                              <li key={i} className="text-gray-600">
+                                {point.trim()}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       )}
-                  </div>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
-                    <p className="text-sm text-gray-600 flex items-center">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {courseItem.duration}
-                    </p>
-                    {curriculumItem && curriculumItem.duration > 0 && (
-                      <p className="text-sm text-gray-600 flex items-center sm:ml-4">
-                        <Clock className="w-4 h-4 mr-1" />
-                        {`${Math.ceil(curriculumItem.duration / 60)}h per week`}
-                      </p>
-                    )}
-                  </div>
-                  <div className="text-gray-700 whitespace-pre-line leading-relaxed">
-                    {courseItem.description}
-                    {curriculumItem && curriculumItem.description && (
-                      <>
-                        <hr className="my-3 border-gray-200" />
-                        <div className="whitespace-pre-line">
-                          {curriculumItem.description}
+
+                      {curriculumPoints.length > 0 && (
+                        <div className="space-y-2">
+                          <h4 className="font-medium text-gray-700">
+                            Curriculum Details:
+                          </h4>
+                          <ul className="list-disc pl-5 space-y-2">
+                            {curriculumPoints.map((point, i) => (
+                              <li key={i} className="text-gray-600">
+                                {point.trim()}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                      </>
-                    )}
-                  </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })
-          ) : course?.courses && course.courses.length > 0 ? (
-            course.courses.map((courseItem, index) => (
-              <div
-                key={index}
-                className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow duration-200"
-              >
-                <h3 className="font-bold text-lg mb-2 text-gray-800">
-                  {courseItem.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-3 flex items-center">
-                  <Clock className="w-4 h-4 mr-1" />
-                  {courseItem.duration}
-                </p>
-                <div className="text-gray-700 whitespace-pre-line leading-relaxed">
-                  {courseItem.description}
-                </div>
-              </div>
-            ))
-          ) : course?.curriculum && course.curriculum.length > 0 ? (
-            course.curriculum.map((item, index) => (
-              <div
-                key={index}
-                className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow duration-200"
-              >
-                <h3 className="font-bold text-lg mb-2 text-gray-800">
-                  {item.title}
-                </h3>
-                {item.duration > 0 && (
-                  <p className="text-sm text-gray-600 mb-3 flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {`${Math.ceil(item.duration / 60)}h`}
-                  </p>
-                )}
-                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                  {item.description}
-                </p>
-              </div>
-            ))
           ) : (
             <p className="text-gray-600 italic">
               No curriculum information available
@@ -559,8 +584,8 @@ const CourseDetailPage = () => {
       </div>
 
       {/* Reviews Section */}
-      {/* <div
-        id="reviews"
+      <div
+        id="testimonials"
         className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
       >
         <h2 className="text-2xl font-bold mb-4 text-gray-800 border-l-4 border-yellow-500 pl-3">
@@ -576,52 +601,7 @@ const CourseDetailPage = () => {
           comment={comment}
           setComment={setComment}
         />
-      </div> */}
-
-      {/* Testimonials Section */}
-      {course?.testimonials && course.testimonials.length > 0 ? (
-        <div
-          id="testimonials"
-          className="bg-white rounded-lg shadow-md p-8 border border-gray-100"
-        >
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 border-l-4 border-indigo-500 pl-3">
-            What learners are saying
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {course.testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-indigo-50 p-6 rounded-lg border border-indigo-100 shadow-sm hover:shadow-md transition-shadow duration-200"
-              >
-                <p className="text-gray-700 mb-4 italic leading-relaxed">
-                  {testimonial.content}
-                </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-indigo-200 rounded-full flex items-center justify-center text-indigo-700 font-bold mr-3">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-800">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div
-          id="testimonials"
-          className="bg-white rounded-lg shadow-md p-8 border border-gray-100"
-        >
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 border-l-4 border-indigo-500 pl-3">
-            What learners are saying
-          </h2>
-          <p className="text-gray-600 italic">No testimonials available yet.</p>
-        </div>
-      )}
+      </div>
 
       {/* Share Modal */}
       {showShareModal && (
