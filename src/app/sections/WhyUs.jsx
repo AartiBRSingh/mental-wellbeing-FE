@@ -74,7 +74,7 @@ const WhyUs = () => {
       id: 4,
       title: "Family Therapy",
       slug: "Family+Therapy",
-      imageUrl: "family.jpg",
+      imageUrl: "family2.jpg",
     },
     {
       id: 5,

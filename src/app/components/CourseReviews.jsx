@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Star } from "lucide-react";
 
-const CourseReviews = ({ data, onSubmitReview, userId, loading }) => {
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
-
-  const reviews = data?.reviews || [];
-
+const CourseReviews = ({
+  courseReviews,
+  onSubmitReview,
+  userId,
+  loading,
+  rating,
+  setRating,
+  comment,
+  setComment,
+}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await onSubmitReview(rating, comment);
-    setRating(0);
-    setComment("");
+    await onSubmitReview(e);
   };
 
   return (
@@ -62,8 +64,8 @@ const CourseReviews = ({ data, onSubmitReview, userId, loading }) => {
       )}
 
       <div className="space-y-6">
-        {reviews.length > 0 ? (
-          reviews.map((review) => (
+        {courseReviews && courseReviews.length > 0 ? (
+          courseReviews.map((review) => (
             <div key={review._id} className="border-b pb-4">
               <div className="flex items-center gap-4 mb-2">
                 <div className="flex items-center">
@@ -80,7 +82,9 @@ const CourseReviews = ({ data, onSubmitReview, userId, loading }) => {
                   ))}
                 </div>
                 <span className="font-medium text-gray-700">
-                  {review.studentId.name}
+                  {review.studentId && review.studentId.name
+                    ? review.studentId.name
+                    : "Anonymous"}
                 </span>
                 <span className="text-sm text-gray-500">
                   {new Date(review.date).toLocaleDateString()}
