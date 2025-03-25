@@ -29,9 +29,14 @@ const ClinicDisplay = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [openFaq, setOpenFaq] = useState(null);
+  const [visibleFaqs, setVisibleFaqs] = useState(2);
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const toggleViewMore = () => {
+    setVisibleFaqs(visibleFaqs === 2 ? faqList.length : 2);
   };
 
   useEffect(() => {
@@ -102,6 +107,49 @@ const ClinicDisplay = () => {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)+/g, "")}?id=${id}`;
   }
+
+  const faqList = [
+    {
+      question: " What services do ShareYrHeart Clinics provide?",
+      answer:
+        "ShareYrHeart Clinics offer a range of mental health treatments and therapies, including Psychological counseling and therapy Stress, anxiety, and depression management Psychiatric consultations Behavioral therapy for children and adults Employee and student well-being programs Self-understanding and personal growth sessions",
+    },
+    {
+      question: "Do I need an appointment to visit ShareYrHeart Clinics?",
+      answer:
+        "No, prior appointments are not required. You can walk in anytime during clinic hours and consult with a mental health expert.",
+    },
+    {
+      question: "Are both therapy and medical treatments available?",
+      answer:
+        "Yes, ShareYrHeart Clinics provide Therapeutic treatments such as counseling, psychotherapy, and behavioral therapy. Medical treatments for mental health conditions, including psychiatric evaluations and medication management.",
+    },
+    {
+      question: "  Are emergency mental health services available?",
+      answer:
+        "While we do not provide emergency psychiatric hospitalization, we offer immediate support and crisis intervention for individuals in distress.",
+    },
+    {
+      question: "What are the clinic hours?",
+      answer:
+        "Clinic hours vary by location. Please visit www.shareyrheart.com or contact support@shareyrheart.com for specific timings.",
+    },
+    {
+      question: "Do ShareYrHeart Clinics accept health insurance?",
+      answer:
+        "Yes, mental health treatments at our clinics may be covered under insurance. We recommend checking with your insurance provider or speaking to our clinic staff for assistance.",
+    },
+    {
+      question: "Can I choose my preferred therapist or doctor?",
+      answer:
+        "Yes, you can request a specific therapist or doctor based on availability. Our team will assist in matching you with the right expert.",
+    },
+    {
+      question: "How can I locate the nearest ShareYrHeart Clinic?",
+      answer:
+        "Visit www.shareyrheart.com to find your nearest clinic or contact us at support@shareyrheart.com for directions.",
+    },
+  ];
 
   const SearchSection = () => (
     <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg mb-4 md:mb-8">
@@ -402,54 +450,12 @@ const ClinicDisplay = () => {
         <h2 className="xl:text-4xl text-2xl font-serif text-stone-800 mb-6 text-center">
           Frequently Asked Questions
         </h2>
-        <div className="bg-white/80  rounded-2xl divide-y divide-stone-200 mt-12 mb-8">
-          {[
-            {
-              question: " What services do ShareYrHeart Clinics provide?",
-              answer:
-                "ShareYrHeart Clinics offer a range of mental health treatments and therapies, including Psychological counseling and therapy Stress, anxiety, and depression management Psychiatric consultations Behavioral therapy for children and adults Employee and student well-being programs Self-understanding and personal growth sessions",
-            },
-            {
-              question:
-                "Do I need an appointment to visit ShareYrHeart Clinics?",
-              answer:
-                "No, prior appointments are not required. You can walk in anytime during clinic hours and consult with a mental health expert.",
-            },
-            {
-              question: "Are both therapy and medical treatments available?",
-              answer:
-                "Yes, ShareYrHeart Clinics provide Therapeutic treatments such as counseling, psychotherapy, and behavioral therapy. Medical treatments for mental health conditions, including psychiatric evaluations and medication management.",
-            },
-            {
-              question: "  Are emergency mental health services available?",
-              answer:
-                "While we do not provide emergency psychiatric hospitalization, we offer immediate support and crisis intervention for individuals in distress.",
-            },
-            {
-              question: "What are the clinic hours?",
-              answer:
-                "Clinic hours vary by location. Please visit www.shareyrheart.com or contact support@shareyrheart.com for specific timings.",
-            },
-            {
-              question: "Do ShareYrHeart Clinics accept health insurance?",
-              answer:
-                "Yes, mental health treatments at our clinics may be covered under insurance. We recommend checking with your insurance provider or speaking to our clinic staff for assistance.",
-            },
-            {
-              question: "Can I choose my preferred therapist or doctor?",
-              answer:
-                "Yes, you can request a specific therapist or doctor based on availability. Our team will assist in matching you with the right expert.",
-            },
-            {
-              question: "How can I locate the nearest ShareYrHeart Clinic?",
-              answer:
-                "Visit www.shareyrheart.com to find your nearest clinic or contact us at support@shareyrheart.com for directions.",
-            },
-          ].map((faq, index) => (
+        <div className="bg-white/80 rounded-2xl divide-y divide-stone-200 mt-12 mb-8">
+          {faqList.slice(0, visibleFaqs).map((faq, index) => (
             <div key={index} className="p-6">
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full flex justify-between  text-left text-stone-800 hover:text-stone-900"
+                className="w-full flex justify-between text-left text-stone-800 hover:text-stone-900"
               >
                 <span className="font-semibold text-md ml-10">
                   {faq.question}
@@ -470,6 +476,22 @@ const ClinicDisplay = () => {
             </div>
           ))}
         </div>
+
+        {faqList.length > 2 && (
+          <div className="flex justify-center">
+            <button
+              onClick={toggleViewMore}
+              className="px-6 py-2 text-green-600 border border-green-600 rounded-full hover:bg-green-50 transition-colors duration-300 ease-in-out flex items-center space-x-2 opacity-70 hover:opacity-100"
+            >
+              <span>{visibleFaqs === 2 ? "View More" : "View Less"}</span>
+              <ChevronDown
+                className={`h-5 w-5 transition-transform ${
+                  visibleFaqs > 2 ? "transform rotate-180" : ""
+                }`}
+              />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

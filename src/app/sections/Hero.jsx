@@ -63,7 +63,7 @@ const Hero = () => {
 
         <section className="w-full md:w-1/2 bg-transparent z-10 mb-4 md:mb-0 order-2 md:order-none flex justify-center md:block">
           <img
-            src="/dummyimg.png"
+            src="/dummyimg2.png"
             alt="Help illustration"
             className="max-w-full h-auto md:max-w-none md:w-full md:h-auto object-cover"
           />

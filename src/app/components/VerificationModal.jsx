@@ -34,13 +34,10 @@ const VerificationModal = ({ isOpen, onClose, identifier }) => {
     try {
       setIsLoading(true);
 
-      const response = await axios.post(
-        `${baseURL}/expert/verify-email-with-otp`,
-        {
-          identifier,
-          otp,
-        }
-      );
+      const response = await axios.post(`${baseURL}/expert/verify-expert`, {
+        identifier,
+        otp,
+      });
       setMessage("Email verified successfully! You can now log in.");
       setIsLoading(false);
       setTimeout(() => {
