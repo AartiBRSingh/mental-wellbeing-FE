@@ -1,6 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Star, Info, ChevronDown, Calendar, Clock, Share } from "lucide-react";
+import {
+  Star,
+  Info,
+  ChevronDown,
+  Calendar,
+  Clock,
+  Share,
+  CheckCircle,
+} from "lucide-react";
+import { TiTickOutline } from "react-icons/ti";
+
 import { useSearchParams } from "next/navigation";
 import { baseURL } from "@/app/baseURL";
 import axios from "axios";
@@ -85,9 +95,23 @@ const CourseDetailPage = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Calculate the offset to center the section
+      const elementRect = element.getBoundingClientRect();
+      const absoluteElementTop = elementRect.top + window.pageYOffset;
+      const viewportHeight = window.innerHeight;
+      const elementHeight = elementRect.height;
+
+      // Calculate the scroll position to center the element
+      const scrollPosition =
+        absoluteElementTop - viewportHeight / 2 + elementHeight / 2;
+
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
+
+      setActiveSection(sectionId);
     }
-    setActiveSection(sectionId);
   };
 
   const sections = [
@@ -471,7 +495,13 @@ const CourseDetailPage = () => {
           <ul className="space-y-4">
             {course.outcomes.items.map((item, index) => (
               <li key={index} className="flex items-start">
-                <div className="w-3 h-3 mr-3">✓</div>
+                <div className="w-3 h-3 mr-5">
+                  <CheckCircle
+                    color="green"
+                    size={24}
+                    className="inline-block"
+                  />
+                </div>
                 <span className="text-gray-700">{item}</span>
               </li>
             ))}

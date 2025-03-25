@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Star } from "lucide-react";
+import LoginModal from "./LoginModal";
 
 const CourseReviews = ({
   courseReviews,
@@ -11,14 +12,32 @@ const CourseReviews = ({
   comment,
   setComment,
 }) => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await onSubmitReview(e);
   };
 
+  const handleLeaveReviewClick = () => {
+    if (!userId) {
+      setShowLoginModal(true);
+    }
+  };
+
   return (
     <div className="p-6 border rounded-lg shadow-sm">
-      <h2 className="text-2xl font-bold mb-6">Course Reviews</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">Course Reviews</h2>
+        {!userId && (
+          <button
+            onClick={handleLeaveReviewClick}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+          >
+            Leave a Review
+          </button>
+        )}
+      </div>
 
       {userId && (
         <form
@@ -99,6 +118,14 @@ const CourseReviews = ({
           </div>
         )}
       </div>
+
+      {/* Login Modal */}
+      {showLoginModal && (
+        <LoginModal
+          isOpen={showLoginModal}
+          onClose={() => setShowLoginModal(false)}
+        />
+      )}
     </div>
   );
 };

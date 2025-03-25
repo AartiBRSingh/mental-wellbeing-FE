@@ -4,9 +4,14 @@ import { Shield, CreditCard, HelpCircle, ChevronDown } from "lucide-react";
 
 const InsuranceAndPricing = () => {
   const [openFaq, setOpenFaq] = useState(null);
+  const [visibleFaqs, setVisibleFaqs] = useState(2);
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const toggleViewMore = () => {
+    setVisibleFaqs(visibleFaqs === 2 ? faqList.length : 2);
   };
 
   const handleEmailSupport = () => {
@@ -20,6 +25,60 @@ const InsuranceAndPricing = () => {
       "_blank"
     );
   };
+
+  const faqList = [
+    {
+      question:
+        "Does ShareYrHeart accept insurance for mental health services?",
+      answer:
+        "Yes, ShareYrHeart supports mental health insurance coverage as per India's Mental Healthcare Act of 2017. We recommend checking with your insurance provider for specific coverage details.",
+    },
+    {
+      question: "How do I know if my insurance covers my therapy or treatment?",
+      answer:
+        "You can check with your insurance provider or contact our support team for assistance in understanding whether your policy covers consultations, therapy sessions, or psychiatric treatments.",
+    },
+    {
+      question: "Do I need pre-approval from my insurance provider?",
+      answer:
+        "Some insurance providers may require pre-approval for mental health services. We recommend reaching out to your insurer to confirm their process.",
+    },
+    {
+      question: "What if my insurance does not cover mental health treatments?",
+      answer:
+        "If your insurance does not cover mental health treatments, you can opt for our self-pay option, which allows you to pay directly for services with flexible payment plans.",
+    },
+    {
+      question: "What is self-pay at ShareYrHeart, and how does it work?",
+      answer:
+        "Self-pay at ShareYrHeart means you pay directly for your mental health services without involving an insurance provider. This allows you to access treatment immediately, maintain privacy, and choose services without insurance limitations.",
+    },
+    {
+      question: "What payment methods does ShareYrHeart accept?",
+      answer:
+        "We accept various payment methods, including credit/debit cards, UPI, net banking, and digital wallets for self-pay users.",
+    },
+    {
+      question: "Are there any hidden charges in self-pay at ShareYrHeart?",
+      answer:
+        "No, we maintain complete transparency in pricing. The cost of each session or service at ShareYrHeart will be clearly mentioned before you proceed with payment.",
+    },
+    {
+      question: "What is the cancellation policy at ShareYrHeart?",
+      answer:
+        "If your insurance does not cover mental health treatments, you can opt for our self-pay option, which allows you to pay directly for services with flexible payment plans.",
+    },
+    {
+      question: "Can I reschedule my appointment instead of canceling?",
+      answer:
+        "Yes, appointments can be rescheduled up to 24 hours before the session without any additional charges.",
+    },
+    {
+      question: "Will I get a refund if I cancel my appointment?",
+      answer:
+        "Refund policies depend on the type of service booked. If eligible, refunds will be processed as per our terms and conditions.",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-8">
@@ -253,64 +312,7 @@ const InsuranceAndPricing = () => {
             Frequently Asked Questions
           </h2>
           <div className="bg-white/80 rounded-lg divide-y divide-stone-200 mt-8 md:mt-16">
-            {[
-              {
-                question:
-                  "Does ShareYrHeart accept insurance for mental health services?",
-                answer:
-                  "Yes, ShareYrHeart supports mental health insurance coverage as per India's Mental Healthcare Act of 2017. We recommend checking with your insurance provider for specific coverage details.",
-              },
-              {
-                question:
-                  "How do I know if my insurance covers my therapy or treatment?",
-                answer:
-                  "You can check with your insurance provider or contact our support team for assistance in understanding whether your policy covers consultations, therapy sessions, or psychiatric treatments.",
-              },
-              {
-                question: "Do I need pre-approval from my insurance provider?",
-                answer:
-                  "Some insurance providers may require pre-approval for mental health services. We recommend reaching out to your insurer to confirm their process.",
-              },
-              {
-                question:
-                  "What if my insurance does not cover mental health treatments?",
-                answer:
-                  "If your insurance does not cover mental health treatments, you can opt for our self-pay option, which allows you to pay directly for services with flexible payment plans.",
-              },
-              {
-                question:
-                  "What is self-pay at ShareYrHeart, and how does it work?",
-                answer:
-                  "Self-pay at ShareYrHeart means you pay directly for your mental health services without involving an insurance provider. This allows you to access treatment immediately, maintain privacy, and choose services without insurance limitations.",
-              },
-              {
-                question: "What payment methods does ShareYrHeart accept?",
-                answer:
-                  "We accept various payment methods, including credit/debit cards, UPI, net banking, and digital wallets for self-pay users.",
-              },
-              {
-                question:
-                  "Are there any hidden charges in self-pay at ShareYrHeart?",
-                answer:
-                  "No, we maintain complete transparency in pricing. The cost of each session or service at ShareYrHeart will be clearly mentioned before you proceed with payment.",
-              },
-              {
-                question: "What is the cancellation policy at ShareYrHeart?",
-                answer:
-                  "If your insurance does not cover mental health treatments, you can opt for our self-pay option, which allows you to pay directly for services with flexible payment plans.",
-              },
-              {
-                question:
-                  "Can I reschedule my appointment instead of canceling?",
-                answer:
-                  "Yes, appointments can be rescheduled up to 24 hours before the session without any additional charges.",
-              },
-              {
-                question: "Will I get a refund if I cancel my appointment?",
-                answer:
-                  "Refund policies depend on the type of service booked. If eligible, refunds will be processed as per our terms and conditions.",
-              },
-            ].map((faq, index) => (
+            {faqList.slice(0, visibleFaqs).map((faq, index) => (
               <div key={index} className="p-4 md:p-6">
                 <button
                   onClick={() => toggleFaq(index)}
@@ -335,6 +337,22 @@ const InsuranceAndPricing = () => {
               </div>
             ))}
           </div>
+
+          {faqList.length > 2 && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={toggleViewMore}
+                className="px-6 py-2 text-green-600 border border-green-600 rounded-full hover:bg-green-50 transition-colors duration-300 ease-in-out flex items-center space-x-2 opacity-70 hover:opacity-100"
+              >
+                <span>{visibleFaqs === 2 ? "View More" : "View Less"}</span>
+                <ChevronDown
+                  className={`h-5 w-5 transition-transform ${
+                    visibleFaqs > 2 ? "transform rotate-180" : ""
+                  }`}
+                />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Support Section */}
