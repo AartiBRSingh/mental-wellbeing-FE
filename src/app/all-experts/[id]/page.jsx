@@ -26,11 +26,12 @@ import Link from "next/link";
 import ReviewButton from "@/app/components/ReviewButton";
 import ConsultQNA from "@/app/components/ConsultQNA";
 import JournalsExpert from "@/app/components/JournalsExpert";
+import BookAppointmentButton from "@/app/components/BookAppointmentButton";
 
 async function ExpertDetailsPage({ params, searchParams }) {
   let expert = null;
-  const { id } = await params;
-  const tabs = await searchParams;
+  const { id } = params;
+  const tabs = searchParams;
   const activeTab = tabs.tab;
 
   try {
@@ -223,9 +224,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   <p className="text-brown-700">9:00 AM - 5:00 PM</p>
                 </div>
 
-                <button className="w-full bg-green-700 text-white py-3 rounded-xl hover:bg-green-800 transition-colors font-semibold tracking-wider">
-                  Book Appointment
-                </button>
+                <BookAppointmentButton expertId={id} />
               </div>
             </div>
           </div>

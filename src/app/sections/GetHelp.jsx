@@ -113,7 +113,7 @@ const GetHelp = () => {
                 />
               </svg>
             </span>
-            <span className="text-red-500 text-4xl">♥</span>
+
             <br className="hidden sm:block" />
             <span>help you?</span>
           </h1>
