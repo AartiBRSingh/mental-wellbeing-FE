@@ -51,9 +51,11 @@ const CompleteProfile = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    const storedUserId = Cookies.getItem("userId");
+    const storedUserId = Cookies.get("userId");
     setUserId(storedUserId);
   }, []);
+
+  console.log(userId, "raju");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
