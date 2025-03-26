@@ -17,6 +17,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import CourseReviews from "@/app/components/CourseReviews";
 import ShareModal from "@/app/components/ShareModal";
+import LoginModal from "@/app/components/LoginModal"; // Import the LoginModal
 import toast, { Toaster } from "react-hot-toast";
 
 const CourseDetailPage = () => {
@@ -36,6 +37,9 @@ const CourseDetailPage = () => {
   const [pageUrl, setPageUrl] = useState("");
   const [expandedItems, setExpandedItems] = useState({});
   const [showFullDescription, setShowFullDescription] = useState(false);
+
+  // Add state for login modal
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const calculateAverageRating = (reviews) => {
     if (!reviews || reviews.length === 0) return 0;
@@ -146,12 +150,21 @@ const CourseDetailPage = () => {
   }, []);
 
   const handlePayment = async () => {
+    // Check if user is signed in
+    const storedUserId = Cookies.get("userId");
+
+    if (!storedUserId) {
+      // Open login modal if not signed in
+      setShowLoginModal(true);
+      return;
+    }
+
     const amount = course.discountedPrice;
 
     const response = await fetch(`${baseURL}/api/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, amount }),
+      body: JSON.stringify({ userId: storedUserId, amount }),
     });
 
     const data = await response.json();
@@ -184,7 +197,7 @@ const CourseDetailPage = () => {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
-              userId,
+              userId: storedUserId,
               amount,
               courseId: course._id,
               planType: "course",
@@ -323,6 +336,14 @@ const CourseDetailPage = () => {
             <a href="#" className="text-blue-600 hover:underline font-medium">
               {course?.instructor}
             </a>
+          </div>
+          <div className="flex items-center gap-2 my-4">
+            <p>
+              Recognised by:{" "}
+              <strong className="text-blue-600 hover:underline font-medium">
+                Jadavpur University
+              </strong>{" "}
+            </p>
           </div>
           <div className="flex flex-wrap items-center gap-4 mb-4 text-lg">
             <div className="flex items-center gap-1">
@@ -642,6 +663,14 @@ const CourseDetailPage = () => {
             src={pageUrl}
           />
         </div>
+      )}
+
+      {/* Login Modal */}
+      {showLoginModal && (
+        <LoginModal
+          isOpen={showLoginModal}
+          onClose={() => setShowLoginModal(false)}
+        />
       )}
     </div>
   );
