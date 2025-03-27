@@ -101,12 +101,12 @@ const Navbar = () => {
   return (
     <>
       <div className="w-full flex justify-center fixed top-0 left-0 z-50 bg-white">
-        <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center md:px-10 w-full md:w-[80vw]">
+        <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center md:px-10 w-full md:w-[80vw] mx-6 md:mx-0">
           <Link href={"/"}>
             <img
               src="/websiteLogo.png"
               alt=""
-              className="w-48 h-20 cursor-pointer "
+              className="md:w-48 md:h-20 w-36 h-16 cursor-pointer"
             />
           </Link>
           <section className="hidden md:block">
