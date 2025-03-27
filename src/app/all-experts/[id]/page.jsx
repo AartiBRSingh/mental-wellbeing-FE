@@ -503,7 +503,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   Journal
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm">
-                  <JournalsExpert />
+                  <JournalsExpert expertId={id} />
                 </div>
               </div>
             )}
