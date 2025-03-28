@@ -151,7 +151,7 @@ export const SignupPage = () => {
         state: "",
         image: null,
       });
-      router.push(`/sign-in`);
+      router.push(`/sign-in?userType=expert`);
       setLoading(false);
     } catch (error) {
       console.error(error);

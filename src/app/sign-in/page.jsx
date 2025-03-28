@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DecorativeShapes } from "../sections/Services";
 import { baseURL } from "../baseURL";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
@@ -20,6 +20,14 @@ const Login = () => {
   const [isUserLogin, setIsUserLogin] = useState(true);
   const [isLoginWIthOrgCode, setLoginWIthOrgCode] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const searchParams = useSearchParams();
+  console.log(searchParams.get("userType"), "raju");
+
+  useEffect(() => {
+    if (searchParams.get("userType") === "expert") {
+      setIsUserLogin(false);
+    }
+  }, [searchParams]);
 
   const { executeRecaptcha } = useGoogleReCaptcha();
   const router = useRouter();

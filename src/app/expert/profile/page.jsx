@@ -299,6 +299,7 @@ const ProfileDashboard = () => {
           setShowPopup(false);
           Cookies.set("hasPackage", true);
           Cookies.set("packageId", packageId);
+          window.location.reload();
         } else {
           alert("Payment verification failed. Please try again.");
         }
