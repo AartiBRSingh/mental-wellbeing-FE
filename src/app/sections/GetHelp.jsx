@@ -41,7 +41,7 @@ const GetHelp = () => {
                 </div>
                 <div className="w-48 h-48 bg-green-300 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="/happy1.png"
+                    src="/calm.png"
                     alt="Profile 2"
                     className="w-full absolute h-64 -top-16 object-cover rounded-xl"
                   />
