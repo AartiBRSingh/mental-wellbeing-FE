@@ -45,6 +45,7 @@ const CompleteProfile = () => {
     honorsAndAwards: [],
     generalQuestions: [],
     languages: [],
+    fees: "",
   });
   const [isRecomendedOpen, setIsRecomendedOpen] = useState(false);
   const [isAdditionalOpen, setIsAdditionalOpen] = useState(false);
@@ -379,6 +380,19 @@ const CompleteProfile = () => {
                 value={formData.registeredNumber}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">
+                Fees
+                <span className="text-[#EF4444] ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="fees"
+                value={formData.fees}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-red-500 hover:border-red-500 hover:shadow-md"
               />
             </div>
 
