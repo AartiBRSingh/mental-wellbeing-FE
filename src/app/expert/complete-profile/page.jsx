@@ -343,6 +343,12 @@ const CompleteProfile = () => {
                 minLength={50}
                 maxLength={500}
                 placeholder="Tell something about yourself (50-500 words)"
+                onInput={(e) => {
+                  const words = e.target.value.trim().split(/\s+/);
+                  if (words.length > 500) {
+                    e.target.value = words.slice(0, 500).join(" ");
+                  }
+                }}
               />
             </div>
 
