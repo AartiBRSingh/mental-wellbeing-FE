@@ -56,8 +56,6 @@ const CompleteProfile = () => {
     setUserId(storedUserId);
   }, []);
 
-  console.log(userId, "raju");
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -338,19 +336,41 @@ const CompleteProfile = () => {
               <textarea
                 name="about"
                 value={formData.about}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  const inputValue = e.target.value;
+
+                  const words = inputValue
+                    .trim()
+                    .split(/\s+/)
+                    .filter((word) => word.length > 0);
+
+                  if (words.length > 500) {
+                    const truncatedValue = words.slice(0, 500).join(" ");
+                    handleInputChange({
+                      target: {
+                        name: "about",
+                        value: truncatedValue,
+                      },
+                    });
+                  } else {
+                    handleInputChange(e);
+                  }
+                }}
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#003B29] focus:border-transparent outline-none transition-all duration-200 hover:ring-2 hover:ring-green-500 hover:border-green-500 hover:shadow-md"
                 rows={4}
                 minLength={50}
-                maxLength={500}
+                maxLength={3500}
                 placeholder="Tell something about yourself (50-500 words)"
-                onInput={(e) => {
-                  const words = e.target.value.trim().split(/\s+/);
-                  if (words.length > 500) {
-                    e.target.value = words.slice(0, 500).join(" ");
-                  }
-                }}
               />
+              <div className="text-sm text-gray-500 mt-1">
+                {
+                  formData.about
+                    .trim()
+                    .split(/\s+/)
+                    .filter((word) => word.length > 0).length
+                }{" "}
+                / 500 words
+              </div>
             </div>
 
             {/* Contact Information */}

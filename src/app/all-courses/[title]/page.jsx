@@ -300,6 +300,7 @@ const CourseDetailPage = () => {
           <span className="text-black relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
             <span className="relative">
               {course?.title}
+
               <svg
                 className="absolute w-full h-[10px] -bottom-2 left-0"
                 viewBox="0 0 100 10"
@@ -341,7 +342,7 @@ const CourseDetailPage = () => {
             <p>
               Recognised by:{" "}
               <strong className="text-blue-600 hover:underline font-medium">
-                Jadavpur University
+                {course?.recommendedBy}
               </strong>{" "}
             </p>
           </div>
