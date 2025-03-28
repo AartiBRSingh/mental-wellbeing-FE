@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { DecorativeShapes } from "../sections/Services";
 import { baseURL } from "../baseURL";
@@ -365,4 +365,12 @@ const Login = () => {
   );
 };
 
-export default Login;
+const page = () => {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <Login />
+    </Suspense>
+  );
+};
+
+export default page;
