@@ -308,7 +308,7 @@ const CompleteProfile = () => {
           </span>
 
           <div className="space-y-6 ">
-            <div className="max-w-2xl p-4 pt-8">
+            {/* <div className="max-w-2xl p-4 pt-8">
               <div className="flex justify-between mb-4">
                 <span className="text-gray-700">Cover *</span>
               </div>
@@ -327,11 +327,11 @@ const CompleteProfile = () => {
               </div>
 
               <p className="mt-2 text-xs text-gray-400">PNG, JPG · Max 10MB</p>
-            </div>
+            </div> */}
 
             {/* {about} */}
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">
+              <label className="text-sm font-medium text-gray-700 pt-8 mb-2 block">
                 About
                 <span className="text-[#EF4444] ml-1">*</span>
               </label>

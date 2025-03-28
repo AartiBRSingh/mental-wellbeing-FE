@@ -131,7 +131,7 @@ const ExpertPage = () => {
                   </button>
                 </>
               ) : (
-                <div>
+                <div className="space-y-2">
                   <p>{expert.contactNumber}</p>
                   <p>{expert.email}</p>
                 </div>
