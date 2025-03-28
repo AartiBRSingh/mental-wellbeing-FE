@@ -12,6 +12,7 @@ import {
   Hash,
   X,
 } from "lucide-react";
+import ShareModal from "@/app/components/ShareModal";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import { useRouter } from "next/navigation";
@@ -20,16 +21,6 @@ import Cookies from "js-cookie";
 const Forum = () => {
   const router = useRouter();
   const [userId, setUserId] = useState("");
-  useEffect(() => {
-    const userId = Cookies.get("userId");
-
-    if (userId) {
-      setUserId(userId);
-    } else {
-      setUserId("");
-    }
-  }, []);
-
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({
     title: "",
@@ -45,6 +36,17 @@ const Forum = () => {
   const [showNewPostForm, setShowNewPostForm] = useState(false);
   const [showCommentForm, setShowCommentForm] = useState({});
 
+  // Share Modal States
+  const [selectedPostUrl, setSelectedPostUrl] = useState(null);
+  const [showShareModal, setShowShareModal] = useState(false);
+
+  // Fetch User ID from Cookies
+  useEffect(() => {
+    const userId = Cookies.get("userId");
+    setUserId(userId || "");
+  }, []);
+
+  // Fetch Posts
   const fetchPosts = async (tagList = [], search = "") => {
     try {
       let queryParams = "";
@@ -64,10 +66,10 @@ const Forum = () => {
     }
   };
 
+  // Fetch Tags
   const fetchTags = async () => {
     try {
       const res = await axios.get(`${baseURL}/tags`);
-      // Filter out any empty tags
       const filteredTags = res.data.filter((tag) => tag && tag.trim() !== "");
       setTags(filteredTags);
     } catch (error) {
@@ -75,13 +77,13 @@ const Forum = () => {
     }
   };
 
+  // Create Post
   const createPost = async () => {
     try {
       const formData = new FormData();
       formData.append("title", newPost.title);
       formData.append("content", newPost.content);
 
-      // Only append tags if they're not empty
       if (newPost.tags && newPost.tags.trim() !== "") {
         formData.append("tags", newPost.tags);
       }
@@ -95,6 +97,7 @@ const Forum = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+
       setNewPost({ title: "", content: "", tags: "", image: null });
       setShowNewPostForm(false);
       fetchPosts(selectedTags);
@@ -104,6 +107,7 @@ const Forum = () => {
     }
   };
 
+  // Add Comment
   const addComment = async (postId) => {
     if (!userId) {
       router.push("/sign-in");
@@ -121,6 +125,7 @@ const Forum = () => {
     }
   };
 
+  // Add Reply
   const addReply = async (postId, commentId) => {
     if (!userId) {
       router.push("/sign-in");
@@ -137,6 +142,7 @@ const Forum = () => {
     }
   };
 
+  // Toggle Like
   const toggleLike = async (postId) => {
     if (!userId) {
       router.push("/sign-in");
@@ -146,6 +152,7 @@ const Forum = () => {
     fetchPosts(selectedTags);
   };
 
+  // Handle Tag Click
   const handleTagClick = (tag) => {
     setSelectedTags((prev) => {
       if (prev.includes(tag)) {
@@ -156,6 +163,20 @@ const Forum = () => {
     });
   };
 
+  // Copy to Clipboard
+  const copyToClipboard = () => {
+    if (selectedPostUrl) {
+      navigator.clipboard.writeText(selectedPostUrl);
+    }
+  };
+
+  // Handle Share Click
+  const handleShareClick = (postUrl) => {
+    setSelectedPostUrl(postUrl);
+    setShowShareModal(true);
+  };
+
+  // UseEffects
   useEffect(() => {
     fetchPosts(selectedTags, searchQuery);
   }, [selectedTags]);
@@ -165,10 +186,12 @@ const Forum = () => {
     fetchTags();
   }, []);
 
+  // Clear Selected Tags
   const clearSelectedTags = () => {
     setSelectedTags([]);
   };
 
+  // Render Mobile Topics
   const renderMobileTopics = () => {
     return (
       <div className="overflow-x-auto pb-2 hide-scrollbar">
@@ -191,6 +214,7 @@ const Forum = () => {
     );
   };
 
+  // Render Desktop Topics Section
   const renderDesktopTopicsSection = () => {
     return (
       <>
@@ -266,6 +290,7 @@ const Forum = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      {/* Navigation */}
       <nav className="sticky top-0 z-10 backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-end gap-4">
@@ -294,12 +319,18 @@ const Forum = () => {
           </div>
         </div>
       </nav>
+
+      {/* Mobile Topics */}
       <div className="lg:hidden px-4 sm:px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
         {renderMobileTopics()}
       </div>
+
+      {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          {/* Posts Column */}
           <div className="lg:col-span-8">
+            {/* New Post Form */}
             {showNewPostForm && (
               <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 mb-6 sm:mb-8">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">
@@ -356,6 +387,8 @@ const Forum = () => {
                 </div>
               </div>
             )}
+
+            {/* No Posts Placeholder */}
             {posts.length === 0 && (
               <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 sm:p-10 mb-6 text-center">
                 <div className="text-gray-400 mb-3">
@@ -378,11 +411,14 @@ const Forum = () => {
                 </button>
               </div>
             )}
+
+            {/* Posts List */}
             {posts.map((post) => (
               <article
                 key={post._id}
                 className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 mb-6 transition-all duration-200 hover:shadow-lg"
               >
+                {/* Post Header */}
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-8 sm:w-10 h-8 sm:h-10 bg-emerald-100 rounded-full flex items-center justify-center">
                     <User className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600" />
@@ -396,6 +432,8 @@ const Forum = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Post Image */}
                 {post.image && (
                   <img
                     src={post.image}
@@ -404,6 +442,7 @@ const Forum = () => {
                   />
                 )}
 
+                {/* Post Content */}
                 <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
                   {post.title}
                 </h2>
@@ -411,7 +450,7 @@ const Forum = () => {
                   {post.content}
                 </p>
 
-                {/* Tags - Only show if post has non-empty tags */}
+                {/* Post Tags */}
                 {post.tags?.length > 0 &&
                   post.tags.some((tag) => tag && tag.trim() !== "") && (
                     <div className="flex flex-wrap gap-1 mb-4">
@@ -432,6 +471,7 @@ const Forum = () => {
                 {/* Action Buttons */}
                 <div className="flex xl:flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-100">
                   <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+                    {/* Like Button */}
                     <button
                       className={`flex items-center space-x-2 transition-colors duration-200 group ${
                         post.likes.includes(userId)
@@ -446,6 +486,8 @@ const Forum = () => {
                         {post.likes?.length || 0} Upvotes
                       </span>
                     </button>
+
+                    {/* Comment Button */}
                     <button
                       className="flex items-center space-x-2 text-gray-500 hover:text-emerald-600 transition-colors duration-200 group"
                       onClick={() =>
@@ -465,15 +507,28 @@ const Forum = () => {
                         Comments
                       </span>
                     </button>
-                    <button className="flex items-center space-x-2 text-gray-500 hover:text-emerald-600 transition-colors duration-200 group">
+
+                    {/* Share Button */}
+                    <button
+                      className="flex items-center space-x-2 text-gray-500 hover:text-emerald-600 transition-colors duration-200 group"
+                      onClick={() =>
+                        handleShareClick(
+                          `${window.location.origin}/post/${post._id}`
+                        )
+                      }
+                    >
                       <Share2 className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                       <span className="text-sm font-medium">Share</span>
                     </button>
                   </div>
+
+                  {/* Bookmark Button */}
                   <button className="text-gray-500 hover:text-emerald-600 transition-colors duration-200 group">
                     <Bookmark className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                   </button>
                 </div>
+
+                {/* Comment Form */}
                 {showCommentForm[post._id] && (
                   <div className="mt-5 pt-4 border-t border-gray-100">
                     <div className="relative flex items-center">
@@ -493,6 +548,8 @@ const Forum = () => {
                     </div>
                   </div>
                 )}
+
+                {/* Comments Section */}
                 {post.comments?.length > 0 && (
                   <div className="mt-6 space-y-4">
                     <h4 className="text-sm font-medium text-gray-500">
@@ -503,6 +560,7 @@ const Forum = () => {
                         key={c._id}
                         className="pt-3 pl-4 border-l-2 border-emerald-100 transition-all duration-200 hover:border-emerald-400"
                       >
+                        {/* Comment */}
                         <div className="flex items-start gap-3 mb-2">
                           <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                             <User className="w-4 h-4 text-gray-500" />
@@ -516,6 +574,8 @@ const Forum = () => {
                             </div>
                           </div>
                         </div>
+
+                        {/* Reply Input */}
                         <div className="ml-11 mb-3 relative flex items-center">
                           <input
                             className="w-full px-3 py-2 pr-10 text-sm bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-400 transition-all duration-200"
@@ -533,6 +593,8 @@ const Forum = () => {
                             <Send className="w-4 h-4" />
                           </button>
                         </div>
+
+                        {/* Replies */}
                         {c.replies?.map((r) => (
                           <div
                             key={r._id}
@@ -560,9 +622,14 @@ const Forum = () => {
               </article>
             ))}
           </div>
+
+          {/* Sidebar */}
           <div className="hidden lg:block lg:col-span-4 space-y-6">
             <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-24">
+              {/* Desktop Topics Section */}
               {renderDesktopTopicsSection()}
+
+              {/* Forum Statistics */}
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <h3 className="text-sm font-medium text-gray-500 mb-3">
                   Forum Statistics
@@ -584,6 +651,8 @@ const Forum = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Start New Discussion Button */}
               <div className="mt-6 pt-4 border-t border-gray-100">
                 <button
                   onClick={() =>
@@ -599,13 +668,26 @@ const Forum = () => {
           </div>
         </div>
       </main>
+
+      {/* Share Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <ShareModal
+            onClose={() => setShowShareModal(false)}
+            copyToClipboard={copyToClipboard}
+            src={selectedPostUrl}
+          />
+        </div>
+      )}
+
+      {/* Hide Scrollbar Styles */}
       <style jsx global>{`
         .hide-scrollbar {
-          -ms-overflow-style: none; /* IE and Edge */
-          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
         .hide-scrollbar::-webkit-scrollbar {
-          display: none; /* Chrome, Safari and Opera */
+          display: none;
         }
       `}</style>
     </div>

@@ -57,11 +57,11 @@ async function ExpertDetailsPage({ params, searchParams }) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Cover Photo Section */}
-      <div className="w-full h-48 sm:h-64 md:h-96 relative">
+      <div className="w-full max-w-6xl mx-auto relative">
         <img
           src="/SYHexpertCover.png"
           alt="Cover"
-          className="w-half h-80 object-cotain flex items-center justify-center ml-auto mr-auto"
+          className="w-full h-auto max-h-[600px] object-cover"
         />
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/50 to-transparent" />
       </div>
