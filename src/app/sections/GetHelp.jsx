@@ -11,18 +11,18 @@ const GetHelp = () => {
         <section className="flex-1 flex flex-col justify-center md:justify-start bg-transparent mt-8 md:mt-0">
           <div className="relative w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[350px] md:h-96 mt-16 md:mt-0 mx-auto md:mx-0">
             {/* Top Image */}
-            <div className="absolute md:-top-4 lg:-top-6 md:left-[220px] lg:left-[290px] right-16 md:right-auto top-12 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100 z-10">
+            <div className="absolute md:-top-4 lg:-top-10 md:left-[220px] lg:left-[320px] right-16 md:right-auto top-12 transform -translate-x-1/2 scale-75 sm:scale-90 md:scale-100 z-10">
               <div className="relative">
-                <div className="absolute -top-8 -left-8">
+                <div className="absolute -top-8 -left-12">
                   <span className="bg-yellow-400 px-3 py-1 rounded-lg text-sm font-semibold z-10">
                     Happier
                   </span>
                 </div>
                 <div className="w-44 h-44 bg-yellow-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="/happy3.png"
+                    src="/happy.png"
                     alt="Profile 1"
-                    className="w-40 h-60 -top-16 -right-0 absolute object-cover rounded-xl"
+                    className="w-40 h-60 -top-16 right-2 absolute object-cover rounded-xl"
                   />
                 </div>
                 <span className="absolute -right-4 top-1/2 transform -translate-y-1/2 text-orange-400 text-2xl">
@@ -34,7 +34,7 @@ const GetHelp = () => {
             {/* Middle Image */}
             <div className="absolute lg:top-10 -top-10 md:left-0 lg:left-0 -right-6 md:right-auto scale-75 sm:scale-90 md:scale-100 z-20">
               <div className="relative">
-                <div className="absolute -top-8 right-36">
+                <div className="absolute -top-8 right-40">
                   <span className="bg-green-300 px-3 py-1 rounded-md text-sm font-semibold">
                     Calm
                   </span>
@@ -56,13 +56,13 @@ const GetHelp = () => {
             </div>
 
             {/* Bottom Image */}
-            <div className="absolute md:-bottom-10 -bottom-20 md:left-48 lg:left-44 left-32 scale-75 sm:scale-90 md:scale-100 z-0">
+            <div className="absolute md:-bottom-10 -bottom-20 md:left-48 lg:left-60 left-32 scale-75 sm:scale-90 md:scale-100 z-0">
               <div className="relative">
                 <div className="w-56 h-56 bg-purple-100 rounded-2xl overflow-hidden p-1 shadow-sm">
                   <img
-                    src="/happy2.png"
+                    src="/listener.png"
                     alt="Profile 3"
-                    className="absolute w-full h-72 -top-16 right-1 object-cover rounded-xl"
+                    className="absolute w-full h-64 -top-8 -right-2 object-cover rounded-xl"
                   />
                 </div>
                 <div className="absolute -left-10 top-1/2 bg-transparent rounded-lg p-1">
@@ -115,7 +115,7 @@ const GetHelp = () => {
             </span>
 
             <br className="hidden sm:block" />
-            <span>help you?</span>
+            <span className="ml-2 md:ml-0">help you?</span>
           </h1>
 
           <div className="space-y-4">
