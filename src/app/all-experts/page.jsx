@@ -1,6 +1,13 @@
 "use client";
-import React, { useState, useEffect, Suspense } from "react";
-import { Mail, Phone, Star, CheckCircle } from "lucide-react";
+import React, { useState, useEffect, Suspense, useRef } from "react";
+import {
+  Mail,
+  Phone,
+  Star,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import Link from "next/link";
 import { baseURL } from "../baseURL";
 import axios from "axios";
@@ -14,6 +21,11 @@ const ExpertPage = () => {
   const [userId, setUserId] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedExpert, setSelectedExpert] = useState(null);
+  const sectionRef = useRef(null);
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const expertsPerPage = 15;
 
   useEffect(() => {
     const userId = Cookies.get("userId");
@@ -26,6 +38,7 @@ const ExpertPage = () => {
   }, []);
 
   const [experts, setExperts] = useState([]);
+  const [filteredExperts, setFilteredExperts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedUserType, setSelectedUserType] = useState("");
@@ -50,6 +63,8 @@ const ExpertPage = () => {
           },
         });
         setExperts(response.data);
+        setFilteredExperts(response.data);
+        setCurrentPage(1); // Reset to first page when filters change
       } catch (error) {
         console.error("Error fetching experts:", error);
       }
@@ -71,9 +86,44 @@ const ExpertPage = () => {
     fetchCities();
   }, []);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [currentPage]);
+
   const handleBookAppointment = (expert) => {
     setSelectedExpert(expert);
     setShowModal(true);
+  };
+
+  // Get current experts
+  const indexOfLastExpert = currentPage * expertsPerPage;
+  const indexOfFirstExpert = indexOfLastExpert - expertsPerPage;
+  const currentExperts = filteredExperts.slice(
+    indexOfFirstExpert,
+    indexOfLastExpert
+  );
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(filteredExperts.length / expertsPerPage);
+
+  // Change page with scroll to top
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
   };
 
   const ExpertCard = ({ expert }) => (
@@ -87,15 +137,6 @@ const ExpertPage = () => {
               className="w-24 h-24 md:w-44 md:h-44 object-cover rounded-full shadow-md"
             />
           </div>
-          <Link
-            href={`/all-experts/${expert._id}?tab=info`}
-            className="cursor-pointer flex items-center justify-center gap-2 py-2 w-full max-w-[200px] bg-amber-500 text-white font-semibold rounded-full hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg text-sm md:text-base"
-          >
-            <span className="text-center">View profile</span>
-            <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
         </div>
 
         <div className="flex-1">
@@ -152,8 +193,8 @@ const ExpertPage = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-auto">
-          <div className="bg-blue-100 rounded-xl p-2 md:p-4 text-center mb-4 md:mb-0">
+        <div className="w-full md:w-auto pr-8">
+          {/* <div className="bg-blue-100 rounded-xl p-2 md:p-4 text-center mb-4 md:mb-0">
             <h4 className="text-black text-sm md:text-lg font-semibold mb-2">
               Clinic Timings
             </h4>
@@ -161,7 +202,20 @@ const ExpertPage = () => {
             <p className="text-slate-500 text-xs md:text-lg mt-1 md:mt-3">
               9:00 AM - 5:00 PM
             </p>
+          </div> */}
+
+          <div className="hidden md:flex items-center justify-center mt-4 md:mt-5 w-full">
+            <Link
+              href={`/all-experts/${expert._id}?tab=info`}
+              className="cursor-pointer flex items-center justify-center gap-2 py-4 w-full max-w-[200px] p-4 bg-amber-500 text-white font-semibold rounded-xl hover:bg-amber-600 transition-all duration-300 shadow-md hover:shadow-lg text-sm md:text-base"
+            >
+              <span className="text-center">View profile</span>
+              <span className="text-lg transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
           </div>
+
           <button
             onClick={() => handleBookAppointment(expert)}
             className="w-full md:w-40 mt-4 md:mt-0 md:absolute md:right-16 md:bottom-10 bg-green-700 text-white p-2 rounded-xl hover:bg-green-800 transition-colors font-semibold text-sm md:text-base"
@@ -173,8 +227,82 @@ const ExpertPage = () => {
     </div>
   );
 
+  // Pagination Component
+  const Pagination = () => (
+    <div className="flex justify-center items-center mt-8 space-x-2">
+      <button
+        onClick={prevPage}
+        disabled={currentPage === 1}
+        className={`p-2 rounded-lg ${
+          currentPage === 1
+            ? "bg-gray-200 cursor-not-allowed"
+            : "bg-amber-500 text-white hover:bg-amber-600"
+        }`}
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+
+      <div className="flex space-x-2">
+        {Array.from({ length: totalPages }, (_, i) => i + 1)
+          .filter((num) => {
+            // Show first page, last page, and pages around current page
+            return (
+              num === 1 ||
+              num === totalPages ||
+              (num >= currentPage - 1 && num <= currentPage + 1)
+            );
+          })
+          .map((number, index, array) => {
+            // Add ellipsis where needed
+            if (index > 0 && array[index - 1] !== number - 1) {
+              return (
+                <React.Fragment key={`ellipsis-${number}`}>
+                  <span className="px-3 py-1">...</span>
+                  <button
+                    onClick={() => paginate(number)}
+                    className={`px-3 py-1 rounded-lg ${
+                      currentPage === number
+                        ? "bg-amber-500 text-white"
+                        : "bg-gray-200 hover:bg-gray-300"
+                    }`}
+                  >
+                    {number}
+                  </button>
+                </React.Fragment>
+              );
+            }
+            return (
+              <button
+                key={number}
+                onClick={() => paginate(number)}
+                className={`px-3 py-1 rounded-lg ${
+                  currentPage === number
+                    ? "bg-amber-500 text-white"
+                    : "bg-gray-200 hover:bg-gray-300"
+                }`}
+              >
+                {number}
+              </button>
+            );
+          })}
+      </div>
+
+      <button
+        onClick={nextPage}
+        disabled={currentPage === totalPages}
+        className={`p-2 rounded-lg ${
+          currentPage === totalPages
+            ? "bg-gray-200 cursor-not-allowed"
+            : "bg-amber-500 text-white hover:bg-amber-600"
+        }`}
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+    </div>
+  );
+
   return (
-    <section className="py-8 md:py-16 bg-cream">
+    <section ref={sectionRef} className="py-8 md:py-16 bg-cream">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center mb-4 text-gray-800">
           <span className="relative">
@@ -235,13 +363,34 @@ const ExpertPage = () => {
         </div>
 
         <div className="space-y-4 md:space-y-6">
-          {experts?.map((expert) => (
-            <ExpertCard key={expert._id} expert={expert} />
-          ))}
+          {currentExperts.length > 0 ? (
+            currentExperts.map((expert) => (
+              <ExpertCard key={expert._id} expert={expert} />
+            ))
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-gray-500">
+                No experts found. Try adjusting your filters.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {filteredExperts.length > expertsPerPage && <Pagination />}
+
+        <div className="text-center mt-6 text-gray-600 text-sm">
+          Showing {indexOfFirstExpert + 1}-
+          {Math.min(indexOfLastExpert, filteredExperts.length)} of{" "}
+          {filteredExperts.length} experts
         </div>
       </div>
 
-      {showModal && <ExpertBookingModal setShowModal={setShowModal} />}
+      {showModal && (
+        <ExpertBookingModal
+          setShowModal={setShowModal}
+          expert={selectedExpert}
+        />
+      )}
     </section>
   );
 };

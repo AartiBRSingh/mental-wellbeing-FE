@@ -169,7 +169,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
             </div>
 
             {/* Clinic Info Card */}
-            <div className="w-full lg:w-96 mt-6 lg:mt-0 bg-cream-50 rounded-2xl shadow-2xl overflow-hidden border-2 border-green-800/10">
+            <div className="w-full lg:w-96 mt-6 lg:mt-4 bg-cream-50 rounded-2xl shadow-2xl overflow-hidden mb-6 border-2 border-green-800/10">
               <div className="bg-brown-700 text-cream-100 p-4 sm:p-5 flex justify-between items-center">
                 <h3 className="text-lg sm:text-xl font-semibold tracking-wide">
                   Expert&apos;s Clinic
@@ -190,7 +190,7 @@ async function ExpertDetailsPage({ params, searchParams }) {
                 </svg>
               </div>
 
-              <div className="p-4 sm:p-6 space-y-4">
+              <div className="p-4 sm:p-6 space-y-6">
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-6 h-6 text-green-700 flex-shrink-0" />
                   <p className="text-brown-800">{expert?.clinicAddress}</p>
@@ -216,13 +216,13 @@ async function ExpertDetailsPage({ params, searchParams }) {
                   </p>
                 </div>
 
-                <div className="bg-green-50 rounded-xl p-4">
+                {/* <div className="bg-green-50 rounded-xl p-4">
                   <h4 className="text-green-900 font-semibold mb-2">
                     Clinic Timings
                   </h4>
                   <p className="text-brown-700">Monday - Friday</p>
                   <p className="text-brown-700">9:00 AM - 5:00 PM</p>
-                </div>
+                </div> */}
 
                 <BookAppointmentButton expertId={id} />
               </div>
