@@ -218,7 +218,7 @@ const BlogSection = () => {
   }
 
   return (
-    <div className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
+    <div className="relative py-12 md:py-16 lg:py-10 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-24 relative">
         {/* Header section - Keep exactly the same */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4 md:gap-6 mb-8 md:mb-20">
@@ -237,7 +237,7 @@ const BlogSection = () => {
               className="absolute -rotate-12 -top-[20px] right-8 sm:right-[1040px] z-0 opacity-100"
             />
 
-            <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#2D2D2D]">
+            <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-semibold text-[#2D2D2D]">
               <span className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-8 h-8 md:w-12 md:h-12 bg-[#F5E6E0] rounded-full -z-10" />
               Latest from{" "}
               <span className="text-[#956144] relative">
