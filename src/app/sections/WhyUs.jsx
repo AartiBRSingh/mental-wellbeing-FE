@@ -147,7 +147,7 @@ const WhyUs = () => {
             PEACEFUL BEGINNING
           </span>
           <div className="flex gap-2 justify-center">
-            <h1 className="text-4xl md:text-5xl font-semibold mt-10 mb-16">
+            <h1 className="text-4xl md:text-6xl font-semibold mt-10 mb-16">
               Our{" "}
               <span className="relative text-[#956144]">
                 Experts

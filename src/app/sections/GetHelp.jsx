@@ -12,7 +12,7 @@ const GetHelp = () => {
           <img
             src="/children.png"
             alt="Help illustration"
-            className="max-w-full h-auto w-4/5 sm:w-3/4 md:w-full object-cover rounded-xl "
+            className="w-4/5 sm:w-2/3 md:w-4/5 xl:w-full h-auto object-cover rounded-xl"
           />
         </section>
 
@@ -21,13 +21,13 @@ const GetHelp = () => {
           {/* Title Words */}
           <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-4">
             <div>
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-semibold">
+              <span className="text-3xl sm:text-4xl lg:text-6xl font-semibold">
                 Calm
               </span>
             </div>
 
             <div>
-              <span className="text-3xl sm:text-4xl lg:text-5xl text-[#956144] relative">
+              <span className="text-3xl sm:text-4xl lg:text-6xl text-[#956144] relative">
                 Happier
                 <svg
                   className="absolute w-full h-[8px] sm:h-[10px] lg:h-[14px] -bottom-1 sm:-bottom-2 left-0"
@@ -45,7 +45,7 @@ const GetHelp = () => {
             </div>
 
             <div>
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-semibold">
+              <span className="text-3xl sm:text-4xl lg:text-6xl font-semibold">
                 Positive
               </span>
             </div>

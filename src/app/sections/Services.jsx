@@ -152,7 +152,7 @@ const Services = () => {
             <span> at any age</span>
           </h1>
 
-          <p className="text-white max-w-60 text-xs mb-6 sm:text-sm md:text-base xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
+          <p className="text-white max-w-60 text-xs mb-6 sm:text-sm md:text-xl xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
             Enhance skills, boost career opportunities, and get
             industry-specific knowledge.
           </p>
