@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
   Legend,
   Tooltip,
+  ChevronRight,
 } from "recharts";
 
 const COLORS = ["#77DEFF", "#00FF00", "#FF8458", "#FACC15", "#CCCCFF"];
@@ -143,43 +144,76 @@ const StudentWellbeingPage = () => {
     const razorpay = new window.Razorpay(options);
     razorpay.open();
   };
-  return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="max-w-7xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-          <div className="space-y-4">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-[#FFD255] to-green-500 bg-clip-text text-transparent">
-              Student Mental Health & Well-being
-            </h1>
 
-            <div className="relative h-48 rounded-lg overflow-hidden">
-              <img
-                src="https://img.freepik.com/free-vector/study-abroad-concept-illustration_114360-7493.jpg?t=st=1739522288~exp=1739525888~hmac=8af47051fc984e533984a827d78638bbf99fd772deff4ea0b5d2d52a34e05257&w=740"
-                alt="Students representing mental wellness"
-                className="w-full h-full object-contain rounded-lg"
-              />
+  return (
+    <div className="min-h-screen flex items-center justify-center p-6">
+      <div className="max-w-7xl w-full bg-gradient-to-b from-white to-red-200 rounded-2xl overflow-hidden shadow-2xl">
+        <div className="p-8">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <h1 className="text-3xl font-semibold bg-white p-4 rounded-lg shadow-md text-center">
+                <strong className="text-black font-semibold text-4xl">
+                  Student Mental Health & Well-being
+                </strong>{" "}
+              </h1>
             </div>
 
-            <p className="text-gray-600 leading-relaxed">
-              Student well-being manifests through positive emotions and
-              harmonious interactions between environmental factors and
-              individual expectations. It&apos;s a holistic system supporting
-              spiritual, physical, and social development.
-            </p>
-
-            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-              <p className="text-gray-800 italic">
-                According to WHO, well-being is a state where individuals
-                realize their potential, cope with life&apos;s normal stresses,
-                work productively, and contribute to their community.
+            <div className="relative rounded-lg overflow-hidden bg-white p-6">
+              <div className="flex justify-center items-center gap-2 mb-3">
+                <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
+                  Overview
+                  <svg
+                    className="absolute w-full h-[6px] -bottom-1 left-0"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 -5, 100 5"
+                      stroke="orange"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                In recent years, mental health among Indian students has become
+                a pressing concern, with various studies highlighting alarming
+                trends:
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <li>
+                  <strong>Prevalence of Mental Health Issues:</strong> A study
+                  published in the Indian Journal of Community Medicine reported
+                  that 44.1% of higher secondary school students exhibited
+                  symptoms of depression.
+                </li>
+                <li>
+                  <strong>Suicide Rates:</strong> According to the National
+                  Crime Records Bureau (NCRB), there has been a significant rise
+                  in student suicides over the past decade, with a 50% increase
+                  among male students and a 61% increase among female students.
+                </li>
+                <li>
+                  <strong>Psychological Distress:</strong> Research indicates
+                  that 27.8% of undergraduate students and 31.3% of postgraduate
+                  students in India have experienced mental health conditions,
+                  with a notable percentage having suicidal thoughts.
+                </li>
+              </div>
+              <p className="text-gray-600 leading-relaxed mt-4">
+                These statistics underscore the urgent need for comprehensive
+                mental health support systems within educational institutions.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="h-80">
-                <h3 className="text-lg font-semibold text-center">
-                  Student Well-being Statistics
-                </h3>
+              <div className="h-80 bg-white p-4 rounded-lg shadow">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <h3 className="text-sm font-semibold text-center">
+                    Student Mental Health Statistics
+                  </h3>
+                </div>
                 <ResponsiveContainer width="100%" height="80%">
                   <PieChart>
                     <Pie
@@ -202,20 +236,25 @@ const StudentWellbeingPage = () => {
                     <Legend />
                   </PieChart>
                 </ResponsiveContainer>
+                <p className="text-xs text-gray-500 text-center mt-2">
+                  Source: Student Mental Health Survey
+                </p>
               </div>
 
-              <div className="h-80">
-                <h3 className="text-lg font-semibold text-center">
-                  Impact Distribution
-                </h3>
+              <div className="h-80 bg-white p-4 rounded-lg shadow">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <h3 className="text-sm font-semibold text-center">
+                    Distribution of Mental Health Issues
+                  </h3>
+                </div>
                 <ResponsiveContainer width="100%" height="80%">
                   <PieChart>
                     <Pie
                       data={impactStats}
                       cx="50%"
                       cy="50%"
-                      innerRadius={50}
-                      outerRadius={70}
+                      innerRadius={40}
+                      outerRadius={60}
                       paddingAngle={5}
                       dataKey="value"
                     >
@@ -230,21 +269,121 @@ const StudentWellbeingPage = () => {
                     <Legend />
                   </PieChart>
                 </ResponsiveContainer>
+                <p className="text-xs text-gray-500 text-center mt-2">
+                  Source: National Mental Health Survey
+                </p>
               </div>
             </div>
-          </div>
 
-          <div className="space-y-8 mt-6">
-            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
-              <div className="flex gap-2">
-                <h2 className="text-4xl font-semibold text-gray-900 mb-6">
-                  Key
-                </h2>
-                <span className="text-green-500 relative text-4xl block">
+            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex justify-center gap-2 mb-4">
+                <img
+                  src="/warning1.png"
+                  alt="Warning Icon"
+                  className="w-10 h-10"
+                />
+                <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
+                  Warning Signs
+                  <svg
+                    className="absolute w-full h-[6px] -bottom-1 left-0"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 -5, 100 5"
+                      stroke="orange"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-medium text-gray-800 text-sm">
+                      Emotional Signs
+                    </h3>
+                  </div>
+                  <ul className="text-xs text-gray-600 space-y-1.5">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Persistent Sadness or Mood Swings</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Increased Anxiety or Stress</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Self-Harm or Suicidal Thoughts</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Increased Aggression or Irritability</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-medium text-gray-800 text-sm">
+                      Behavioral Signs
+                    </h3>
+                  </div>
+                  <ul className="text-xs text-gray-600 space-y-1.5">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Declining Academic Performance</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Social Withdrawal</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Difficulty Making Decisions</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Substance Use</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-medium text-gray-800 text-sm">
+                      Physical Signs
+                    </h3>
+                  </div>
+                  <ul className="text-xs text-gray-600 space-y-1.5">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Sleep Disturbances</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Changes in Eating Habits</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Fatigue and Low Energy</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Frequent Headaches or Stomach Issues</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-transparent p-6">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
                   <span className="relative">
-                    Findings
+                    ShareYrHearts Student Well-being Program
                     <svg
-                      className="absolute w-full h-[6px] bottom-0 left-0"
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
                       viewBox="0 0 100 10"
                       preserveAspectRatio="none"
                     >
@@ -258,34 +397,67 @@ const StudentWellbeingPage = () => {
                   </span>
                 </span>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center space-x-2">
-                  <span className="h-2 w-2 bg-blue-500 rounded-full"></span>
-                  <span>
-                    Poor mental health persists throughout life stages
-                  </span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <span className="h-2 w-2 bg-green-500 rounded-full"></span>
-                  <span>Significant impact on academic performance</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <span className="h-2 w-2 bg-orange-500 rounded-full"></span>
-                  <span>Strong correlation with future success</span>
-                </li>
-              </ul>
+
+              <p className="text-gray-600 leading-relaxed mb-6 text-center">
+                Recognizing the critical importance of mental health in academic
+                success and personal development, ShareYrHeart has developed a
+                Student Well-being Program tailored to address the unique
+                challenges faced by students. The program encompasses:
+              </p>
+
+              <div className="flex gap-8 justify-center">
+                <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+                  <div className="flex justify-center mb-3">
+                    <img
+                      src="/checklist.png"
+                      alt="Assessment Icon"
+                      className="w-24 h-24"
+                    />
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Comprehensive Assessments
+                    </h3>
+                  </div>
+                </div>
+                <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+                  <div className="flex justify-center mb-3">
+                    <img
+                      src="/behavioral.png"
+                      alt="Activities Icon"
+                      className="w-24 h-24"
+                    />
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Targeted Activities
+                    </h3>
+                  </div>
+                </div>
+                <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+                  <div className="flex justify-center mb-3">
+                    <img
+                      src="/psycghologyself.png"
+                      alt="Session Icon"
+                      className="w-24 h-24"
+                    />
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Session
+                    </h3>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6 shadow-inner">
-              <div className="flex gap-2">
-                <h2 className="text-4xl font-semibold text-gray-900 mb-6">
-                  Warning
-                </h2>
-                <span className="text-green-500 relative text-4xl block">
+            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
                   <span className="relative">
-                    signs
+                    Benefits of the Program
                     <svg
-                      className="absolute w-full h-[6px] bottom-0 left-0"
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
                       viewBox="0 0 100 10"
                       preserveAspectRatio="none"
                     >
@@ -299,53 +471,78 @@ const StudentWellbeingPage = () => {
                   </span>
                 </span>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center space-x-2">
-                  <span className="h-2 w-2 bg-red-500 rounded-full"></span>
-                  <span>Aggressive behavior and internalization</span>
+              <ul className="space-y-6">
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium  text-gray-800">
+                        Enhanced Academic Performance
+                      </span>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex items-center space-x-2">
-                  <span className="h-2 w-2 bg-purple-500 rounded-full"></span>
-                  <span>Unsafe decision-making and substance use</span>
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium text-gray-800">
+                        Improved Emotional Resilience
+                      </span>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex items-center space-x-2">
-                  <span className="h-2 w-2 bg-yellow-500 rounded-full"></span>
-                  <span>Physical and relational victimization</span>
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium text-gray-800">
+                        Supportive Community
+                      </span>
+                    </div>
+                  </div>
                 </li>
               </ul>
-            </div>
-
-            <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-              <p className="text-gray-800 italic">
-                A Student Well-Being Program is vital for fostering emotional
-                resilience, academic success, and personal growth. It equips
-                students with essential skills for managing stress, enhancing
-                focus, and building confidence, preparing them for future
-                challenges while ensuring a balanced academic journey.
+              <p className="text-sm text-gray-600 mt-4 italic">
+                Implementing ShareYrHearts Student Well-being Program can
+                significantly contribute to creating a healthier, more
+                supportive educational environment, enabling students to thrive
+                both academically and personally.
               </p>
             </div>
+
+            <div className="m-2 flex justify-center">
+              {hasPaid ? (
+                <button
+                  onClick={() =>
+                    router.push("/questionnaires?userType=student")
+                  }
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+                >
+                  Get Started
+                </button>
+              ) : (
+                <button
+                  onClick={handlePayment}
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+                >
+                  Get Started
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="m-2 flex justify-center">
-          {hasPaid ? (
-            <button
-              onClick={() => router.push("/questionnaires?userType=student")}
-              className="py-4 min-w-[800px] px-10 bg-gradient-to-r from-[#EBB509] to-purple-600 text-white font-semibold rounded-xl
-                      transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
-                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              Begin Your Well-being Journey
-            </button>
-          ) : (
-            <button
-              onClick={handlePayment}
-              className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl
-                      transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
-                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              Make Payment to Begin
-            </button>
-          )}
         </div>
       </div>
     </div>
