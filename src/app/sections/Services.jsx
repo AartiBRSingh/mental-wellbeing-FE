@@ -119,7 +119,7 @@ const Services = () => {
       id="services"
     >
       <DecorativeShapes />
-      <main className="flex flex-col md:flex-row md:h-[500px] justify-center items-center w-full max-w-7xl gap-6 sm:gap-8 md:gap-0">
+      <main className="flex flex-col md:flex-row md:h-[480px] justify-center items-center w-full max-w-7xl gap-6 sm:gap-8 md:gap-0">
         <section className="flex-1 flex flex-col gap-4 sm:gap-6 md:gap-8 text-center md:text-left">
           <div className="inline-block">
             <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-green-700 text-white text-lg font-semibold">
@@ -170,11 +170,11 @@ const Services = () => {
 
         <section className="flex justify-center md:justify-end z-10 relative w-full md:w-auto sm:mt-8 md:mt-0">
           {courses.length > 0 && (
-            <div className="w-full max-w-md h-[450px] sm:h-[450px] flex justify-center gap-3 sm:gap-4">
+            <div className="w-full max-w-sm h-[420px] sm:h-[420px] flex justify-center gap-3 sm:gap-4">
               <div className="flex flex-col justify-between my-2">
                 {courses.map((_, index) => (
                   <div
-                    className={`w-1.5 sm:w-1.5 h-24 sm:h-20 md:h-28 rounded-md cursor-pointer transition-colors duration-300 ${
+                    className={`w-1.5 sm:w-1.5 h-20 sm:h-18 md:h-24 rounded-md cursor-pointer transition-colors duration-300 ${
                       index === currentCourse ? "bg-white" : "bg-[#336661]"
                     }`}
                     key={index}
@@ -183,34 +183,34 @@ const Services = () => {
                 ))}
               </div>
 
-              <div className="bg-white rounded-lg shadow-lg w-full max-w-sm overflow-hidden border border-gray-200 flex flex-col">
+              <div className="bg-white rounded-lg shadow-lg w-full max-w-xs overflow-hidden border border-gray-200 flex flex-col">
                 <div className="relative">
                   <img
                     src={courses[currentCourse]?.thumbnailUrl}
                     alt={courses[currentCourse]?.title}
-                    className="w-full h-60 object-cover"
+                    className="w-full h-56 object-cover"
                   />
                 </div>
 
-                <div className="px-4 py-3 flex-grow flex flex-col">
+                <div className="px-3 py-2 flex-grow flex flex-col">
                   <div className="flex items-center">
                     <Image
                       src={courses[currentCourse]?.categoryIcon}
                       alt="category icon"
-                      width={30}
-                      height={30}
+                      width={28}
+                      height={28}
                       className="object-contain mr-2"
                     />
-                    <span className="text-gray-700">
+                    <span className="text-gray-700 text-sm">
                       {courses[currentCourse]?.category}
                     </span>
                   </div>
 
-                  <h2 className="text-lg font-bold text-gray-900 mb-1">
+                  <h2 className="text-base font-bold text-gray-900 mb-1">
                     {courses[currentCourse]?.title}
                   </h2>
 
-                  <p className="text-gray-600 text-sm mb-2 line-clamp-3">
+                  <p className="text-gray-600 text-xs mb-2 line-clamp-3">
                     {courses[currentCourse]?.details}
                   </p>
 
@@ -218,14 +218,14 @@ const Services = () => {
                     {renderStars(courses[currentCourse]?.rating || 5)}
                   </div>
 
-                  <div className="text-sm text-gray-600">
+                  <div className="text-xs text-gray-600">
                     <span className="mr-2">
                       {courses[currentCourse]?.level}
                     </span>
 
                     <span className="mr-2">
-                      <span className="mx-2">•</span>Professional Certificate
-                      <span className="mx-2">•</span>
+                      <span className="mx-1">•</span>Professional Certificate
+                      <span className="mx-1">•</span>
                     </span>
 
                     <span>{courses[currentCourse]?.duration}</span>
