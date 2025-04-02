@@ -154,7 +154,31 @@ const TestimonialsSlider = () => {
   if (testimonials.length === 0) return null;
 
   return (
-    <div className="py-6 md:py-10 overflow-hidden relative">
+    <div className="py-6 md:py-10 overflow-hidden ">
+      {/* Added Happy Users heading */}
+      <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
+        <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl  text-[#2D2D2D]">
+          Happy
+          <span className="text-[#956144] relative">
+            <span className="relative ml-2">
+              Users
+              <svg
+                className="absolute w-full h-[10px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+          </span>
+        </h2>
+      </div>
+
       {/* <button
         onClick={() => handleScroll("left")}
         className="absolute left-2 sm:left-4 lg:left-8 xl:left-10 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-colors"

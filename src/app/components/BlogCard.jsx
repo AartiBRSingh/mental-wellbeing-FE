@@ -106,7 +106,7 @@ const BlogCard = ({
         <span className="text-sm">{formatDate(createdAt)}</span>
       </div>
 
-      <h2 className="font-semibold text-xl md:text-2xl mb-4 text-gray-800 line-clamp-2 relative z-10">
+      <h2 className="font-semibold text-xl md:text-2xl mb-4 text-gray-800 line-clamp-3 relative z-10">
         {title}
       </h2>
 

@@ -60,7 +60,7 @@ const WhyUs = () => {
     },
     {
       id: 2,
-      title: "Couples Counseling",
+      title: "Couple Counseling",
       slug: "Couples+%2F+Marriage+Counseling",
       imageUrl: "couple.jpg",
     },
@@ -121,7 +121,7 @@ const WhyUs = () => {
       >
         <div
           className={`${
-            isMobile ? "w-48 h-48" : "w-32 h-32 md:w-44 md:h-44"
+            isMobile ? "w-48 h-48" : "w-32 h-32 md:w-52 md:h-52"
           } mb-4 md:mb-6 rounded-xl overflow-hidden`}
         >
           <CircleImage imageUrl={expert.imageUrl} />
@@ -147,7 +147,7 @@ const WhyUs = () => {
             PEACEFUL BEGINNING
           </span>
           <div className="flex gap-2 justify-center">
-            <h1 className="text-4xl md:text-6xl font-semibold mt-10 mb-16">
+            <h1 className="text-4xl md:text-5xl  mt-10 mb-16">
               Our{" "}
               <span className="relative text-[#956144]">
                 Experts

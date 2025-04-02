@@ -127,13 +127,13 @@ const Services = () => {
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl lg:text-6xl text-white">
-            <span>We help you to </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl text-white">
+            <span>We Help You To </span>
             <br />
             <span className="text-[#FDD56A] relative">
-              g
+              G
               <span className="relative">
-                row confidence
+                row Confidence
                 <svg
                   className="absolute w-full h-[10px] sm:h-[10px] sm:bottom-0 -bottom-2 left-0"
                   viewBox="0 0 100 10"
@@ -149,10 +149,10 @@ const Services = () => {
               </span>
             </span>
             <br />
-            <span> at any age</span>
+            <span> At Any Age</span>
           </h1>
 
-          <p className="text-white max-w-60 text-xs mb-6 sm:text-sm md:text-xl xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
+          <p className="text-white max-w-60 text-md mb-6 sm:text-sm md:text-xl xl:max-w-md mx-auto md:mx-0 px-4 sm:px-0">
             Enhance skills, boost career opportunities, and get
             industry-specific knowledge.
           </p>
