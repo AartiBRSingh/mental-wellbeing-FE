@@ -12,6 +12,7 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
+import { ChevronRight } from "lucide-react";
 
 const COLORS = ["#77DEFF", "#F6D038", "#FF8458", "#FACC15", "#CCCCFF"];
 
@@ -148,283 +149,110 @@ const SelfAssessmentPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="max-w-7xl w-full bg-gradient-to-b from-white to-red-200 rounded-2xl overflow-hidden shadow-2xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+        <div className=" p-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <img
+              {/* <img
                 src="/mentalHealth.png"
                 alt="Mental Health Icon"
                 className="w-15 h-10"
-              />
-              <h1 className="text-3xl font-semibold text-black">
-                <strong className="text-[#956144] font-semibold text-4xl">
-                  Self
+              /> */}
+              <h1 className="text-3xl font-semibold bg-white p-4 rounded-lg shadow-md text-center">
+                <strong className="text-black font-semibold text-4xl">
+                  Self Understanding
                 </strong>{" "}
-                Mental Health & Well-being
               </h1>
             </div>
 
             <div className="flex justify-center mb-4">
-              <img
+              {/* <img
                 src="https://img.freepik.com/free-vector/tiny-people-beautiful-flower-garden-inside-female-head-isolated-flat-illustration_74855-11098.jpg?t=st=1743517262~exp=1743520862~hmac=dc5da5e71f940caeca4d965bc812f1670d8ecd6d44219d4416e28cc1d4329a10&w=996"
                 alt="Mental Health Icon"
                 className="w-auto h-72 rounded-lg shadow-lg"
-              />
+              /> */}
             </div>
 
-            <div className="relative rounded-lg overflow-hidden bg-gradient-to-r from-blue-100 to-purple-100 p-6">
+            <div className="relative rounded-lg overflow-hidden bg-white p-6">
+              <div className="flex justify-center items-center gap-2 mb-3">
+                <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
+                  Overview
+                  <svg
+                    className="absolute w-full h-[6px] -bottom-1 left-0"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 -5, 100 5"
+                      stroke="orange"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Mental health has become an increasingly critical issue in
+                India, affecting a significant portion of the population. Recent
+                studies provide a comprehensive overview of the current mental
+                health landscape:
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <li>
+                  <strong>Prevalence of Mental Health Disorders:</strong> The
+                  Global Burden of Disease Study revealed that in it’s last
+                  survey, approximately 197.3 million individuals in India were
+                  affected by mental disorders, accounting for 14.6% of the
+                  population.
+                </li>
+                <li>
+                  <strong>Suicide Rates: </strong> The World Health Organization
+                  (WHO) estimates an age-adjusted suicide rate of 21.1 per
+                  100,000 population in India, highlighting the severity of
+                  mental health challenges.
+                </li>
+                <li>
+                  <strong>Economic Impact: </strong> Mental health conditions
+                  are projected to cost the Indian economy USD 1.03 trillion
+                  between 2012 and 2030 due to lost productivity and related
+                  expenses.
+                </li>
+              </div>
+            </div>
+
+            {/* <div className="relative rounded-lg overflow-hidden bg-gradient-to-r from-blue-100 to-purple-100 p-6">
               <div className="flex items-center gap-2 mb-3">
                 <img
                   src="/self-assessment.png"
                   alt="Brain Icon"
                   className="w-6 h-6"
                 />
-                <h3 className="font-semibold text-gray-800">
-                  ShareYrHearts Self-Understanding Program
+                <h3 className="font-semibold text-2xl text-gray-800">
+                  Challenges
                 </h3>
               </div>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Our program is designed to address India mental health
-                challenges through comprehensive assessment, personalized
-                sessions, and therapeutic interventions. Early intervention can
-                significantly improve well-being.
-              </p>
+
               <div className="flex flex-wrap gap-3">
-                <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
-                  <img
-                    src="/images/assessment-icon.svg"
-                    alt=""
-                    className="w-3 h-3 mr-1"
-                  />
-                  Comprehensive Assessment
-                </span>
-                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
-                  <img
-                    src="/images/personalized-icon.svg"
-                    alt=""
-                    className="w-3 h-3 mr-1"
-                  />
-                  Personalized Sessions
-                </span>
-                <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
-                  <img
-                    src="/images/therapy-icon.svg"
-                    alt=""
-                    className="w-3 h-3 mr-1"
-                  />
-                  Therapeutic Interventions
-                </span>
-              </div>
-            </div>
-
-            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
-              <div className="flex items-center gap-2 mb-4">
-                <img
-                  src="/warning.png"
-                  alt="Warning Icon"
-                  className="w-6 h-6"
-                />
-                <h2 className="text-2xl font-semibold text-gray-900">
-                  Warning Signs
-                </h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-2 mb-2">
-                    <img
-                      src="/images/emotional-icon.svg"
-                      alt=""
-                      className="w-4 h-4"
-                    />
-                    <h3 className="font-medium text-gray-800 text-sm">
-                      Emotional Signs
-                    </h3>
-                  </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
-                      <span>Persistent sadness</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
-                      <span>Excessive worry or fear</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
-                      <span>Loss of interest</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
-                      <span>Feeling overwhelmed</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
-                      <span>Suicidal thoughts</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-2 mb-2">
-                    <img
-                      src="/images/behavioral-icon.svg"
-                      alt=""
-                      className="w-4 h-4"
-                    />
-                    <h3 className="font-medium text-gray-800 text-sm">
-                      Behavioral Signs
-                    </h3>
-                  </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-yellow-500 rounded-full"></span>
-                      <span>Social withdrawal</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-yellow-500 rounded-full"></span>
-                      <span>Changes in sleep patterns</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-yellow-500 rounded-full"></span>
-                      <span>Difficulty concentrating</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-yellow-500 rounded-full"></span>
-                      <span>Increased substance use</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-yellow-500 rounded-full"></span>
-                      <span>Unexplained aggression</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-2 mb-2">
-                    <img
-                      src="/images/physical-icon.svg"
-                      alt=""
-                      className="w-4 h-4"
-                    />
-                    <h3 className="font-medium text-gray-800 text-sm">
-                      Physical Signs
-                    </h3>
-                  </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-blue-500 rounded-full"></span>
-                      <span>Frequent headaches</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-blue-500 rounded-full"></span>
-                      <span>Changes in appetite</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-blue-500 rounded-full"></span>
-                      <span>Fatigue and low energy</span>
-                    </li>
-                    <li className="flex items-center space-x-1.5">
-                      <span className="h-1.5 w-1.5 bg-blue-500 rounded-full"></span>
-                      <span>Gastrointestinal issues</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <p className="text-xs text-gray-600 mt-4 italic">
-                If these signs persist for weeks or interfere with daily life,
-                it is important to seek help from a mental health professional.
-                Early intervention can make a significant difference in
-                well-being.
-              </p>
-            </div>
-
-            <div className="m-2 flex justify-center">
-              {hasPaid ? (
-                <button
-                  onClick={() => router.push("/questionnaires?userType=self")}
-                  className="py-4 w-full min-w-max px-10 bg-blue-400 text-white font-semibold mt-4 rounded-xl
-                      transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
-                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                >
-                  Begin Your Well-being Journey
-                </button>
-              ) : (
-                <button
-                  onClick={handlePayment}
-                  className="w-full py-4 px-6 mt-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl
-                      transition duration-300 ease-in-out hover:shadow-lg hover:opacity-90
-                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                >
-                  Make Payment (₹500) to Begin Your Assessment
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-6 mt-4">
-            <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-              <div className="flex items-center gap-2 mb-2">
-                <img
-                  src="/psychology.png"
-                  alt="India Icon"
-                  className="w-6 h-6"
-                />
-                <h3 className="font-semibold text-gray-800">
-                  Mental Health in India
-                </h3>
-              </div>
-              <p className="text-sm text-gray-600">
-                Approximately 14.6% of India population (197.3 million people)
-                suffer from mental health disorders. With a treatment gap of
-                80.4% and only 0.3 psychiatrists per 100,000 people, mental
-                health care remains a critical challenge.
-              </p>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
-              <div className="flex items-center gap-2 mb-4">
-                <img
-                  src="/pngegg.png"
-                  alt="Benefits Icon"
-                  className="w-6 h-6"
-                />
-                <h2 className="text-2xl font-semibold text-gray-900">
-                  Program Benefits
-                </h2>
-              </div>
-              <ul className="space-y-3">
-                <li className="flex items-start space-x-3">
-                  <div>
-                    <span className="font-medium text-gray-800">
-                      Enhanced Self-Awareness
-                    </span>
-                    <p className="text-sm text-gray-600">
-                      Develop deeper understanding of thoughts, emotions, and
-                      behaviors
-                    </p>
-                  </div>
+                <li>
+                  <strong>Stigma and Awareness:</strong> Despite the high
+                  prevalence, mental health issues in India are often
+                  stigmatized, leading to reluctance in seeking professional
+                  help. This societal stigma exacerbates the treatment gap,
+                  leaving many without necessary care.
                 </li>
-                <li className="flex items-start space-x-3">
-                  <div>
-                    <span className="font-medium text-gray-800">
-                      Improved Coping Mechanisms
-                    </span>
-                    <p className="text-sm text-gray-600">
-                      Learn effective strategies to manage stress and emotional
-                      challenges
-                    </p>
-                  </div>
+                <li>
+                  <strong>Treatment Gap: </strong> The National Mental Health
+                  Survey (NMHS) 2015-16 reported a treatment gap of 80.4% for
+                  common mental disorders, indicating that a vast majority of
+                  individuals do not receive the care they need.
                 </li>
-                <li className="flex items-start space-x-3">
-                  <div>
-                    <span className="font-medium text-gray-800">
-                      Empowerment
-                    </span>
-                    <p className="text-sm text-gray-600">
-                      Gain control over your mental health journey through
-                      knowledge and tools
-                    </p>
-                  </div>
+                <li>
+                  <strong>Resource Constraints: </strong> India faces a shortage
+                  of mental health professionals, with only 0.3 psychiatrists
+                  and 0.07 psychologists per 100,000 people, compared to 6.6
+                  psychiatrists per 100,000 in developed countries.
                 </li>
-              </ul>
-            </div>
+              </div>
+            </div> */}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="h-80 bg-white p-4 rounded-lg shadow">
@@ -494,68 +322,317 @@ const SelfAssessmentPage = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 shadow-inner border border-gray-100">
-              <div className="flex items-center gap-2 mb-4">
-                <img src="/service.png" alt="Impact Icon" className="w-6 h-6" />
-                <h2 className="text-xl font-semibold text-gray-900">
-                  The Impact
-                </h2>
+            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex justify-center gap-2 mb-4">
+                <img
+                  src="/warning1.png"
+                  alt="Warning Icon"
+                  className="w-10 h-10"
+                />
+                <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
+                  Warning Signs
+                  <svg
+                    className="absolute w-full h-[6px] -bottom-1 left-0"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 -5, 100 5"
+                      stroke="orange"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                  </svg>
+                </span>
               </div>
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 bg-red-100 p-2 rounded-full"></div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-800">
-                      Economic Burden
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-medium text-gray-800 text-sm">
+                      Emotional Signs
                     </h3>
-                    <p className="text-xs text-gray-600">
-                      Mental health conditions projected to cost India USD 1.03
-                      trillion (2012-2030)
+                  </div>
+                  <ul className="text-xs text-gray-600 space-y-1.5">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Persistent sadness</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Excessive worry or fear</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Loss of interest</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Feeling overwhelmed</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Suicidal thoughts</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-medium text-gray-800 text-sm">
+                      Behavioral Signs
+                    </h3>
+                  </div>
+                  <ul className="text-xs text-gray-600 space-y-1.5">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Social withdrawal</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Changes in sleep patterns</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Difficulty concentrating</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Increased substance use</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Unexplained aggression</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-medium text-gray-800 text-sm">
+                      Physical Signs
+                    </h3>
+                  </div>
+                  <ul className="text-xs text-gray-600 space-y-1.5">
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Frequent headaches</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Changes in appetite</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Fatigue and low energy</span>
+                    </li>
+                    <li className="flex items-center space-x-1.5">
+                      <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
+                      <span>Gastrointestinal issues</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-xs text-gray-600 mt-4 italic">
+                If these signs persist for weeks or interfere with daily life,
+                it is important to seek help from a mental health professional.
+                Early intervention can make a significant difference in
+                well-being.
+              </p>
+            </div>
+
+            <div className="bg-transparent p-6">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
+                  <span className="relative">
+                    Our Services
+                    <svg
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+
+              <div className="flex gap-8 justify-center">
+                <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+                  <div className="flex justify-center mb-3">
+                    <img
+                      src="/checklist.png"
+                      alt="Benefits Icon"
+                      className="w-24 h-24"
+                    />
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Comprehensive Assessment
+                    </h3>
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <p className="text-gray-600 leading-relaxed text-sm mt-2">
+                      Utilizing validated self-assessment tools to help
+                      individuals understand their emotional well-being and
+                      identify areas for personal growth.
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 bg-yellow-100 p-2 rounded-full"></div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-800">
-                      Suicide Rate
+                <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+                  <div className="flex justify-center mb-3">
+                    <img
+                      src="/behavioral.png"
+                      alt="Benefits Icon"
+                      className="w-24 h-24"
+                    />
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Therapeutic Interventions
                     </h3>
-                    <p className="text-xs text-gray-600">
-                      WHO estimates 21.1 per 100,000 population in India
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <p className="text-gray-600 leading-relaxed text-sm mt-3">
+                      Confidential sessions with experienced mental health
+                      professionals to explore personal challenges and develop
+                      coping strategies.
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 bg-blue-100 p-2 rounded-full"></div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-800">
-                      Treatment Gap
+                <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+                  <div className="flex justify-center mb-3">
+                    <img
+                      src="/psycghologyself.png"
+                      alt="Benefits Icon"
+                      className="w-24 h-24"
+                    />
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Personalized Sessions
                     </h3>
-                    <p className="text-xs text-gray-600">
-                      80.4% of individuals with common mental disorders dont
-                      receive care
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <p className="text-gray-600 leading-relaxed text-sm mt-5">
+                      Implementation of therapies to address specific mental
+                      health concerns.
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="mt-4 bg-white p-3 rounded-lg text-xs text-gray-600">
-                <div className="flex items-center gap-2 mb-2">
-                  <img
-                    src="/images/stigma-icon.svg"
-                    alt=""
-                    className="w-4 h-4"
-                  />
-                  <h3 className="font-medium text-gray-800 text-sm">
-                    Stigma and Awareness
-                  </h3>
-                </div>
-                <p>
-                  Despite the high prevalence, mental health issues in India are
-                  often stigmatized, leading to reluctance in seeking
-                  professional help. This societal stigma exacerbates the
-                  treatment gap, leaving many without necessary care.
-                </p>
+            </div>
+
+            <div className="flex justify-center mb-4">
+              <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
+                Book a Demo
+                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+              </button>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                {/* <img
+                  src="/pngegg.png"
+                  alt="Benefits Icon"
+                  className="w-8 h-8"
+                /> */}
+                <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
+                  <span className="relative">
+                    Program Benefits
+                    <svg
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </span>
               </div>
+              <ul className="space-y-6">
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium  text-gray-800">
+                        Enhanced Self-Awareness
+                      </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Develop deeper understanding of thoughts, emotions, and
+                        behaviors
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium text-gray-800">
+                        Improved Coping Mechanisms
+                      </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Learn effective strategies to manage stress and
+                        emotional challenges
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium text-gray-800">
+                        Empowerment
+                      </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Gain control over your mental health journey through
+                        knowledge and tools
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="m-2 flex justify-center">
+              {hasPaid ? (
+                <button
+                  onClick={() => router.push("/questionnaires?userType=self")}
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+                >
+                  Get Started
+                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+              ) : (
+                <button
+                  onClick={handlePayment}
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+                >
+                  Get Started
+                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+              )}
             </div>
           </div>
         </div>

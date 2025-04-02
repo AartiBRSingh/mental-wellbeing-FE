@@ -221,9 +221,9 @@ const BlogSection = () => {
     <div className="relative py-12 md:py-16 lg:py-10 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-24 relative">
         {/* Header section - Keep exactly the same */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4 md:gap-6 mb-8 md:mb-20">
+        <div className="flex flex-col lg:flex-row justify-center items-start lg:items-end gap-4 md:gap-6 mb-8 md:mb-20">
           <div className="space-y-4 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
-            <div className="relative inline-block mb-5">
+            {/* <div className="relative inline-block mb-5">
               <div className="absolute inset-0 bg-[#956144] opacity-10 rotate-2 rounded-lg" />
               <div className="relative px-3 md:px-4 py-1.5 bg-white rounded-lg text-xs md:text-sm text-[#956144] font-medium border border-[#956144]/20">
                 MENTAL HEALTH AT ANY AGE
@@ -235,9 +235,9 @@ const BlogSection = () => {
               width={50}
               height={50}
               className="absolute -rotate-12 -top-[20px] right-8 sm:right-[1040px] z-0 opacity-100"
-            />
+            /> */}
 
-            <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-semibold text-[#2D2D2D]">
+            <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl  text-[#2D2D2D]">
               <span className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-8 h-8 md:w-12 md:h-12 bg-[#F5E6E0] rounded-full -z-10" />
               Latest from{" "}
               <span className="text-[#956144] relative">
@@ -259,11 +259,6 @@ const BlogSection = () => {
                 </span>
               </span>
             </h2>
-
-            {/* <p className="text-gray-600 max-w-xl text-base md:text-lg">
-              To live your life to the fullest, we&apos;re continuing to find
-              ways to prevent mental health problems.
-            </p> */}
           </div>
         </div>
 

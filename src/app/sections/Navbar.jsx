@@ -60,7 +60,7 @@ const Navbar = () => {
 
   const navLinks = [
     {
-      label: "Mental Wellbeing",
+      label: "Mental Well-being",
       redirectTo: "mental-wellbeing",
       dropdown: [
         { label: "Self", href: "/self" },
@@ -100,13 +100,13 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full flex justify-center fixed top-0 left-0 z-50 bg-white">
-        <nav className="h-20 rounded-b-3xl shadow-sm flex justify-between items-center md:px-10 w-full md:w-[80vw] mx-6 md:mx-0">
+      <div className="w-full flex justify-center fixed top-0 left-0 z-50  ">
+        <nav className="h-28 bg-white shadow-md rounded-b-3xl flex justify-between items-center md:px-10 w-full md:w-[80vw] mx-6 md:mx-0">
           <Link href={"/"}>
             <img
               src="/websiteLogo.png"
               alt=""
-              className="md:w-48 md:h-20 w-36 h-16 cursor-pointer"
+              className="md:w-56 md:h-24 w-36 h-16 cursor-pointer"
             />
           </Link>
           <section className="hidden md:block">
@@ -114,7 +114,7 @@ const Navbar = () => {
               {navLinks.map((item, index) => (
                 <div key={index} className="relative group">
                   <Link href={item.redirectTo}>
-                    <li className="relative font-semibold text-gray-600 cursor-pointer text-sm group">
+                    <li className="relative font-semibold text-black cursor-pointer text-lg group">
                       {item.label}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-600 group-hover:w-full transition-all duration-300 ease-in-out" />
                     </li>
@@ -179,14 +179,14 @@ const Navbar = () => {
               </div>
             ) : (
               <Link href="/sign-in" className="hidden md:block">
-                <button className="cursor-pointer px-4 bg-black text-white p-2 rounded-xl shadow-lg transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
+                <button className="cursor-pointer px-4 font-semibold bg-[#F9F5F2] text-black p-2 rounded-xl shadow-lg transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner">
                   Sign In
                 </button>
               </Link>
             )}
             <Link
               href={"/get-started"}
-              className="cursor-pointer font-semibold xl:px-4 px-1 bg-[#7CE7FF] text-black xl:p-2 p-1 shadow-lg rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
+              className="cursor-pointer font-semibold xl:px-4 px-1 bg-[#F9F5F2] text-black xl:p-2 p-1 shadow-lg rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
             >
               Get Started
             </Link>
