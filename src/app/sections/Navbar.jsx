@@ -61,7 +61,7 @@ const Navbar = () => {
   const navLinks = [
     {
       label: "Mental Well-being",
-      redirectTo: "mental-wellbeing",
+      redirectTo: "/",
       dropdown: [
         { label: "Self", href: "/self" },
         { label: "Campus", href: "/student" },
