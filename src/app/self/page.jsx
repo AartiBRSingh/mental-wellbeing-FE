@@ -153,7 +153,7 @@ const SelfAssessmentPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="max-w-7xl w-full bg-gradient-to-b from-white to-red-200 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="max-w-7xl w-full overflow-hidden ">
         <div className=" p-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -201,7 +201,7 @@ const SelfAssessmentPage = () => {
                 studies provide a comprehensive overview of the current mental
                 health landscape:
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap text-gray-600 gap-3">
                 <li>
                   <strong>Prevalence of Mental Health Disorders:</strong> The
                   Global Burden of Disease Study revealed that in it’s last
@@ -261,11 +261,7 @@ const SelfAssessmentPage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="h-80 bg-white p-4 rounded-lg shadow">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <h3 className="text-sm font-semibold text-center">
-                    Mental Health in India (2023)
-                  </h3>
-                </div>
+                <div className="flex items-center justify-center gap-2 mb-2"></div>
                 <ResponsiveContainer width="100%" height="80%">
                   <PieChart>
                     <Pie
@@ -294,11 +290,7 @@ const SelfAssessmentPage = () => {
               </div>
 
               <div className="h-80 bg-white p-4 rounded-lg shadow">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <h3 className="text-sm font-semibold text-center">
-                    Distribution of Mental Health Disorders
-                  </h3>
-                </div>
+                <div className="flex items-center justify-center gap-2 mb-2"></div>
                 <ResponsiveContainer width="100%" height="80%">
                   <PieChart>
                     <Pie
@@ -353,11 +345,11 @@ const SelfAssessmentPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-white p-3 rounded-lg shadow-sm">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-sm">
+                    <h3 className="font-medium text-gray-800 text-lg">
                       Emotional Signs
                     </h3>
                   </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
+                  <ul className="text-sm text-gray-600 space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Persistent sadness</span>
@@ -382,11 +374,11 @@ const SelfAssessmentPage = () => {
                 </div>
                 <div className="bg-white p-3 rounded-lg shadow-sm">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-sm">
+                    <h3 className="font-medium text-gray-800 text-lg">
                       Behavioral Signs
                     </h3>
                   </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
+                  <ul className="text-sm text-gray-600 space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Social withdrawal</span>
@@ -411,11 +403,11 @@ const SelfAssessmentPage = () => {
                 </div>
                 <div className="bg-white p-3 rounded-lg shadow-sm">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-sm">
+                    <h3 className="font-medium text-gray-800 text-lg">
                       Physical Signs
                     </h3>
                   </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
+                  <ul className="text-sm text-gray-600 space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Frequent headaches</span>
@@ -530,17 +522,6 @@ const SelfAssessmentPage = () => {
               </div>
             </div>
 
-            <div className="flex justify-center mb-4">
-              <button
-                onClick={openModal}
-                className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
-              >
-                Book a Demo
-                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
-              </button>
-              <DemoRequestModal isOpen={isModalOpen} onClose={closeModal} />
-            </div>
-
             <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-center gap-2 mb-4">
                 {/* <img
@@ -622,6 +603,13 @@ const SelfAssessmentPage = () => {
                   </div>
                 </li>
               </ul>
+              <p className=" font-medium text-black mt-12 text-center">
+                By integrating comprehensive assessments, personalized sessions,
+                and therapeutic interventions, ShareYrHeart&#39;s
+                Self-Understanding Program aims to bridge the mental health care
+                gap in India, offering individuals a pathway to a healthier and
+                more fulfilling life.
+              </p>
             </div>
 
             <div className="m-2 flex justify-center">

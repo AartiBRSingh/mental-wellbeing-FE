@@ -103,10 +103,28 @@ const CourseCatalog = () => {
     <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[#4A3427] mb-4">
-            Professional Courses
-          </h1>
-          <div className="h-1.5 w-24 bg-[#D2691E] mx-auto rounded-full"></div>
+          <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl  text-[#2D2D2D]">
+            <span className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-8 h-8 md:w-12 md:h-12 bg-[#F5E6E0] rounded-full -z-10" />
+            Professional
+            <span className="text-[#956144] ml-3 relative">
+              C
+              <span className="relative">
+                ourses
+                <svg
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
+          </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course) => {

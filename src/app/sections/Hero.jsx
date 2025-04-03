@@ -13,7 +13,7 @@ const Hero = () => {
             {/* Removed commented code */}
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-5xl ">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl ">
             <span>Make </span>
             <span className="text-[#956144] relative">
               Happier Individuals,

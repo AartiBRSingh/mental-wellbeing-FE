@@ -64,8 +64,8 @@ const Navbar = () => {
       redirectTo: "/",
       dropdown: [
         { label: "Self", href: "/self" },
-        { label: "Campus", href: "/student" },
-        { label: "Workplace", href: "/employee" },
+        { label: "Institutes", href: "/student" },
+        { label: "Workplaces", href: "/employee" },
       ],
     },
     { label: "Clinics", redirectTo: "/clinics" },
