@@ -13,6 +13,7 @@ import {
   Tooltip,
 } from "recharts";
 import { ChevronRight } from "lucide-react";
+import DemoRequestModal from "../components/DemoRequestModal";
 
 const COLORS = ["#77DEFF", "#F6D038", "#FF8458", "#FACC15", "#CCCCFF"];
 
@@ -22,6 +23,10 @@ const SelfAssessmentPage = () => {
   const [userName, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
   const [phoneNo, setPhoneNo] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   const router = useRouter();
 
   // Updated with India-specific mental health statistics
@@ -148,7 +153,7 @@ const SelfAssessmentPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="max-w-7xl w-full  overflow-hidden ">
+      <div className="max-w-7xl w-full bg-gradient-to-b from-white to-red-200 rounded-2xl overflow-hidden shadow-2xl">
         <div className=" p-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -196,7 +201,7 @@ const SelfAssessmentPage = () => {
                 studies provide a comprehensive overview of the current mental
                 health landscape:
               </p>
-              <div className="flex flex-wrap text-gray-600 gap-3">
+              <div className="flex flex-wrap gap-3">
                 <li>
                   <strong>Prevalence of Mental Health Disorders:</strong> The
                   Global Burden of Disease Study revealed that in it’s last
@@ -348,11 +353,11 @@ const SelfAssessmentPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-white p-3 rounded-lg shadow-sm">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-lg">
+                    <h3 className="font-medium text-gray-800 text-sm">
                       Emotional Signs
                     </h3>
                   </div>
-                  <ul className="text-sm text-gray-600 space-y-1.5">
+                  <ul className="text-xs text-gray-600 space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Persistent sadness</span>
@@ -377,11 +382,11 @@ const SelfAssessmentPage = () => {
                 </div>
                 <div className="bg-white p-3 rounded-lg shadow-sm">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-lg">
+                    <h3 className="font-medium text-gray-800 text-sm">
                       Behavioral Signs
                     </h3>
                   </div>
-                  <ul className="text-sm text-gray-600 space-y-1.5">
+                  <ul className="text-xs text-gray-600 space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Social withdrawal</span>
@@ -406,11 +411,11 @@ const SelfAssessmentPage = () => {
                 </div>
                 <div className="bg-white p-3 rounded-lg shadow-sm">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-lg">
+                    <h3 className="font-medium text-gray-800 text-sm">
                       Physical Signs
                     </h3>
                   </div>
-                  <ul className="text-sm text-gray-600 space-y-1.5">
+                  <ul className="text-xs text-gray-600 space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Frequent headaches</span>
@@ -525,12 +530,16 @@ const SelfAssessmentPage = () => {
               </div>
             </div>
 
-            {/* <div className="flex justify-center mb-4">
-              <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base">
+            <div className="flex justify-center mb-4">
+              <button
+                onClick={openModal}
+                className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+              >
                 Book a Demo
                 <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
-            </div> */}
+              <DemoRequestModal isOpen={isModalOpen} onClose={closeModal} />
+            </div>
 
             <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-center gap-2 mb-4">
@@ -613,20 +622,13 @@ const SelfAssessmentPage = () => {
                   </div>
                 </li>
               </ul>
-              <p className="text-sm text-gray-600 mt-4 italic">
-                By integrating comprehensive assessments, personalized sessions,
-                and therapeutic interventions, ShareYrHeart&#39;s
-                Self-Understanding Program aims to bridge the mental health
-                care, offering individuals a pathway to a healthier and more
-                fulfilling life.
-              </p>
             </div>
 
-            <div className="m-2 mt-4 flex justify-center">
+            <div className="m-2 flex justify-center">
               {hasPaid ? (
                 <button
                   onClick={() => router.push("/questionnaires?userType=self")}
-                  className="px-4 mt-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
                 >
                   Get Started
                   <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -634,7 +636,7 @@ const SelfAssessmentPage = () => {
               ) : (
                 <button
                   onClick={handlePayment}
-                  className="px-4 mt-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
                 >
                   Get Started
                   <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
