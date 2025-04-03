@@ -299,6 +299,7 @@ const BlogSection = () => {
               <BlogCard
                 imgUrl={item?.image}
                 title={item?.title}
+                subTitle={item?.subTitle}
                 totalViews={item.totalViews}
                 date={formatDate(item.updatedAt)}
                 description={
