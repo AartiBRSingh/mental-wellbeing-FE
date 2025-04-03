@@ -129,7 +129,7 @@ const WhyUs = () => {
         <div className="relative inline-block pb-4 mb-2">
           <h3
             className={`${
-              isMobile ? "text-lg" : "text-sm md:text-lg"
+              isMobile ? "text-lg" : "text-sm md:text-xl"
             } font-semibold`}
           >
             {expert.title}

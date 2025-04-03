@@ -47,7 +47,7 @@ const Hero = () => {
         </section>
 
         {/* Buttons - Now below text on all screen sizes */}
-        <div className="flex flex-row gap-5 mx-auto justify-center">
+        <div className="flex flex-row gap-5 mx-auto justify-center mt-10">
           <Link
             href={"/employee"}
             className="cursor-pointer font-semibold px-6 sm:px-10 text-xl lg:text-2xl shadow-lg bg-[#FACC15] text-black p-2 rounded-xl transition duration-300 ease-in-out hover:bg-white hover:text-black border hover:border-black hover:shadow-inner"
@@ -64,7 +64,7 @@ const Hero = () => {
         </div>
 
         {/* Image Section - Now at the bottom after the buttons */}
-        <section className="w-full bg-transparent z-10 flex justify-center mt-6">
+        <section className="w-full bg-transparent z-10 flex justify-center">
           <img
             src="/dummy-img3.png"
             alt="Help illustration"
