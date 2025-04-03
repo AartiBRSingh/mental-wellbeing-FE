@@ -11,6 +11,7 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
+import DemoRequestModal from "../components/DemoRequestModal";
 
 const COLORS = ["#77DEFF", "#00FF00", "#FF8458", "#FACC15", "#CCCCFF"];
 
@@ -20,7 +21,11 @@ const WorkplaceMentalHealthPage = () => {
   const [userName, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
   const [phoneNo, setPhoneNo] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const workplaceStats = [
     { name: "Mental Health Issues", value: 80 },
@@ -144,13 +149,13 @@ const WorkplaceMentalHealthPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="max-w-7xl w-full bg-gradient-to-b from-white to-red-200 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="max-w-7xl w-full overflow-hidden">
         <div className="p-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <h1 className="text-3xl font-semibold bg-white p-4 rounded-lg shadow-md text-center">
                 <strong className="text-black font-semibold text-4xl">
-                  Workplace Mental Health & Well-being
+                  Workplaces
                 </strong>{" "}
               </h1>
             </div>
@@ -178,7 +183,7 @@ const WorkplaceMentalHealthPage = () => {
                 become a critical concern, with recent data highlighting
                 significant challenges:
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex text-gray-600 flex-wrap gap-3">
                 <li>
                   <strong>Prevalence of Mental Health Issues:</strong> A survey
                   revealed that 80% of the Indian workforce reported mental
@@ -209,11 +214,7 @@ const WorkplaceMentalHealthPage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="h-80 bg-white p-4 rounded-lg shadow">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <h3 className="text-sm font-semibold text-center">
-                    Workplace Mental Health Statistics
-                  </h3>
-                </div>
+                <div className="flex items-center justify-center gap-2 mb-2"></div>
                 <ResponsiveContainer width="100%" height="80%">
                   <PieChart>
                     <Pie
@@ -242,11 +243,7 @@ const WorkplaceMentalHealthPage = () => {
               </div>
 
               <div className="h-80 bg-white p-4 rounded-lg shadow">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <h3 className="text-sm font-semibold text-center">
-                    Primary Mental Health Stressors
-                  </h3>
-                </div>
+                <div className="flex items-center justify-center gap-2 mb-2"></div>
                 <ResponsiveContainer width="100%" height="80%">
                   <PieChart>
                     <Pie
@@ -283,7 +280,7 @@ const WorkplaceMentalHealthPage = () => {
                   className="w-10 h-10"
                 />
                 <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
-                  Warning Signs of Workplace Mental Health Issues
+                  Warning Signs
                   <svg
                     className="absolute w-full h-[6px] -bottom-1 left-0"
                     viewBox="0 0 100 10"
@@ -298,14 +295,10 @@ const WorkplaceMentalHealthPage = () => {
                   </svg>
                 </span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-sm">
-                      Behavioral Signs
-                    </h3>
-                  </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
+                  <div className="flex items-center gap-2 mb-2"></div>
+                  <ul className="text-sm text-black space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Persistent Fatigue</span>
@@ -322,15 +315,6 @@ const WorkplaceMentalHealthPage = () => {
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Emotional Outbursts</span>
                     </li>
-                  </ul>
-                </div>
-                <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-sm">
-                      Social Signs
-                    </h3>
-                  </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Withdrawal from Colleagues</span>
@@ -339,6 +323,11 @@ const WorkplaceMentalHealthPage = () => {
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Changes in Eating or Sleeping Patterns</span>
                     </li>
+                  </ul>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2 mb-2"></div>
+                  <ul className="text-sm text-black space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Lack of Motivation</span>
@@ -347,15 +336,6 @@ const WorkplaceMentalHealthPage = () => {
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Difficulty Concentrating</span>
                     </li>
-                  </ul>
-                </div>
-                <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium text-gray-800 text-sm">
-                      Physical Signs
-                    </h3>
-                  </div>
-                  <ul className="text-xs text-gray-600 space-y-1.5">
                     <li className="flex items-center space-x-1.5">
                       <span className="h-1.5 w-1.5 bg-red-500 rounded-full"></span>
                       <span>Increased Anxiety or Stress</span>
@@ -381,7 +361,7 @@ const WorkplaceMentalHealthPage = () => {
               <div className="flex items-center justify-center gap-2 mb-4">
                 <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
                   <span className="relative">
-                    ShareYrHearts Workplace Mental Well-being Program
+                    Our Services
                     <svg
                       className="absolute w-full h-[6px] -bottom-1 left-0"
                       viewBox="0 0 100 10"
@@ -419,6 +399,13 @@ const WorkplaceMentalHealthPage = () => {
                       Comprehensive Assessments
                     </h3>
                   </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <p className="text-gray-600 leading-relaxed text-sm mt-2">
+                      Evaluate the overall mental health climate within the
+                      company to identify prevalent stressors and areas
+                      requiring intervention.
+                    </p>
+                  </div>
                 </div>
                 <div className="bg-white p-8 rounded-lg shadow-sm w-full">
                   <div className="flex justify-center mb-3">
@@ -433,6 +420,12 @@ const WorkplaceMentalHealthPage = () => {
                       Targeted Activities
                     </h3>
                   </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <p className="text-gray-600 leading-relaxed text-sm mt-2">
+                      Equip employees with practical techniques to handle
+                      workplace stress effectively.
+                    </p>
+                  </div>
                 </div>
                 <div className="bg-white p-8 rounded-lg shadow-sm w-full">
                   <div className="flex justify-center mb-3">
@@ -444,18 +437,34 @@ const WorkplaceMentalHealthPage = () => {
                   </div>
                   <div className="flex justify-center items-center gap-3">
                     <h3 className="text-lg font-medium text-gray-800">
-                      Session
+                      Group Session
                     </h3>
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                    <p className="text-gray-600 leading-relaxed text-sm mt-2">
+                      Facilitate sessions where employees can share experiences
+                      and coping strategies in a guided setting.
+                    </p>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div className="flex justify-center ">
+              <button
+                onClick={openModal}
+                className="px-4 sm:px-6 py-2 my-4 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+              >
+                Book a Demo
+              </button>
+              <DemoRequestModal isOpen={isModalOpen} onClose={closeModal} />
             </div>
 
             <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
                   <span className="relative">
-                    Benefits of Implementing the Program
+                    Program Benefits
                     <svg
                       className="absolute w-full h-[6px] -bottom-1 left-0"
                       viewBox="0 0 100 10"
@@ -483,6 +492,10 @@ const WorkplaceMentalHealthPage = () => {
                       <span className="font-medium text-gray-800">
                         Enhanced Productivity
                       </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Addressing mental health issues can lead to improved
+                        focus, creativity, and overall job performance.
+                      </p>
                     </div>
                   </div>
                 </li>
@@ -497,6 +510,10 @@ const WorkplaceMentalHealthPage = () => {
                       <span className="font-medium text-gray-800">
                         Reduced Absenteeism and Attrition
                       </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Supporting employees’ mental well-being contributes to
+                        decreased sick leaves and lower turnover rates.
+                      </p>
                     </div>
                   </div>
                 </li>
@@ -511,11 +528,16 @@ const WorkplaceMentalHealthPage = () => {
                       <span className="font-medium text-gray-800">
                         Positive Workplace Culture
                       </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Promoting mental health awareness fosters an environment
+                        of openness, reducing stigma and encouraging employees
+                        to seek help when needed.
+                      </p>
                     </div>
                   </div>
                 </li>
               </ul>
-              <p className="text-sm text-gray-600 mt-4 italic">
+              <p className=" font-medium text-black mt-12 text-center">
                 By integrating ShareYrHearts Workplace Mental Well-being
                 Program, organizations can proactively address mental health
                 challenges, leading to a more resilient and engaged workforce.

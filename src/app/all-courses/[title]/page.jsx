@@ -292,7 +292,7 @@ const CourseDetailPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 bg-gradient-to-b from-white to-[#FFD255] my-10 rounded-2xl shadow-xl">
+    <div className="max-w-7xl mx-auto px-4 py-8  my-10  ">
       <Toaster position="bottom-left" reverseOrder={false} />
       {/* Hero Section */}
       <div className="mb-8 p-6 bg-transparent rounded-xl mx-5">
@@ -319,7 +319,7 @@ const CourseDetailPage = () => {
         <div className="m-4">
           <div className="relative">
             <p
-              className={`text-gray-700 mb-1 max-w-max leading-relaxed ${
+              className={`text-gray-600 mb-1 max-w-max leading-relaxed ${
                 !showFullDescription ? "line-clamp-3" : ""
               }`}
             >
@@ -459,8 +459,8 @@ const CourseDetailPage = () => {
       </div>
 
       {/* Navigation */}
-      <div className="sticky top-20 bg-white border-b mb-6 z- py-5 px-5 rounded-xl shadow-sm">
-        <nav className="flex gap-8 overflow-x-auto">
+      <div className="sticky top-28 bg-white border-b mb-6 z- py-5 px-5 rounded-xl shadow-sm">
+        <nav className="flex text-lg  gap-8 overflow-x-auto">
           {sections.map(({ id, label }) => (
             <button
               key={id}
@@ -468,7 +468,7 @@ const CourseDetailPage = () => {
               className={`pb-4 px-3 flex items-center gap-1 whitespace-nowrap transition-colors duration-200 ${
                 activeSection === id
                   ? "text-blue-600 border-b-2 border-blue-600 font-medium"
-                  : "text-gray-600 hover:text-blue-600"
+                  : "text-black hover:text-blue-600"
               }`}
             >
               {label}
@@ -482,15 +482,41 @@ const CourseDetailPage = () => {
         id="about"
         className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
       >
-        <h2 className="text-2xl font-bold mb-4 text-gray-800 border-l-4 border-blue-500 pl-3">
+        <h2 className="text-3xl font-semibold mb-4 text-gray-800  pl-3">
           {course?.about?.title || "About This Course"}
         </h2>
         <div className="text-gray-700 mb-6 whitespace-pre-line leading-relaxed">
           {course?.about?.content}
         </div>
+      </div>
+
+      {/* Outcomes Section */}
+      <div
+        id="outcomes"
+        className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
+      >
+        <h2 className="text-3xl font-semibold mb-4 text-gray-800  pl-3">
+          {course?.outcomes?.title || "Career Outcomes"}
+        </h2>
+        {course?.outcomes?.items && course.outcomes.items.length > 0 && (
+          <ul className="space-y-4">
+            {course.outcomes.items.map((item, index) => (
+              <li key={index} className="flex items-start">
+                <img
+                  src="/check-mark.png"
+                  alt="Benefits Icon"
+                  className="w-6 h-6 mr-2 mt-1"
+                />
+                <span className="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        )}
         {course?.about?.skills && course.about.skills.length > 0 && (
           <>
-            <h3 className="font-bold mb-3 text-lg">Skills you will gain:</h3>
+            <h3 className="font-semibold mb-3 mt-10 text-3xl">
+              Skills you will gain:
+            </h3>
             <div className="flex flex-wrap gap-2">
               {course.about.skills.map((skill, index) => (
                 <span
@@ -505,38 +531,12 @@ const CourseDetailPage = () => {
         )}
       </div>
 
-      {/* Outcomes Section */}
-      <div
-        id="outcomes"
-        className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
-      >
-        <h2 className="text-2xl font-bold mb-4 text-gray-800 border-l-4 border-green-500 pl-3">
-          {course?.outcomes?.title || "Career Outcomes"}
-        </h2>
-        {course?.outcomes?.items && course.outcomes.items.length > 0 && (
-          <ul className="space-y-4">
-            {course.outcomes.items.map((item, index) => (
-              <li key={index} className="flex items-start">
-                <div className="w-3 h-3 mr-5">
-                  <CheckCircle
-                    color="green"
-                    size={24}
-                    className="inline-block"
-                  />
-                </div>
-                <span className="text-gray-700">{item}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
       {/* Courses Section */}
       <div
         id="courses"
         className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
       >
-        <h2 className="text-2xl font-bold mb-4 text-gray-800 border-l-4 border-purple-500 pl-3">
+        <h2 className="text-3xl font-semibold mb-4 text-gray-800  pl-3">
           Courses
         </h2>
         <div className="space-y-4">
@@ -640,7 +640,7 @@ const CourseDetailPage = () => {
         id="testimonials"
         className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
       >
-        <h2 className="text-2xl font-bold mb-4 text-gray-800 border-l-4 border-yellow-500 pl-3">
+        <h2 className="text-3xl font-semibold mb-4 text-gray-800  pl-3">
           Student Reviews
         </h2>
         <CourseReviews
