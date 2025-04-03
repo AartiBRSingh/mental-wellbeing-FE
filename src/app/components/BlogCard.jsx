@@ -112,7 +112,7 @@ const BlogCard = ({
       </h2>
 
       {subTitle && (
-        <p className="text-gray-600 mb-3 text-md font-medium line-clamp-1 relative z-10">
+        <p className="text-gray-600 mb-3 text-md font-medium line-clamp-2 relative z-10">
           {subTitle}
         </p>
       )}

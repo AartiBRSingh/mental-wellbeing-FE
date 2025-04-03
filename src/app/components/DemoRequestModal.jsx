@@ -596,7 +596,7 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
                       ))}
                     </select>
                   </div>
-                  <div className="w-24">
+                  {/* <div className="w-24">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Count *
                     </label>
@@ -610,7 +610,7 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
                       required
                       className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     />
-                  </div>
+                  </div> */}
                   {index > 0 && (
                     <button
                       type="button"
@@ -634,7 +634,7 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
                   )}
                 </div>
               ))}
-              <button
+              {/* <button
                 type="button"
                 onClick={addAttendee}
                 className="mt-2 text-sm text-blue-600 hover:text-blue-800 flex items-center"
@@ -653,7 +653,7 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
                   />
                 </svg>
                 Add Another Attendee Type
-              </button>
+              </button> */}
             </div>
             <div>
               <h3 className="text-lg font-medium mb-4">Special Requirements</h3>
