@@ -157,10 +157,15 @@ const BlogDetailPage = () => {
               />
             )}
             <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex flex-col mb-4">
                 <h1 className="text-3xl font-bold text-gray-900">
                   {post.title}
                 </h1>
+                {post.subTitle && (
+                  <h2 className="text-xl text-gray-800 mt-2">
+                    {post.subTitle}
+                  </h2>
+                )}
               </div>
               <div className="flex items-center text-gray-600 mb-6 space-x-4">
                 <div className="flex items-center">
@@ -266,6 +271,11 @@ const BlogDetailPage = () => {
               >
                 {post.title}
               </Link>
+              {post.subTitle && (
+                <p className="text-sm text-gray-600 mt-1 mb-2">
+                  {post.subTitle}
+                </p>
+              )}
               <p className="text-sm text-gray-500 mb-2">
                 {truncateContent(post.content, 100)}
               </p>

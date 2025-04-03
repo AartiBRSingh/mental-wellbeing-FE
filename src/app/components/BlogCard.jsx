@@ -59,6 +59,7 @@ const BlogCard = ({
   redirectTo,
   index,
   createdAt,
+  subTitle,
 }) => {
   const formatDate = (dateString) => {
     const months = [
@@ -106,9 +107,15 @@ const BlogCard = ({
         <span className="text-sm">{formatDate(createdAt)}</span>
       </div>
 
-      <h2 className="font-semibold text-xl md:text-2xl mb-4 text-gray-800 line-clamp-3 relative z-10">
+      <h2 className="font-semibold text-xl md:text-2xl mb-2 text-gray-800 line-clamp-3 relative z-10">
         {title}
       </h2>
+
+      {subTitle && (
+        <p className="text-gray-600 mb-3 text-md font-medium line-clamp-1 relative z-10">
+          {subTitle}
+        </p>
+      )}
 
       <div className="flex justify-between items-center relative z-10">
         <div className="flex items-center gap-2 text-gray-700">
