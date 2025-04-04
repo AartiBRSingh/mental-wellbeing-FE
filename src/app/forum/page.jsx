@@ -35,6 +35,7 @@ const Forum = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showNewPostForm, setShowNewPostForm] = useState(false);
   const [showCommentForm, setShowCommentForm] = useState({});
+  const [stayAnonymous, setStayAnonymous] = useState(false);
 
   // Share Modal States
   const [selectedPostUrl, setSelectedPostUrl] = useState(null);
@@ -83,7 +84,9 @@ const Forum = () => {
       const formData = new FormData();
       formData.append("title", newPost.title);
       formData.append("content", newPost.content);
-
+      if (!stayAnonymous) {
+        formData.append("user", userId);
+      }
       if (newPost.tags && newPost.tags.trim() !== "") {
         formData.append("tags", newPost.tags);
       }
@@ -116,6 +119,7 @@ const Forum = () => {
     try {
       await axios.post(`${baseURL}/post/${postId}/comment`, {
         text: comment,
+        user: stayAnonymous ? null : userId,
       });
       setComment("");
       setShowCommentForm({ ...showCommentForm, [postId]: false });
@@ -134,6 +138,7 @@ const Forum = () => {
     try {
       await axios.post(`${baseURL}/post/${postId}/comment/${commentId}/reply`, {
         text: reply[commentId],
+        user: stayAnonymous ? null : userId,
       });
       setReply({ ...reply, [commentId]: "" });
       fetchPosts(selectedTags);
@@ -371,6 +376,15 @@ const Forum = () => {
                     setNewPost({ ...newPost, tags: e.target.value })
                   }
                 />
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={stayAnonymous}
+                    onChange={() => setStayAnonymous(!stayAnonymous)}
+                    className="w-5 h-5 accent-blue-500"
+                  />
+                  <span>Stay Anonymous</span>
+                </label>
                 <div className="flex flex-col sm:flex-row justify-end mt-6 gap-3">
                   <button
                     onClick={() => setShowNewPostForm(false)}
