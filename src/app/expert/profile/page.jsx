@@ -268,7 +268,7 @@ const ProfileDashboard = () => {
     }
 
     const options = {
-      key: "rzp_test_CR2IahVWmEdcMA",
+      key: "rzp_live_qAvEA68CLcfGTT",
       amount: order.amount,
       currency: "INR",
       name: "ShareYHeart",
