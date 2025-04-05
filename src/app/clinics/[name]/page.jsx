@@ -185,7 +185,7 @@ const ClinicDetailPage = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 mb-12 bg-gradient-to-b from-white to-green-600 rounded-lg sm:rounded-2xl p-3 sm:p-6">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 mb-12 p-3 sm:p-6">
         <div className="px-2 py-8 sm:px-6 lg:px-8">
           {/* Header section - Made more responsive */}
           <div className="flex flex-col md:flex-row md:justify-between md:items-center md:ml-0 md:ml-10">
@@ -235,7 +235,7 @@ const ClinicDetailPage = () => {
               {/* Address and booking section - improved for smaller screens */}
               <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <div className="flex items-start space-x-2">
-                  <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
+                  <MapPin className="w-8 h-8 mt-1 text-red-500 flex-shrink-0" />
                   <p className="text-slate-900 text-sm sm:text-base">
                     {clinic.line1}
                     <br />
@@ -263,42 +263,11 @@ const ClinicDetailPage = () => {
                 </button>
               </div>
             </div>
-
-            {/* Contact Card - Responsive adjustments */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg px-6 sm:px-12 mt-6 md:mt-0">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
-                Contact Information
-              </h2>
-              <div className="space-y-3 sm:space-y-4">
-                <a
-                  href={`tel:${clinic.phoneNumber}`}
-                  className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
-                >
-                  <div className="bg-blue-50 p-1.5 sm:p-2 rounded-lg">
-                    <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
-                  </div>
-                  <span className="font-medium text-sm sm:text-base">
-                    {clinic.phoneNumber}
-                  </span>
-                </a>
-                <a
-                  href={`mailto:${clinic.email}`}
-                  className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
-                >
-                  <div className="bg-blue-50 p-1.5 sm:p-2 rounded-lg">
-                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
-                  </div>
-                  <span className="font-medium text-sm sm:text-base">
-                    {clinic.email}
-                  </span>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
 
         {/* Main grid layout - improved for responsiveness */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
+        <div className="grid grid-cols-1  gap-4 sm:gap-8">
           {/* Left Column - Main Content */}
           <div className="md:col-span-2">
             {/* Navigation Tabs - made responsive */}
@@ -330,58 +299,183 @@ const ClinicDetailPage = () => {
             {/* About Section - improved spacing for mobile */}
             <div ref={aboutRef} id="about" className="pt-3 sm:pt-4">
               <div className="bg-white rounded-b-xl sm:rounded-b-2xl p-4 sm:p-6 shadow-lg">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
-                  About Our Clinic
-                </h2>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                <div className="flex justify-center mb-6">
+                  <strong className="text-black font-semibold text-3xl mr-1">
+                    About
+                  </strong>
+                  <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block  font-semibold text-center">
+                    Clinic
+                    <svg
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <p className="text-black leading-relaxed text-lg sm:text-base">
                   {clinic.about}
                 </p>
-                <div className="mt-6 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="bg-blue-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">
-                    <div className="flex items-center space-x-2 text-blue-600 mb-1 sm:mb-2">
-                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
-                      <span className="font-semibold text-sm sm:text-base">
-                        Expert Care
+                <div className="mt-6 sm:mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                  <div className=" p-3 sm:p-4 rounded-lg sm:rounded-xl">
+                    <div className="flex items-center space-x-2 text-black mb-1 sm:mb-2">
+                      <img
+                        src="/check-mark.png"
+                        alt="Benefits Icon"
+                        className="w-6 h-6  mt-1"
+                      />
+                      <span className="font-semibold text-lg sm:text-base">
+                        Expert-Led Confidential Care
                       </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-600">
-                      Professional medical services with experienced specialists
-                    </p>
                   </div>
-                  <div className="bg-blue-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">
-                    <div className="flex items-center space-x-2 text-blue-600 mb-1 sm:mb-2">
-                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
-                      <span className="font-semibold text-sm sm:text-base">
-                        Modern Facilities
+                  <div className=" p-3 sm:p-4 rounded-lg sm:rounded-xl">
+                    <div className="flex items-center space-x-2 text-black mb-1 sm:mb-2">
+                      <img
+                        src="/check-mark.png"
+                        alt="Benefits Icon"
+                        className="w-6 h-6  mt-1"
+                      />
+                      <span className="font-semibold text-lg sm:text-base">
+                        Comprehensive Mental Health Services
                       </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-600">
-                      State-of-the-art medical equipment and comfortable
-                      environment
-                    </p>
                   </div>
-                  <div className="bg-blue-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">
-                    <div className="flex items-center space-x-2 text-blue-600 mb-1 sm:mb-2">
-                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
-                      <span className="font-semibold text-sm sm:text-base">
-                        Patient-First
+                  <div className=" p-3 sm:p-4 rounded-lg sm:rounded-xl">
+                    <div className="flex items-center space-x-2 text-black mb-1 sm:mb-2">
+                      <img
+                        src="/check-mark.png"
+                        alt="Benefits Icon"
+                        className="w-6 h-6 mt-1"
+                      />
+                      <span className="font-semibold text-lg sm:text-base">
+                        Confidential & Professional Care
                       </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-600">
-                      Focused on providing the best patient experience
-                    </p>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className="flex justify-normal gap-4 mt-3 sm:mt-6">
+              {/* Contact Card - Responsive adjustments */}
+              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg px-6 sm:px-12 mt-6 md:mt-0">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
+                  Contact Information
+                </h2>
+                <div className="space-y-3 sm:space-y-4">
+                  <a
+                    href={`tel:${clinic.phoneNumber}`}
+                    className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
+                  >
+                    <div className="bg-blue-50 p-1.5 sm:p-2 rounded-lg">
+                      <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                    </div>
+                    <span className="font-medium text-sm sm:text-base">
+                      {clinic.phoneNumber}
+                    </span>
+                  </a>
+                  <a
+                    href={`mailto:${clinic.email}`}
+                    className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
+                  >
+                    <div className="bg-blue-50 p-1.5 sm:p-2 rounded-lg">
+                      <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                    </div>
+                    <span className="font-medium text-sm sm:text-base">
+                      {clinic.email}
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="mt-2 sm:mt-8 md:mt-2 max-w-sm w-full hidden md:block p-1 bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl">
+                <iframe
+                  src={clinic.googleAddressUrl}
+                  width="225%"
+                  height="200"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  className="rounded-xl sm:rounded-2xl"
+                ></iframe>
+              </div>
+            </div>
+
+            {/* Opening Hours Card - improved for mobile */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+              <div className="flex justify-center mb-6">
+                <strong className="text-black font-semibold text-3xl mr-1">
+                  Opening
+                </strong>
+                <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block  font-semibold text-center">
+                  Hours
+                  <svg
+                    className="absolute w-full h-[6px] -bottom-1 left-0"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 -5, 100 5"
+                      stroke="orange"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div className="space-y-2 max-w-auto sm:space-y-3">
+                {Object.entries(clinic.timings).map(([day, time]) => (
+                  <div
+                    key={day}
+                    className="flex justify-center gap-28 items-center"
+                  >
+                    <div className="flex">
+                      <span className="capitalize text-black text-sm sm:text-base">
+                        {day}
+                      </span>
+                    </div>
+                    <span
+                      className={`font-medium text-sm sm:text-base ${
+                        day === "sunday" ? "text-red-500" : "text-gray-800"
+                      }`}
+                    >
+                      {time}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Gallery Section - improved for mobile */}
             <div ref={galleryRef} id="gallery" className="pt-2 mt-3 sm:mt-4">
               <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center">
-                  <Image className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-blue-600" />
-                  Clinic Gallery
-                </h2>
+                <div className="flex justify-center mb-6">
+                  <strong className="text-black font-semibold text-3xl mr-1">
+                    Clinic
+                  </strong>
+                  <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block  font-semibold text-center">
+                    Gallery
+                    <svg
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </div>
 
                 {clinic.images && clinic.images.length > 0 ? (
                   <>
@@ -407,7 +501,7 @@ const ClinicDetailPage = () => {
                     <div className="mt-3 sm:mt-4 text-center">
                       <button
                         onClick={() => setShowGalleryModal(true)}
-                        className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm sm:text-base"
+                        className="inline-flex items-center text-black hover:text-blue-800 text-sm sm:text-base"
                       >
                         <span className="font-medium">View all photos</span>
                         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-1" />
@@ -467,9 +561,26 @@ const ClinicDetailPage = () => {
             {/* Experts Section - improved for all devices */}
             <div ref={expertsRef} id="experts" className="pt-2 mt-3 sm:mt-4">
               <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">
-                  Our Medical Experts
-                </h2>
+                <div className="flex justify-center mb-6">
+                  <strong className="text-black font-semibold text-3xl mr-3">
+                    Visiting
+                  </strong>
+                  <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block  font-semibold text-center">
+                    Specialist
+                    <svg
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </div>
 
                 {clinic.experts && clinic.experts.length > 0 ? (
                   <div className="relative">
@@ -491,33 +602,31 @@ const ClinicDetailPage = () => {
                             <div className="mx-auto max-w-xs sm:max-w-sm">
                               <div className="bg-slate-100 border border-black rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl overflow-hidden hover:shadow-md transition-shadow">
                                 {/* Responsive aspect ratio */}
-                                <div className="aspect-[4/3] relative">
+                                <div className="aspect-auto relative">
                                   <img
                                     src={expert.image}
                                     alt={expert.name}
                                     className="w-full h-full object-contain"
                                   />
-                                  <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-                                    <span className="bg-green-500 text-white text-xs px-2 py-0.5 sm:py-1 rounded-full">
-                                      Available Today
-                                    </span>
-                                  </div>
                                 </div>
                                 {/* Better padding for mobile */}
                                 <div className="p-3 sm:p-4">
-                                  <h3 className="text-base sm:text-lg font-bold text-gray-800">
-                                    {expert.name}
-                                  </h3>
-                                  <p className="text-blue-600 font-medium mb-2 sm:mb-3 text-xs sm:text-sm">
-                                    {expert.specialization}
-                                  </p>
+                                  <div className="flex items-center justify-center sm:mb-3">
+                                    <h3 className="text-base sm:text-lg font-bold text-gray-800">
+                                      {expert.name}
+                                    </h3>
+                                  </div>
+                                  <div className="flex justify-center">
+                                    <p className="text-slate-600 font-medium mb-2 sm:mb-3 text-md sm:text-sm">
+                                      {expert.specialization}
+                                    </p>
+                                  </div>
                                   <div className="flex items-center space-x-4">
                                     <button
                                       onClick={() => setShowModal(true)}
-                                      className="flex-1 bg-blue-600 text-white py-1.5 sm:py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-1 sm:space-x-2 text-xs sm:text-sm"
+                                      className="flex-1 bg-[#F8FAFC] shadow-sm  text-slate-700 py-1.5 sm:py-2 rounded-lg font-medium hover:text-black transition-colors flex items-center justify-center space-x-1 sm:space-x-2 text-xs sm:text-sm"
                                     >
                                       <span>Book Appointment</span>
-                                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                                     </button>
                                   </div>
                                 </div>
@@ -554,7 +663,7 @@ const ClinicDetailPage = () => {
                           onClick={() => setCurrentExpertIndex(index)}
                           className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${
                             currentExpertIndex === index
-                              ? "bg-blue-600"
+                              ? "bg-black"
                               : "bg-gray-300"
                           }`}
                           aria-label={`Go to slide ${index + 1}`}
@@ -573,135 +682,108 @@ const ClinicDetailPage = () => {
                   </div>
                 )}
               </div>
-            </div>
-          </div>
 
-          {/* Right Column - Info Cards */}
-          <div className="space-y-4 sm:space-y-6">
-            {/* Map for desktop */}
-            <div className="mt-2 sm:mt-8 md:mt-2 max-w-sm w-full hidden md:block p-1 bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl">
-              <iframe
-                src={clinic.googleAddressUrl}
-                width="100%"
-                height="200"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                className="rounded-xl sm:rounded-2xl"
-              ></iframe>
-            </div>
-
-            {/* Opening Hours Card - improved for mobile */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">
-                Opening Hours
-              </h2>
-              <div className="space-y-2 sm:space-y-3">
-                {Object.entries(clinic.timings).map(([day, time]) => (
-                  <div key={day} className="flex justify-between items-center">
-                    <span className="capitalize text-gray-600 text-sm sm:text-base">
-                      {day}
-                    </span>
-                    <span
-                      className={`font-medium text-sm sm:text-base ${
-                        day === "sunday" ? "text-red-500" : "text-gray-800"
-                      }`}
-                    >
-                      {time}
+              {/* Testimonials Section - improved for mobile */}
+              <div
+                ref={testimonialsRef}
+                id="testimonials"
+                className="mt-3 sm:mt-6"
+              >
+                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+                  <div className="flex justify-center mb-6">
+                    <strong className="text-black font-semibold text-3xl mr-3"></strong>
+                    <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-3xl block  font-semibold text-center">
+                      Testimonials
+                      <svg
+                        className="absolute w-full h-[6px] -bottom-1 left-0"
+                        viewBox="0 0 100 10"
+                        preserveAspectRatio="none"
+                      >
+                        <path
+                          d="M0 5 Q 50 -5, 100 5"
+                          stroke="orange"
+                          strokeWidth="4"
+                          fill="transparent"
+                        />
+                      </svg>
                     </span>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            {/* Testimonials Section - improved for mobile */}
-            <div
-              ref={testimonialsRef}
-              id="testimonials"
-              className="mt-3 sm:mt-6"
-            >
-              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">
-                  Testimonials
-                </h2>
-
-                {clinic.testimonials && clinic.testimonials.length > 0 ? (
-                  <>
-                    <div className="space-y-4 sm:space-y-6">
-                      {clinic.testimonials
-                        .slice(
-                          currentTestimonialPage * testimonialsPerPage,
-                          currentTestimonialPage * testimonialsPerPage +
-                            testimonialsPerPage
-                        )
-                        .map((testimonial, index) => (
-                          <div
-                            key={testimonial._id || index}
-                            className="bg-blue-50 p-4 sm:p-6 rounded-lg sm:rounded-xl relative"
-                          >
-                            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-blue-300">
-                              <Quote className="w-6 h-6 sm:w-8 sm:h-8" />
-                            </div>
-                            <p className="text-gray-700 italic mb-3 sm:mb-4 leading-relaxed line-clamp-2 text-sm sm:text-base">
-                              {testimonial.review}
-                            </p>
-                            <div className="flex items-center space-x-2 sm:space-x-3">
-                              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base">
-                                {testimonial.name.charAt(0)}
-                              </div>
-                              <div>
-                                <h4 className="font-semibold text-gray-800 text-sm sm:text-base">
-                                  {testimonial.name}
-                                </h4>
-                                <div className="flex items-center space-x-1">
-                                  {[1, 2, 3, 4, 5].map((star) => (
-                                    <Star
-                                      key={star}
-                                      className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current"
-                                    />
-                                  ))}
+                  {clinic.testimonials && clinic.testimonials.length > 0 ? (
+                    <>
+                      <div className="space-y-4 sm:space-y-6">
+                        {clinic.testimonials
+                          .slice(
+                            currentTestimonialPage * testimonialsPerPage,
+                            currentTestimonialPage * testimonialsPerPage +
+                              testimonialsPerPage
+                          )
+                          .map((testimonial, index) => (
+                            <div
+                              key={testimonial._id || index}
+                              className="bg-[#F8FAFC] p-4 sm:p-6 rounded-lg sm:rounded-xl relative"
+                            >
+                              <p className="text-gray-700 italic mb-3 sm:mb-4 leading-relaxed line-clamp-2 text-sm sm:text-base">
+                                {testimonial.review}
+                              </p>
+                              <div className="flex items-center space-x-2 sm:space-x-3">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center text-black font-bold text-sm sm:text-base">
+                                  {testimonial.name.charAt(0)}
+                                </div>
+                                <div>
+                                  <h4 className="font-semibold text-gray-800 text-sm sm:text-base">
+                                    {testimonial.name}
+                                  </h4>
+                                  <div className="flex items-center space-x-1">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                      <Star
+                                        key={star}
+                                        className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current"
+                                      />
+                                    ))}
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
-                    </div>
-
-                    {/* Pagination controls - improved for mobile */}
-                    <div className="flex justify-between items-center mt-4 sm:mt-6">
-                      <span className="text-xs sm:text-sm text-gray-500">
-                        Page {currentTestimonialPage + 1} of{" "}
-                        {Math.ceil(
-                          (clinic.testimonials.length || 0) /
-                            testimonialsPerPage
-                        )}
-                      </span>
-                      <div className="flex space-x-1 sm:space-x-2">
-                        <button
-                          onClick={handlePrevTestimonialPage}
-                          className="p-1.5 sm:p-2 rounded-full bg-gray-100 hover:bg-gray-200"
-                          aria-label="Previous page"
-                        >
-                          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                        </button>
-                        <button
-                          onClick={handleNextTestimonialPage}
-                          className="p-1.5 sm:p-2 rounded-full bg-gray-100 hover:bg-gray-200"
-                          aria-label="Next page"
-                        >
-                          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                        </button>
+                          ))}
                       </div>
-                    </div>
-                  </>
-                ) : (
-                  <div className="text-center py-6 sm:py-8 text-gray-500">
-                    <p>No testimonials available yet.</p>
-                  </div>
-                )}
 
-                <div className="flex justify-center mt-2 sm:mt-3">
-                  <RateClinic clinicId={id} />
+                      {/* Pagination controls - improved for mobile */}
+                      <div className="flex justify-between items-center mt-4 sm:mt-6">
+                        <span className="text-xs sm:text-sm text-gray-500">
+                          Page {currentTestimonialPage + 1} of{" "}
+                          {Math.ceil(
+                            (clinic.testimonials.length || 0) /
+                              testimonialsPerPage
+                          )}
+                        </span>
+                        <div className="flex space-x-1 sm:space-x-2">
+                          <button
+                            onClick={handlePrevTestimonialPage}
+                            className="p-1.5 sm:p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                            aria-label="Previous page"
+                          >
+                            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                          </button>
+                          <button
+                            onClick={handleNextTestimonialPage}
+                            className="p-1.5 sm:p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                            aria-label="Next page"
+                          >
+                            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-center py-6 sm:py-8 text-gray-500">
+                      <p>No testimonials available yet.</p>
+                    </div>
+                  )}
+
+                  <div className="flex justify-center mt-2 sm:mt-3">
+                    <RateClinic clinicId={id} />
+                  </div>
                 </div>
               </div>
             </div>

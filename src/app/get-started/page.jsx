@@ -40,19 +40,19 @@ const MultiStepForm = () => {
 
   const mainSections = [
     {
-      id: "expertSupport",
-      name: "Expert Booking",
-      redirectPage: "all-experts",
-    },
-    {
       id: "mentalWellBeing",
-      name: "Mental Well-being Program",
+      name: "Mental Well-being ",
       redirectPage: "mental-wellbeing",
     },
     {
       id: "professionalCourse",
       name: "Certificate Course",
       redirectPage: "all-courses",
+    },
+    {
+      id: "expertSupport",
+      name: "Expert Booking",
+      redirectPage: "all-experts",
     },
   ];
 
@@ -235,7 +235,7 @@ const MultiStepForm = () => {
           {mainSections.map((section) => (
             <div
               key={section.id}
-              className={`text-lg font-semibold bg-slate-100 rounded-full p-3 ${
+              className={`text-xl font-semibold bg-slate-100 rounded-full p-3 ${
                 selectedSection === section.id
                   ? "text-blue-600"
                   : "text-slate-500"
@@ -277,7 +277,7 @@ const MultiStepForm = () => {
         setSelectedSection(section.id);
         setCurrentStep(0);
       }}
-      className="w-full p-6 text-xl font-medium text-left bg-white border rounded-lg hover:bg-[#A1DD6C] transition-all hover:text-white"
+      className="w-full p-6 text-xl font-medium text-left bg-white border rounded-lg hover:bg-[#F6D038] transition-all hover:text-black"
     >
       {section.name}
     </button>
@@ -345,10 +345,6 @@ const MultiStepForm = () => {
 
   const renderInitialSelection = () => (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-center mb-8">
-        Help us get you the most relevant and effective solutions for your
-        Mental Health and Personal Growth journey.
-      </h2>
       <div className="space-y-4">
         {mainSections.map((section) => (
           <MainSectionButton key={section.id} section={section} />
@@ -473,14 +469,31 @@ const MultiStepForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen  py-12 mt-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div class name="relative mb-8">
+          <h2 className="text-3xl font-semibold text-center mb-8">
+            Help us get you the most relevant and effective solutions for your
+            Mental Health and{" "}
+            <span className="relative text-[#956144] ml-3">
+              Personal Growth
+              <svg
+                className="absolute w-full h-[10px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>{" "}
+            journey
+          </h2>
+        </div>
         <div className="relative bg-white rounded-lg shadow-lg p-8">
-          <img
-            src="https://img.freepik.com/free-vector/beige-green-abstract-botanical-background_53876-118412.jpg?t=st=1738166814~exp=1738170414~hmac=8810fc3bd07f4edf419cb636f89bc93aa1120d812337493ba67c10ad1a3f6a11&w=740"
-            alt="Background"
-            className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50"
-          />
           <div className="relative z-10">
             <ProgressBar />
 

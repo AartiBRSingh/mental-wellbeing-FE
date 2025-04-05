@@ -49,48 +49,17 @@ const Page = () => {
 
   return (
     <>
-      <div
-        className="fixed inset-0"
-        style={{
-          backgroundImage: `url('/faqBG.jpg')`,
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-          opacity: 0.1,
-          zIndex: -1,
-        }}
-      />
-
-      <div className="min-h-screen">
+      <div className="min-h-screen mt-10">
         <div className="relative">
           <div className="w-full p-6">
-            <div className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-r from-blue-100/80 to-purple-100/80 backdrop-blur-sm rounded-3xl">
-              <div className="flex justify-center">
-                <h1 className="text-2xl xl:text-4xl font-bold text-black mb-4">
-                  Frequently Asked Questions
-                </h1>
-                <MessageCircleQuestion className="w-10 h-10 xl:ml-4" />
-              </div>
-
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Find answers to common questions about our services and
-                solutions. Can&apos;t find what you&apos;re looking for? Our
-                support team is here to help.
-              </p>
-            </div>
-          </div>
-
-          <div className="max-w-4xl mx-auto px-4 py-6">
-            <div>
-              <div className="flex gap-2 mb-8 justify-center">
-                <h2 className="xl:text-4xl text-3xl font-semibold text-gray-900">
-                  Detailed
-                </h2>
-                <span className="text-green-600 relative text-3xl md:text-5xl lg:text-4xl block">
-                  <span className="relative">
-                    FAQ
+            <div className="max-w-7xl mx-auto  text-center rounded-3xl">
+              <div className="flex justify-center mb-8">
+                <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+                  Frequently Asked
+                  <span className="relative text-[#956144] ml-3">
+                    Questions
                     <svg
-                      className="absolute w-full h-[10px] -bottom-1 left-0"
+                      className="absolute w-full h-[10px] -bottom-2 left-0"
                       viewBox="0 0 100 10"
                       preserveAspectRatio="none"
                     >
@@ -103,8 +72,19 @@ const Page = () => {
                     </svg>
                   </span>
                 </span>
+                <MessageCircleQuestion className="w-14 h-14 text-[#956144] xl:ml-4" />
               </div>
 
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Find answers to common questions about our services and
+                solutions. Can&apos;t find what you&apos;re looking for? Our
+                support team is here to help.
+              </p>
+            </div>
+          </div>
+
+          <div className="max-w-3xl mx-auto px-4 py-6">
+            <div>
               {loading ? (
                 <div className="flex justify-center items-center py-12">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
@@ -117,7 +97,7 @@ const Page = () => {
                         onClick={() => toggleCategory(category)}
                         className="w-full"
                       >
-                        <h3 className="xl:text-2xl text-lg font-semibold hover:shadow-xl shadow-lg mx-auto max-w-xl text-black xl:mb-4  bg-white p-4 rounded-2xl flex items-center justify-center">
+                        <h3 className="xl:text-3xl text-lg font-semibold hover:shadow-xl shadow-lg mx-auto max-w-xl text-black xl:mb-4  bg-white p-4 rounded-2xl flex items-center justify-center">
                           {category}
                           <svg
                             className={`h-6 w-6 ml-2 transform transition-transform duration-200 ${
@@ -152,7 +132,7 @@ const Page = () => {
                               onClick={() => toggleFAQ(index)}
                             >
                               <div className="flex justify-between items-center">
-                                <h4 className="text-lg font-medium text-gray-900">
+                                <h4 className="text-xl font-medium text-gray-900">
                                   {faq.question}
                                 </h4>
                                 <span className="ml-6 flex-shrink-0">

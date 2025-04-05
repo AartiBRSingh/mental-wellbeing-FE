@@ -163,9 +163,26 @@ const SelfAssessmentPage = () => {
                 className="w-15 h-10"
               /> */}
               <h1 className="text-3xl font-semibold bg-white p-4 rounded-lg shadow-md text-center">
-                <strong className="text-black font-semibold text-4xl">
-                  Self Understanding
-                </strong>{" "}
+                <div className="flex justify-center mb-3">
+                  <strong className="text-black font-semibold text-4xl mr-2">
+                    Self
+                  </strong>
+                  <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-4xl block  font-semibold text-center">
+                    Understanding
+                    <svg
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </h1>
             </div>
 
@@ -223,41 +240,6 @@ const SelfAssessmentPage = () => {
                 </li>
               </div>
             </div>
-
-            {/* <div className="relative rounded-lg overflow-hidden bg-gradient-to-r from-blue-100 to-purple-100 p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <img
-                  src="/self-assessment.png"
-                  alt="Brain Icon"
-                  className="w-6 h-6"
-                />
-                <h3 className="font-semibold text-2xl text-gray-800">
-                  Challenges
-                </h3>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <li>
-                  <strong>Stigma and Awareness:</strong> Despite the high
-                  prevalence, mental health issues in India are often
-                  stigmatized, leading to reluctance in seeking professional
-                  help. This societal stigma exacerbates the treatment gap,
-                  leaving many without necessary care.
-                </li>
-                <li>
-                  <strong>Treatment Gap: </strong> The National Mental Health
-                  Survey (NMHS) 2015-16 reported a treatment gap of 80.4% for
-                  common mental disorders, indicating that a vast majority of
-                  individuals do not receive the care they need.
-                </li>
-                <li>
-                  <strong>Resource Constraints: </strong> India faces a shortage
-                  of mental health professionals, with only 0.3 psychiatrists
-                  and 0.07 psychologists per 100,000 people, compared to 6.6
-                  psychiatrists per 100,000 in developed countries.
-                </li>
-              </div>
-            </div> */}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="h-80 bg-white p-4 rounded-lg shadow">
@@ -615,7 +597,7 @@ const SelfAssessmentPage = () => {
             <div className="m-2 flex justify-center">
               {hasPaid ? (
                 <button
-                  onClick={() => router.push("/questionnaires?userType=self")}
+                  onClick={() => router.push("self/SelfUnderstanding")}
                   className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
                 >
                   Get Started
@@ -626,7 +608,7 @@ const SelfAssessmentPage = () => {
                   onClick={handlePayment}
                   className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
                 >
-                  Get Started
+                  Unlock Assessments
                   <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
               )}

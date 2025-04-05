@@ -272,188 +272,322 @@ const CareerPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen mt-20">
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row bg-white rounded-lg md:rounded-3xl mx-4 md:mx-12 lg:mx-48 shadow-sm p-4">
-        <div className="w-full lg:w-2/3">
-          <h1 className="text-2xl md:text-4xl p-2 md:p-4 mt-4 md:mt-12 mx-auto lg:ml-32">
-            A career with{" "}
-            <strong className="text-[#956144] font-semibold text-3xl md:text-5xl">
-              ShareYrHeart
-            </strong>{" "}
-            is more than just a job
-          </h1>
-          <p className="text-md md:text-2xl p-2 md:p-4 mx-auto lg:ml-32">
-            <span className="text-red-500  mr-3">♥</span>
-            its an opportunity to transform lives while growing professionally
-            in the fast-evolving field of mental health.
-          </p>
-          <p className="text-base md:text-xl p-2 md:p-4 mx-auto lg:ml-32">
-            Whether youre a psychologist, counselor, trainer, or entrepreneur,
-            ShareYrHeart offers a platform to make a meaningful impact.
-            <span className="text-green-400 text-xl md:text-2xl ml-2">♦</span>
-          </p>
-        </div>
-        <img
-          src="https://img.freepik.com/free-vector/hand-drawn-life-coaching-illustration_23-2150279254.jpg"
-          alt="Mental wellness illustration"
-          className="w-full lg:w-auto h-auto lg:h-[400px] mt-4 lg:mt-0 mx-auto lg:mr-10"
-        />
+      <div className="flex justify-center mb-8">
+        <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+          Job &
+          <span className="relative text-[#956144] ml-3">
+            Career
+            <svg
+              className="absolute w-full h-[10px] -bottom-2 left-0"
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0 5 Q 50 -5, 100 5"
+                stroke="orange"
+                strokeWidth="4"
+                fill="transparent"
+              />
+            </svg>
+          </span>
+        </span>
+      </div>
+      <div className="max-w-7xl mx-auto text-center">
+        <p className="text-md md:text-xl font-bold  p-2 md:p-4 mx-auto ">
+          its an opportunity to transform lives while growing professionally in
+          the fast-evolving field of mental health.
+        </p>
       </div>
 
-      {/* Main Content Section */}
-      <section className="py-12 md:py-20 px-4">
-        <div className="flex justify-center mb-6">
-          <div className="relative inline-block">
-            <div className="absolute inset-0 bg-[#956144] opacity-10 rotate-2 rounded-lg" />
-            <div className="relative px-3 md:px-4 py-1.5 bg-white rounded-lg text-xs md:text-sm text-[#956144] font-medium border border-[#956144]/20">
-              MENTAL HEALTH AT ANY AGE
-            </div>
+      <div className="flex gap-8 justify-center max-w-7xl mx-auto mt-8 mb-8">
+        <div className="bg-white p-8 rounded-xl shadow-sm w-full">
+          <div className="flex justify-center mb-3">
+            <img
+              src="/feedback.png"
+              alt="Benefits Icon"
+              className="w-24 h-24"
+            />
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <h3 className="text-lg font-medium text-gray-800">
+              Be a Changemaker
+            </h3>
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <p className="text-gray-600 leading-relaxed text-sm mt-6">
+              Help individuals, students, and employees enhance their mental
+              well-being.
+            </p>
           </div>
         </div>
+        <div className="bg-white p-8 rounded-xl shadow-sm w-full">
+          <div className="flex justify-center mb-3">
+            <img src="/choice.png" alt="Benefits Icon" className="w-24 h-24" />
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <h3 className="text-lg font-medium text-gray-800">
+              Diverse Career Paths
+            </h3>
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <p className="text-gray-600 leading-relaxed text-sm mt-6">
+              Explore roles in counseling, research, corporate well-being, and
+              individual mental health.
+            </p>
+          </div>
+        </div>
+        <div className="bg-white p-8 rounded-xl shadow-sm w-full">
+          <div className="flex justify-center mb-3">
+            <img src="/role.png" alt="Benefits Icon" className="w-24 h-24" />
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <h3 className="text-lg font-medium text-gray-800">
+              On-Field Job Roles
+            </h3>
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <p className="text-gray-600 leading-relaxed text-sm mt-5">
+              Work directly with schools, corporate organizations, and community
+              programs, providing hands-on mental health support.
+            </p>
+          </div>
+        </div>
+      </div>
 
+      <div className="flex gap-8 justify-center max-w-4xl mx-auto mt-8 mb-8">
+        <div className="bg-white p-8 rounded-xl shadow-sm w-full">
+          <div className="flex justify-center mb-3">
+            <img
+              src="/professional.png"
+              alt="Benefits Icon"
+              className="w-24 h-24"
+            />
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <h3 className="text-lg font-medium text-gray-800">
+              Work with Experts
+            </h3>
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <p className="text-gray-600 leading-relaxed text-sm mt-2">
+              Collaborate with leading psychologists, therapists, and educators
+              in a professional and growth-oriented environment.
+            </p>
+          </div>
+        </div>
+        <div className="bg-white p-8 rounded-xl shadow-sm w-full">
+          <div className="flex justify-center mb-3">
+            <img src="/goal.png" alt="Benefits Icon" className="w-24 h-24" />
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <h3 className="text-lg font-medium text-gray-800">
+              Career Growth & Flexibility
+            </h3>
+          </div>
+          <div className="flex justify-center items-center gap-3">
+            <p className="text-gray-600 leading-relaxed text-sm mt-3">
+              Hybrid and remote work opportunities, training programs, and
+              certificate courses to boost your professional development.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto text-center bg-white rounded-lg p-4 md:p-8 mt-4 md:mt-12">
+        <p className="text-base md:text-xl font-bold p-2 md:p-4 mx-auto">
+          The mental health industry is experiencing rapid expansion, with
+          growing awareness, increased corporate investments, and digital
+          transformations. ShareYrHeart is leading this revolution, offering
+          multiple opportunities for professionals in both online and on-field
+          roles.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-xl max-w-7xl mx-auto p-6 shadow-sm border border-gray-100 mt-8 ">
+        <div className="flex justify-center mb-8">
+          <span className="relative text-2xl md:text-3xl xl:text-3xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+            Growth &
+            <span className="relative text-[#956144] ml-3">
+              Opportunities
+              <svg
+                className="absolute w-full h-[10px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
+        <ul className="space-y-6">
+          <li className="flex items-start space-x-3">
+            <div className="flex justify-center ">
+              <img
+                src="/check-mark.png"
+                alt="Benefits Icon"
+                className="w-6 h-6 mr-2 mt-1"
+              />
+              <div>
+                <span className="font-medium  text-gray-800">
+                  Expanding Mental Health Awareness
+                </span>
+                <p className="text-sm text-gray-600 ml-5">
+                  Schools, workplaces, and communities are prioritizing mental
+                  well-being, creating new job prospects.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="flex justify-center ">
+              <img
+                src="/check-mark.png"
+                alt="Benefits Icon"
+                className="w-6 h-6 mr-2 mt-1"
+              />
+              <div>
+                <span className="font-medium text-gray-800">
+                  AI & Digital Mental Health
+                </span>
+                <p className="text-sm text-gray-600 ml-5">
+                  Innovations in teletherapy, AI-driven assessments, and 24/7
+                  expert support are reshaping the industry.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="flex justify-center ">
+              <img
+                src="/check-mark.png"
+                alt="Benefits Icon"
+                className="w-6 h-6 mr-2 mt-1"
+              />
+              <div>
+                <span className="font-medium text-gray-800">
+                  Corporate Well-Being Programs
+                </span>
+                <p className="text-sm text-gray-600 ml-5">
+                  Rising demand for mental health initiatives in workplaces,
+                  opening avenues for counselors and trainers.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="flex justify-center ">
+              <img
+                src="/check-mark.png"
+                alt="Benefits Icon"
+                className="w-6 h-6 mr-2 mt-1"
+              />
+              <div>
+                <span className="font-medium  text-gray-800">
+                  Student & Youth Mental Health
+                </span>
+                <p className="text-sm text-gray-600 ml-5">
+                  Schools and universities integrating mental wellness programs
+                  require skilled professionals.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="flex justify-center ">
+              <img
+                src="/check-mark.png"
+                alt="Benefits Icon"
+                className="w-6 h-6 mr-2 mt-1"
+              />
+              <div>
+                <span className="font-medium  text-gray-800">
+                  Clinic Set-Up & Franchise Growth
+                </span>
+                <p className="text-sm text-gray-600 ml-5">
+                  ShareYrHeart offers opportunities for professionals to
+                  establish their own clinics under its expanding network.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="flex justify-center ">
+              <img
+                src="/check-mark.png"
+                alt="Benefits Icon"
+                className="w-6 h-6 mr-2 mt-1"
+              />
+              <div>
+                <span className="font-medium  text-gray-800">
+                  On-Field Mental Health Services
+                </span>
+                <p className="text-sm text-gray-600 ml-5">
+                  Engage directly with institutions, NGOs, and communities to
+                  provide real-world mental health solutions.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="flex justify-center ">
+              <img
+                src="/check-mark.png"
+                alt="Benefits Icon"
+                className="w-6 h-6 mr-2 mt-1"
+              />
+              <div>
+                <span className="font-medium  text-gray-800">
+                  Global Reach & Expansion
+                </span>
+                <p className="text-sm text-gray-600 ml-5">
+                  Digital accessibility and nationwide clinics are paving the
+                  way for international opportunities.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="flex justify-center ">
+              <img
+                src="/check-mark.png"
+                alt="Benefits Icon"
+                className="w-6 h-6 mr-2 mt-1"
+              />
+              <div>
+                <span className="font-medium  text-gray-800">
+                  Research & Entrepreneurship
+                </span>
+                <p className="text-sm text-gray-600 ml-5">
+                  Professionals can contribute to new mental health policies,
+                  conduct research, and develop innovative interventions.
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <p className=" font-medium text-xl text-black mt-12 text-center">
+        By joining ShareYrHeart, you’re not just securing a job—you’re becoming
+        part of a revolution in mental health, shaping the future of well-being,
+        one life at a time.
+      </p>
+
+      <section className="py-12  px-4">
         <div className="max-w-6xl mx-auto text-center px-4">
-          <motion.h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-            Shape the Future of{" "}
-            <strong className="text-[#956144] font-semibold text-4xl md:text-7xl">
-              Mental Health
-            </strong>
-          </motion.h1>
-          <motion.p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
-            Join ShareYrHeart and be part of a revolution in mental health care,
-            making a real difference in peoples lives while building an
-            exceptional career.
-          </motion.p>
           <motion.button
             onClick={() => setOpen(true)}
-            className="bg-blue-600 text-white px-6 md:px-8 py-2 rounded-xl text-base md:text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="bg-[#D2691E] text-white px-6 md:px-8 py-2 rounded-xl text-base md:text-lg font-semibold hover:bg-[#A0522D] transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Apply Now
           </motion.button>
-        </div>
-
-        {/* Image Section */}
-        <div className="bg-white mx-4 md:mx-12 lg:mx-40 mt-8">
-          <div className="flex flex-col md:flex-row justify-center items-center gap-8 p-4 md:p-8">
-            {/* <div className="w-full md:w-1/2">
-              <img
-                src="https://img.freepik.com/free-vector/autumn-tree-concept-illustration_114360-22762.jpg"
-                alt="Mental wellness illustration"
-                className="h-auto w-full max-w-[400px] mx-auto"
-              />
-            </div> */}
-            <div className="w-full md:w-1/2 relative">
-              <span className="bg-green-300 px-3 py-1 rounded-md text-sm font-semibold absolute top-0 left-1/2 transform -translate-x-1/2 md:left-0 md:translate-x-0">
-                Calm
-              </span>
-              <img
-                src="https://img.freepik.com/free-vector/interview-concept-illustration_114360-1501.jpg"
-                alt="Mental wellness illustration"
-                className="h-auto w-full max-w-[400px] mx-auto mt-8"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Future Growth Section */}
-      <section className="py-16 px-4 bg-white/50">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2 className="text-2xl md:text-4xl font-bold p-2 text-center md:text-left text-gray-900 mb-8 md:mb-32">
-            Future <strong className="text-orange-500">Growth</strong> &{" "}
-            <strong className="text-blue-500">Opportunities</strong>
-            <p className="md:absolute md:left-[700px] mt-4 text-center md:text-left">
-              in Mental Health with{" "}
-              <strong className="text-[#956144] font-semibold text-3xl md:text-5xl">
-                ShareYrHeart
-              </strong>
-            </p>
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-20">
-            {futureGrowthCards.map((card, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-              >
-                <div className="mb-4">{card.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-gray-600">{card.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Career Opportunities Section */}
-      {/* <CareerOpportunities /> */}
-
-      {/* Why Join Us Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-4">
-          <motion.div className="text-center mb-12 md:mb-20">
-            <h2 className="text-4xl md:text-6xl font-semibold text-black p-3 mb-6 md:mb-10">
-              Why Choose{" "}
-              <strong className="text-[#956144] font-semibold">
-                ShareYrHeart
-              </strong>
-              ?
-            </h2>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Join a community of passionate professionals dedicated to
-              transforming mental health care
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {whyJoinUsCards.map((card, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                onMouseEnter={() => setActiveCard(index)}
-                onMouseLeave={() => setActiveCard(null)}
-                className="relative group"
-              >
-                <div className="relative overflow-hidden rounded-3xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl">
-                  <div className="p-6 md:p-8">
-                    <div
-                      className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-r ${card.color} text-white mb-6`}
-                    >
-                      {card.icon}
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                      {card.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed mb-6 line-clamp-2">
-                      {card.description}
-                    </p>
-                    <div className="relative h-40 md:h-48 rounded-xl overflow-hidden">
-                      <img
-                        src={card.image}
-                        alt={card.title}
-                        className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div className="mt-12 md:mt-20 text-center">
-            <button
-              onClick={() => setOpen(true)}
-              className="px-8 md:px-12 py-4 md:py-5 text-base md:text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-2xl hover:scale-105 transform transition-all duration-300"
-            >
-              Start Your Journey With Us
-            </button>
-          </motion.div>
         </div>
       </section>
 
