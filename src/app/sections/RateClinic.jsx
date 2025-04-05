@@ -49,7 +49,7 @@ export default function RateClinic({ clinicId }) {
         <h2 className="text-xl font-semibold">Leave a Review</h2>
         <button
           onClick={submitReview}
-          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="mt-2 px-4 py-2  text-blue-500 rounded"
         >
           Submit
         </button>

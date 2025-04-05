@@ -365,7 +365,7 @@ const CourseDetailPage = () => {
         </div>
 
         {/* Price & Enrollment Section */}
-        <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6 pt-6 border-t border-gray-200">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6 pt-6 border-t border-gray-200 ml-3">
           <div className="max-w-xs w-full">
             <div className="mb-3">
               {course?.discountedPrice ? (
@@ -482,11 +482,47 @@ const CourseDetailPage = () => {
         id="about"
         className="bg-white rounded-lg shadow-md p-8 mb-8 border border-gray-100"
       >
-        <h2 className="text-3xl font-semibold mb-4 text-gray-800  pl-3">
+        <h2 className="text-3xl font-semibold mb-4 text-gray-800">
           {course?.about?.title || "About This Course"}
         </h2>
-        <div className="text-gray-700 mb-6 whitespace-pre-line leading-relaxed">
+        <div className="text-gray-700 mb-6 whitespace-pre-line leading-relaxed pl-2">
           {course?.about?.content}
+        </div>
+        <div className="flex gap-8 justify-center">
+          <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+            <div className="flex justify-center mb-3">
+              <img src="/eng.png" alt="Benefits Icon" className="w-24 h-24" />
+            </div>
+            <div className="flex justify-center items-center gap-3">
+              <h3 className="text-lg font-medium text-gray-800">
+                Taught in English
+              </h3>
+            </div>
+          </div>
+          <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+            <div className="flex justify-center mb-3">
+              <img
+                src="/certificate.png"
+                alt="Benefits Icon"
+                className="w-24 h-24"
+              />
+            </div>
+            <div className="flex justify-center items-center gap-3">
+              <h3 className="text-lg font-medium text-gray-800">
+                Professional Certificate
+              </h3>
+            </div>
+          </div>
+          <div className="bg-white p-8 rounded-lg shadow-sm w-full">
+            <div className="flex justify-center mb-3">
+              <img src="/job.png" alt="Benefits Icon" className="w-24 h-24" />
+            </div>
+            <div className="flex justify-center items-center gap-3">
+              <h3 className="text-lg font-medium text-gray-800">
+                Prepare for Career
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -521,7 +557,7 @@ const CourseDetailPage = () => {
               {course.about.skills.map((skill, index) => (
                 <span
                   key={index}
-                  className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
+                  className="bg-[#F9F5F2] text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
                 >
                   {skill}
                 </span>

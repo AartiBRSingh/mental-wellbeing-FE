@@ -156,7 +156,7 @@ const ClinicDisplay = () => {
       <div className="flex flex-wrap items-end gap-2 sm:gap-3">
         {/* State Selection */}
         <div className="flex-1 min-w-[130px]">
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+          <label className="block text-xl font-semibold text-gray-700 mb-1.5">
             State
           </label>
           <select
@@ -165,7 +165,7 @@ const ClinicDisplay = () => {
               setSelectedState(e.target.value);
               setSelectedCity("");
             }}
-            className="w-full p-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full p-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-black-500 focus:border-transparent"
           >
             <option value="">Select State</option>
             {states.map((state) => (
@@ -178,13 +178,13 @@ const ClinicDisplay = () => {
 
         {/* City Selection */}
         <div className="flex-1 min-w-[130px]">
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+          <label className="block text-xl font-semibold text-gray-700 mb-1.5">
             City
           </label>
           <select
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
-            className="w-full p-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full p-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-black-500 focus:border-transparent"
             disabled={!selectedState}
           >
             <option value="">Select City</option>
@@ -202,7 +202,7 @@ const ClinicDisplay = () => {
             setSelectedState("");
             setSelectedCity("");
           }}
-          className="px-4 py-2 text-sm font-semibold bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 whitespace-nowrap"
+          className="px-4 py-2 text-xl  bg-[#F9F5F2] text-black rounded-lg hover:bg-slate-100 transition-colors active:bg-black-700 focus:outline-none focus:ring-2 focus:ring-black-500 focus:ring-offset-2 whitespace-nowrap"
         >
           Reset
         </button>
@@ -244,7 +244,7 @@ const ClinicDisplay = () => {
 
     return (
       <div className="bg-gray-50 p-6 rounded-lg mt-6 shadow-sm">
-        <h3 className="text-lg font-semibold mb-4 text-green-800">
+        <h3 className="text-xl font-semibold mb-4 text-black-800">
           What Our Patients Say
         </h3>
         <div className="relative overflow-hidden">
@@ -253,7 +253,7 @@ const ClinicDisplay = () => {
               <p className="text-gray-600 italic">
                 {displayTestimonials[currentTestimonial].review}
               </p>
-              <p className="text-sm font-medium text-green-700">
+              <p className="text-sm font-medium text-black-700">
                 - {displayTestimonials[currentTestimonial].name}
               </p>
             </div>
@@ -263,9 +263,9 @@ const ClinicDisplay = () => {
             <div className="flex justify-between mt-4">
               <button
                 onClick={prevTestimonial}
-                className="p-1 rounded-full bg-green-100 hover:bg-green-200 transition-colors"
+                className="p-1 rounded-full bg-black-100 hover:bg-black-200 transition-colors"
               >
-                <ChevronLeft className="w-5 h-5 text-green-700" />
+                <ChevronLeft className="w-5 h-5 text-black-700" />
               </button>
               <div className="flex space-x-1 items-center">
                 {displayTestimonials.map((_, index) => (
@@ -273,7 +273,7 @@ const ClinicDisplay = () => {
                     key={index}
                     className={`block h-2 w-2 rounded-full ${
                       currentTestimonial === index
-                        ? "bg-green-600"
+                        ? "bg-black-600"
                         : "bg-gray-300"
                     }`}
                   />
@@ -281,9 +281,9 @@ const ClinicDisplay = () => {
               </div>
               <button
                 onClick={nextTestimonial}
-                className="p-1 rounded-full bg-green-100 hover:bg-green-200 transition-colors"
+                className="p-1 rounded-full bg-black-100 hover:bg-black-200 transition-colors"
               >
-                <ChevronRight className="w-5 h-5 text-green-700" />
+                <ChevronRight className="w-5 h-5 text-black-700" />
               </button>
             </div>
           )}
@@ -295,7 +295,7 @@ const ClinicDisplay = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black-500"></div>
       </div>
     );
   }
@@ -305,7 +305,7 @@ const ClinicDisplay = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 max-w-3xl">
+    <div className="container mx-auto p-4 max-w-5xl">
       <SearchSection />
 
       {filteredClinics.map((clinic) => (
@@ -313,12 +313,12 @@ const ClinicDisplay = () => {
           key={clinic._id}
           className="mb-8 bg-white rounded-lg shadow-lg overflow-hidden"
         >
-          <div className="bg-green-600 p-6 flex justify-between">
-            <span className="text-white relative text-4xl md:text-6xl lg:text-4xl block">
+          <div className=" p-6 flex justify-between">
+            <span className="text-[#956144] relative text-4xl md:text-6xl lg:text-5xl block">
               <span className="relative">
                 {clinic.name}
                 <svg
-                  className="absolute w-full h-[6px] bottom-0 left-0"
+                  className="absolute w-full h-[10px] -bottom-1 left-0"
                   viewBox="0 0 100 10"
                   preserveAspectRatio="none"
                 >
@@ -334,7 +334,7 @@ const ClinicDisplay = () => {
             <div className="hidden md:flex items-center justify-center">
               <Link
                 href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
-                className="inline-flex text-lg pt-4 pl-2 items-center text-slate-100 font-semibold hover:text-white transition-colors"
+                className="inline-flex text-xl pt-4 pl-2 items-center text-slate-700 font-semibold hover:text-black  transition-colors"
               >
                 View Details
                 <ChevronRight className="w-4 h-4 ml-1" />
@@ -345,9 +345,9 @@ const ClinicDisplay = () => {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-6">
                 <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
+                  <MapPin className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
                   <div className="flex-1">
-                    <h3 className="font-semibold mb-1">Address</h3>
+                    <h3 className="font-semibold text-xl mb-1">Address</h3>
                     <p className="text-gray-600 mb-2">
                       {clinic.line1}
                       {clinic.line2 && <span>, {clinic.line2}</span>}
@@ -356,7 +356,7 @@ const ClinicDisplay = () => {
                     </p>
                     <button
                       onClick={() => handleDirections(clinic.googleAddressUrl)}
-                      className="inline-flex items-center text-sm text-green-500 hover:text-green-700 transition-colors"
+                      className="inline-flex items-center text-sm text-green-500 hover:text-black-700 transition-colors"
                     >
                       Get Directions <ExternalLink className="w-4 h-4 ml-1" />
                     </button>
@@ -366,20 +366,20 @@ const ClinicDisplay = () => {
                 <div className="space-y-3">
                   <button
                     onClick={() => handleCall(clinic.phoneNumber)}
-                    className="w-full flex items-center space-x-3 bg-white hover:bg-green-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-green-200"
+                    className="w-full flex items-center space-x-3 bg-white hover:bg-black-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-black-200"
                   >
-                    <Phone className="w-5 h-5 text-green-500" />
-                    <span className="text-gray-600 hover:text-green-600">
+                    <Phone className="w-5 h-5 text-black-500" />
+                    <span className="text-gray-600 hover:text-black-600">
                       {clinic.phoneNumber}
                     </span>
                   </button>
 
                   <button
                     onClick={() => handleEmail(clinic.email)}
-                    className="w-full flex items-center space-x-3 bg-white hover:bg-green-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-green-200"
+                    className="w-full flex items-center space-x-3 bg-white hover:bg-black-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-black-200"
                   >
-                    <Mail className="w-5 h-5 text-green-500" />
-                    <span className="text-gray-600 hover:text-green-600">
+                    <Mail className="w-5 h-5 text-black-500" />
+                    <span className="text-gray-600 hover:text-black-600">
                       {clinic.email}
                     </span>
                   </button>
@@ -391,8 +391,8 @@ const ClinicDisplay = () => {
                     onClick={() => toggleTimings(clinic._id)}
                   >
                     <div className="flex items-center space-x-3">
-                      <Clock className="w-5 h-5 text-green-500" />
-                      <h3 className="font-semibold">Working Hours</h3>
+                      <Clock className="w-5 h-5 text-black-500" />
+                      <h3 className="font-semibold text-xl">Working Hours</h3>
                     </div>
                     {expandedTimings[clinic._id] ? (
                       <ChevronUp className="w-5 h-5 text-gray-500" />
@@ -418,7 +418,7 @@ const ClinicDisplay = () => {
                 <div className="flex items-center justify-center md:hidden">
                   <Link
                     href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
-                    className="inline-flex text-lg pt-4 pl-2 items-center text-green-600 font-semibold hover:text-green-700 transition-colors"
+                    className="inline-flex text-lg pt-4 pl-2 items-center text-black-600 font-semibold hover:text-black-700 transition-colors"
                   >
                     View More
                     <ChevronRight className="w-4 h-4 ml-1" />
@@ -481,7 +481,7 @@ const ClinicDisplay = () => {
           <div className="flex justify-center">
             <button
               onClick={toggleViewMore}
-              className="px-6 py-2 text-green-600 border border-green-600 rounded-full hover:bg-green-50 transition-colors duration-300 ease-in-out flex items-center space-x-2 opacity-70 hover:opacity-100"
+              className="px-6 py-2 text-black-600 border border-black-600 rounded-full hover:bg-black-50 transition-colors duration-300 ease-in-out flex items-center space-x-2 opacity-70 hover:opacity-100"
             >
               <span>{visibleFaqs === 2 ? "View More" : "View Less"}</span>
               <ChevronDown

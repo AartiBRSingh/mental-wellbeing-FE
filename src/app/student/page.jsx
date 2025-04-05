@@ -157,9 +157,26 @@ const StudentWellbeingPage = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <h1 className="text-3xl font-semibold bg-white p-4 rounded-lg shadow-md text-center">
-                <strong className="text-black font-semibold text-4xl">
-                  Institutes
-                </strong>{" "}
+                <div className="flex justify-center mb-3">
+                  <strong className="text-black font-semibold text-4xl mr-2">
+                    Educational
+                  </strong>
+                  <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-4xl block  font-semibold text-center">
+                    Institutes
+                    <svg
+                      className="absolute w-full h-[6px] -bottom-1 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </h1>
             </div>
 
@@ -576,9 +593,7 @@ const StudentWellbeingPage = () => {
             <div className="m-2 flex justify-center">
               {hasPaid ? (
                 <button
-                  onClick={() =>
-                    router.push("/questionnaires?userType=student")
-                  }
+                  onClick={() => router.push("/student/Institutes")}
                   className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
                 >
                   Get Started
