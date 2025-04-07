@@ -180,7 +180,7 @@ const CourseDetailPage = () => {
     }
 
     const options = {
-      key: "rzp_live_qAvEA68CLcfGTT",
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: "INR",
       name: "ShareYHeart",
