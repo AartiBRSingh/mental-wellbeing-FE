@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   FileText,
   Shield,
@@ -12,17 +12,9 @@ import {
 } from "lucide-react";
 
 const TermsPage = () => {
-  const [expandedSection, setExpandedSection] = useState(null);
-
   const sections = [
     {
-      title: "1. Acceptance of Terms",
-      content: `By using the Platform, you agree to comply with these Terms and all applicable laws and regulations. If you do not agree to these Terms, please immediately discontinue use of the Platform.
-
-These Terms constitute a binding agreement between you and ShareYrHeart, including any of its affiliates, regarding your use of the services provided through the Platform.`,
-    },
-    {
-      title: "2. Platform Services",
+      title: "Platform Services",
       content: `ShareYrHeart provides the following services:
 
 Connecting Patients with Mental Health Experts:
@@ -44,7 +36,7 @@ Course Access: Participants can access these courses via the Platform, which may
 Certification: Upon successful completion of a course, participants will receive a certificate from ShareYrHeart, recognizing their achievement. These certificates are intended for educational purposes and are not equivalent to formal licensure or professional credentials.`,
     },
     {
-      title: "3. Registration and Account Creation",
+      title: "Registration and Account Creation",
       content: `To access services, courses, or programs on the Platform, you must create an account. When creating an account, you agree to provide accurate, complete, and up-to-date information.
 
 For Patients: When registering as a patient, you may be asked to provide basic information (such as name, contact details, and mental health history) to help connect you with the appropriate professional or program.
@@ -54,7 +46,7 @@ For Professionals: When registering as a mental health professional, you must pr
 For Course Participants: When enrolling in a psychology certificate course, you must provide necessary information for course access and certification.`,
     },
     {
-      title: "4. Professional Qualifications and Responsibilities",
+      title: "Professional Qualifications and Responsibilities",
       content: `For Mental Health Experts:
 
 Licensing and Credentials: All professionals offering services through the Platform must be licensed or certified by the appropriate regulatory body in their jurisdiction. By using the Platform, you confirm that the professionals you connect with hold the necessary qualifications.
@@ -66,7 +58,7 @@ For Psychology Course Instructors:
 Course instructors are responsible for delivering high-quality content and ensuring the accuracy and relevancy of the material provided. Instructors must have expertise in the subject matter they are teaching.`,
     },
     {
-      title: "5. Payment and Fees",
+      title: "Payment and Fees",
       content: `For Patients:
 
 Payment for Services: Payments for professional consultations or mental health programs are made through the Platform via a secure third-party payment processor. The price of each service or program will be disclosed upfront.
@@ -84,7 +76,7 @@ Course Fees: Courses are available for a one-time fee or through a subscription 
 Payment for Courses: Course fees will be processed through the Platform's secure payment gateway.`,
     },
     {
-      title: "6. Privacy and Confidentiality",
+      title: "Privacy and Confidentiality",
       content: `ShareYrHeart is committed to protecting your privacy. Our Privacy Policy details how we collect, use, and protect your personal information.
 
 For Patients: Patient information is kept confidential and will only be shared with the selected professional or as required by law. Mental health data is particularly sensitive and must be handled in accordance with applicable laws (e.g., HIPAA, GDPR).
@@ -94,7 +86,7 @@ For Professionals: Professionals must adhere to confidentiality laws related to 
 For Course Participants: Your personal information and course-related data will be stored and processed by ShareYrHeart as described in our Privacy Policy.`,
     },
     {
-      title: "7. User Conduct",
+      title: "User Conduct",
       content: `You agree to use the Platform in a manner that is lawful, respectful, and appropriate. Specifically, you agree not to:
 
 Engage in Fraud or Misrepresentation: Do not impersonate any individual, misrepresent your credentials, or provide false information.
@@ -104,39 +96,35 @@ Violate Legal Rights: Do not engage in illegal activities, transmit harmful malw
 ShareYrHeart reserves the right to suspend or terminate any account that violates these Terms.`,
     },
     {
-      title: "8. Disclaimers",
+      title: "Disclaimers",
       content: `No Guarantee of Results: ShareYrHeart facilitates the connection between patients and mental health professionals, and provides mental health programs and educational courses. We do not guarantee any specific outcomes or results from services, programs, or courses.
 
 No Substitute for Emergency Care: ShareYrHeart's services are not a substitute for emergency care. If you are experiencing a mental health crisis, please immediately seek help from a licensed professional or call emergency services.`,
     },
     {
-      title: "9. Limitation of Liability",
+      title: "Limitation of Liability",
       content: `To the fullest extent permitted by law, ShareYrHeart, its affiliates, and its employees shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Platform or participation in any services, programs, or courses, including any loss of data or profits.`,
     },
     {
-      title: "10. Termination of Account",
+      title: "Termination of Account",
       content: `We reserve the right to suspend or terminate your access to the Platform at any time, for any reason, including violations of these Terms or any unlawful behavior. Upon termination, you will no longer have access to your account, and all pending transactions or programs may be canceled.`,
     },
     {
-      title: "11. Changes to the Terms",
+      title: "Changes to the Terms",
       content: `ShareYrHeart reserves the right to modify, amend, or update these Terms at any time. We will update the "Last Updated" date at the top of this page to reflect any changes. Your continued use of the Platform after changes to the Terms signifies your acceptance of those changes.`,
     },
     {
-      title: "12. Governing Law",
+      title: "Governing Law",
       content: `These Terms are governed by the laws of Calcutta High Court without regard to its conflict of law principles. Any disputes arising out of these Terms shall be resolved in the courts located in Kolkata, INDIA, and you consent to the jurisdiction of those courts.`,
     },
   ];
 
-  const toggleSection = (index) => {
-    setExpandedSection(expandedSection === index ? null : index);
-  };
-
   return (
-    <div className="bg-white container max-w-6xl mx-auto my-10 rounded-3xl shadow-2xl">
-      <header className=" py-16 px-4 rounded-2xl">
-        <div className="max-w-4xl mx-auto text-center rounded-2xl">
-          <div className="flex justify-center ">
-            <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+    <div className=" container max-w-7xl mx-auto my-10 ">
+      <header className="py-16  rounded-2xl">
+        <div className="max-w-7xl mx-auto text-center rounded-2xl">
+          <div className="flex justify-center">
+            <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
               Terms &
               <span className="relative text-[#956144] ml-3">
                 Conditions
@@ -156,56 +144,42 @@ No Substitute for Emergency Care: ShareYrHeart's services are not a substitute f
             </span>
           </div>
         </div>
-        <div className="mt-4 max-w-5xl mx-auto p-4 text-gray-700 px-12  rounded-3xl">
+        <div className="flex justify-center mt-10">
+          <p className="text-black text-xl font-semibold">
+            Effective Date: 7th December, 2024 <br />
+            Last Updated: 6th February, 2021
+          </p>
+        </div>
+        <div className="mt-4 max-w-7xl mx-auto text-lg bg-white p-4 text-gray-700 rounded-xl">
           <p>
             ShareYrHeart (we, our, us) operates a platform offering mental
             health services, including the ability to connect patients with
-            licensed mental health professionals Experts, providing its own
-            mental health treatment and well-being programs Programs, and
-            offering certificate courses in psychology Courses. These Terms and
-            Conditions Terms govern your access to and use of the ShareYrHeart
-            platform, available via{" "}
+            licensed mental health professionals (Experts), providing its own
+            mental health treatment and well-being programs (Programs), and
+            offering certificate courses in psychology (Courses). These Terms
+            and Conditions (Terms) govern your access to and use of the
+            ShareYrHeart platform, available via{" "}
             <a className="text-blue-500" href="https://shareyrheart.com/">
               https://shareyrheart.com
             </a>{" "}
             and associated mobile applications.
           </p>
-          <p className="mt-4">
-            By accessing or using ShareYrHeart, you agree to be bound by these
-            Terms. If you do not agree with any of the provisions of these
-            Terms, you must not use the Platform.
-          </p>
         </div>
       </header>
 
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
+      <section className="">
+        <div className="max-w-7xl mx-auto">
           <div className="space-y-6">
             {sections.map((section, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl shadow-md overflow-hidden"
-              >
-                <div
-                  className="p-6 flex justify-between items-center cursor-pointer hover:bg-gray-100 transition-colors"
-                  onClick={() => toggleSection(index)}
-                >
-                  <h2 className="text-xl font-semibold text-gray-800">
+              <div key={index} className=" rounded-xl overflow-hidden">
+                <div className="flex justify-center">
+                  <h2 className="text-3xl font-semibold text-gray-800">
                     {section.title}
                   </h2>
-                  <Shield
-                    className={`w-6 h-6 ${
-                      expandedSection === index
-                        ? "text-blue-600 rotate-180"
-                        : "text-gray-400"
-                    } transition-transform`}
-                  />
                 </div>
-                {expandedSection === index && (
-                  <div className="p-6 pt-4 text-gray-600 whitespace-pre-line">
-                    {section.content}
-                  </div>
-                )}
+                <div className="p-6 pt-4 bg-white text-gray-600 whitespace-pre-line">
+                  {section.content}
+                </div>
               </div>
             ))}
           </div>
@@ -213,7 +187,7 @@ No Substitute for Emergency Care: ShareYrHeart's services are not a substitute f
       </section>
 
       <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto ">
+        <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Key Highlights
           </h2>
@@ -250,7 +224,11 @@ No Substitute for Emergency Care: ShareYrHeart's services are not a substitute f
       </section>
 
       <section className="py-16 px-4 bg-gray-50 rounded-2xl">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="mx-auto text-center text-lg">
+          <p className="mt-4 text-gray-700">
+            By accessing or using ShareYrHeart, you agree to be bound by these
+            Terms.
+          </p>
           <p className="text-gray-700">
             By using the ShareYrHeart platform, you acknowledge that you have
             read, understood, and agree to these Terms and Conditions.
