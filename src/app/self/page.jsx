@@ -506,6 +506,11 @@ const SelfAssessmentPage = () => {
 
             <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-center gap-2 mb-4">
+                {/* <img
+                  src="/pngegg.png"
+                  alt="Benefits Icon"
+                  className="w-8 h-8"
+                /> */}
                 <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
                   <span className="relative">
                     Program Benefits
@@ -590,23 +595,13 @@ const SelfAssessmentPage = () => {
             </div>
 
             <div className="m-2 flex justify-center">
-              {hasPaid ? (
-                <button
-                  onClick={() => router.push("self/SelfUnderstanding")}
-                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
-                >
-                  Get Started
-                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
-                </button>
-              ) : (
-                <button
-                  onClick={handlePayment}
-                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
-                >
-                  Unlock Assessments
-                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
-                </button>
-              )}
+              <button
+                onClick={() => router.push("self/SelfUnderstanding")}
+                className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+              >
+                Get Started
+                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+              </button>
             </div>
           </div>
         </div>
