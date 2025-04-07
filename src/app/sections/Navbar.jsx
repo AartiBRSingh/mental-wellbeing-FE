@@ -114,7 +114,7 @@ const Navbar = () => {
               {navLinks.map((item, index) => (
                 <div key={index} className="relative group">
                   <Link href={item.redirectTo}>
-                    <li className="relative font-semibold text-black cursor-pointer text-lg group">
+                    <li className="relative font-semibold text-black cursor-pointer text-xl group">
                       {item.label}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-600 group-hover:w-full transition-all duration-300 ease-in-out" />
                     </li>
@@ -126,7 +126,7 @@ const Navbar = () => {
                           <Link
                             key={optionIndex}
                             href={option.href}
-                            className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
+                            className="cursor-pointer block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
                           >
                             {option.label}
                           </Link>
