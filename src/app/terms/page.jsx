@@ -133,26 +133,38 @@ No Substitute for Emergency Care: ShareYrHeart's services are not a substitute f
 
   return (
     <div className="bg-white container max-w-6xl mx-auto my-10 rounded-3xl shadow-2xl">
-      <header className="bg-gradient-to-r from-blue-100 to-purple-100 py-16 px-4 rounded-2xl">
+      <header className=" py-16 px-4 rounded-2xl">
         <div className="max-w-4xl mx-auto text-center rounded-2xl">
-          <FileText className="w-16 h-16 text-blue-600 mx-auto mb-6" />
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Terms and Conditions for ShareYrHeart
-          </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Effective Date: 7th December, 2024 | Last Updated: 6th February,
-            2021
-          </p>
+          <div className="flex justify-center ">
+            <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+              Terms &
+              <span className="relative text-[#956144] ml-3">
+                Conditions
+                <svg
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
         </div>
-        <div className="mt-4 max-w-5xl mx-auto p-4 text-gray-700 px-12 bg-slate-100 rounded-3xl">
+        <div className="mt-4 max-w-5xl mx-auto p-4 text-gray-700 px-12  rounded-3xl">
           <p>
-            ShareYrHeart we, our, us operates a platform offering mental health
-            services, including the ability to connect patients with licensed
-            mental health professionals Experts, providing its own mental health
-            treatment and well-being programs Programs, and offering certificate
-            courses in psychology Courses. These Terms and Conditions Terms
-            govern your access to and use of the ShareYrHeart platform,
-            available via{" "}
+            ShareYrHeart (we, our, us) operates a platform offering mental
+            health services, including the ability to connect patients with
+            licensed mental health professionals Experts, providing its own
+            mental health treatment and well-being programs Programs, and
+            offering certificate courses in psychology Courses. These Terms and
+            Conditions Terms govern your access to and use of the ShareYrHeart
+            platform, available via{" "}
             <a className="text-blue-500" href="https://shareyrheart.com/">
               https://shareyrheart.com
             </a>{" "}
@@ -166,7 +178,7 @@ No Substitute for Emergency Care: ShareYrHeart's services are not a substitute f
         </div>
       </header>
 
-      <section className="py-16 px-4 bg-gray-50">
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-6">
             {sections.map((section, index) => (

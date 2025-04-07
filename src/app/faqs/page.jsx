@@ -2,7 +2,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
-import { MessageCircleQuestion } from "lucide-react";
+import { HelpCircle, MessageCircleQuestion } from "lucide-react";
+
+const handleEmailSupport = () => {
+  const email = "support@shareyrheart.com";
+  const subject = "Support Request";
+
+  window.open(
+    `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(
+      subject
+    )}`,
+    "_blank"
+  );
+};
 
 const Page = () => {
   const [faqs, setFaqs] = useState([]);
@@ -172,6 +184,17 @@ const Page = () => {
               )}
             </div>
           </div>
+        </div>
+        {/* Support Section */}
+        <div className="mt-12 text-center px-4 md:px-0 pb-8">
+          <p className="text-stone-600">Need help? Contact our support team</p>
+          <button
+            className="mt-4 inline-flex items-center text-blue-700 hover:text-blue-800 cursor-pointer"
+            onClick={handleEmailSupport}
+          >
+            <HelpCircle className="mr-2 h-4 w-4" />
+            Get Support
+          </button>
         </div>
       </div>
     </>

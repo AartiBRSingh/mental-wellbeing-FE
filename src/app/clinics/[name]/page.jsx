@@ -430,26 +430,28 @@ const ClinicDetailPage = () => {
                   </svg>
                 </span>
               </div>
-              <div className="space-y-2 max-w-auto sm:space-y-3">
-                {Object.entries(clinic.timings).map(([day, time]) => (
-                  <div
-                    key={day}
-                    className="flex justify-center gap-28 items-center"
-                  >
-                    <div className="flex">
-                      <span className="capitalize text-black text-sm sm:text-base">
-                        {day}
+              <div className="flex justify-center mb-6">
+                <div className="space-y-2 max-w-auto sm:space-y-3">
+                  {Object.entries(clinic.timings).map(([day, time]) => (
+                    <div
+                      key={day}
+                      className="flex justify-between gap-28 items-center"
+                    >
+                      <div className="flex">
+                        <span className="capitalize text-black text-sm sm:text-base">
+                          {day}
+                        </span>
+                      </div>
+                      <span
+                        className={`font-medium text-sm sm:text-base ${
+                          day === "sunday" ? "text-red-500" : "text-gray-800"
+                        }`}
+                      >
+                        {time}
                       </span>
                     </div>
-                    <span
-                      className={`font-medium text-sm sm:text-base ${
-                        day === "sunday" ? "text-red-500" : "text-gray-800"
-                      }`}
-                    >
-                      {time}
-                    </span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -599,32 +601,32 @@ const ClinicDetailPage = () => {
                             className="w-full flex-shrink-0 px-2 sm:px-4"
                           >
                             {/* Adjusted container size for better mobile display */}
-                            <div className="mx-auto max-w-xs sm:max-w-sm">
+                            <div className="mx-auto max-w-xs sm:max-w-64">
                               <div className="bg-slate-100 border border-black rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl overflow-hidden hover:shadow-md transition-shadow">
                                 {/* Responsive aspect ratio */}
                                 <div className="aspect-auto relative">
                                   <img
                                     src={expert.image}
                                     alt={expert.name}
-                                    className="w-full h-full object-contain"
+                                    className="w-full h-64 object-contain"
                                   />
                                 </div>
                                 {/* Better padding for mobile */}
-                                <div className="p-3 sm:p-4">
-                                  <div className="flex items-center justify-center sm:mb-3">
-                                    <h3 className="text-base sm:text-lg font-bold text-gray-800">
+                                <div className="p-3 sm:p-2">
+                                  <div className="flex items-center justify-center sm:mb-0">
+                                    <h3 className="text-base sm:text-xl font-bold text-gray-800">
                                       {expert.name}
                                     </h3>
                                   </div>
                                   <div className="flex justify-center">
-                                    <p className="text-slate-600 font-medium mb-2 sm:mb-3 text-md sm:text-sm">
+                                    <p className="text-slate-600 font-medium mb-2 sm:mb-2 text-md sm:text-lg">
                                       {expert.specialization}
                                     </p>
                                   </div>
                                   <div className="flex items-center space-x-4">
                                     <button
                                       onClick={() => setShowModal(true)}
-                                      className="flex-1 bg-[#F8FAFC] shadow-sm  text-slate-700 py-1.5 sm:py-2 rounded-lg font-medium hover:text-black transition-colors flex items-center justify-center space-x-1 sm:space-x-2 text-xs sm:text-sm"
+                                      className="flex-1  shadow-sm  text-blue-700 py-1.5 sm:py-2 rounded-lg font-medium hover:text-black transition-colors flex items-center justify-center space-x-1 sm:space-x-2 text-xs sm:text-sm"
                                     >
                                       <span>Book Appointment</span>
                                     </button>
@@ -663,7 +665,7 @@ const ClinicDetailPage = () => {
                           onClick={() => setCurrentExpertIndex(index)}
                           className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${
                             currentExpertIndex === index
-                              ? "bg-black"
+                              ? "bg-gray-500"
                               : "bg-gray-300"
                           }`}
                           aria-label={`Go to slide ${index + 1}`}

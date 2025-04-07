@@ -206,15 +206,18 @@ const InsuranceAndPricing = () => {
           </div>
         </div>
 
-        <p className="text-base md:text-lg text-gray-600 py-6  rounded-l-xl mx-4 md:mx-6">
-          By aligning our offerings with India mental health insurance policies,
-          ShareYrHeart ensures that users receive the necessary support without
-          financial constraints, promoting overall well-being and mental health.
-        </p>
+        <div className="mt-8 md:mt-16 max-w-full mx-auto text-center px-4 md:px-0">
+          <p className="text-base md:text-lg text-gray-600 py-6  rounded-l-xl mx-4 md:mx-6">
+            By aligning our offerings with India mental health insurance
+            policies, ShareYrHeart ensures that users receive the necessary
+            support without financial constraints, promoting overall well-being
+            and mental health.
+          </p>
+        </div>
 
         {/* Self-Pay Message */}
-        <div className="mt-12 md:mt-16 max-w-full">
-          <p className="text-xl md:text-xl font-bold">
+        <div className="mt-12 md:mt-16 max-w-full mx-auto text-center px-4 md:px-0">
+          <p className="text-xl md:text-xl font-semibold">
             Many users may opt for insurance coverage, we also offer a self-pay
             option for those who prefer to pay directly for their services.
           </p>

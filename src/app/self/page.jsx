@@ -506,11 +506,6 @@ const SelfAssessmentPage = () => {
 
             <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-center gap-2 mb-4">
-                {/* <img
-                  src="/pngegg.png"
-                  alt="Benefits Icon"
-                  className="w-8 h-8"
-                /> */}
                 <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
                   <span className="relative">
                     Program Benefits

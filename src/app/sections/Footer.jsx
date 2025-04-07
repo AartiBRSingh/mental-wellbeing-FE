@@ -85,7 +85,7 @@ const HealPoint = () => {
                   <ul className="flex flex-wrap justify-center sm:justify-between items-center gap-4 sm:gap-6 md:gap-10">
                     {navLinks.map((item, index) => (
                       <Link href={item.redirectTo} key={index}>
-                        <li className="relative font-semibold text-white cursor-pointer text-md group whitespace-nowrap">
+                        <li className="relative font-semibold text-white cursor-pointer text-xl group whitespace-nowrap">
                           {item.label}
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300 ease-in-out" />
                         </li>
@@ -118,7 +118,7 @@ const HealPoint = () => {
                           <a
                             key={index}
                             href={option.href}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 
+                            className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 
                             transition duration-150 ease-in-out first:rounded-t-lg last:rounded-b-lg"
                           >
                             {option.label}
@@ -159,7 +159,7 @@ const HealPoint = () => {
             <div className="text-center w-full lg:w-1/3 flex flex-col items-center justify-center py-8 lg:py-0">
               <div className="flex flex-col space-y-6 items-center px-4">
                 <div className="flex items-center justify-center">
-                  <span className="text-xl sm:text-2xl font-bold mt-4">
+                  <span className="text-xl sm:text-3xl font-bold mt-4">
                     ShareYrHeart
                   </span>
                 </div>
@@ -199,7 +199,7 @@ const HealPoint = () => {
                   </svg>
                 </div>
 
-                <div className="text-base sm:text-lg">
+                <div className="text-base sm:text-xl">
                   Subscribe to our newsletter !
                 </div>
                 <div className="relative flex items-center w-full max-w-[300px]">
@@ -256,7 +256,7 @@ const HealPoint = () => {
               | All Rights Reserved
             </div>
 
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 text-xl">
               <Link href="/about">
                 <span className="cursor-pointer">About</span>
               </Link>

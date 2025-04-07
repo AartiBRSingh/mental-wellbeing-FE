@@ -16,6 +16,7 @@ import {
   Star,
   Target,
   ArrowRight,
+  HelpCircle,
 } from "lucide-react";
 import axios from "axios";
 import { baseURL } from "../baseURL";
@@ -45,6 +46,18 @@ const ApplicationModal = ({ isOpen, onClose, ...props }) => {
         <div className="p-6">{props.children}</div>
       </motion.div>
     </div>
+  );
+};
+
+const handleEmailSupport = () => {
+  const email = "support@shareyrheart.com";
+  const subject = "Support Request";
+
+  window.open(
+    `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(
+      subject
+    )}`,
+    "_blank"
   );
 };
 
@@ -295,8 +308,8 @@ const CareerPage = () => {
         </span>
       </div>
       <div className="max-w-7xl mx-auto text-center">
-        <p className="text-md md:text-xl font-bold  p-2 md:p-4 mx-auto ">
-          its an opportunity to transform lives while growing professionally in
+        <p className="text-md md:text-xl font-semibold  p-2 md:p-4 mx-auto ">
+          Its an opportunity to transform lives while growing professionally in
           the fast-evolving field of mental health.
         </p>
       </div>
@@ -396,7 +409,7 @@ const CareerPage = () => {
       </div>
 
       <div className="max-w-7xl mx-auto text-center bg-white rounded-lg p-4 md:p-8 mt-4 md:mt-12">
-        <p className="text-base md:text-xl font-bold p-2 md:p-4 mx-auto">
+        <p className="text-base md:text-xl font-semibold p-2 md:p-4 mx-auto">
           The mental health industry is experiencing rapid expansion, with
           growing awareness, increased corporate investments, and digital
           transformations. ShareYrHeart is leading this revolution, offering
@@ -574,11 +587,13 @@ const CareerPage = () => {
         </ul>
       </div>
 
-      <p className=" font-medium text-xl text-black mt-12 text-center">
-        By joining ShareYrHeart, you’re not just securing a job—you’re becoming
-        part of a revolution in mental health, shaping the future of well-being,
-        one life at a time.
-      </p>
+      <div className="max-w-7xl mx-auto text-center rounded-lg">
+        <p className=" font-semibold text-xl text-black mt-12 text-center">
+          By joining ShareYrHeart, you’re not just securing a job—you’re
+          becoming part of a revolution in mental health, shaping the future of
+          well-being, one life at a time.
+        </p>
+      </div>
 
       <section className="py-12  px-4">
         <div className="max-w-6xl mx-auto text-center px-4">
@@ -588,6 +603,18 @@ const CareerPage = () => {
           >
             Apply Now
           </motion.button>
+        </div>
+
+        {/* Support Section */}
+        <div className="mt-12 text-center px-4 md:px-0 pb-8">
+          <p className="text-stone-600">Need help? Contact our support team</p>
+          <button
+            className="mt-4 inline-flex items-center text-blue-700 hover:text-blue-800 cursor-pointer"
+            onClick={handleEmailSupport}
+          >
+            <HelpCircle className="mr-2 h-4 w-4" />
+            Get Support
+          </button>
         </div>
       </section>
 
