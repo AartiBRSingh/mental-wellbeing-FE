@@ -592,7 +592,7 @@ const StudentWellbeingPage = () => {
 
             <div className="m-2 flex justify-center">
               <button
-                onClick={() => router.push("/student/Institutes")}
+                // onClick={() => router.push("/student/Institutes")}
                 className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
               >
                 Get Started
