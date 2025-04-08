@@ -289,7 +289,7 @@ const StudentWellbeingPage = () => {
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex justify-center gap-2 mb-4">
                 <img
                   src="/warning1.png"
@@ -504,7 +504,7 @@ const StudentWellbeingPage = () => {
               <DemoRequestModal isOpen={isModalOpen} onClose={closeModal} />
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
                   <span className="relative">
@@ -592,7 +592,7 @@ const StudentWellbeingPage = () => {
 
             <div className="m-2 flex justify-center">
               <button
-                // onClick={() => router.push("/student/Institutes")}
+                onClick={() => router.push("/student/college")}
                 className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
               >
                 Get Started

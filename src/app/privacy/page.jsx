@@ -416,7 +416,7 @@ const PrivacyPolicy = () => {
 
           <section>
             <div className=" p-6 rounded-2xl cursor-pointer ">
-              <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                 <div className="flex justify-center items-center mb-4">
                   <h2 className="text-3xl font-semibold text-gray-800">
                     Your Rights and{" "}
@@ -592,9 +592,9 @@ const PrivacyPolicy = () => {
 
           <section className="py-16 px-4 ">
             <div className="max-w-7xl mx-auto text-center">
-              <p className="text-gray-700 text-lg leading-relaxed">
+              <p className="text-gray-600 text-lg leading-relaxed">
                 By using the ShareYrHeart platform, you acknowledge that you
-                have read, understood, and agree to these Terms and Conditions.
+                have read, understood, and agree to these Privacy policy.
               </p>
             </div>
           </section>

@@ -20,24 +20,31 @@ const StudentQuestionnairePage = () => {
 
   const sections = [
     {
-      title: "Career Guidance",
+      title: "Thrive & Glow",
       description:
-        "Discover your strengths and explore potential career paths that align with your interests and abilities.",
-      icon: "/careerguidance.png",
+        "Assesses overall happiness, life satisfaction, emotional health, and evaluates coping capacity. ",
+      icon: "/happy-customers.png",
       color: "#77DEFF",
     },
     {
-      title: "Exam Performance",
+      title: "Self Insights",
       description:
-        "Analyze your study habits and learn techniques to improve your exam preparation and performance.",
-      icon: "/exam1.png",
+        "Helps understand personality traits and behavioral patterns and is useful for career planning, self-growth, and building resilience.",
+      icon: "/discovery.png",
+      color: "#77DEFF",
+    },
+    {
+      title: "Emotional Strength",
+      description:
+        "Measures emotional regulation, empathy, and interpersonal skills, important for peer relationships and conflict management.",
+      icon: "/emotions.png",
       color: "#FACC15",
     },
     {
-      title: "Intelligence Test",
+      title: "Pinpoint Triggers",
       description:
-        "Assess your cognitive abilities and find personalized strategies to enhance your learning potential.",
-      icon: "/psychology.png",
+        " Identifies academic, social, or personal stressors and measures severity of anxiety and coping ability.",
+      icon: "/overwhelmed.png",
       color: "#FF8458",
     },
   ];
@@ -57,7 +64,7 @@ const StudentQuestionnairePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {sections.map((section, index) => (
               <div
                 key={index}

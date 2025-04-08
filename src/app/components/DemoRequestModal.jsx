@@ -207,12 +207,31 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-y-auto">
-        <div className="sticky top-0 bg-white flex justify-between items-center p-6 border-b">
-          <h2 className="text-2xl font-bold text-gray-800">Request a Demo</h2>
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[800px] overflow-y-auto">
+        <div className="sticky top-0 bg-[#F9F5F2] flex justify-center items-center p-6 border-b">
+          <div className="flex justify-center">
+            <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+              Book a
+              <span className="relative text-[#956144] ml-2">
+                Demo
+                <svg
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 absolute top-4 right-4"
           >
             <svg
               className="w-6 h-6"
@@ -725,7 +744,7 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300"
+              className="px-4 py-2 bg-white text-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300"
             >
               {isLoading ? "Submitting..." : "Submit Request"}
             </button>
