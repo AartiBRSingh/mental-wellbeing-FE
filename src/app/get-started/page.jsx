@@ -42,11 +42,11 @@ const MultiStepForm = () => {
     {
       id: "mentalWellBeing",
       name: "Mental Well-being ",
-      redirectPage: "mental-wellbeing",
+      redirectPage: "self",
     },
     {
       id: "professionalCourse",
-      name: "Certificate Course",
+      name: "Professional Course",
       redirectPage: "all-courses",
     },
     {
@@ -224,36 +224,54 @@ const MultiStepForm = () => {
   };
 
   const ProgressBar = () => {
-    if (!selectedSection) return null;
-
-    const totalSteps = sections[selectedSection].length;
-    const progress = ((currentStep + 1) / totalSteps) * 100;
+    const totalSteps = selectedSection ? sections[selectedSection].length : 0;
+    const progress = selectedSection
+      ? ((currentStep + 1) / totalSteps) * 100
+      : 0;
 
     return (
       <div className="mb-8">
-        <div className="flex justify-center gap-8 mb-4">
-          {mainSections.map((section) => (
-            <div
-              key={section.id}
-              className={`text-xl font-semibold bg-slate-100 rounded-full p-3 ${
-                selectedSection === section.id
-                  ? "text-blue-600"
-                  : "text-slate-500"
-              }`}
-            >
-              {section.name}
+        {selectedSection && (
+          <>
+            <div className="flex justify-center gap-8 mb-4">
+              {/* Only show the selected section name */}
+              <div className="text-xl font-semibold  rounded-full p-3 ">
+                <div className="flex justify-center ">
+                  <span className="relative text-2xl md:text-3xl xl:text-3xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+                    <span className="relative text-[#956144] ml-3">
+                      {
+                        mainSections.find(
+                          (section) => section.id === selectedSection
+                        )?.name
+                      }
+                      <svg
+                        className="absolute w-full h-[10px] -bottom-2 left-0"
+                        viewBox="0 0 100 10"
+                        preserveAspectRatio="none"
+                      >
+                        <path
+                          d="M0 5 Q 50 -5, 100 5"
+                          stroke="orange"
+                          strokeWidth="4"
+                          fill="transparent"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-        <div className="w-full h-3 bg-gray-200 rounded-full">
-          <div
-            className="h-full bg-blue-600 rounded-full transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
-        <div className="mt-2 text-sm text-gray-500 text-right">
-          Question {currentStep + 1} of {totalSteps}
-        </div>
+            <div className="w-full h-3 bg-gray-200 rounded-full">
+              <div
+                className="h-full bg-green-400 rounded-full transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            <div className="mt-2 text-sm text-gray-500 text-right">
+              Question {currentStep + 1} of {totalSteps}
+            </div>
+          </>
+        )}
       </div>
     );
   };
@@ -263,8 +281,8 @@ const MultiStepForm = () => {
       onClick={onClick}
       className={`p-4 border text-center rounded-xl cursor-pointer transition-all ${
         selected
-          ? "bg-[#FF8556] text-white"
-          : "bg-white hover:bg-[#FF8556] hover:text-white"
+          ? "bg-[#F6D038] text-black"
+          : "bg-white hover:bg-[#F6D038] hover:text-black"
       }`}
     >
       {text}
@@ -277,7 +295,7 @@ const MultiStepForm = () => {
         setSelectedSection(section.id);
         setCurrentStep(0);
       }}
-      className="w-full p-6 text-xl font-medium text-left bg-white border rounded-lg hover:bg-[#F6D038] transition-all hover:text-black"
+      className="w-full p-6 text-xl font-semibold text-left bg-white border rounded-lg hover:bg-[#F6D038] transition-all hover:text-black"
     >
       {section.name}
     </button>
@@ -363,7 +381,7 @@ const MultiStepForm = () => {
 
     return (
       <div className="space-y-6">
-        <h3 className="text-lg font-medium">{currentQuestion.question}</h3>
+        <h3 className="text-xl ">{currentQuestion.question}</h3>
         <div className="grid gap-3">
           {currentQuestion.options instanceof Array ? (
             currentQuestion.options.map((option, idx) => (
@@ -458,7 +476,7 @@ const MultiStepForm = () => {
           <div className="flex justify-end mt-4">
             <button
               onClick={handleNext}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md"
+              className="px-4 py-2 bg-white text-blue-600 rounded-md"
             >
               Next
             </button>
@@ -469,9 +487,9 @@ const MultiStepForm = () => {
   };
 
   return (
-    <div className="min-h-screen  py-12 mt-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-12 mt-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div class name="relative mb-8">
+        <div className="relative mb-8">
           <h2 className="text-3xl font-semibold text-center mb-8">
             Help us get you the most relevant and effective solutions for your
             Mental Health and{" "}
@@ -493,7 +511,7 @@ const MultiStepForm = () => {
             journey
           </h2>
         </div>
-        <div className="relative bg-white rounded-lg shadow-lg p-8">
+        <div className="relative bg-white rounded-lg mt-32 shadow-lg p-8">
           <div className="relative z-10">
             <ProgressBar />
 
@@ -517,14 +535,14 @@ const MultiStepForm = () => {
               <div className="flex justify-between mt-8">
                 <button
                   onClick={handlePrevious}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+                  className="px-4 py-2 bg-white text-blue-600 rounded-md"
                 >
                   Previous
                 </button>
                 {currentStep === sections[selectedSection].length - 1 && (
                   <button
                     onClick={handleSubmit}
-                    className="px-4 py-2 bg-green-500 text-white rounded-md"
+                    className="px-4 py-2 bg-white text-blue-600 rounded-md"
                   >
                     Submit
                   </button>
