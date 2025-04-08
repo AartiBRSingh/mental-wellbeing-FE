@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BsTwitterX, BsQuora } from "react-icons/bs";
-import { Helmet } from "react-helmet"; // You'll need to install this package
+import { Helmet } from "react-helmet";
+import CitySearch from "@/app/components/CitySearch";
+import RelatedCategoryPosts from "@/app/components/RelatedCategoryPosts";
 
 import {
   Clock,
@@ -27,6 +29,8 @@ const BlogDetailPage = () => {
   const [error, setError] = useState(null);
   const [showShareModal, setShowShareModal] = useState(false);
   const [pageUrl, setPageUrl] = useState("");
+  const [cities, setCities] = useState([]);
+  const [categoryPosts, setCategoryPosts] = useState([]);
 
   const searchParams = useSearchParams();
   const postId = searchParams.get("id");
@@ -51,7 +55,6 @@ const BlogDetailPage = () => {
     );
   };
 
-  // Function to generate meta description from content
   const generateMetaDescription = (content, length = 160) => {
     const strippedContent = content.replace(/<[^>]*>/g, "");
     return strippedContent.length > length
@@ -77,6 +80,73 @@ const BlogDetailPage = () => {
           params: { limit: 3 },
         });
         setRecentPosts(recentPostsResponse.data?.posts);
+
+        if (postResponse?.data?.category) {
+          const categoryPostsResponse = await api.get("/posts", {
+            params: {
+              category: postResponse.data.category,
+              limit: 4,
+              excludeId: postId, // Exclude current post
+            },
+          });
+          setCategoryPosts(categoryPostsResponse.data?.posts || []);
+        }
+
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to load post");
+        setLoading(false);
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    if (postId) {
+      fetchData();
+    }
+  }, [postId]);
+
+  useEffect(() => {
+    // Set the page URL when the component mounts
+    if (typeof window !== "undefined") {
+      setPageUrl(window.location.href);
+    }
+
+    const fetchData = async () => {
+      try {
+        const api = axios.create({
+          baseURL: baseURL,
+        });
+
+        // Fetch post data and recent posts
+        const postResponse = await api.get(`/posts/${postId}`);
+        setPost(postResponse?.data);
+
+        await api.put(`/posts/${postId}/view`);
+
+        const recentPostsResponse = await api.get("/posts", {
+          params: { limit: 3 },
+        });
+        setRecentPosts(recentPostsResponse.data?.posts);
+
+        // Fetch cities for the CitySearch component
+        try {
+          const expertsResponse = await api.get(`/get-experts`);
+          if (expertsResponse.data && Array.isArray(expertsResponse.data)) {
+            // Extract unique cities
+            const uniqueCities = [
+              ...new Set(
+                expertsResponse.data
+                  .map((expert) => expert.city?.trim())
+                  .filter((city) => city && city !== "")
+              ),
+            ].sort();
+
+            setCities(uniqueCities);
+          }
+        } catch (cityError) {
+          console.error("Error fetching cities:", cityError);
+          // Don't set the main error - we still want to show the blog post
+        }
 
         setLoading(false);
       } catch (err) {
@@ -158,11 +228,14 @@ const BlogDetailPage = () => {
             )}
             <div className="p-6">
               <div className="flex flex-col mb-4">
-                <h1 className="text-3xl font-bold text-gray-900">
+                <div className="my-2 text-lg text-gray-600">
+                  {post.category}
+                </div>
+                <h1 className="text-3xl font-semibold text-gray-900">
                   {post.title}
                 </h1>
                 {post.subTitle && (
-                  <h2 className="text-xl text-gray-800 mt-2">
+                  <h2 className="text-xl text-gray-700 mt-2">
                     {post.subTitle}
                   </h2>
                 )}
@@ -259,34 +332,68 @@ const BlogDetailPage = () => {
           </article>
         </div>
 
-        <div className="bg-white shadow-lg rounded-xl p-6 h-fit">
-          <h3 className="text-xl font-bold text-gray-800 mb-4 border-b pb-3">
-            Recent <span className="text-[#FF844C]">Posts</span>
-          </h3>
-          {recentPosts.map((post) => (
-            <div key={post._id} className="mb-4 pb-4 border-b last:border-b-0">
-              <Link
-                href={`/blog/${generateSlug(post.title, post._id)}`}
-                className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
+        <div>
+          <div className="bg-white shadow-lg rounded-xl p-6 h-fit">
+            <h3 className="text-3xl font-semibold text-gray-800 mb-6 flex items-center">
+              Recent
+              <span className="relative text-[#956144] ml-2">
+                Post
+                <svg
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </h3>
+            {recentPosts.map((post) => (
+              <div
+                key={post._id}
+                className="mb-4 pb-4 border-b last:border-b-0"
               >
-                {post.title}
-              </Link>
-              {post.subTitle && (
-                <p className="text-sm text-gray-600 mt-1 mb-2">
-                  {post.subTitle}
+                <Link
+                  href={`/blog/${generateSlug(post.title, post._id)}`}
+                  className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
+                >
+                  {post.title}
+                </Link>
+                {post.subTitle && (
+                  <p className="text-sm text-gray-600 mt-1 mb-2">
+                    {post.subTitle}
+                  </p>
+                )}
+                <p className="text-sm text-gray-500 mb-2">
+                  {truncateContent(post.content, 100)}
                 </p>
-              )}
-              <p className="text-sm text-gray-500 mb-2">
-                {truncateContent(post.content, 100)}
-              </p>
-              <div className="flex items-center text-sm text-gray-500 space-x-2">
-                <Eye className="w-4 h-4 text-[#78E1FE]" />
-                <span>{post.totalViews} Views</span>
-                <span>•</span>
-                <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                <div className="flex items-center text-sm text-gray-500 space-x-2">
+                  <Eye className="w-4 h-4 text-[#78E1FE]" />
+                  <span>{post.totalViews} Views</span>
+                  <span>•</span>
+                  <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="mt-16">
+            {/* Option 1: Pass the pre-fetched cities */}
+            <CitySearch
+              className=""
+              initialCities={cities}
+              subtitle="Online or in-person, connect with trusted professionals for support tailored to your needs and location."
+            />
+
+            {/* Option 2: Let the component fetch cities itself 
+            <CitySearch 
+              subtitle="Find therapists in your area"
+            />
+            */}
+          </div>
         </div>
 
         {showShareModal && (
@@ -295,6 +402,91 @@ const BlogDetailPage = () => {
               onClose={() => setShowShareModal(false)}
               copyToClipboard={handleCopyToClipboard}
               src={pageUrl}
+            />
+          </div>
+        )}
+
+        <div className="col-span-full mt-8 flex justify-center mr-[500px] items-center">
+          <div className="flex justify-center gap-3">
+            {/* WhatsApp share button */}
+            <button
+              className={`${buttonStyle} bg-green-500 hover:bg-green-600`}
+              onClick={() =>
+                openSharePopup(
+                  `https://api.whatsapp.com/send?text=${encodedTitle}%20-%20${encodedUrl}`
+                )
+              }
+            >
+              <FaWhatsapp size={20} className="text-white" />
+            </button>
+
+            {/* Email share button */}
+            <button
+              className={`${buttonStyle} bg-red-500 hover:bg-red-600`}
+              onClick={() =>
+                openSharePopup(
+                  `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodedTitle}&body=Check out this article: ${encodedUrl}`
+                )
+              }
+            >
+              <Mails size={20} className="text-white" />
+            </button>
+
+            {/* Quora share button */}
+            <button
+              className={`${buttonStyle} bg-red-500 hover:bg-[#006396]`}
+              onClick={() =>
+                openSharePopup(
+                  `https://quora.com/link/create-post?url=${encodedUrl}`
+                )
+              }
+            >
+              <BsQuora size={20} className="text-white" />
+            </button>
+
+            {/* LinkedIn share button */}
+            <button
+              className={`${buttonStyle} bg-[#0077b5] hover:bg-[#006396]`}
+              onClick={() =>
+                openSharePopup(
+                  `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}&title=${encodedTitle}`
+                )
+              }
+            >
+              <Linkedin size={20} className="text-white" />
+            </button>
+
+            {/* Twitter share button */}
+            <button
+              className={`${buttonStyle} bg-black hover:bg-sky-600`}
+              onClick={() =>
+                openSharePopup(
+                  `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`
+                )
+              }
+            >
+              <BsTwitterX size={20} className="text-white" />
+            </button>
+
+            {/* Facebook share button */}
+            <button
+              className={`${buttonStyle} bg-blue-600 hover:bg-blue-700`}
+              onClick={() =>
+                openSharePopup(
+                  `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`
+                )
+              }
+            >
+              <Facebook size={20} className="text-white" />
+            </button>
+          </div>
+        </div>
+
+        {categoryPosts.length > 0 && (
+          <div className="col-span-full mt-8">
+            <RelatedCategoryPosts
+              posts={categoryPosts}
+              category={post.category}
             />
           </div>
         )}

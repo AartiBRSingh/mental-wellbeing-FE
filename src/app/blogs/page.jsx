@@ -3,12 +3,14 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Search, Filter, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // Import useRouter
 import { baseURL } from "../baseURL";
 import toast, { Toaster } from "react-hot-toast";
 import Modal from "../components/Modal";
 import useUserInteraction from "../hooks/useUserInteraction";
 
 const BlogPage = () => {
+  const router = useRouter(); // Initialize router for navigation
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +32,7 @@ const BlogPage = () => {
       const response = await axios.get(`${baseURL}/get-categories`);
       setCategories(response.data);
 
-      toast.success("Succesfully fetched blogs");
+      toast.success("Successfully fetched blogs");
     } catch (error) {
       toast.error("Error fetching Blogs:", error);
     }
@@ -130,18 +132,43 @@ const BlogPage = () => {
     fetchRecommendedPosts();
   }, [recommendedCategories]);
 
+  // Handle post click - track view and navigate in same tab
+  const handlePostClick = (postId, slugUrl) => {
+    trackPostView(postId);
+    router.push(`/blogs/${slugUrl}`);
+  };
+
   return (
     <div className="bg-transparent font-sans">
       <Toaster position="bottom-left" reverseOrder={false} />
       <div className="container mx-auto px-4 py-12">
         <header className="text-center mb-16">
           <div className="w-32 h-fit bg-green-100 rounded-full blur-3xl opacity-20 mx-auto mb-4" />
-          <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
-            Explore Our <span className="text-orange-600">Stories</span>
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Discover transformative insights and inspiring narratives that shape
-            perspectives and spark meaningful conversations.
+          <div className="flex justify-center mb-10">
+            <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+              Latest
+              <span className="relative text-[#956144] ml-3">
+                News
+                <svg
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+          <p className="text-gray-600 max-w-7xl mx-auto text-xl font-semibold">
+            Stay informed with the latest news and research on mental health
+            from around the world. Explore insights, breakthroughs, and expert
+            opinions to better understand emotional well-being and emerging
+            psychological trends.
           </p>
         </header>
         <div className="max-w-4xl mx-auto mb-12">
@@ -186,86 +213,91 @@ const BlogPage = () => {
               </div>
             ) : (
               posts.map((post) => (
-                <>
-                  {" "}
-                  <div
-                    key={post._id}
-                    className="group bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300"
-                  >
-                    <div className="grid md:grid-cols-3 gap-6">
-                      <div className="overflow-hidden">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="w-full h-full object-cover aspect-square md:aspect-auto group-hover:scale-105 transition-transform duration-300"
-                        />
+                <div
+                  key={post._id}
+                  className="group bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="overflow-hidden">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover aspect-square md:aspect-auto group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="md:col-span-2 p-6">
+                      <div className="flex justify-between items-start mb-4">
+                        <span className="px-4 py-1.5 rounded-full text-md text-blue-600 font-medium">
+                          {post.category}
+                        </span>
+                        <span className="text-gray-400 text-sm">
+                          {new Date(post.createdAt).toLocaleDateString()}
+                        </span>
                       </div>
-                      <div className="md:col-span-2 p-6">
-                        <div className="flex justify-between items-start mb-4">
-                          <span className="px-4 py-1.5 rounded-full text-sm bg-green-100 text-green-600 font-medium">
-                            {post.category}
-                          </span>
-                          <span className="text-gray-400 text-sm">
-                            {new Date(post.createdAt).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <Link
-                          href={`/blogs/${generateSlug(post.title, post._id)}`}
-                          className="block text-2xl font-bold text-gray-800 mb-3 hover:text-green-600 transition-colors"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            trackPostView(post._id);
-                            window.open(
-                              `/blogs/${generateSlug(post.title, post._id)}`
-                            );
-                          }}
-                        >
-                          {post.title}
-                        </Link>
-                        <div className="flex gap-2 items-center text-gray-400 text-sm mb-4">
-                          <Eye className="w-4 h-4 text-green-400" />
-                          {post.totalViews.toLocaleString()} Views
-                        </div>
-                        <p className="text-gray-600 mb-4 line-clamp-3">
-                          {truncateContent(post.content)}
-                        </p>
-                        <Link
-                          href={`/blogs/${generateSlug(post.title, post._id)}`}
-                          className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
-                        >
-                          Read More
-                          <ChevronRight className="w-4 h-4 ml-1" />
-                        </Link>
+                      <a
+                        href="#"
+                        className="block text-2xl font-bold text-gray-800 mb-3 hover:text-blue-600 transition-colors"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePostClick(
+                            post._id,
+                            generateSlug(post.title, post._id)
+                          );
+                        }}
+                      >
+                        {post.title}
+                      </a>
+                      <div className="flex gap-2 items-center text-gray-400 text-sm mb-4">
+                        <Eye className="w-4 h-4 text-gray-400" />
+                        {post.totalViews.toLocaleString()} Views
                       </div>
+                      <p className="text-gray-600 mb-4 line-clamp-3">
+                        {truncateContent(post.content)}
+                      </p>
+                      <a
+                        href="#"
+                        className="inline-flex items-center text-blue-600 font-medium hover:text-blue-700 transition-colors"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePostClick(
+                            post._id,
+                            generateSlug(post.title, post._id)
+                          );
+                        }}
+                      >
+                        Read More
+                      </a>
                     </div>
                   </div>
-                  {showModal && recommendedPosts.length > 0 && (
-                    <Modal onClose={() => setShowModal(false)}>
-                      <h2 className="text-xl font-bold mb-4">
-                        Recommended for You
-                      </h2>
-                      <ul className="space-y-3">
-                        {recommendedPosts.map((post) => (
-                          <li
-                            key={post.post._id}
-                            className="border-b pb-2 last:border-b-0"
-                          >
-                            <Link
-                              href={`/blogs/${generateSlug(
-                                post.post.title,
-                                post.post._id
-                              )}`}
-                              className="text-green-600 hover:underline"
-                            >
-                              {post.post.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </Modal>
-                  )}
-                </>
+                </div>
               ))
+            )}
+            {showModal && recommendedPosts.length > 0 && (
+              <Modal onClose={() => setShowModal(false)}>
+                <h2 className="text-xl font-bold mb-4">Recommended for You</h2>
+                <ul className="space-y-3">
+                  {recommendedPosts.map((post) => (
+                    <li
+                      key={post.post._id}
+                      className="border-b pb-2 last:border-b-0"
+                    >
+                      <a
+                        href="#"
+                        className="text-green-600 hover:underline"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePostClick(
+                            post.post._id,
+                            generateSlug(post.post.title, post.post._id)
+                          );
+                        }}
+                      >
+                        {post.post.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </Modal>
             )}
             <div className="flex justify-center items-center space-x-6 mt-12">
               <button
@@ -290,9 +322,23 @@ const BlogPage = () => {
             </div>
           </div>
           <div className="bg-white rounded-2xl shadow-lg p-8 h-fit">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+            <h3 className="text-3xl font-semibold text-gray-800 mb-6 flex items-center">
               Recent
-              <span className="text-green-600 ml-2">Posts</span>
+              <span className="relative text-[#956144] ml-2">
+                Post
+                <svg
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
             </h3>
             <div className="space-y-6">
               {recentPosts.map((post) => (
@@ -300,18 +346,25 @@ const BlogPage = () => {
                   key={post._id}
                   className="group pb-6 border-b last:border-b-0 last:pb-0"
                 >
-                  <Link
-                    href={`/blogs/${generateSlug(post.title, post._id)}`}
-                    className="block font-semibold text-gray-800 mb-2 group-hover:text-green-600 transition-colors"
+                  <a
+                    href="#"
+                    className="block font-semibold text-gray-800 mb-2"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePostClick(
+                        post._id,
+                        generateSlug(post.title, post._id)
+                      );
+                    }}
                   >
                     {post.title}
-                  </Link>
+                  </a>
                   <p className="text-sm text-gray-500 mb-3 line-clamp-2">
                     {truncateContent(post.content, 100)}
                   </p>
                   <div className="flex items-center text-sm text-gray-400 space-x-3">
                     <div className="flex items-center">
-                      <Eye className="w-4 h-4 text-green-400 mr-1.5" />
+                      <Eye className="w-4 h-4 text-gray-400 mr-1.5" />
                       <span>{post.totalViews.toLocaleString()} Views</span>
                     </div>
                     <span>•</span>
