@@ -5,23 +5,41 @@ import React from "react";
 const AboutPage = () => {
   const offerings = [
     {
-      title: "Mental Health Expert Directory",
-      description:
-        "ShareYrHeart offers an extensive directory of certified mental health professionals across India. Whether you are seeking therapy, counseling, or expert advice, our platform connects you with specialists who can provide personalized support tailored to your unique needs.",
-      color: "bg-pink-50",
-      iconBg: "bg-pink-200",
-      textColor: "text-pink-600",
-    },
-    {
-      title: "Dedicated Well-Being Services",
-      description:
-        "Employee Well-Being: Empower your workforce with mental health programs designed to reduce stress, enhance productivity, and promote a healthier work environment // Student Well-Being: Support young minds with tools and resources to manage academic stress, build resilience, and improve focus // Self-Understanding: Gain insights into your mental health through self-assessment tools, workshops, and guided programs that foster personal growth .",
+      title: "Mental Well-Being",
+      description: (
+        <ul className="list-disc pl-5 space-y-2">
+          <li>
+            <span className="font-medium">Employee Well-Being:</span> Empower
+            your workforce with mental health programs designed to reduce
+            stress, enhance productivity, and promote a healthier work
+            environment
+          </li>
+          <li>
+            <span className="font-medium">Student Well-Being:</span> Support
+            young minds with tools and resources to manage academic stress,
+            build resilience, and improve focus
+          </li>
+          <li>
+            <span className="font-medium">Self-Understanding:</span> Gain
+            insights into your mental health through self-assessment tools,
+            workshops, and guided programs that foster personal growth
+          </li>
+        </ul>
+      ),
       color: "bg-teal-50",
       iconBg: "bg-teal-200",
       textColor: "text-teal-600",
     },
     {
-      title: "Professional Certificate Courses",
+      title: "Clinics ",
+      description:
+        "With clinics in multiple locations across India, ShareyRHeart ensures access to in-person mental health services. Our centers provide a range of therapies and interventions to meet the needs of individuals, families, and organizations.",
+      color: "bg-purple-50",
+      iconBg: "bg-purple-200",
+      textColor: "text-purple-600",
+    },
+    {
+      title: "Courses",
       description:
         "Advance your career in mental health with our professional courses, certified by a renowned university. These courses combine theoretical knowledge with practical experience, making them ideal for both aspiring professionals and those seeking to enhance their skills.",
       color: "bg-indigo-50",
@@ -29,7 +47,16 @@ const AboutPage = () => {
       textColor: "text-indigo-600",
     },
     {
-      title: "Anonymous Discussion Forum",
+      title: "Directory",
+      description:
+        "ShareYrHeart offers an extensive directory of certified mental health professionals across India. Whether you are seeking therapy, counseling, or expert advice, our platform connects you with specialists who can provide personalized support tailored to your unique needs.",
+      color: "bg-pink-50",
+      iconBg: "bg-pink-200",
+      textColor: "text-pink-600",
+    },
+
+    {
+      title: "Forum",
       description:
         "A safe space for sharing thoughts, experiences, and emotions—whether happy or sad. Our forum allows you to express yourself freely while keeping your identity confidential, fostering open and judgment-free conversations.",
       color: "bg-purple-50",
@@ -37,17 +64,9 @@ const AboutPage = () => {
       textColor: "text-purple-600",
     },
     {
-      title: "24/7 Live Chat with Experts",
+      title: "Live Chat",
       description:
         "Connect with mental health professionals anytime, anywhere, through our live chat service. Our experts are available 24/7 to provide immediate support and guidance, ensuring you're never alone in your mental health journey.",
-      color: "bg-purple-50",
-      iconBg: "bg-purple-200",
-      textColor: "text-purple-600",
-    },
-    {
-      title: "Clinics Across India",
-      description:
-        "With clinics in multiple locations across India, ShareyRHeart ensures access to in-person mental health services. Our centers provide a range of therapies and interventions to meet the needs of individuals, families, and organizations.",
       color: "bg-purple-50",
       iconBg: "bg-purple-200",
       textColor: "text-purple-600",
@@ -79,7 +98,7 @@ const AboutPage = () => {
               </span>
             </span>
           </div>
-          <p className="text-xl text-gray-600 max-w-7xl mx-auto">
+          <p className="text-3xl text-gray-700 max-w-7xl mx-auto">
             ShareYrHeart is a comprehensive mental health platform designed to
             cater to diverse needs with a focus on holistic well-being, personal
             growth, and professional development.
@@ -88,10 +107,7 @@ const AboutPage = () => {
 
         {/* Offerings Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
-            Key Features:
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {offerings.map((offering, index) => (
               <div
                 key={index}
@@ -110,7 +126,7 @@ const AboutPage = () => {
           <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
             Why choose
             <span className="relative text-[#956144] ml-3">
-              ShareYrHeart
+              ShareYrHeart?
               <svg
                 className="absolute w-full h-[10px] -bottom-2 left-0"
                 viewBox="0 0 100 10"
@@ -127,82 +143,145 @@ const AboutPage = () => {
           </span>
         </div>
 
-        <section className=" p-6 ">
-          <div className="space-y-4">
-            <p className="text-gray-700 ml-2">
-              If you have any questions about this Privacy Policy, our data
-              practices, or would like to exercise your rights, please contact
-              us at:
-            </p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-white p-6 rounded-xl ">
-                <h3 className="font-semibold text-xl text-gray-800 mb-2">
-                  Global Network of Professionals
-                </h3>
-                <p className="text-gray-700">
-                  Access qualified mental health experts from India and around
-                  the world, ensuring you receive the best support no matter
-                  where you are located.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl">
-                <h3 className="font-semibold text-xl text-gray-800 mb-2">
-                  Comprehensive Mental Health Solutions
-                </h3>
-                <p className="text-gray-700">
-                  From personalized therapy to well-being programs and
-                  educational resources, ShareYrHeart offers a full spectrum of
-                  services to support mental health at every stage of life
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl ">
-                <h3 className="font-semibold text-xl text-gray-800 mb-2">
-                  Educational Hub
-                </h3>
-                <p className="text-gray-700">
-                  Stay informed with expert content on psychological disorders,
-                  psychotherapy techniques, and the latest research in the field
-                  of psychology.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl">
-                <h3 className="font-semibold text-xl text-gray-800 mb-2">
-                  Convenience & Accessibility
-                </h3>
-                <p className="text-gray-700">
-                  Access services and educational content online, giving you the
-                  flexibility to seek help or improve your knowledge anytime,
-                  anywhere.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl ">
-                <h3 className="font-semibold text-xl text-gray-800 mb-2">
-                  Confidential & Secure
-                </h3>
-                <p className="text-gray-700">
-                  ShareYrHeart prioritizes your privacy with secure platforms
-                  for therapy sessions, course enrollment, and payment
-                  processing, ensuring a safe and confidential experience.
-                </p>
-              </div>
+        <section>
+          <div className=" rounded-2xl cursor-pointer min-w-7xl max-w-7xl mb-6 mx-auto">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <ul className="space-y-6">
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium text-gray-800">
+                        Global Network of Professionals:
+                      </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Access qualified mental health experts from India and
+                        around the world, ensuring you receive the best support
+                        no matter where you are located.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium  text-gray-800">
+                        Comprehensive Mental Health Solutions:
+                      </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        From personalized therapy to well-being programs and
+                        educational resources, ShareYrHeart offers a full
+                        spectrum of services to support mental health at every
+                        stage of life.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium text-gray-800">
+                        Educational Hub:
+                      </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Stay informed with expert content on psychological
+                        disorders, psychotherapy techniques, and the latest
+                        research in the field of psychology.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium text-gray-800">
+                        Convenience & Accessibility:
+                      </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        Access services and educational content online, giving
+                        you the flexibility to seek help or improve your
+                        knowledge anytime, anywhere.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="flex justify-center ">
+                    <img
+                      src="/check-mark.png"
+                      alt="Benefits Icon"
+                      className="w-6 h-6 mr-2 mt-1"
+                    />
+                    <div>
+                      <span className="font-medium  text-gray-800">
+                        Confidential & Secure
+                      </span>
+                      <p className="text-sm text-gray-600 ml-5">
+                        ShareYrHeart prioritizes your privacy with secure
+                        platforms for therapy sessions, course enrollment, and
+                        payment processing, ensuring a safe and confidential
+                        experience
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
 
-        <section className="bg-cream text-black py-16 px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-8">Contact Us</h2>
+        <section className="bg-white rounded-2xl max-w-7xl text-black py-10">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="flex justify-center mb-6">
+              <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+                Contact
+                <span className="relative text-[#956144] ml-3">
+                  Us
+                  <svg
+                    className="absolute w-full h-[10px] -bottom-2 left-0"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 -5, 100 5"
+                      stroke="orange"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="flex items-center justify-center">
+              <div className="flex text-lg items-center justify-center">
                 <Mail className="w-8 h-8 mr-4 text-red-500" />
-                <span>support@shareyrheart.com</span>
+                <span className="">support@shareyrheart.com</span>
               </div>
               <div className="flex items-center justify-center">
                 <Phone className="w-8 h-8 mr-4 text-blue-500" />
                 <span>+91 9874021437</span>
               </div>
               <div className="flex items-center justify-center">
-                <MapPin className="w-8 h-8 mr-4 text-green-500" />
+                <MapPin className="w-8 h-8 mr-4 text-red-500" />
                 <span>7B Mysore Road, Kolkata-700026</span>
               </div>
             </div>
@@ -210,16 +289,10 @@ const AboutPage = () => {
         </section>
 
         {/* Closing Statement */}
-        <div className="text-center mt-16 ">
-          <p className="text-2xl text-gray-700 max-w-7xl mx-auto">
-            At <span className="font-semibold text-black">ShareYrHeart</span>,
-            we are committed to empowering you with the knowledge, tools, and
-            professional support you need to understand and manage your mental
-            health.
-          </p>
+        <div className="text-center mt-10 ">
           <a
-            href="all-courses"
-            className="mt-8 inline-block px-8 py-3 bg-slate-400 text-white rounded-full text-lg font-semibold hover:from-red-500 hover:to-red-700 transition-all duration-300 transform hover:scale-105 active:scale-95"
+            href="https://shareyrheart.com/"
+            className="mt-8 inline-block px-8 py-3 bg-orange-600 text-white rounded-2xl text-lg font-semibold"
           >
             Start Your Journey
           </a>

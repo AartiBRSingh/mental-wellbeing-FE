@@ -99,7 +99,7 @@ const ExpertBookingModal = ({ setShowModal }) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6 relative">
+      <div className="bg-[#F9F5F2] rounded-2xl max-w-md w-full p-6 relative">
         <button
           onClick={() => setShowModal(false)}
           className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
@@ -107,9 +107,26 @@ const ExpertBookingModal = ({ setShowModal }) => {
           <X className="w-6 h-6" />
         </button>
 
-        <h3 className="text-2xl font-bold text-gray-800 mb-6">
-          Book Your Appointment
-        </h3>
+        <div className="flex justify-center  mb-10">
+          <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+            Book your
+            <span className="relative text-[#956144] ml-2">
+              Appointment
+              <svg
+                className="absolute w-full h-[10px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
 
         {submitMessage.text && (
           <div
@@ -199,11 +216,11 @@ const ExpertBookingModal = ({ setShowModal }) => {
               type="submit"
               disabled={loading}
               className={`w-full ${
-                loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
-              } text-white py-4 rounded-lg font-medium transition-colors flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl`}
+                loading ? "bg-white" : "bg-white "
+              } text-blue-600 py-4 rounded-lg font-medium transition-colors flex items-center justify-center space-x-2 shadow-lg`}
             >
               <span>{loading ? "Processing..." : "Confirm Appointment"}</span>
-              {!loading && <ArrowRight className="w-5 h-5" />}
+              {!loading && <ArrowRight className="w-0 h-0" />}
             </button>
             <p className="text-center text-sm text-gray-500 mt-4">
               By booking an appointment you agree to our{" "}

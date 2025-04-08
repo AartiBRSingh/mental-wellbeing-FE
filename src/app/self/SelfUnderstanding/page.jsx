@@ -109,7 +109,7 @@ const SelfUnderstanding = () => {
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center p-6 ">
       <div className="max-w-7xl w-full">
         <div className="p-8">
           <div className="mb-12 text-center">
