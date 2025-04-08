@@ -1,11 +1,8 @@
 "use client";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { Content } from "next/font/google";
-import React, { useState } from "react";
+import React from "react";
 
 const AboutPage = () => {
-  const [activeSection, setActiveSection] = useState(null);
-
   const offerings = [
     {
       title: "Mental Health Expert Directory",
@@ -39,7 +36,6 @@ const AboutPage = () => {
       iconBg: "bg-purple-200",
       textColor: "text-purple-600",
     },
-
     {
       title: "24/7 Live Chat with Experts",
       description:
@@ -48,7 +44,6 @@ const AboutPage = () => {
       iconBg: "bg-purple-200",
       textColor: "text-purple-600",
     },
-
     {
       title: "Clinics Across India",
       description:
@@ -61,13 +56,30 @@ const AboutPage = () => {
 
   return (
     <div className="bg-transparent text-gray-900">
-      <div className="container mx-auto max-w-6xl px-4 py-16 bg-white rounded-2xl shadow-lg my-10">
+      <div className="container mx-auto max-w-7xl px-4 py-16 my-10">
         {/* Hero Section */}
-        <div className="text-center mb-16 transform transition-all duration-300 hover:scale-[1.01]">
-          <h1 className="text-5xl font-extrabold bg-[#FF8556] bg-clip-text text-transparent mb-6">
-            ShareYrHeart
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <div className="text-center mb-16 ">
+          <div className="flex justify-center mb-8">
+            <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+              About
+              <span className="relative text-[#956144] ml-3">
+                ShareYrHeart
+                <svg
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+          <p className="text-xl text-gray-600 max-w-7xl mx-auto">
             ShareYrHeart is a comprehensive mental health platform designed to
             cater to diverse needs with a focus on holistic well-being, personal
             growth, and professional development.
@@ -83,35 +95,39 @@ const AboutPage = () => {
             {offerings.map((offering, index) => (
               <div
                 key={index}
-                className={`${offering.color} p-6 rounded-2xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-xl`}
-                onClick={() =>
-                  setActiveSection(activeSection === index ? null : index)
-                }
+                className={`bg-white p-6 rounded-2xl duration-300 `}
               >
-                <div className="flex items-center mb-4">
-                  <div
-                    className={`${offering.iconBg} ${offering.textColor} w-12 h-12 rounded-full flex items-center justify-center mr-4`}
-                  >
-                    <span className="text-2xl font-bold">
-                      {offering.title.charAt(0)}
-                    </span>
-                  </div>
+                <div className="flex justify-center items-center mb-4">
                   <h3 className="text-xl font-semibold">{offering.title}</h3>
                 </div>
-                {activeSection === index && (
-                  <p className="text-gray-700 mt-4 transition-opacity duration-500 ease-in-out">
-                    {offering.description}
-                  </p>
-                )}
+                <p className="text-gray-700 mt-4">{offering.description}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="bg-gradient-to-r from-blue-100 to-purple-100 p-6 rounded-2xl">
-          <h2 className="text-3xl text-center font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
-            Why Choose ShareYrHeart?
-          </h2>
+        <div className="flex justify-center mb-8">
+          <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+            Why choose
+            <span className="relative text-[#956144] ml-3">
+              ShareYrHeart
+              <svg
+                className="absolute w-full h-[10px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
+
+        <section className=" p-6 ">
           <div className="space-y-4">
             <p className="text-gray-700 ml-2">
               If you have any questions about this Privacy Policy, our data
@@ -119,29 +135,27 @@ const AboutPage = () => {
               us at:
             </p>
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+              <div className="bg-white p-6 rounded-xl ">
                 <h3 className="font-semibold text-xl text-gray-800 mb-2">
                   Global Network of Professionals
                 </h3>
                 <p className="text-gray-700">
-                  {" "}
                   Access qualified mental health experts from India and around
                   the world, ensuring you receive the best support no matter
                   where you are located.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+              <div className="bg-white p-6 rounded-xl">
                 <h3 className="font-semibold text-xl text-gray-800 mb-2">
                   Comprehensive Mental Health Solutions
                 </h3>
                 <p className="text-gray-700">
-                  {" "}
                   From personalized therapy to well-being programs and
                   educational resources, ShareYrHeart offers a full spectrum of
                   services to support mental health at every stage of life
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+              <div className="bg-white p-6 rounded-xl ">
                 <h3 className="font-semibold text-xl text-gray-800 mb-2">
                   Educational Hub
                 </h3>
@@ -151,7 +165,7 @@ const AboutPage = () => {
                   of psychology.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+              <div className="bg-white p-6 rounded-xl">
                 <h3 className="font-semibold text-xl text-gray-800 mb-2">
                   Convenience & Accessibility
                 </h3>
@@ -161,7 +175,7 @@ const AboutPage = () => {
                   anywhere.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+              <div className="bg-white p-6 rounded-xl ">
                 <h3 className="font-semibold text-xl text-gray-800 mb-2">
                   Confidential & Secure
                 </h3>
@@ -176,7 +190,7 @@ const AboutPage = () => {
         </section>
 
         <section className="bg-cream text-black py-16 px-4">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-8">Contact Us</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="flex items-center justify-center">
@@ -196,16 +210,16 @@ const AboutPage = () => {
         </section>
 
         {/* Closing Statement */}
-        <div className="text-center mt-16 transform transition-all duration-300 hover:scale-[1.01]">
-          <p className="text-2xl text-gray-700 max-w-4xl mx-auto">
-            At <span className="font-bold text-blue-600">ShareYrHeart</span>, we
-            are committed to empowering you with the knowledge, tools, and
+        <div className="text-center mt-16 ">
+          <p className="text-2xl text-gray-700 max-w-7xl mx-auto">
+            At <span className="font-semibold text-black">ShareYrHeart</span>,
+            we are committed to empowering you with the knowledge, tools, and
             professional support you need to understand and manage your mental
             health.
           </p>
           <a
             href="all-courses"
-            className="mt-8 inline-block px-8 py-3 bg-gradient-to-r from-[#FF8556] to-red-500 text-white rounded-full text-lg font-semibold hover:from-red-500 hover:to-red-700 transition-all duration-300 transform hover:scale-105 active:scale-95"
+            className="mt-8 inline-block px-8 py-3 bg-slate-400 text-white rounded-full text-lg font-semibold hover:from-red-500 hover:to-red-700 transition-all duration-300 transform hover:scale-105 active:scale-95"
           >
             Start Your Journey
           </a>
