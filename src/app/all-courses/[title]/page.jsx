@@ -274,6 +274,82 @@ const CourseDetailPage = () => {
     toast.success("Link copied to clipboard!");
   };
 
+  const formatSchedule = (scheduleData) => {
+    if (!scheduleData) return "Schedule not available";
+
+    try {
+      const schedule =
+        typeof scheduleData === "string"
+          ? JSON.parse(scheduleData)
+          : scheduleData;
+
+      const timeGroups = {};
+
+      Object.entries(schedule).forEach(([day, hours]) => {
+        if (!timeGroups[hours]) {
+          timeGroups[hours] = [];
+        }
+        timeGroups[hours].push(day);
+      });
+
+      return Object.entries(timeGroups)
+        .map(([hours, days]) => {
+          const formattedDays = formatDayRange(days);
+          return `${formattedDays}: ${hours}`;
+        })
+        .join(" | ");
+    } catch (error) {
+      console.error("Error parsing schedule:", error);
+      return String(scheduleData);
+    }
+  };
+
+  const formatDayRange = (days) => {
+    const dayOrder = {
+      monday: 1,
+      tuesday: 2,
+      wednesday: 3,
+      thursday: 4,
+      friday: 5,
+      saturday: 6,
+      sunday: 7,
+    };
+
+    const sortedDays = [...days].sort((a, b) => dayOrder[a] - dayOrder[b]);
+
+    const capitalizedDays = sortedDays.map(
+      (day) => day.charAt(0).toUpperCase() + day.slice(1)
+    );
+
+    if (capitalizedDays.length === 7) return "Every day";
+
+    if (isConsecutive(sortedDays, dayOrder)) {
+      return `${capitalizedDays[0]} to ${
+        capitalizedDays[capitalizedDays.length - 1]
+      }`;
+    }
+
+    if (capitalizedDays.length === 1) return capitalizedDays[0];
+
+    const lastDay = capitalizedDays.pop();
+    return `${capitalizedDays.join(", ")} and ${lastDay}`;
+  };
+
+  const isConsecutive = (days, dayOrder) => {
+    if (days.length <= 1) return true;
+
+    const dayNumbers = days.map((day) => dayOrder[day]);
+    dayNumbers.sort((a, b) => a - b);
+
+    for (let i = 1; i < dayNumbers.length; i++) {
+      if (dayNumbers[i] !== dayNumbers[i - 1] + 1) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-8 bg-white m-10 rounded-2xl shadow-xl">
@@ -358,7 +434,9 @@ const CourseDetailPage = () => {
               <Clock className="w-4 h-4 text-blue-600" />
               <span className="text-gray-700">
                 Schedule:{" "}
-                <span className="font-medium">{course?.schedule}</span>
+                <span className="font-medium">
+                  {formatSchedule(course?.schedule)}
+                </span>
               </span>
             </div>
           </div>
