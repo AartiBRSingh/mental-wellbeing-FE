@@ -79,7 +79,7 @@ const AboutPage = () => {
         {/* Hero Section */}
         <div className="text-center mb-16 ">
           <div className="flex justify-center mb-8">
-            <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+            <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full   block">
               About
               <span className="relative text-[#956144] ml-3">
                 ShareYrHeart
@@ -123,7 +123,7 @@ const AboutPage = () => {
         </section>
 
         <div className="flex justify-center mb-8">
-          <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+          <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full  block">
             Why choose
             <span className="relative text-[#956144] ml-3">
               ShareYrHeart?
@@ -249,10 +249,10 @@ const AboutPage = () => {
           </div>
         </section>
 
-        <section className="bg-white rounded-2xl max-w-7xl text-black py-10">
+        <section className="bg-white rounded-2xl max-w-7xl text-black pt-7 pb-6">
           <div className="max-w-5xl mx-auto text-center">
             <div className="flex justify-center mb-6">
-              <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+              <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full block">
                 Contact
                 <span className="relative text-[#956144] ml-3">
                   Us
@@ -273,11 +273,11 @@ const AboutPage = () => {
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="flex text-lg items-center justify-center">
-                <Mail className="w-8 h-8 mr-4 text-red-500" />
+                <Mail className="w-8 h-8 mr-4 text-blue-500" />
                 <span className="">support@shareyrheart.com</span>
               </div>
               <div className="flex items-center justify-center">
-                <Phone className="w-8 h-8 mr-4 text-blue-500" />
+                <Phone className="w-8 h-8 mr-4 text-green-500" />
                 <span>+91 9874021437</span>
               </div>
               <div className="flex items-center justify-center">
@@ -289,7 +289,7 @@ const AboutPage = () => {
         </section>
 
         {/* Closing Statement */}
-        <div className="text-center mt-10 ">
+        <div className="text-center mt-10  ">
           <a
             href="https://shareyrheart.com/"
             className="mt-8 inline-block px-8 py-3 bg-orange-600 text-white rounded-2xl text-lg font-semibold"
@@ -297,6 +297,11 @@ const AboutPage = () => {
             Start Your Journey
           </a>
         </div>
+      </div>
+      <div className="flex justify-center">
+        <p className="mb-10 text-lg text-gray-600">
+          Service by Preash Health & Hygiene Pvt Ltd
+        </p>
       </div>
     </div>
   );

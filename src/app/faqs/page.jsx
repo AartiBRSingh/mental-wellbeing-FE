@@ -66,7 +66,7 @@ const Page = () => {
           <div className="w-full p-6">
             <div className="max-w-7xl mx-auto  text-center rounded-3xl">
               <div className="flex justify-center mb-8">
-                <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+                <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] block">
                   Frequently Asked
                   <span className="relative text-[#956144] ml-3">
                     Questions

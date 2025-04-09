@@ -145,7 +145,7 @@ const BlogPage = () => {
         <header className="text-center mb-16">
           <div className="w-32 h-fit bg-green-100 rounded-full blur-3xl opacity-20 mx-auto mb-4" />
           <div className="flex justify-center mb-10">
-            <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+            <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px]  block">
               Latest
               <span className="relative text-[#956144] ml-3">
                 News
