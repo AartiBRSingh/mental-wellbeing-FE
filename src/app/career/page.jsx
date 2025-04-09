@@ -604,19 +604,18 @@ const CareerPage = () => {
             Apply Now
           </motion.button>
         </div>
-
-        {/* Support Section */}
-        <div className="mt-12 text-center px-4 md:px-0 pb-8">
-          <p className="text-stone-600">Need help? Contact our support team</p>
-          <button
-            className="mt-4 inline-flex items-center text-blue-700 hover:text-blue-800 cursor-pointer"
-            onClick={handleEmailSupport}
-          >
-            <HelpCircle className="mr-2 h-4 w-4" />
-            Get Support
-          </button>
-        </div>
       </section>
+      {/* Support Section */}
+      <div className="mt-12 text-center px-4 md:px-0 pb-8">
+        <p className="text-stone-600">Need help? Contact our support team</p>
+        <button
+          className="mt-4 inline-flex items-center text-blue-700 hover:text-blue-800 cursor-pointer"
+          onClick={handleEmailSupport}
+        >
+          <HelpCircle className="mr-2 h-4 w-4" />
+          Get Support
+        </button>
+      </div>
 
       <AnimatePresence>
         <ApplicationModal isOpen={isOpen} onClose={() => setOpen(false)}>

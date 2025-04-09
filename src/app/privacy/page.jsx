@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
           {/* Introduction */}
           <section className="mx-auto max-w-7xl">
             <div className="flex justify-center ">
-              <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+              <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full   block">
                 Privacy
                 <span className="relative text-[#956144] ml-3">
                   Policy
@@ -42,7 +42,7 @@ const PrivacyPolicy = () => {
               </span>
             </div>
             <div className="flex justify-center mt-10">
-              <p className="text-black text-xl font-semibold">
+              <p className="text-gray-600 text-xl font-semibold">
                 Effective Date: 7th December , 2024 <br />
                 Last Updated: 6th February, 2021
               </p>
@@ -447,10 +447,8 @@ const PrivacyPolicy = () => {
                         className="w-6 h-6 mr-2 mt-1"
                       />
                       <div>
-                        <span className="font-medium  text-gray-800">
-                          Access
-                        </span>
-                        <p className="text-sm text-gray-600 ml-5">
+                        <span className="font-bold  text-gray-800">Access</span>
+                        <p className=" text-gray-600 ml-5">
                           You have the right to request access to the personal
                           information we hold about you.
                         </p>
@@ -465,10 +463,10 @@ const PrivacyPolicy = () => {
                         className="w-6 h-6 mr-2 mt-1"
                       />
                       <div>
-                        <span className="font-medium  text-gray-800">
+                        <span className="font-bold  text-gray-800">
                           Correction
                         </span>
-                        <p className="text-sm text-gray-600 ml-5">
+                        <p className=" text-gray-600 ml-5">
                           If your personal information is inaccurate or
                           incomplete, you have the right to request corrections.
                         </p>
@@ -483,10 +481,10 @@ const PrivacyPolicy = () => {
                         className="w-6 h-6 mr-2 mt-1"
                       />
                       <div>
-                        <span className="font-medium text-gray-800">
+                        <span className="font-bold text-gray-800">
                           Deletion
                         </span>
-                        <p className="text-sm text-gray-600 ml-5">
+                        <p className=" text-gray-600 ml-5">
                           You may request that we delete your personal data,
                           subject to any legal obligations we may have to retain
                           it.
@@ -502,10 +500,8 @@ const PrivacyPolicy = () => {
                         className="w-6 h-6 mr-2 mt-1"
                       />
                       <div>
-                        <span className="font-medium text-gray-800">
-                          Opt-Out
-                        </span>
-                        <p className="text-sm text-gray-600 ml-5">
+                        <span className="font-bold text-gray-800">Opt-Out</span>
+                        <p className=" text-gray-600 ml-5">
                           You can opt out of receiving marketing communications
                           from us at any time by following the unsubscribe link
                           in our emails or contacting us directly.
@@ -521,10 +517,10 @@ const PrivacyPolicy = () => {
                         className="w-6 h-6 mr-2 mt-1"
                       />
                       <div>
-                        <span className="font-medium  text-gray-800">
+                        <span className="font-bold  text-gray-800">
                           Data Portability
                         </span>
-                        <p className="text-sm text-gray-600 ml-5">
+                        <p className=" text-gray-600 ml-5">
                           In certain circumstances, you may request a copy of
                           your personal data in a structured, commonly used
                           format.
@@ -589,17 +585,16 @@ const PrivacyPolicy = () => {
               protecting your information.
             </p>
           </div>
-
-          <section className="py-16 px-4 ">
-            <div className="max-w-7xl mx-auto text-center">
-              <p className="text-gray-600 text-lg leading-relaxed">
-                By using the ShareYrHeart platform, you acknowledge that you
-                have read, understood, and agree to these Privacy policy.
-              </p>
-            </div>
-          </section>
         </div>
       </div>
+      <section className="mt-4 ">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-600 text-lg leading-relaxed">
+            By using the ShareYrHeart platform, you acknowledge that you have
+            read, understood, and agree to these Privacy policy.
+          </p>
+        </div>
+      </section>
     </div>
   );
 };

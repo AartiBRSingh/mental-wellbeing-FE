@@ -162,7 +162,7 @@ const SelfAssessmentPage = () => {
                 alt="Mental Health Icon"
                 className="w-15 h-10"
               /> */}
-              <h1 className="text-3xl font-semibold bg-white p-4 rounded-lg shadow-md text-center">
+              <h1 className="text-3xl font-semibold  p-4 rounded-lg text-center">
                 <div className="flex justify-center mb-3">
                   <strong className="text-black font-semibold text-4xl mr-2">
                     Self
@@ -301,7 +301,7 @@ const SelfAssessmentPage = () => {
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className=" rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex justify-center gap-2 mb-4">
                 <img
                   src="/warning1.png"
@@ -504,7 +504,7 @@ const SelfAssessmentPage = () => {
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-center gap-2 mb-4">
                 {/* <img
                   src="/pngegg.png"

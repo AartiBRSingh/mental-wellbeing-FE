@@ -156,7 +156,7 @@ const StudentWellbeingPage = () => {
         <div className="p-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <h1 className="text-3xl font-semibold bg-white p-4 rounded-lg shadow-md text-center">
+              <h1 className="text-3xl font-semibold  p-4  text-center">
                 <div className="flex justify-center mb-3">
                   <strong className="text-black font-semibold text-4xl mr-2">
                     Educational
