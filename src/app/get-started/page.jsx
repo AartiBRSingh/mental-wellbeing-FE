@@ -488,8 +488,8 @@ const MultiStepForm = () => {
 
   return (
     <div className="min-h-screen py-12 mt-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="relative mb-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="relative  mb-8">
           <h2 className="text-3xl font-semibold text-center mb-8">
             Help us get you the most relevant and effective solutions for your
             Mental Health and{" "}
@@ -511,7 +511,7 @@ const MultiStepForm = () => {
             journey
           </h2>
         </div>
-        <div className="relative bg-white rounded-lg mt-32 shadow-lg p-8">
+        <div className="relative bg-white rounded-lg mt-16 shadow-lg p-8">
           <div className="relative z-10">
             <ProgressBar />
 

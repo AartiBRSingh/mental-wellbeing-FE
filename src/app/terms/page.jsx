@@ -17,7 +17,7 @@ const TermsPage = () => {
       <header className="py-16  rounded-2xl">
         <div className="max-w-7xl mx-auto text-center rounded-2xl">
           <div className="flex justify-center">
-            <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full  [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+            <span className="relative text-4xl md:text-4xl xl:text-5xl font-semibold text-stone-800 max-w-full   block">
               Terms &
               <span className="relative text-[#956144] ml-3">
                 Conditions
@@ -38,12 +38,12 @@ const TermsPage = () => {
           </div>
         </div>
         <div className="flex justify-center mt-10">
-          <p className="text-black text-xl font-semibold">
+          <p className="text-gray-600 text-xl font-semibold">
             Effective Date: 7th December, 2024 <br />
             Last Updated: 6th February, 2021
           </p>
         </div>
-        <div className="mt-4 max-w-7xl mx-auto text-lg bg-white p-4 text-gray-700 rounded-xl">
+        <div className="mt-12 max-w-7xl mx-auto text-lg bg-white p-4 text-gray-700 rounded-xl">
           <p>
             Welcome to ShareYrHeart. These Terms and Conditions (Terms) govern
             your use of our website and services, including mental well-being
@@ -143,7 +143,7 @@ const TermsPage = () => {
                   <div className="bg-white p-8 rounded-lg shadow-sm w-full">
                     <div className="flex justify-center mb-3">
                       <img
-                        src="/certificate.png"
+                        src="/stamp.png"
                         alt="Benefits Icon"
                         className="w-24 h-24"
                       />
@@ -560,7 +560,7 @@ const TermsPage = () => {
         </div>
       </section>
 
-      <section className="py-16 px-4 ">
+      <section className="">
         <div className="mx-auto text-center text-lg">
           <p className="text-gray-600">
             By using the ShareYrHeart platform, you acknowledge that you have
