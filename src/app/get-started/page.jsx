@@ -237,7 +237,7 @@ const MultiStepForm = () => {
               {/* Only show the selected section name */}
               <div className="text-xl font-semibold  rounded-full p-3 ">
                 <div className="flex justify-center ">
-                  <span className="relative text-2xl md:text-3xl xl:text-3xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+                  <span className="relative text-2xl md:text-3xl xl:text-3xl font-serif text-stone-800 max-w-full md:max-w-[1000px]  block">
                     <span className="relative text-[#956144] ml-3">
                       {
                         mainSections.find(
