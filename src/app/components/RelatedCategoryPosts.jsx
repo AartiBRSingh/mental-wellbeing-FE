@@ -2,14 +2,23 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import useUserInteraction from "../hooks/useUserInteraction";
+import { useRouter } from "next/navigation";
 
 const RelatedCategoryPosts = ({ posts = [], category = "" }) => {
-  // Function to generate slug from title and id
+  const router = useRouter();
   const generateSlug = (title, id) => {
     return `${title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)+/g, "")}?id=${id}`;
+  };
+
+  const { trackPostView } = useUserInteraction();
+
+  const handlePostClick = (postId, slugUrl) => {
+    trackPostView(postId);
+    router.push(`/blogs/${slugUrl}`);
   };
 
   if (!posts || posts.length === 0) {
@@ -55,11 +64,16 @@ const RelatedCategoryPosts = ({ posts = [], category = "" }) => {
               </div>
             )}
             <div className="p-4">
-              <Link href={`/blog/${generateSlug(post.title, post._id)}`}>
-                <div className="font-semibold text-lg text-gray-800 hover:text-[#78E1FE] mb-2 line-clamp-2">
-                  {post.title}
-                </div>
-              </Link>
+              <a
+                href="#"
+                className="block font-semibold text-gray-800 mb-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePostClick(post._id, generateSlug(post.title, post._id));
+                }}
+              >
+                {post.title}
+              </a>
               {post.subTitle && (
                 <p className="text-sm text-gray-600 mb-3 line-clamp-2">
                   {post.subTitle}
