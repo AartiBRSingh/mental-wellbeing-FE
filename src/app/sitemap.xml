@@ -112,7 +112,12 @@
 <priority>0.80</priority>
 </url>
 <url>
-<loc>https://mental-wellbeing-fe.vercel.app/about</loc>
+<loc>https://mental-wellbeing-fe.vercel.app/contact-us</loc>
+<lastmod>2025-02-19T05:34:14+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://mental-wellbeing-fe.vercel.app/refunds-and-cancellation</loc>
 <lastmod>2025-02-19T05:34:14+00:00</lastmod>
 <priority>0.80</priority>
 </url>
