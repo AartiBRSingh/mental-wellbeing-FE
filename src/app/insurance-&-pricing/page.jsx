@@ -84,7 +84,7 @@ const InsuranceAndPricing = () => {
     <div className="min-h-scree p-4 md:p-8">
       <div className="max-w-7xl mx-auto mt-8 md:mt-16">
         <div className="flex justify-center ">
-          <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+          <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] block">
             Insurance &
             <span className="relative text-[#956144] ml-3">
               Pricing
@@ -226,7 +226,7 @@ const InsuranceAndPricing = () => {
         {/* Self-Pay Section */}
         <div className="p-4 md:p-6 mb-8 mt-8 md:mt-16 bg-white rounded-3xl shadow-md">
           <div className="flex justify-center ">
-            <span className="relative text-4xl md:text-4xl xl:text-3xl font-serif text-black max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+            <span className="relative text-4xl md:text-4xl xl:text-3xl font-serif text-black max-w-full md:max-w-[1000px] block">
               Self-Pay
               <span className="relative text-[#956144] ml-3">
                 Benefits

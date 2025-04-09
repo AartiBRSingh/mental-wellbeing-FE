@@ -251,7 +251,7 @@ const HealPoint = () => {
 
             <div className="text-gray-400 text-center text-sm sm:text-base">
               <span className="font-semibold text-white">
-                © 2021 ShareYrHeart{" "}
+                © 2021 Preash Health & Hygiene Pvt Ltd{" "}
               </span>
               | All Rights Reserved
             </div>
