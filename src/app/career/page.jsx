@@ -32,13 +32,30 @@ const ApplicationModal = ({ isOpen, onClose, ...props }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+        className="bg-[#F9F5F2] rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
       >
-        <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-gray-900">Join Our Team</h2>
+        <div className="   p-4 border-b flex justify-center items-center">
+          <span className="relative text-2xl md:text-3xl xl:text-3xl font-serif text-stone-800 max-w-full  block">
+            Join Our
+            <span className="relative text-[#956144] ml-2">
+              Team
+              <svg
+                className="absolute w-full h-[10px] -bottom-2 left-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 -5, 100 5"
+                  stroke="orange"
+                  strokeWidth="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
+          </span>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2  hover:bg-gray-100 rounded-full transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
@@ -288,7 +305,7 @@ const CareerPage = () => {
     <div className="min-h-screen mt-20">
       {/* Hero Section */}
       <div className="flex justify-center mb-8">
-        <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full md:max-w-[1000px] [text-shadow:_2px_2px_2px_rgb(0_0_0_/_30%)] block">
+        <span className="relative text-4xl md:text-4xl xl:text-5xl font-serif text-stone-800 max-w-full  block">
           Job &
           <span className="relative text-[#956144] ml-3">
             Career
@@ -799,8 +816,8 @@ const CareerPage = () => {
                       file:mr-4 file:py-2 file:px-4 
                       file:rounded-full file:border-0 
                       file:text-sm file:font-semibold
-                      file:bg-blue-50 file:text-blue-700 
-                      hover:file:bg-blue-100 
+                      file:bg-transparent file:text-blue-700 
+                      hover:file:bg-transparent 
                       transition-colors duration-200"
                       required
                     />
@@ -842,7 +859,7 @@ const CareerPage = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300 transition-colors duration-200"
+                  className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-blue-600  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300 transition-colors duration-200"
                 >
                   {loading ? (
                     <>

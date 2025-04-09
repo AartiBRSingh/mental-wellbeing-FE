@@ -257,7 +257,7 @@ const HealPoint = () => {
             </div>
 
             <div className="flex space-x-4 text-xl">
-              <Link href="/Contact-Us">
+              <Link href="/contact-us">
                 <span className="cursor-pointer">Contact Us</span>
               </Link>
               <Link href="/terms">
