@@ -17,12 +17,14 @@ import {
   Mails,
 } from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { baseURL } from "../../baseURL";
 import ShareModal from "@/app/components/ShareModal";
 import { FaWhatsapp } from "react-icons/fa";
+import useUserInteraction from "@/app/hooks/useUserInteraction";
 
 const BlogDetailPage = () => {
+  const router = useRouter();
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,6 +62,12 @@ const BlogDetailPage = () => {
     return strippedContent.length > length
       ? strippedContent.substring(0, length) + "..."
       : strippedContent;
+  };
+  const { trackPostView } = useUserInteraction();
+
+  const handlePostClick = (postId, slugUrl) => {
+    trackPostView(postId);
+    router.push(`/blogs/${slugUrl}`);
   };
 
   useEffect(() => {
@@ -357,12 +365,19 @@ const BlogDetailPage = () => {
                 key={post._id}
                 className="mb-4 pb-4 border-b last:border-b-0"
               >
-                <Link
-                  href={`/blog/${generateSlug(post.title, post._id)}`}
-                  className="font-semibold text-gray-700 mb-2 hover:text-[#78E1FE] cursor-pointer"
+                <a
+                  href="#"
+                  className="block font-semibold text-gray-800 mb-2"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePostClick(
+                      post._id,
+                      generateSlug(post.title, post._id)
+                    );
+                  }}
                 >
                   {post.title}
-                </Link>
+                </a>
                 {post.subTitle && (
                   <p className="text-sm text-gray-600 mt-1 mb-2">
                     {post.subTitle}
