@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DecorativeShapes } from "../sections/Services";
 import { baseURL } from "../baseURL";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
@@ -12,6 +12,7 @@ import RecaptchaProvider from "../utils/RecaptchaProvider";
 import VerificationModal from "./VerificationModal";
 
 const LoginModal = ({ isOpen, onClose }) => {
+  const pathname = usePathname();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [organizationCode, setOrganizationCode] = useState("");
@@ -299,7 +300,10 @@ const LoginModal = ({ isOpen, onClose }) => {
               )}
               <p className="mt-3 md:mt-4 text-center text-xs md:text-sm">
                 Do not have an account yet?{" "}
-                <Link href={"/signup"} className="cursor-pointer">
+                <Link
+                  href={`/signup?signedUpFor=${pathname}`}
+                  className="cursor-pointer"
+                >
                   <button
                     type="button"
                     className="text-red-500 underline cursor-pointer"
