@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { baseURL } from "../baseURL";
 import axios from "axios";
@@ -26,6 +26,9 @@ export const SignupPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const userType = searchParams.get("userType");
+  const signedUpFor = searchParams.get("signedUpFor");
+  console.log(signedUpFor, "raju");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -47,6 +50,37 @@ export const SignupPage = () => {
     color: "bg-red-500",
   });
 
+  const [stateFilter, setStateFilter] = useState("");
+  const [cityFilter, setCityFilter] = useState("");
+  const [availableStates, setAvailableStates] = useState([]);
+  const [availableCities, setAvailableCities] = useState([]);
+  const [statesCitiesData, setStatesCitiesData] = useState({});
+
+  useEffect(() => {
+    const fetchStatesCities = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.npoint.io/bdb72256273bfdb653d7"
+        );
+        setStatesCitiesData(response.data);
+        setAvailableStates(Object.keys(response.data).sort());
+      } catch (error) {
+        console.error("Failed to fetch states and cities data", error);
+      }
+    };
+
+    fetchStatesCities();
+  }, []);
+
+  useEffect(() => {
+    if (stateFilter && statesCitiesData[stateFilter]) {
+      setAvailableCities(statesCitiesData[stateFilter].sort());
+      setCityFilter("");
+    } else {
+      setAvailableCities([]);
+    }
+  }, [stateFilter, statesCitiesData]);
+
   const handleUserSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -58,11 +92,18 @@ export const SignupPage = () => {
       name,
       email,
       contactNumber,
-      city,
-      state,
+      city: cityFilter,
+      state: stateFilter,
       password,
       organizationCode,
       userType: finalUserType,
+      signedUpFor: signedUpFor.includes("expert")
+        ? "Expert"
+        : signedUpFor.includes("clinic")
+        ? "Clinic"
+        : signedUpFor.includes("course")
+        ? "Course"
+        : "Mental Wellbeing",
       ...(finalUserType === "employee" && { organizationName, webUrl }),
     };
 
@@ -125,8 +166,8 @@ export const SignupPage = () => {
     formDataToSend.append("packagePaid", String(formData.packagePaid));
     formDataToSend.append("phoneVerified", String(formData.phoneVerified));
     formDataToSend.append("emailVerified", String(formData.emailVerified));
-    formDataToSend.append("city", formData.city);
-    formDataToSend.append("state", formData.state);
+    formDataToSend.append("city", cityFilter);
+    formDataToSend.append("state", stateFilter);
     formDataToSend.append("password", formData.password);
 
     if (image) {
@@ -395,31 +436,40 @@ export const SignupPage = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
-                      <label htmlFor="city" className={labelClasses}>
-                        City <span className="text-black">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="city"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        required
-                        className={inputClasses}
-                      />
-                    </div>
-
-                    <div>
                       <label htmlFor="state" className={labelClasses}>
                         State <span className="text-black">*</span>
                       </label>
-                      <input
-                        type="text"
-                        id="state"
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        required
-                        className={inputClasses}
-                      />
+                      <select
+                        name="state"
+                        value={stateFilter}
+                        onChange={(e) => setStateFilter(e.target.value)}
+                        className="w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500"
+                      >
+                        <option value="">All States</option>
+                        {availableStates.map((state, index) => (
+                          <option key={index} value={state}>
+                            {state}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="city" className={labelClasses}>
+                        City <span className="text-black">*</span>
+                      </label>
+                      <select
+                        value={cityFilter}
+                        onChange={(e) => setCityFilter(e.target.value)}
+                        className="px-3 py-2 border rounded"
+                        disabled={!stateFilter}
+                      >
+                        <option value="">All Cities</option>
+                        {availableCities.map((city) => (
+                          <option key={city} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   <div className="relative">
@@ -601,29 +651,37 @@ export const SignupPage = () => {
                     <label htmlFor="state" className={labelClasses}>
                       State <span className="text-[#EF4444] ml-1">*</span>
                     </label>
-                    <input
-                      type="text"
-                      id="state"
-                      value={formData.state}
-                      onChange={handleInputChange}
-                      required
-                      className={inputClasses}
-                      placeholder="Enter State"
-                    />
+                    <select
+                      name="state"
+                      value={stateFilter}
+                      onChange={(e) => setStateFilter(e.target.value)}
+                      className="w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="">All States</option>
+                      {availableStates.map((state, index) => (
+                        <option key={index} value={state}>
+                          {state}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="relative">
                     <label htmlFor="city" className={labelClasses}>
                       City <span className="text-[#EF4444] ml-1">*</span>
                     </label>
-                    <input
-                      type="text"
-                      id="city"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      required
-                      className={inputClasses}
-                      placeholder="Enter City"
-                    />
+                    <select
+                      value={cityFilter}
+                      onChange={(e) => setCityFilter(e.target.value)}
+                      className="px-3 py-2 border rounded"
+                      disabled={!stateFilter}
+                    >
+                      <option value="">All Cities</option>
+                      {availableCities.map((city) => (
+                        <option key={city} value={city}>
+                          {city}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
