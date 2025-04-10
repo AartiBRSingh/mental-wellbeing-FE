@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BsTwitterX, BsQuora } from "react-icons/bs";
-import { Helmet } from "react-helmet";
+import Head from "next/head"; // Import Next.js Head
 import CitySearch from "@/app/components/CitySearch";
 import RelatedCategoryPosts from "@/app/components/RelatedCategoryPosts";
 
@@ -48,7 +48,6 @@ const BlogDetailPage = () => {
       .replace(/(^-|-$)+/g, "")}?id=${id}`;
   }
 
-  // Helper function to open share popups with consistent dimensions
   const openSharePopup = (url) => {
     window.open(
       url,
@@ -71,7 +70,6 @@ const BlogDetailPage = () => {
   };
 
   useEffect(() => {
-    // Set the page URL when the component mounts
     if (typeof window !== "undefined") {
       setPageUrl(window.location.href);
     }
@@ -94,7 +92,7 @@ const BlogDetailPage = () => {
             params: {
               category: postResponse.data.category,
               limit: 4,
-              excludeId: postId, // Exclude current post
+              excludeId: postId,
             },
           });
           setCategoryPosts(categoryPostsResponse.data?.posts || []);
@@ -114,7 +112,6 @@ const BlogDetailPage = () => {
   }, [postId]);
 
   useEffect(() => {
-    // Set the page URL when the component mounts
     if (typeof window !== "undefined") {
       setPageUrl(window.location.href);
     }
@@ -125,7 +122,6 @@ const BlogDetailPage = () => {
           baseURL: baseURL,
         });
 
-        // Fetch post data and recent posts
         const postResponse = await api.get(`/posts/${postId}`);
         setPost(postResponse?.data);
 
@@ -136,11 +132,9 @@ const BlogDetailPage = () => {
         });
         setRecentPosts(recentPostsResponse.data?.posts);
 
-        // Fetch cities for the CitySearch component
         try {
           const expertsResponse = await api.get(`/get-experts`);
           if (expertsResponse.data && Array.isArray(expertsResponse.data)) {
-            // Extract unique cities
             const uniqueCities = [
               ...new Set(
                 expertsResponse.data
@@ -153,7 +147,6 @@ const BlogDetailPage = () => {
           }
         } catch (cityError) {
           console.error("Error fetching cities:", cityError);
-          // Don't set the main error - we still want to show the blog post
         }
 
         setLoading(false);
@@ -195,35 +188,27 @@ const BlogDetailPage = () => {
     return null;
   }
 
-  // URL encode the page URL and title for sharing
   const encodedUrl = encodeURIComponent(pageUrl);
   const encodedTitle = encodeURIComponent(post.title);
 
-  // Generate meta description for sharing
   const metaDescription = generateMetaDescription(post.content);
 
   return (
     <>
-      {/* Add Helmet for dynamic meta tags */}
-      <Helmet>
+      <Head>
         <title>{post.title}</title>
         <meta name="description" content={metaDescription} />
-
-        {/* Open Graph / Facebook */}
         <meta property="og:type" content="article" />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={metaDescription} />
         {post.image && <meta property="og:image" content={post.image} />}
-
-        {/* Twitter Card */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={pageUrl} />
         <meta property="twitter:title" content={post.title} />
         <meta property="twitter:description" content={metaDescription} />
         {post.image && <meta property="twitter:image" content={post.image} />}
-      </Helmet>
-
+      </Head>
       <div className="container mx-auto px-4 py-8 grid md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
           <article className="bg-white shadow-lg rounded-xl overflow-hidden">
@@ -260,7 +245,6 @@ const BlogDetailPage = () => {
                 </div>
               </div>
               <div className="flex gap-3">
-                {/* WhatsApp share button */}
                 <button
                   className={`${buttonStyle} bg-green-500 hover:bg-green-600`}
                   onClick={() =>
@@ -271,8 +255,6 @@ const BlogDetailPage = () => {
                 >
                   <FaWhatsapp size={20} className="text-white" />
                 </button>
-
-                {/* Email share button */}
                 <button
                   className={`${buttonStyle} bg-red-500 hover:bg-red-600`}
                   onClick={() =>
@@ -283,8 +265,6 @@ const BlogDetailPage = () => {
                 >
                   <Mails size={20} className="text-white" />
                 </button>
-
-                {/* Quora share button */}
                 <button
                   className={`${buttonStyle} bg-red-500 hover:bg-[#006396]`}
                   onClick={() =>
@@ -295,8 +275,6 @@ const BlogDetailPage = () => {
                 >
                   <BsQuora size={20} className="text-white" />
                 </button>
-
-                {/* LinkedIn share button */}
                 <button
                   className={`${buttonStyle} bg-[#0077b5] hover:bg-[#006396]`}
                   onClick={() =>
@@ -307,8 +285,6 @@ const BlogDetailPage = () => {
                 >
                   <Linkedin size={20} className="text-white" />
                 </button>
-
-                {/* Twitter share button */}
                 <button
                   className={`${buttonStyle} bg-black hover:bg-sky-600`}
                   onClick={() =>
@@ -319,8 +295,6 @@ const BlogDetailPage = () => {
                 >
                   <BsTwitterX size={20} className="text-white" />
                 </button>
-
-                {/* Facebook share button */}
                 <button
                   className={`${buttonStyle} bg-blue-600 hover:bg-blue-700`}
                   onClick={() =>
@@ -336,7 +310,6 @@ const BlogDetailPage = () => {
                 className="prose max-w-none mt-5"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
-              {/* Add References Section */}
               {post.references && post.references.length > 0 && (
                 <div className="mt-8 pt-4 border-t border-gray-200">
                   <h4 className="text-lg font-semibold text-gray-800 mb-4">
@@ -359,7 +332,6 @@ const BlogDetailPage = () => {
             </div>
           </article>
         </div>
-
         <div>
           <div className="bg-white shadow-lg rounded-xl p-6 h-fit">
             <h3 className="text-3xl font-semibold text-gray-800 mb-6 flex items-center">
@@ -416,21 +388,13 @@ const BlogDetailPage = () => {
             ))}
           </div>
           <div className="mt-16">
-            {/* Option 1: Pass the pre-fetched cities */}
             <CitySearch
               className=""
               initialCities={cities}
               subtitle="Online or in-person, connect with trusted professionals for support tailored to your needs and location."
             />
-
-            {/* Option 2: Let the component fetch cities itself 
-            <CitySearch 
-              subtitle="Find therapists in your area"
-            />
-            */}
           </div>
         </div>
-
         {showShareModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <ShareModal
@@ -440,10 +404,8 @@ const BlogDetailPage = () => {
             />
           </div>
         )}
-
         <div className="col-span-full mt-8 flex justify-center mr-[500px] items-center">
           <div className="flex justify-center gap-3">
-            {/* WhatsApp share button */}
             <button
               className={`${buttonStyle} bg-green-500 hover:bg-green-600`}
               onClick={() =>
@@ -454,8 +416,6 @@ const BlogDetailPage = () => {
             >
               <FaWhatsapp size={20} className="text-white" />
             </button>
-
-            {/* Email share button */}
             <button
               className={`${buttonStyle} bg-red-500 hover:bg-red-600`}
               onClick={() =>
@@ -466,8 +426,6 @@ const BlogDetailPage = () => {
             >
               <Mails size={20} className="text-white" />
             </button>
-
-            {/* Quora share button */}
             <button
               className={`${buttonStyle} bg-red-500 hover:bg-[#006396]`}
               onClick={() =>
@@ -478,8 +436,6 @@ const BlogDetailPage = () => {
             >
               <BsQuora size={20} className="text-white" />
             </button>
-
-            {/* LinkedIn share button */}
             <button
               className={`${buttonStyle} bg-[#0077b5] hover:bg-[#006396]`}
               onClick={() =>
@@ -490,8 +446,6 @@ const BlogDetailPage = () => {
             >
               <Linkedin size={20} className="text-white" />
             </button>
-
-            {/* Twitter share button */}
             <button
               className={`${buttonStyle} bg-black hover:bg-sky-600`}
               onClick={() =>
@@ -502,8 +456,6 @@ const BlogDetailPage = () => {
             >
               <BsTwitterX size={20} className="text-white" />
             </button>
-
-            {/* Facebook share button */}
             <button
               className={`${buttonStyle} bg-blue-600 hover:bg-blue-700`}
               onClick={() =>
@@ -516,7 +468,6 @@ const BlogDetailPage = () => {
             </button>
           </div>
         </div>
-
         {categoryPosts.length > 0 && (
           <div className="col-span-full mt-8">
             <RelatedCategoryPosts
