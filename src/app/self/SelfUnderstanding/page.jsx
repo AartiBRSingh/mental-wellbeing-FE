@@ -3,64 +3,81 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { baseURL } from "@/app/baseURL";
 
 const SelfUnderstanding = () => {
   const [userName, setUserName] = useState("");
+  const [sections, setSections] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     const storedUserName = Cookies.get("name");
     setUserName(storedUserName || "Self");
+
+    const fetchAssessments = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${baseURL}/assessments-card`);
+
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        const mappedSections = data.map((assessment) => ({
+          title: assessment.assessmentTitle,
+          description: assessment.assessmentDesc,
+          price: assessment.price,
+          icon: getIconByTitle(assessment.assessmentTitle),
+          color: getColorByTitle(assessment.assessmentTitle),
+        }));
+
+        setSections(mappedSections);
+      } catch (err) {
+        console.error("Error fetching assessments:", err);
+        setError("Failed to load assessments. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAssessments();
   }, []);
 
+  const getIconByTitle = (title) => {
+    const iconMap = {
+      Happiness: "/affection.png",
+      "Self Awareness": "/self-regulation.png",
+      "Manage Emotions": "/emotional.png",
+      "Problem Solving": "/problem-solving-skills.png",
+      "Identify Stress Triggers": "/stress.png",
+    };
+
+    return iconMap[title] || "/default-icon.png";
+  };
+
+  const getColorByTitle = (title) => {
+    const colorMap = {
+      Happiness: "#77DEFF",
+      "Self Awareness": "#FACC15",
+      "Manage Emotions": "#FF8458",
+      "Problem Solving": "#FF8458",
+      "Identify Stress Triggers": "#FF8458",
+    };
+
+    return colorMap[title] || "#77DEFF";
+  };
+
   const handleSectionClick = (section) => {
-    // Navigate to specific questionnaire based on section
     router.push(`/questionnaire/${section.toLowerCase().replace(/\s+/g, "-")}`);
   };
 
-  const sections = [
-    {
-      title: "Happiness",
-      description:
-        "It aids an individual's perceived happiness, life satisfaction, and emotional well-being, providing insights into overall mental and emotional health.",
-      icon: "/affection.png",
-      color: "#77DEFF",
-    },
-    {
-      title: "Self Awareness",
-      description:
-        "It assesses traits, behaviors, and psychological patterns to help individuals understand themselves better. It aids in self-awareness, career choices, and mental well-being.",
-      icon: "/self-regulation.png",
-      color: "#FACC15",
-    },
-    {
-      title: "Manage Emotions",
-      description:
-        "It aids a person's ability to manage emotions, handle stress, and maintain stable relationships, reflecting their emotional intelligence and resilience.",
-      icon: "/emotional.png",
-      color: "#FF8458",
-    },
-    {
-      title: "Problem Solving",
-      description:
-        "cognitive abilities, problem-solving skills, reasoning, and overall intellectual potential, helping to mental aptitude and learning capacity.",
-      icon: "/problem-solving-skills.png",
-      color: "#FF8458",
-    },
-    {
-      title: "Identity Stress Triggers",
-      description:
-        "an individual's stress levels, coping mechanisms, and resilience, helping to identify stress triggers and manage mental well-being effectively.",
-      icon: "/stress.png",
-      color: "#FF8458",
-    },
-  ];
-
-  // Split sections into two rows: 2 on top, 3 on bottom
   const topRow = sections.slice(0, 2);
   const bottomRow = sections.slice(2, 5);
 
-  // Card component to ensure consistent styling and button positioning
   const SectionCard = ({ section, index }) => (
     <div
       key={index}
@@ -83,7 +100,9 @@ const SelfUnderstanding = () => {
             {section.description}
           </p>
         </div>
-        <div className="flex justify-center text-3xl mt-3">₹500</div>
+        <div className="flex justify-center text-3xl mt-3">
+          ₹{section.price}
+        </div>
         <div className="flex justify-center mt-2">
           <button
             onClick={() => handleSectionClick(section.title)}
@@ -108,6 +127,22 @@ const SelfUnderstanding = () => {
     </div>
   );
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg">Loading assessments...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg text-red-500">{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center p-6 ">
       <div className="max-w-7xl w-full">
@@ -124,7 +159,6 @@ const SelfUnderstanding = () => {
             </p>
           </div>
 
-          {/* Top row with 2 cards centered */}
           <div className="flex justify-center mb-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-3xl">
               {topRow.map((section, index) => (
@@ -133,10 +167,13 @@ const SelfUnderstanding = () => {
             </div>
           </div>
 
-          {/* Bottom row with 3 cards */}
           <div className="flex flex-col sm:flex-row justify-center gap-8 w-full max-w-7xl">
             {bottomRow.map((section, index) => (
-              <SectionCard section={section} index={index} key={index} />
+              <SectionCard
+                section={section}
+                index={index + 2}
+                key={index + 2}
+              />
             ))}
           </div>
         </div>

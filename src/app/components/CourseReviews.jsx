@@ -39,10 +39,7 @@ const CourseReviews = ({
       </div>
 
       {userId && (
-        <form
-          onSubmit={handleSubmit}
-          className="mb-8 bg-gray-50 p-4 rounded-lg"
-        >
+        <form onSubmit={handleSubmit} className="mb-8 bg-white p-4 rounded-lg">
           <h3 className="text-lg font-semibold mb-3">Write a Review</h3>
           <div className="flex mb-3">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -74,7 +71,7 @@ const CourseReviews = ({
           <button
             type="submit"
             disabled={loading}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className=" text-blue-500 px-6 py-2 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {loading ? "Submitting..." : "Submit Review"}
           </button>

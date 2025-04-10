@@ -315,9 +315,26 @@ const InsuranceAndPricing = () => {
 
         {/* FAQ Section */}
         <div className="mt-12 md:mt-20 px-4 md:px-0">
-          <h2 className="text-2xl md:text-4xl font-serif text-stone-800 mb-6 text-center">
-            Frequently Asked Questions
-          </h2>
+          <div className="flex justify-center">
+            <span className="relative text-2xl md:text-3xl xl:text-3xl font-semibold text-stone-800 max-w-full   block">
+              Frequently Asked
+              <span className="relative text-[#956144] ml-3">
+                Questions
+                <svg
+                  className="absolute w-full h-[10px] -bottom-2 left-0"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 -5, 100 5"
+                    stroke="orange"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
           <div className="bg-white/80 rounded-lg divide-y divide-stone-200 mt-8 md:mt-16">
             {faqList.slice(0, visibleFaqs).map((faq, index) => (
               <div key={index} className="p-4 md:p-6">

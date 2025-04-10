@@ -372,6 +372,17 @@ const CourseDetailPage = () => {
       <Toaster position="bottom-left" reverseOrder={false} />
       {/* Hero Section */}
       <div className="mb-8 p-6 bg-transparent rounded-xl mx-5">
+        <div className="flex items-center gap-4 ml-4 mb-12">
+          {" "}
+          <img
+            src={course.bannerUrl}
+            alt={course.title}
+            className="w-16 h-16  object-cover"
+          />
+          <strong className="text-gray-600 text-2xl font-medium">
+            {course?.recommendedBy}
+          </strong>
+        </div>
         <div className="flex flex-col md:flex-row md:items-center p-5 gap-6 rounded-2xl ">
           <span className="text-black relative font-semibold text-4xl md:text-6xl lg:text-5xl block mb-4">
             <span className="relative">
@@ -399,7 +410,7 @@ const CourseDetailPage = () => {
                 !showFullDescription ? "line-clamp-3" : ""
               }`}
             >
-              {course?.about?.content}
+              {course?.description}
             </p>
             <button
               onClick={() => setShowFullDescription(!showFullDescription)}

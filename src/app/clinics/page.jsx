@@ -165,7 +165,7 @@ const ClinicDisplay = () => {
               setSelectedState(e.target.value);
               setSelectedCity("");
             }}
-            className="w-full p-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-black-500 focus:border-transparent"
+            className="w-full p-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
           >
             <option value="">Select State</option>
             {states.map((state) => (
@@ -240,17 +240,21 @@ const ClinicDisplay = () => {
       );
     };
 
+    const goToTestimonial = (index) => {
+      setCurrentTestimonial(index);
+    };
+
     if (displayTestimonials.length === 0) return null;
 
     return (
-      <div className="bg-gray-50 p-6 rounded-lg mt-6 shadow-sm">
+      <div className="bg-white p-3 rounded-lg mt-3 shadow-sm">
         <h3 className="text-xl font-semibold mb-4 text-black-800">
           What Our Patients Say
         </h3>
         <div className="relative overflow-hidden">
           <div className="transition-all duration-500 ease-in-out">
-            <div className="space-y-3 line-clamp-1">
-              <p className="text-gray-600 italic">
+            <div className="space-y-3">
+              <p className="text-gray-600 italic line-clamp-3">
                 {displayTestimonials[currentTestimonial].review}
               </p>
               <p className="text-sm font-medium text-black-700">
@@ -260,31 +264,21 @@ const ClinicDisplay = () => {
           </div>
 
           {displayTestimonials.length > 1 && (
-            <div className="flex justify-between mt-4">
-              <button
-                onClick={prevTestimonial}
-                className="p-1 rounded-full bg-black-100 hover:bg-black-200 transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5 text-black-700" />
-              </button>
-              <div className="flex space-x-1 items-center">
+            <div className="flex justify-center mt-4">
+              <div className="flex space-x-2 items-center">
                 {displayTestimonials.map((_, index) => (
-                  <span
+                  <button
                     key={index}
-                    className={`block h-2 w-2 rounded-full ${
+                    onClick={() => goToTestimonial(index)}
+                    className={`h-3 w-3 rounded-full cursor-pointer transition-colors ${
                       currentTestimonial === index
-                        ? "bg-black-600"
-                        : "bg-gray-300"
+                        ? "bg-gray-500"
+                        : "bg-gray-300 hover:bg-gray-400"
                     }`}
+                    aria-label={`Go to testimonial ${index + 1}`}
                   />
                 ))}
               </div>
-              <button
-                onClick={nextTestimonial}
-                className="p-1 rounded-full bg-black-100 hover:bg-black-200 transition-colors"
-              >
-                <ChevronRight className="w-5 h-5 text-black-700" />
-              </button>
             </div>
           )}
         </div>
@@ -334,10 +328,9 @@ const ClinicDisplay = () => {
             <div className="hidden md:flex items-center justify-center">
               <Link
                 href={`/clinics/${generateSlug(clinic.name, clinic._id)}`}
-                className="inline-flex text-xl pt-4 pl-2 items-center text-slate-700 font-semibold hover:text-black  transition-colors"
+                className="inline-flex text-xl pt-4 pl-2 items-center text-blue-500 font-semibold hover:text-blue-600  transition-colors"
               >
                 View Details
-                <ChevronRight className="w-4 h-4 ml-1" />
               </Link>
             </div>
           </div>
@@ -356,7 +349,7 @@ const ClinicDisplay = () => {
                     </p>
                     <button
                       onClick={() => handleDirections(clinic.googleAddressUrl)}
-                      className="inline-flex items-center text-sm text-green-500 hover:text-black-700 transition-colors"
+                      className="inline-flex items-center text-sm text-blue-500 hover:text-black-700 transition-colors"
                     >
                       Get Directions <ExternalLink className="w-4 h-4 ml-1" />
                     </button>
@@ -368,7 +361,7 @@ const ClinicDisplay = () => {
                     onClick={() => handleCall(clinic.phoneNumber)}
                     className="w-full flex items-center space-x-3 bg-white hover:bg-black-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-black-200"
                   >
-                    <Phone className="w-5 h-5 text-black-500" />
+                    <Phone className="w-5 h-5 text-green-500" />
                     <span className="text-gray-600 hover:text-black-600">
                       {clinic.phoneNumber}
                     </span>
@@ -378,14 +371,14 @@ const ClinicDisplay = () => {
                     onClick={() => handleEmail(clinic.email)}
                     className="w-full flex items-center space-x-3 bg-white hover:bg-black-50 p-4 rounded-lg transition-colors border border-gray-200 hover:border-black-200"
                   >
-                    <Mail className="w-5 h-5 text-black-500" />
+                    <Mail className="w-5 h-5 text-blue-500" />
                     <span className="text-gray-600 hover:text-black-600">
                       {clinic.email}
                     </span>
                   </button>
                 </div>
 
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-white rounded-lg p-4">
                   <div
                     className="flex items-center justify-between cursor-pointer"
                     onClick={() => toggleTimings(clinic._id)}
@@ -426,7 +419,7 @@ const ClinicDisplay = () => {
                 </div>
               </div>
 
-              <div className="space-y-5">
+              <div className="space-y-3">
                 <div className="aspect-video rounded-lg overflow-hidden shadow-md">
                   <img
                     src={clinic.images[0]}
@@ -447,9 +440,26 @@ const ClinicDisplay = () => {
       ))}
       {/* FAQ Section */}
       <div className="mt-20">
-        <h2 className="xl:text-4xl text-2xl font-serif text-stone-800 mb-6 text-center">
-          Frequently Asked Questions
-        </h2>
+        <div className="flex justify-center mb-3">
+          <strong className="text-black font-semibold text-4xl mr-2">
+            Frequently Asked
+          </strong>
+          <span className="relative text-[#956144] text-2xl md:text-3xl lg:text-4xl block  font-semibold text-center">
+            Questions
+            <svg
+              className="absolute w-full h-[6px] -bottom-1 left-0"
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0 5 Q 50 -5, 100 5"
+                stroke="orange"
+                strokeWidth="4"
+                fill="transparent"
+              />
+            </svg>
+          </span>
+        </div>
         <div className="bg-white/80 rounded-2xl divide-y divide-stone-200 mt-12 mb-8">
           {faqList.slice(0, visibleFaqs).map((faq, index) => (
             <div key={index} className="p-6">

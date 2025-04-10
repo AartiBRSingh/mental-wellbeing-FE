@@ -97,14 +97,14 @@ const DisorderPage = () => {
             <li className="text-gray-500">-</li>
             <li>
               <Link
-                href="/resources"
+                href="/disorder"
                 className="text-gray-500 hover:text-gray-700"
               >
-                Resources
+                Disorder
               </Link>
             </li>
             <li className="text-gray-500">-</li>
-            <li className="text-gray-700">Medical Disorders</li>
+            <li className="text-gray-700">Recently Diagnosed Disorders</li>
           </ol>
         </nav>
       </div>
@@ -235,7 +235,7 @@ const DisorderPage = () => {
         <div className="hidden md:flex md:flex-row gap-8">
           {/* Left Sidebar (Index List with Categories) */}
           <div className="w-1/4">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Index</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Index</h2>
             <div className="overflow-y-auto max-h-[80vh] border rounded-lg p-4 bg-gray-50">
               {Object.keys(groupedEntries)
                 .sort()

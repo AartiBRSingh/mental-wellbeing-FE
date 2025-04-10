@@ -183,7 +183,7 @@ const ClinicDetailPage = () => {
   if (!clinic) return null;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen ">
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 mb-12 p-3 sm:p-6">
         <div className="px-2 py-8 sm:px-6 lg:px-8">
@@ -374,8 +374,8 @@ const ClinicDetailPage = () => {
                     href={`tel:${clinic.phoneNumber}`}
                     className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
                   >
-                    <div className="bg-blue-50 p-1.5 sm:p-2 rounded-lg">
-                      <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                    <div className=" p-1.5 sm:p-2 rounded-lg">
+                      <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                     </div>
                     <span className="font-medium text-sm sm:text-base">
                       {clinic.phoneNumber}
@@ -385,7 +385,7 @@ const ClinicDetailPage = () => {
                     href={`mailto:${clinic.email}`}
                     className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
                   >
-                    <div className="bg-blue-50 p-1.5 sm:p-2 rounded-lg">
+                    <div className=" p-1.5 sm:p-2 rounded-lg">
                       <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                     </div>
                     <span className="font-medium text-sm sm:text-base">
@@ -602,7 +602,7 @@ const ClinicDetailPage = () => {
                           >
                             {/* Adjusted container size for better mobile display */}
                             <div className="mx-auto max-w-xs sm:max-w-64">
-                              <div className="bg-slate-100 border border-black rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl overflow-hidden hover:shadow-md transition-shadow">
+                              <div className="bg-[#F9F5F2] border border-black rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl overflow-hidden hover:shadow-md transition-shadow">
                                 {/* Responsive aspect ratio */}
                                 <div className="aspect-auto relative">
                                   <img
@@ -723,7 +723,7 @@ const ClinicDetailPage = () => {
                           .map((testimonial, index) => (
                             <div
                               key={testimonial._id || index}
-                              className="bg-[#F8FAFC] p-4 sm:p-6 rounded-lg sm:rounded-xl relative"
+                              className="bg-[#F9F5F2] p-4 sm:p-6 rounded-lg sm:rounded-xl relative"
                             >
                               <p className="text-gray-700 italic mb-3 sm:mb-4 leading-relaxed line-clamp-2 text-sm sm:text-base">
                                 {testimonial.review}
