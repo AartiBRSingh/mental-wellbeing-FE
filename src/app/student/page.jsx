@@ -11,9 +11,9 @@ import {
   ResponsiveContainer,
   Legend,
   Tooltip,
-  ChevronRight,
 } from "recharts";
 import DemoRequestModal from "../components/DemoRequestModal";
+import LoginModal from "../components/LoginModal"; // Import the LoginModal component
 
 const COLORS = ["#77DEFF", "#00FF00", "#FF8458", "#FACC15", "#CCCCFF"];
 
@@ -24,10 +24,14 @@ const StudentWellbeingPage = () => {
   const [email, setEmail] = useState(null);
   const [phoneNo, setPhoneNo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // State for login modal
   const router = useRouter();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const openLoginModal = () => setIsLoginModalOpen(true); // Function to open login modal
+  const closeLoginModal = () => setIsLoginModalOpen(false); // Function to close login modal
 
   const StudentStats = [
     { name: "Mental Health Issues", value: 70 },
@@ -426,7 +430,7 @@ const StudentWellbeingPage = () => {
                     <p className="text-gray-600 leading-relaxed text-sm mt-2">
                       Conducting assessments to identify specific mental health
                       needs and challenges, forming the foundation for
-                      customized support plans.
+                      customized support plans.
                     </p>
                   </div>
                 </div>
@@ -592,11 +596,13 @@ const StudentWellbeingPage = () => {
 
             <div className="m-2 flex justify-center">
               <button
-                onClick={() => router.push("/student/college")}
+                onClick={openLoginModal} // Changed to open login modal instead of navigating directly
                 className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
               >
                 Get Started
               </button>
+              {/* Added LoginModal component */}
+              <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} />
             </div>
           </div>
         </div>

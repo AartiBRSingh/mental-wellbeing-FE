@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from "recharts";
 import DemoRequestModal from "../components/DemoRequestModal";
+import LoginModal from "../components/LoginModal"; // Import the LoginModal component
 
 const COLORS = ["#77DEFF", "#00FF00", "#FF8458", "#FACC15", "#CCCCFF"];
 
@@ -22,10 +23,15 @@ const WorkplaceMentalHealthPage = () => {
   const [email, setEmail] = useState(null);
   const [phoneNo, setPhoneNo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // State for LoginModal
   const router = useRouter();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  // Functions to control LoginModal
+  const openLoginModal = () => setIsLoginModalOpen(true);
+  const closeLoginModal = () => setIsLoginModalOpen(false);
 
   const workplaceStats = [
     { name: "Mental Health Issues", value: 80 },
@@ -82,6 +88,12 @@ const WorkplaceMentalHealthPage = () => {
   };
 
   const handlePayment = async () => {
+    // Check if user is logged in first
+    if (!userId) {
+      openLoginModal(); // Open login modal if user is not logged in
+      return;
+    }
+
     const amount = 500;
 
     const response = await fetch(`${baseURL}/api/create-order`, {
@@ -145,6 +157,19 @@ const WorkplaceMentalHealthPage = () => {
 
     const razorpay = new window.Razorpay(options);
     razorpay.open();
+  };
+
+  const handleGetStarted = () => {
+    if (hasPaid) {
+      router.push("/questionnaires?userType=employee");
+    } else {
+      // If not paid, check if logged in
+      if (userId) {
+        handlePayment();
+      } else {
+        openLoginModal();
+      }
+    }
   };
 
   return (
@@ -420,7 +445,7 @@ const WorkplaceMentalHealthPage = () => {
                     <p className="text-gray-600 leading-relaxed text-sm mt-2">
                       Evaluate the overall mental health climate within the
                       company to identify prevalent stressors and areas
-                      requiring intervention.
+                      requiring intervention.
                     </p>
                   </div>
                 </div>
@@ -440,7 +465,7 @@ const WorkplaceMentalHealthPage = () => {
                   <div className="flex justify-center items-center gap-3">
                     <p className="text-gray-600 leading-relaxed text-sm mt-2">
                       Equip employees with practical techniques to handle
-                      workplace stress effectively.
+                      workplace stress effectively.
                     </p>
                   </div>
                 </div>
@@ -460,7 +485,7 @@ const WorkplaceMentalHealthPage = () => {
                   <div className="flex justify-center items-center gap-3">
                     <p className="text-gray-600 leading-relaxed text-sm mt-2">
                       Facilitate sessions where employees can share experiences
-                      and coping strategies in a guided setting.
+                      and coping strategies in a guided setting.
                     </p>
                   </div>
                 </div>
@@ -477,7 +502,7 @@ const WorkplaceMentalHealthPage = () => {
               <DemoRequestModal isOpen={isModalOpen} onClose={closeModal} />
             </div>
 
-            <div className=" rounded-xl p-6   ">
+            <div className=" rounded-xl p-6">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <span className="text-[#956144] relative text-2xl md:text-3xl lg:text-3xl block mb-5 font-semibold text-center">
                   <span className="relative">
@@ -528,7 +553,7 @@ const WorkplaceMentalHealthPage = () => {
                         Reduced Absenteeism and Attrition
                       </span>
                       <p className="text-sm text-gray-600 ml-5">
-                        Supporting employees’ mental well-being contributes to
+                        Supporting employees mental well-being contributes to
                         decreased sick leaves and lower turnover rates.
                       </p>
                     </div>
@@ -548,7 +573,7 @@ const WorkplaceMentalHealthPage = () => {
                       <p className="text-sm text-gray-600 ml-5">
                         Promoting mental health awareness fosters an environment
                         of openness, reducing stigma and encouraging employees
-                        to seek help when needed.
+                        to seek help when needed.
                       </p>
                     </div>
                   </div>
@@ -562,23 +587,16 @@ const WorkplaceMentalHealthPage = () => {
             </div>
 
             <div className="m-2 flex justify-center">
-              {hasPaid ? (
-                <button
-                  onClick={() =>
-                    router.push("/questionnaires?userType=employee")
-                  }
-                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
-                >
-                  Get Started
-                </button>
-              ) : (
-                <button
-                  onClick={handlePayment}
-                  className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
-                >
-                  Get Started
-                </button>
-              )}
+              {/* Updated Get Started button to handle different scenarios */}
+              <button
+                onClick={handleGetStarted}
+                className="px-4 sm:px-6 py-2 sm:py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg text-sm sm:text-base"
+              >
+                Get Started
+              </button>
+
+              {/* Include the LoginModal component */}
+              <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} />
             </div>
           </div>
         </div>

@@ -224,34 +224,32 @@ const Forum = () => {
 
   // Render Trending Topics (for top of page)
   const renderTrendingTopics = () => {
+    const scrollLeft = () => {
+      if (topicsScrollRef.current) {
+        topicsScrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
+      }
+    };
+
+    const scrollRight = () => {
+      if (topicsScrollRef.current) {
+        topicsScrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
+      }
+    };
+
     return (
       <div className="items-center">
         <div className="max-w-full items-center mx-16 px-4 sm:px-6 py-4">
           {/* Scrollable topics with navigation buttons */}
           <div className="relative">
-            <button
-              onClick={scrollLeft}
-              className="absolute -left-12 top-1/2 transform -translate-y-1/2 bg-black rounded-full shadow-md p-1 z-10"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-6 h-6 text-white" />
-            </button>
-
             <div
               ref={topicsScrollRef}
-              className="overflow-x-auto pb-2 items-center hide-scrollbar px-6"
+              className="overflow-x-auto pb-2 items-center px-8"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "#E5E7EB transparent",
+              }}
             >
               <div className="flex items-center space-x-2 min-w-max">
-                {/* <button
-                  className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
-                    selectedTags.length === 0
-                      ? "bg-emerald-600 text-white shadow-sm"
-                      : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
-                  }`}
-                  onClick={clearSelectedTags}
-                >
-                  All Topics
-                </button> */}
                 {tags.map((tag) => (
                   <button
                     key={tag}
@@ -267,14 +265,6 @@ const Forum = () => {
                 ))}
               </div>
             </div>
-
-            <button
-              onClick={scrollRight}
-              className="absolute -right-12 top-1/2 transform -translate-y-1/2 bg-black rounded-full shadow-md p-1 z-10"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-6 h-6 text-white" />
-            </button>
           </div>
         </div>
       </div>
@@ -284,7 +274,7 @@ const Forum = () => {
   return (
     <div className="min-h-screen">
       {/* Top Trending Topics */}
-      <div className="sticky top-28 bg-white mt-12 z-20">
+      <div className="sticky top-28 bg-white mt-12 z-40">
         {renderTrendingTopics()}
       </div>
 
@@ -597,8 +587,8 @@ const Forum = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="hidden lg:block lg:col-span-4 space-y-6">
-            <div className="bg-white z-40 rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-48">
+          <div className="lg:block lg:col-span-4 space-y-6">
+            <div className="bg-white z-20 rounded-xl shadow-md border border-gray-100 p-4 sm:p-4 sticky top-48">
               <div className="">
                 <div className="my-5 flex justify-center">
                   <button
@@ -671,7 +661,7 @@ const Forum = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white rounded-xl ">
+            <div className="bg-white z-20 rounded-xl shadow-md border border-gray-100  sticky top-[500px]">
               {/* Option 1: Pass the pre-fetched cities */}
               <CitySearch
                 className=""

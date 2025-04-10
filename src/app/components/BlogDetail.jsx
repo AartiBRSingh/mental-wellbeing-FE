@@ -13,12 +13,14 @@ import {
   Twitter,
   Linkedin,
   Mails,
+  ChevronRight,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { baseURL } from "@/app/baseURL";
 import ShareModal from "@/app/components/ShareModal";
 import { FaWhatsapp } from "react-icons/fa";
 import useUserInteraction from "@/app/hooks/useUserInteraction";
+import Link from "next/link";
 
 const BlogDetail = ({ postId }) => {
   const router = useRouter();
@@ -245,17 +247,17 @@ const BlogDetail = ({ postId }) => {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
             {post.references && post.references.length > 0 && (
-              <div className="mt-8 pt-4 border-t border-gray-200">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">
+              <div className="mt-8 pt-4 ">
+                <h4 className="text-md italic font-semibold text-gray-400 mb-4">
                   References
                 </h4>
                 {post.references.map((reference, index) => (
-                  <div key={index} className="mb-4">
-                    <p className="text-sm text-gray-600 font-medium">
+                  <div key={index} className="mb-4 italic">
+                    <p className="text-sm text-gray-500 font-medium">
                       {reference.title}
                     </p>
                     {reference.details && (
-                      <p className="text-sm text-gray-600 whitespace-pre-line">
+                      <p className="text-sm text-gray-500 whitespace-pre-line">
                         {reference.details}
                       </p>
                     )}
@@ -307,7 +309,7 @@ const BlogDetail = ({ postId }) => {
                 {truncateContent(post.content, 100)}
               </p>
               <div className="flex items-center text-sm text-gray-500 space-x-2">
-                <Eye className="w-4 h-4 text-[#78E1FE]" />
+                <Eye className="w-4 h-4 text-gray-500" />
                 <span>{post.totalViews} Views</span>
                 <span>•</span>
                 <span>{new Date(post.createdAt).toLocaleDateString()}</span>
@@ -315,7 +317,20 @@ const BlogDetail = ({ postId }) => {
             </div>
           ))}
         </div>
-        <div className="mt-16">
+
+        <div className="flex justify-center mt-8">
+          <Link
+            href="/blogs"
+            className="group w-full sm:w-auto mx-4 sm:mx-8 md:mx-16 lg:mx-0"
+          >
+            <button className="px-6 py-3 bg-[#D2691E] text-white rounded-xl hover:bg-[#A0522D] transition-colors duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
+              More from ShareYrHeart
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </Link>
+        </div>
+
+        <div className="mt-8">
           <CitySearch
             className=""
             initialCities={cities}
