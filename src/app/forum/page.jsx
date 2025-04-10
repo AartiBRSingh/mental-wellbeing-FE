@@ -19,10 +19,12 @@ import axios from "axios";
 import { baseURL } from "../baseURL";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import CitySearch from "../components/CitySearch";
 
 const Forum = () => {
   const router = useRouter();
   const [userId, setUserId] = useState("");
+  const [cities, setCities] = useState([]);
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({
     title: "",
@@ -223,8 +225,8 @@ const Forum = () => {
   // Render Trending Topics (for top of page)
   const renderTrendingTopics = () => {
     return (
-      <div className="">
-        <div className="max-w-full mx-16 px-4 sm:px-6 py-4">
+      <div className="items-center">
+        <div className="max-w-full items-center mx-16 px-4 sm:px-6 py-4">
           {/* Scrollable topics with navigation buttons */}
           <div className="relative">
             <button
@@ -237,9 +239,9 @@ const Forum = () => {
 
             <div
               ref={topicsScrollRef}
-              className="overflow-x-auto pb-2 hide-scrollbar px-6"
+              className="overflow-x-auto pb-2 items-center hide-scrollbar px-6"
             >
-              <div className="flex space-x-2 min-w-max">
+              <div className="flex items-center space-x-2 min-w-max">
                 {/* <button
                   className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
                     selectedTags.length === 0
@@ -308,7 +310,7 @@ const Forum = () => {
         </div>
       </nav> */}
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <main className="max-w-full mx-40 px-4 sm:px-6 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           <div className="lg:col-span-8">
             {showNewPostForm && (
@@ -596,8 +598,7 @@ const Forum = () => {
 
           {/* Sidebar */}
           <div className="hidden lg:block lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-48">
-              {/* Forum Statistics */}
+            <div className="bg-white z-40 rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-48">
               <div className="">
                 <div className="my-5 flex justify-center">
                   <button
@@ -616,8 +617,8 @@ const Forum = () => {
                   {/* Selected tags */}
                   {selectedTags.length > 0 && (
                     <div className="mt-3">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-sm font-medium text-gray-500">
+                      <div className="flex items-center justify-between ml-32 mb-2">
+                        <h3 className="text-lg mb-5 font-medium text-black">
                           Selected Topics
                         </h3>
                         <button
@@ -631,7 +632,7 @@ const Forum = () => {
                         {selectedTags.map((tag) => (
                           <div
                             key={`selected-${tag}`}
-                            className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm flex items-center gap-1 group"
+                            className="bg-emerald-100 text-emerald-700 px-3 py-2 rounded-full text-sm flex items-center gap-2 group"
                           >
                             {tag}
                             <button
@@ -647,9 +648,11 @@ const Forum = () => {
                   )}
                 </div>
 
-                <h3 className="text-sm font-medium text-gray-500 mt-3 mb-3">
-                  Forum Statistics
-                </h3>
+                <div className="flex items-center justify-center mb-2">
+                  <h3 className="text-sm font-medium text-gray-500 mt-3 mb-3">
+                    Forum Statistics
+                  </h3>
+                </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-gray-50 rounded-lg p-3 text-center">
                     <p className="text-xl sm:text-2xl font-semibold text-emerald-600">
@@ -667,6 +670,14 @@ const Forum = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="bg-white rounded-xl ">
+              {/* Option 1: Pass the pre-fetched cities */}
+              <CitySearch
+                className=""
+                initialCities={cities}
+                subtitle="Online or in-person, connect with trusted professionals for support tailored to your needs and location."
+              />
             </div>
           </div>
         </div>
