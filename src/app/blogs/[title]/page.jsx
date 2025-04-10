@@ -336,6 +336,26 @@ const BlogDetailPage = () => {
                 className="prose max-w-none mt-5"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
+              {/* Add References Section */}
+              {post.references && post.references.length > 0 && (
+                <div className="mt-8 pt-4 border-t border-gray-200">
+                  <h4 className="text-lg font-semibold text-gray-800 mb-4">
+                    References
+                  </h4>
+                  {post.references.map((reference, index) => (
+                    <div key={index} className="mb-4">
+                      <p className="text-sm text-gray-600 font-medium">
+                        {reference.title}
+                      </p>
+                      {reference.details && (
+                        <p className="text-sm text-gray-600 whitespace-pre-line">
+                          {reference.details}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </article>
         </div>

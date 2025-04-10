@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   User,
   ThumbsUp,
@@ -11,6 +11,8 @@ import {
   Plus,
   Hash,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import ShareModal from "@/app/components/ShareModal";
 import axios from "axios";
@@ -40,6 +42,22 @@ const Forum = () => {
   // Share Modal States
   const [selectedPostUrl, setSelectedPostUrl] = useState(null);
   const [showShareModal, setShowShareModal] = useState(false);
+
+  // Refs for horizontal scrolling
+  const topicsScrollRef = useRef(null);
+
+  // Scroll functions for horizontal scrolling
+  const scrollLeft = () => {
+    if (topicsScrollRef.current) {
+      topicsScrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (topicsScrollRef.current) {
+      topicsScrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    }
+  };
 
   // Fetch User ID from Cookies
   useEffect(() => {
@@ -196,107 +214,74 @@ const Forum = () => {
     setSelectedTags([]);
   };
 
-  // Render Mobile Topics
-  const renderMobileTopics = () => {
+  // Render Trending Topics (for top of page)
+  const renderTrendingTopics = () => {
     return (
-      <div className="overflow-x-auto pb-2 hide-scrollbar">
-        <div className="flex space-x-2 min-w-max">
-          {tags.map((tag) => (
+      <div className="">
+        <div className="max-w-full mx-16 px-4 sm:px-6 py-4">
+          {/* Scrollable topics with navigation buttons */}
+          <div className="relative">
             <button
-              key={tag}
-              className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
-                selectedTags.includes(tag)
-                  ? "bg-emerald-600 text-white shadow-sm"
-                  : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
-              }`}
-              onClick={() => handleTagClick(tag)}
+              onClick={scrollLeft}
+              className="absolute -left-12 top-1/2 transform -translate-y-1/2 bg-black rounded-full shadow-md p-1 z-10"
+              aria-label="Scroll left"
             >
-              {tag}
+              <ChevronLeft className="w-6 h-6 text-white" />
             </button>
-          ))}
+
+            <div
+              ref={topicsScrollRef}
+              className="overflow-x-auto pb-2 hide-scrollbar px-6"
+            >
+              <div className="flex space-x-2 min-w-max">
+                {/* <button
+                  className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
+                    selectedTags.length === 0
+                      ? "bg-emerald-600 text-white shadow-sm"
+                      : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
+                  }`}
+                  onClick={clearSelectedTags}
+                >
+                  All Topics
+                </button> */}
+                {tags.map((tag) => (
+                  <button
+                    key={tag}
+                    className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
+                      selectedTags.includes(tag)
+                        ? "bg-emerald-600 text-white shadow-sm"
+                        : "bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-black"
+                    }`}
+                    onClick={() => handleTagClick(tag)}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={scrollRight}
+              className="absolute -right-12 top-1/2 transform -translate-y-1/2 bg-black rounded-full shadow-md p-1 z-10"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+          </div>
         </div>
       </div>
     );
   };
 
-  // Render Desktop Topics Section
-  const renderDesktopTopicsSection = () => {
-    return (
-      <>
-        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-          <span className="w-1.5 h-6 bg-emerald-500 rounded-full mr-2 inline-block"></span>
-          Trending Topics
-        </h2>
-
-        {selectedTags.length > 0 && (
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-500">
-                Selected Topics
-              </h3>
-              <button
-                onClick={clearSelectedTags}
-                className="text-xs text-emerald-600 hover:text-emerald-700"
-              >
-                Clear all
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {selectedTags.map((tag) => (
-                <div
-                  key={`selected-${tag}`}
-                  className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm flex items-center gap-1 group"
-                >
-                  {tag}
-                  <button
-                    onClick={() => handleTagClick(tag)}
-                    className="p-0.5 rounded-full hover:bg-emerald-200 transition-colors"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {tags.length === 0 ? (
-          <p className="text-gray-500 text-sm">No topics available yet</p>
-        ) : (
-          <div className="flex flex-wrap gap-2">
-            <button
-              className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
-                selectedTags.length === 0
-                  ? "bg-emerald-600 text-white shadow-sm"
-                  : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
-              }`}
-              onClick={clearSelectedTags}
-            >
-              All Topics
-            </button>
-            {tags.map((tag) => (
-              <button
-                key={tag}
-                className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
-                  selectedTags.includes(tag)
-                    ? "bg-emerald-600 text-white shadow-sm"
-                    : "bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-700"
-                }`}
-                onClick={() => handleTagClick(tag)}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-        )}
-      </>
-    );
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+    <div className="min-h-screen">
+      {/* Top Trending Topics */}
+      <div className="sticky top-28 bg-white mt-12 z-20">
+        {renderTrendingTopics()}
+      </div>
+
       {/* Navigation */}
-      <nav className="sticky top-0 z-10 backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm">
+      {/* <nav className="sticky top-28 z-10 backdrop-blur-md bg-white border-b shadow-md">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-end gap-4">
             <div className="flex items-center w-full sm:w-auto gap-1 xl:gap-6">
@@ -312,30 +297,14 @@ const Forum = () => {
                   }}
                 />
               </div>
-              <button
-                onClick={() =>
-                  userId ? setShowNewPostForm(true) : router.push("/sign-in")
-                }
-                className="w-2/3 xl:w-auto xl:px-5 py-2.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors duration-200 flex items-center justify-center gap-2 font-medium text-sm shadow-sm hover:shadow"
-              >
-                <span className="whitespace-nowrap">Start Discussion</span>
-              </button>
             </div>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
-      {/* Mobile Topics */}
-      <div className="lg:hidden px-4 sm:px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
-        {renderMobileTopics()}
-      </div>
-
-      {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-          {/* Posts Column */}
           <div className="lg:col-span-8">
-            {/* New Post Form */}
             {showNewPostForm && (
               <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 mb-6 sm:mb-8">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">
@@ -376,7 +345,7 @@ const Forum = () => {
                     setNewPost({ ...newPost, tags: e.target.value })
                   }
                 />
-                <label className="flex items-center space-x-2 cursor-pointer">
+                <label className="flex items-center space-x-2 mt-4 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={stayAnonymous}
@@ -402,7 +371,6 @@ const Forum = () => {
               </div>
             )}
 
-            {/* No Posts Placeholder */}
             {posts.length === 0 && (
               <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 sm:p-10 mb-6 text-center">
                 <div className="text-gray-400 mb-3">
@@ -414,19 +382,9 @@ const Forum = () => {
                 <p className="text-gray-500 mb-4">
                   Be the first to start a conversation!
                 </p>
-                <button
-                  onClick={() =>
-                    userId ? setShowNewPostForm(true) : router.push("/sign-in")
-                  }
-                  className="px-5 py-2.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors duration-200 inline-flex items-center gap-2 font-medium text-sm"
-                >
-                  <Plus className="w-4 h-4" />
-                  Start a Discussion
-                </button>
               </div>
             )}
 
-            {/* Posts List */}
             {posts.map((post) => (
               <article
                 key={post._id}
@@ -447,7 +405,6 @@ const Forum = () => {
                   </div>
                 </div>
 
-                {/* Post Image */}
                 {post.image && (
                   <img
                     src={post.image}
@@ -456,7 +413,6 @@ const Forum = () => {
                   />
                 )}
 
-                {/* Post Content */}
                 <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
                   {post.title}
                 </h2>
@@ -482,10 +438,8 @@ const Forum = () => {
                     </div>
                   )}
 
-                {/* Action Buttons */}
                 <div className="flex xl:flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-100">
                   <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-                    {/* Like Button */}
                     <button
                       className={`flex items-center space-x-2 transition-colors duration-200 group ${
                         post.likes.includes(userId)
@@ -501,7 +455,6 @@ const Forum = () => {
                       </span>
                     </button>
 
-                    {/* Comment Button */}
                     <button
                       className="flex items-center space-x-2 text-gray-500 hover:text-emerald-600 transition-colors duration-200 group"
                       onClick={() =>
@@ -522,7 +475,6 @@ const Forum = () => {
                       </span>
                     </button>
 
-                    {/* Share Button */}
                     <button
                       className="flex items-center space-x-2 text-gray-500 hover:text-emerald-600 transition-colors duration-200 group"
                       onClick={() =>
@@ -536,7 +488,6 @@ const Forum = () => {
                     </button>
                   </div>
 
-                  {/* Bookmark Button */}
                   <button className="text-gray-500 hover:text-emerald-600 transition-colors duration-200 group">
                     <Bookmark className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                   </button>
@@ -639,13 +590,58 @@ const Forum = () => {
 
           {/* Sidebar */}
           <div className="hidden lg:block lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-24">
-              {/* Desktop Topics Section */}
-              {renderDesktopTopicsSection()}
-
+            <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 sticky top-48">
               {/* Forum Statistics */}
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <h3 className="text-sm font-medium text-gray-500 mb-3">
+              <div className="">
+                <div className="my-5 flex justify-center">
+                  <button
+                    onClick={() =>
+                      userId
+                        ? setShowNewPostForm(true)
+                        : router.push("/sign-in")
+                    }
+                    className="px-7 py-3.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors duration-200 flex items-center justify-center gap-2 font-medium text-sm shadow-sm hover:shadow"
+                  >
+                    <span className="whitespace-nowrap">Start Discussion</span>
+                  </button>
+                </div>
+
+                <div className=" p-4">
+                  {/* Selected tags */}
+                  {selectedTags.length > 0 && (
+                    <div className="mt-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-sm font-medium text-gray-500">
+                          Selected Topics
+                        </h3>
+                        <button
+                          onClick={clearSelectedTags}
+                          className="text-xs text-emerald-600 hover:text-emerald-700"
+                        >
+                          Clear all
+                        </button>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedTags.map((tag) => (
+                          <div
+                            key={`selected-${tag}`}
+                            className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm flex items-center gap-1 group"
+                          >
+                            {tag}
+                            <button
+                              onClick={() => handleTagClick(tag)}
+                              className="p-0.5 rounded-full hover:bg-emerald-200 transition-colors"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <h3 className="text-sm font-medium text-gray-500 mt-3 mb-3">
                   Forum Statistics
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
@@ -664,19 +660,6 @@ const Forum = () => {
                     <p className="text-xs text-gray-500 mt-1">Active Topics</p>
                   </div>
                 </div>
-              </div>
-
-              {/* Start New Discussion Button */}
-              <div className="mt-6 pt-4 border-t border-gray-100">
-                <button
-                  onClick={() =>
-                    userId ? setShowNewPostForm(true) : router.push("/sign-in")
-                  }
-                  className="w-full py-3 bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition-colors duration-200 flex items-center justify-center gap-2 font-medium"
-                >
-                  <Plus className="w-4 h-4" />
-                  Start New Discussion
-                </button>
               </div>
             </div>
           </div>

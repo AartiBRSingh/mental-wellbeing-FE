@@ -97,13 +97,15 @@ export const SignupPage = () => {
       password,
       organizationCode,
       userType: finalUserType,
-      signedUpFor: signedUpFor.includes("expert")
-        ? "Expert"
-        : signedUpFor.includes("clinic")
-        ? "Clinic"
-        : signedUpFor.includes("course")
-        ? "Course"
-        : "Mental Wellbeing",
+      signedUpFor: signedUpFor
+        ? signedUpFor.includes("expert")
+          ? "Expert"
+          : signedUpFor.includes("clinic")
+          ? "Clinic"
+          : signedUpFor.includes("course")
+          ? "Course"
+          : "Mental Wellbeing"
+        : null,
       ...(finalUserType === "employee" && { organizationName, webUrl }),
     };
 
