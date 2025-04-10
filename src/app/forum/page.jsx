@@ -71,11 +71,17 @@ const Forum = () => {
       let queryParams = "";
 
       if (tagList.length > 0) {
-        queryParams += `?tags=${tagList.join(",")}`;
+        const encodedTags = tagList
+          .map((tag) => encodeURIComponent(tag))
+          .join(",");
+        queryParams += `?tags=${encodedTags}`;
       }
 
       if (search) {
-        queryParams += queryParams ? `&search=${search}` : `?search=${search}`;
+        const encodedSearch = encodeURIComponent(search);
+        queryParams += queryParams
+          ? `&search=${encodedSearch}`
+          : `?search=${encodedSearch}`;
       }
 
       const res = await axios.get(`${baseURL}/get-posts${queryParams}`);
