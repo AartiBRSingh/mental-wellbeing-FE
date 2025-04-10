@@ -164,27 +164,46 @@ const LoginModal = ({ isOpen, onClose }) => {
           <div className="w-full lg:w-auto flex items-center justify-center p-4 z-10 mb-8 lg:mb-0">
             <form
               onSubmit={isOtpSent ? handleOtpSubmit : handleEmailSubmit}
-              className="w-full max-w-full p-4 md:px-8 md:py-10 border border-gray-200 rounded shadow-sm bg-white"
+              className="w-full max-w-full md:px-10 md:py-8 border border-gray-200 rounded shadow-sm bg-[#F9F5F2]"
             >
-              <button onClick={onClose} className="flex items-center mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-black "
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
+              <div className="flex items-center justify-between ml-20 mb-4 md:mb-10">
+                <h2 className="text-3xl font-semibold text-gray-800">
+                  <span className="relative text-[#956144] ">
+                    Login
+                    <svg
+                      className="absolute w-full h-[10px] -bottom-2 left-0"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 5 Q 50 -5, 100 5"
+                        stroke="orange"
+                        strokeWidth="4"
+                        fill="transparent"
+                      />
+                    </svg>
+                  </span>
+                </h2>
+                <button onClick={onClose} className="flex items-center mb-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-black "
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
               <div className="flex items-center justify-center space-x-3 md:space-x-4 mb-4 md:mb-6">
                 <span
-                  className={`text-xs md:text-sm font-medium ${
+                  className={`text-xs md:text-lg font-medium ${
                     isUserLogin ? "text-black" : "text-gray-500"
                   }`}
                 >
@@ -207,7 +226,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </div>
 
                 <span
-                  className={`text-xs md:text-sm font-medium ${
+                  className={`text-xs md:text-lg font-medium ${
                     !isUserLogin ? "text-black" : "text-gray-500"
                   }`}
                 >
@@ -215,7 +234,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </span>
               </div>
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">
-                {isOtpSent ? "Verify OTP" : "Login"}
+                {isOtpSent ? "Verify OTP" : ""}
               </h2>
               {error && (
                 <p className="text-red-500 mb-3 md:mb-4 text-sm">{error}</p>
@@ -223,7 +242,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               <div className="mb-3 md:mb-4">
                 <label
                   htmlFor="email"
-                  className="block text-xs md:text-sm font-medium text-gray-700"
+                  className="block text-xs md:text-lg font-medium text-gray-700"
                 >
                   Email or Mobile Number <span className="text-red-500">*</span>
                 </label>
@@ -232,7 +251,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 p-2 w-full border border-gray-300 rounded-md text-sm"
+                  className="mt-1 p-3 w-full border border-gray-300 rounded-md text-sm"
                   required
                 />
               </div>
@@ -268,14 +287,14 @@ const LoginModal = ({ isOpen, onClose }) => {
                     id="otp"
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md text-sm"
+                    className="mt-1 p-4 w-full border border-gray-300 rounded-md text-sm"
                     required
                   />
                 </div>
               )}
               <button
                 type="submit"
-                className="cursor-pointer w-full bg-black text-white p-2 md:p-3 rounded-lg text-sm font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="cursor-pointer w-full bg-transparent text-blue-600 p-2 md:p-1 rounded-lg text-sm font-medium  focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={loading}
               >
                 {loading
@@ -292,7 +311,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={() => setLoginWIthOrgCode(true)}
-                    className="cursor-pointer w-full bg-black text-white p-2 md:p-3 rounded-lg text-sm font-medium hover:bg-gray-600 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200"
+                    className="cursor-pointer w-full bg-transparent text-blue-600 p-2 md:p-1 rounded-lg text-sm font-medium  focus:ring-2 focus:ring-black focus:ring-offset-2 transition-all duration-200"
                   >
                     Login with organization code
                   </button>
@@ -303,24 +322,15 @@ const LoginModal = ({ isOpen, onClose }) => {
                 <Link
                   href={`/signup?signedUpFor=${pathname}`}
                   className="cursor-pointer"
-                >
-                  <button
-                    type="button"
-                    className="text-red-500 underline cursor-pointer"
-                  >
-                    Sign up here
-                  </button>
-                </Link>
+                ></Link>
               </p>
-              <div className="mt-2 md:mt-4 text-center text-xs md:text-sm">
-                <Link href={"/"} className="cursor-pointer">
-                  <button
-                    type="button"
-                    className="text-blue-500 underline cursor-pointer"
-                  >
-                    Go Back to Home
-                  </button>
-                </Link>
+              <div className="flex justify-center items-center mt-2 text-lg">
+                <button
+                  type="button"
+                  className="text-red-500 underline cursor-pointer"
+                >
+                  Sign up here
+                </button>
               </div>
             </form>
           </div>
